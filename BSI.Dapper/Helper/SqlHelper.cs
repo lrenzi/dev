@@ -12,9 +12,11 @@ namespace BSI.Dapper.Helper
 {
     public static class SqlHelper
     {
-        public static bool Insert<T>(T parameter, string connectionString) where T : class
+        public static string ConnectionString { get { return "Data Source=bsidatabase.database.windows.net;Initial Catalog=bsidbdesenv;Persist Security Info=True;User ID=sqladmin"; } }
+
+        public static bool Insert<T>(T parameter) where T : class
         {
-            using (var sqlConnection = new SqlConnection(connectionString))
+            using (var sqlConnection = new SqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
                 sqlConnection.Insert(parameter);
@@ -23,9 +25,9 @@ namespace BSI.Dapper.Helper
             }
         }
 
-        public static int InsertWithReturnId<T>(T parameter, string connectionString) where T : class
+        public static int InsertWithReturnId<T>(T parameter) where T : class
         {
-            using (var sqlConnection = new SqlConnection(connectionString))
+            using (var sqlConnection = new SqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
                 var recordId = sqlConnection.Insert(parameter);
@@ -34,9 +36,9 @@ namespace BSI.Dapper.Helper
             }
         }
 
-        public static bool Update<T>(T parameter, string connectionString) where T : class
+        public static bool Update<T>(T parameter) where T : class
         {
-            using (var sqlConnection = new SqlConnection(connectionString))
+            using (var sqlConnection = new SqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
                 sqlConnection.Update(parameter);
@@ -45,9 +47,9 @@ namespace BSI.Dapper.Helper
             }
         }
 
-        public static IList<T> GetAll<T>(string connectionString) where T : class
+        public static IList<T> GetAll<T>() where T : class
         {
-            using (var sqlConnection = new SqlConnection(connectionString))
+            using (var sqlConnection = new SqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
                 var result = sqlConnection.GetList<T>();
@@ -56,9 +58,9 @@ namespace BSI.Dapper.Helper
             }
         }
 
-        public static T Find<T>(PredicateGroup predicate, string connectionString) where T : class
+        public static T Find<T>(PredicateGroup predicate) where T : class
         {
-            using (var sqlConnection = new SqlConnection(connectionString))
+            using (var sqlConnection = new SqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
                 var result = sqlConnection.GetList<T>(predicate).FirstOrDefault();
@@ -67,9 +69,9 @@ namespace BSI.Dapper.Helper
             }
         }
 
-        public static bool Delete<T>(PredicateGroup predicate, string connectionString) where T : class
+        public static bool Delete<T>(PredicateGroup predicate) where T : class
         {
-            using (var sqlConnection = new SqlConnection(connectionString))
+            using (var sqlConnection = new SqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
                 sqlConnection.Delete<T>(predicate);
@@ -80,9 +82,9 @@ namespace BSI.Dapper.Helper
 
         public static IEnumerable<T> QuerySP<T>(string storedProcedure, dynamic param = null,
             dynamic outParam = null, SqlTransaction transaction = null,
-            bool buffered = true, int? commandTimeout = null, string connectionString = null) where T : class
+            bool buffered = true, int? commandTimeout = null ) where T : class
         {
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(ConnectionString);
             connection.Open();
             var output = connection.Query<T>(storedProcedure, param: (object)param, transaction: transaction, buffered: buffered, commandTimeout: commandTimeout, commandType: CommandType.StoredProcedure);
             return output;

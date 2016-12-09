@@ -15,5 +15,9 @@
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BSI.GestDoc.BusinessLogic\BSI.GestDoc.BusinessLogic.csproj" />
+    <ProjectReference Include="..\BSI.GestDoc.Entity\BSI.GestDoc.Entity.csproj" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\DotNet.Web\Microsoft.DotNet.Web.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

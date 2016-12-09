@@ -2,35 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using BSI.GestDoc.Entity;
+using System.Web.Http;
+using System.Net.Http;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BSI.GestDoc.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
-    public class FileUploadController : Controller
-    {
-        private static readonly string ServerUploadFolder = "C:\\Temp"; //Path.GetTempPath();
+    
 
-        [Route("files")]
+    [Route("api/[controller]")]
+    public class FileUploadController : ApiController
+    {
+        [Route("UploadSingleFile")]
         [HttpPost]
         [ValidateMimeMultipartContentFilter]
         public async Task<FileResult> UploadSingleFile()
         {
-            var streamProvider = new MultipartFormDataStreamProvider(ServerUploadFolder);
-            await Request.Content.ReadAsMultipartAsync(streamProvider);
+            UploadFile upload = new WebAPI.UploadFile();
+            return await new UploadFile().GetFile(Request);
+        }
 
-            return new FileResult
-            {
-                FileNames = streamProvider.FileData.Select(entry => entry.LocalFileName),
-                Names = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName),
-                ContentTypes = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType),
-                Description = streamProvider.FormData["description"],
-                CreatedTimestamp = DateTime.UtcNow,
-                UpdatedTimestamp = DateTime.UtcNow,
-                DownloadLink = "TODO, will implement when file is persisited"
-            };
+        // GET api/values
+        [Route("RetornarDocumentoClienteTipo")]
+        [HttpGet]
+        public List<DocumentoClienteTipo> RetornarDocumentoClienteTipo(int ClienteId)
+        {
+            return new BSI.GestDoc.BusinessLogic.UploadFiles().RetornarDocumentoClienteTipo(ClienteId);
         }
     }
 }
