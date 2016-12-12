@@ -27,13 +27,13 @@ namespace BSI.GestDoc.Repository.DAL
             return user;
         }
 
-        public IList<DocumentoClienteTipo> GetAllDocumentoClienteTipoByIdCliente(int ClienteId)
+        public IEnumerable<DocumentoClienteTipo> GetAllDocumentoClienteTipoByIdCliente(int clienteId)
         {
             var p = new DynamicParameters();
-            p.Add("@ClienteId", ClienteId, DbType.String, null);
+            p.Add("@ClienteId", clienteId, DbType.String, null);
 
-            var documentoClienteTipo = SqlHelper.QuerySP<DocumentoClienteTipo>("ConsultarDocumentoClienteTipoPorCliente", ClienteId, null, null, false, 0);
-            return documentoClienteTipo.ToList();
+            var documentoClienteTipo = SqlHelper.QuerySP<DocumentoClienteTipo>("ConsultarDocumentoClienteTipoPorCliente", p, null, null, false, 0);
+            return documentoClienteTipo;
         }
 
         public DocumentoClienteTipo UpdateDocumentoClienteTipo(DocumentoClienteTipo documentoClienteTipo)

@@ -12,7 +12,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
 {
     
 
-    [Route("api/[controller]")]
+    [RoutePrefix("api/FileUpload")]
     public class FileUploadController : ApiController
     {
         [Route("UploadSingleFile")]
@@ -24,12 +24,12 @@ namespace BSI.GestDoc.WebAPI.Controllers
             return await new UploadFile().GetFile(Request);
         }
 
-        // GET api/values
         [Route("RetornarDocumentoClienteTipo")]
-        [HttpGet]
-        public List<DocumentoClienteTipo> RetornarDocumentoClienteTipo(int ClienteId)
+        [HttpPost]
+        public IHttpActionResult RetornarDocumentoClienteTipo([FromBody]DocumentoClienteTipo documentoClienteTipo)
         {
-            return new BSI.GestDoc.BusinessLogic.UploadFiles().RetornarDocumentoClienteTipo(ClienteId);
+            var retorno = new BusinessLogic.UploadFiles().RetornarDocumentoClienteTipo(documentoClienteTipo.ClienteId);
+            return Ok(retorno);
         }
     }
 }

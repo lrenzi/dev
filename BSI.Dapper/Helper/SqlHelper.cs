@@ -12,7 +12,7 @@ namespace BSI.Dapper.Helper
 {
     public static class SqlHelper
     {
-        public static string ConnectionString { get { return "Data Source=bsidatabase.database.windows.net;Initial Catalog=bsidbdesenv;Persist Security Info=True;User ID=sqladmin"; } }
+        public static string ConnectionString { get { return "Data Source=bsidatabase.database.windows.net;Initial Catalog=bsidbdesenv;Persist Security Info=True;User ID=sqladmin;pwd=Bsi@admin"; } }
 
         public static bool Insert<T>(T parameter) where T : class
         {
