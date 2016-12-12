@@ -1,9 +1,8 @@
 ﻿'use strict';
-app.controller("FileUploadCtrl",["$scope", "$routeParams", "$location", "CargosService", function($scope, $routeParams, $location, CargosService){
-
-    $scope.ConsultarCargos = function(){
-        $scope.cargos = CargosService.ConsultarCargos().then(function(data){
-            $scope.cargos = data;
+app.controller("FileUploadCtrl", ["$scope", "$routeParams", "$location", "FileUploadService", function ($scope, $routeParams, $location, CargosService) {
+    $scope.FileUpload = function(){
+        $scope.DocumentoClienteTipo = FileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
+            $scope.DocumentoClienteTipo = data;
         });
     };
 }]);

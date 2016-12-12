@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(BSI.GestDoc.WebApp.Startup))]
-
-namespace BSI.GestDoc.WebApp
+[assembly: OwinStartupAttribute(typeof(WebApplication.Startup))]
+namespace WebApplication
 {
     public partial class Startup
     {
