@@ -1,9 +1,6 @@
 ﻿var app = angular.module('app', ['ngRoute', 'angular.directives-round-progress']);
-debugger;
-alert("app.j");
-app.config(function($routeProvider, $locationProvider) {
-    debugger;
-    alert("app2.j");
+
+/*app.config(function($routeProvider, $locationProvider) {
     $routeProvider
 		.when('/login', {
 		    templateUrl: 'views/login.html',
@@ -11,7 +8,7 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 		.when('/FileUpload/Index', {
 		    templateUrl: 'views/FileUpload/Index.html',
-		    controller: 'FileUploadController'
+		    controller: 'FileUploadCtrl'
 		})
 		/*.when('/funcionarios', {
 		    templateUrl: 'views/funcionarios/funcionarios.html',
@@ -38,7 +35,11 @@ app.config(function($routeProvider, $locationProvider) {
 		    controller: 'CargosCtrl'
 		})*/
 
-		.otherwise({ redirectTo: '/' });
+/*		.otherwise({
+		    templateUrl: 'views/FileUpload/Index.html',
+		    controller: 'FileUploadCtrl'//,
+		    //redirectTo: '/'
+		});
 
-});
+});*/
 

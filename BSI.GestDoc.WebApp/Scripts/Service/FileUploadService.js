@@ -3,9 +3,8 @@ app.service("FileUploadService", ["$http", "$q", function ($http, $q) {
     var urlbase = "http://localhost:44857/api/";
     return {
         RetornarDocumentoClienteTipo: function () {
-            alert("k3");
             debugger;
-            return $http.get(urlbase + "FileUpload/RetornarDocumentoClienteTipo")
+            return $http.post(urlbase + "FileUpload/RetornarDocumentoClienteTipo", { ClienteId: 1 })
 			.then(function (response) {
 			    if (typeof response.data === 'object') {
 			        return response.data;
@@ -14,6 +13,7 @@ app.service("FileUploadService", ["$http", "$q", function ($http, $q) {
 			    }
 			},
 			function () {
+			    debugger;
 			    return $q.reject(response.data);
 			});
         }

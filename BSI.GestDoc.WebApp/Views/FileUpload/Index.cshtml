@@ -1,27 +1,40 @@
 ﻿
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
-<table class="table table-condensed table-bordered table-striped" data-ng-init="FileUpload()">
-    <thead>
-    <th>ID</th>
-    <th>Nome</th>
-    <th></th>
-    <th></th>
-    </thead>
-    <tbody>
-        <tr data-ng-repeat="DocumentoClienteTipo in DocumentosClienteTipo">
-            <td>{{DocumentoClienteTipo.DocCliTipoId}}</td>
-            <td>{{DocumentoClienteTipo.DocCliTipoNome}}</td>
-            <td><a href="#/cargos/alterar/{{ DocumentoClienteTipo.DocCliTipoId}}">Alterar</a></td>
-            <td><a href="#/cargos/excluir/{{ DocumentoClienteTipo.DocCliTipoId}}">Excluir</a></td>
-        </tr>
-    </tbody>
-</table>
 <script>
-</script>
-<a href="#/cargos/incluir" class="btn btn-primary">Incluir</a>
+    /*angular.module('app', [])
+      .controller('FileUploadCtrl', ['$scope', function ($scope) {
+          $scope.ConsultarArquivos = function () {
+              alert("k2");
+              debugger;
+              $scope.DocumentoClienteTipo = FileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
+                  $scope.DocumentoClienteTipo = data;
+              });
+          };
+      }]);*/
 
+</script>
+<div ng-controller="FileUploadCtrl">
+    <form data-ng-init="ConsultarArquivos()" data-ng-submit="AlterarCargo(cargo)">
+        <h2>Index</h2>
+        <table class="table table-condensed table-bordered table-striped">
+            <thead>
+            <th>ID</th>
+            <th>Nome</th>
+            <th></th>
+            <th></th>
+            </thead>
+            <tbody>
+                <input type="text" name="ClienteId" id="ClienteId" value="2" ng-model="DocumentoClienteTipo.ClienteId" />
+                <tr data-ng-repeat="item in listaDocumentosClienteTipo">
+                    <td>{{item.DocCliTipoId}}</td>
+                    <td>{{item.DocCliTipoNome}}</td>
+                    <td><a href="#/cargos/alterar/{{ item.DocCliTipoId}}">Alterar</a></td>
+                    <td><a href="#/cargos/excluir/{{ item.DocCliTipoId}}">Excluir</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <script>
+        </script>
+        <a href="#/cargos/incluir" class="btn btn-primary">Incluir</a>
+    </form>
+</div>
 
