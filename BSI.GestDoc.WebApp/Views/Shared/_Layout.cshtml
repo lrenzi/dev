@@ -31,7 +31,7 @@
                                 <span style="text-align:left;padding-right:300px">LOGO BRADESCO</span>
                                 <span>Dino da Silva Sauro</span>
                             </a>
-                          
+
                         </li>
                     </ul>
                 </div>
@@ -41,7 +41,7 @@
             <section class="sidebar">
                 <ul class="sidebar-menu">
                     <li class="left-sidebar-menu-forms" style="color:red">Propostas</li>
-                   
+
                     <li id="left-sidebar-menu-forms" class="treeview">
                         <a href="@Url.Action("LancamentoProducaoInclusao", "Forms")">Listar</a>
                     </li>
@@ -49,15 +49,10 @@
                         <a href="@Url.Action("Index", "FileUpload")">Upload de Documentos</a>
                     </li>
                     <li id="left-sidebar-menu-forms" class="treeview">
-                        <a href="@Url.Action("Index", "FileUpload")">Upload de Documentos</a>
-                    </li>
-                    <li id="left-sidebar-menu-forms" class="treeview">
+                        @*<a href="@Url.Action("Index", "FileUpload")">Upload de Documentos</a>*@
                         <a href="/FileUpload/Index">Upload de Documentos BootStrap</a>
                     </li>
-                    <li id="left-sidebar-menu-forms" class="treeview">
-                        <a href="/FileUpload/IndexTeste">Teste Upload de Documentos BootStrap</a>
-                    </li>
-                    
+
                 </ul>
             </section>
         </aside>
@@ -83,7 +78,7 @@
             <strong>BSI Tecnologia.</strong> All rights
             reserved.
         </footer>
-        
+
         <div class="control-sidebar-bg"></div>
     </div>
     <div style="display:none;">
@@ -97,7 +92,8 @@
         @Scripts.Render("~/plugins/dist/js")
         @Scripts.Render("~/app")
         @Scripts.Render("~/Scripts/Controllers/FileUpload")
-        @Scripts.Render("~/Scripts/Service/FileUpload")        
+        @Scripts.Render("~/Scripts/Service")
+        @Scripts.Render("~/Scripts")
 
     </div>
 </body>
