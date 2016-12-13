@@ -184,6 +184,7 @@
   <ItemGroup>
     <Content Include="plugins\angular\angular-route.js" />
     <Content Include="plugins\angular\angular.js" />
+    <Content Include="plugins\angular\progress.js" />
     <Content Include="plugins\bootstrap\css\bootstrap.css" />
     <Content Include="plugins\bootstrap\css\bootstrap.min.css" />
     <Content Include="plugins\bootstrap\fonts\glyphicons-halflings-regular.svg" />
@@ -253,7 +254,6 @@
     <Content Include="plugins\jquery-validate\js\jquery.validate.min.js" />
     <Content Include="plugins\jquery-validate\js\jquery.validate.unobtrusive.js" />
     <Content Include="plugins\jquery-validate\js\jquery.validate.unobtrusive.min.js" />
-    <Content Include="plugins\jquery\js\jQuery-2.1.4.min.js" />
     <Content Include="plugins\bootstrap-slider\css\slider.css" />
     <Content Include="plugins\bootstrap-slider\js\bootstrap-slider.js" />
     <Content Include="plugins\bootstrap-wysihtml5\css\bootstrap3-wysihtml5.css" />
@@ -901,6 +901,7 @@
     <Content Include="plugins\input-mask\js\jquery.inputmask.phone.extensions.js" />
     <Content Include="plugins\input-mask\js\jquery.inputmask.regex.extensions.js" />
     <Content Include="plugins\input-mask\js\phone-codes\readme.txt" />
+    <Content Include="plugins\jquery\js\jquery-3.1.0.js" />
     <Content Include="plugins\jvectormap\css\jquery-jvectormap-1.2.2.css" />
     <Content Include="plugins\jvectormap\js\jquery-jvectormap-1.2.2.min.js" />
     <Content Include="plugins\jvectormap\js\jquery-jvectormap-usa-en.js" />
@@ -1030,7 +1031,6 @@
     <Content Include="Views\FileUpload\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AdminLTE\" />
     <Folder Include="App_Data\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>

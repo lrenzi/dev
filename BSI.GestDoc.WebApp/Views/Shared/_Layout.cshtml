@@ -81,15 +81,19 @@
         
         <div class="control-sidebar-bg"></div>
     </div>
+    <div style="display:none;">
 
-    @Scripts.Render("~/plugins/jquery/js")
-    @Scripts.Render("~/plugins/bootstrap/js")
-    @Scripts.Render("~/plugins/slimscroll/js")
-    @Scripts.Render("~/plugins/dist/js")
-    @Scripts.Render("~/plugins/angular")
-    @Scripts.Render("~/app")
-    @Scripts.Render("~/Scripts/Controllers/FileUpload")
-    @Scripts.Render("~/Scripts/Service/FileUpload")
-    @RenderSection("Scripts", required: false)
+        @Scripts.Render("~/plugins/jquery/js")
+        @Scripts.Render("~/plugins/bootstrap/js")
+        @Scripts.Render("~/plugins/slimscroll/js")
+        @Scripts.Render("~/plugins/angular")
+        @Scripts.Render("~/plugins/angular/angular-route")
+        @Scripts.Render("~/plugins/angular/progress")
+        @Scripts.Render("~/plugins/dist/js")
+        @Scripts.Render("~/app")
+        @Scripts.Render("~/Scripts/Controllers/FileUpload")
+        @Scripts.Render("~/Scripts/Service/FileUpload")
+
+    </div>
 </body>
 </html>

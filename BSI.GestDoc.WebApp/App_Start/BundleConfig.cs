@@ -21,7 +21,7 @@ namespace WebApplication
         private static void RegisterJquery(BundleCollection bundles)
         {         // plugins | jquery
             bundles.Add(new ScriptBundle("~/plugins/jquery/js").Include(
-                                             "~/plugins/jquery/js/jQuery-2.1.4.min.js"));
+                                             "~/plugins/jquery/js/jquery-3.1.0.js"));
 
             // plugins | jquery-validate
             bundles.Add(new ScriptBundle("~/plugins/jquery-validate/js").Include(
@@ -50,11 +50,14 @@ namespace WebApplication
 
         private static void RegisterAngular(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/plugins/angular").Include(
+            bundles.Add(new ScriptBundle("~/plugins/angular/angular-route").Include(
                 "~/plugins/angular/angular-route.js"));
 
             bundles.Add(new ScriptBundle("~/plugins/angular").Include(
                 "~/plugins/angular/angular.js"));
+
+            bundles.Add(new ScriptBundle("~/plugins/angular/progress").Include(
+                "~/plugins/angular/progress.js"));
         }
 
         private static void RegisterApp(BundleCollection bundles)

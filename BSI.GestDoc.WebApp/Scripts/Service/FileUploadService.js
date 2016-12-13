@@ -4,6 +4,7 @@ app.service("FileUploadService", ["$http", "$q", function ($http, $q) {
     return {
         RetornarDocumentoClienteTipo: function () {
             alert("k3");
+            debugger;
             return $http.get(urlbase + "FileUpload/RetornarDocumentoClienteTipo")
 			.then(function (response) {
 			    if (typeof response.data === 'object') {

@@ -1,13 +1,15 @@
 ﻿var app = angular.module('app', ['ngRoute', 'angular.directives-round-progress']);
-
-app.config(function ($routeProvider, $locationProvider) {
+debugger;
+alert("app.j");
+app.config(function($routeProvider, $locationProvider) {
     debugger;
+    alert("app2.j");
     $routeProvider
 		.when('/login', {
 		    templateUrl: 'views/login.html',
 		    controller: 'LoginCtrl'
 		})
-		.when('/', {
+		.when('/FileUpload/Index', {
 		    templateUrl: 'views/FileUpload/Index.html',
 		    controller: 'FileUploadController'
 		})
