@@ -13,7 +13,7 @@
     @Styles.Render("~/plugins/dist/css/skins")
 
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" data-ng-cloak ng-app="app">
     <div class="wrapper">
         <header class="main-header">
             <a href="~/" class="logo">
@@ -50,7 +50,12 @@
                     </li>
                     <li id="left-sidebar-menu-forms" class="treeview">
                         <a href="@Url.Action("Index", "FileUpload")">Upload de Documentos</a>
+                    </li>
+                    <li id="left-sidebar-menu-forms" class="treeview">
                         <a href="/FileUpload/Index">Upload de Documentos BootStrap</a>
+                    </li>
+                    <li id="left-sidebar-menu-forms" class="treeview">
+                        <a href="/FileUpload/IndexTeste">Teste Upload de Documentos BootStrap</a>
                     </li>
                     
                 </ul>

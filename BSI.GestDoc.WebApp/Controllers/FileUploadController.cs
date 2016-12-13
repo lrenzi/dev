@@ -8,6 +8,12 @@ namespace WebApplication.Controllers
         public ActionResult Index()
         {
             return View();
-        }       
+        }
+
+
+        public ActionResult IndexTeste()
+        {
+            return View();
+        }
     }
 }
