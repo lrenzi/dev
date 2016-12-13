@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<table class="table table-condensed table-bordered table-striped" data-ng-init="FileUpload()">
+    <thead>
+    <th>ID</th>
+    <th>Nome</th>
+    <th></th>
+    <th></th>
+    </thead>
+    <tbody>
+        <tr data-ng-repeat="DocumentoClienteTipo in DocumentosClienteTipo">
+            <td>{{DocumentoClienteTipo.DocCliTipoId}}</td>
+            <td>{{DocumentoClienteTipo.DocCliTipoNome}}</td>
+            <td><a href="#/cargos/alterar/{{ DocumentoClienteTipo.DocCliTipoId}}">Alterar</a></td>
+            <td><a href="#/cargos/excluir/{{ DocumentoClienteTipo.DocCliTipoId}}">Excluir</a></td>
+        </tr>
+    </tbody>
+</table>
+<a href="#/cargos/incluir" class="btn btn-primary">Incluir</a>
+
+
