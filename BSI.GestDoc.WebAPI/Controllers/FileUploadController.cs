@@ -40,10 +40,10 @@ namespace BSI.GestDoc.WebAPI.Controllers
         //    }
         //}
 
-        [System.Web.Http.Route("UploadSingleFile")]
+        [System.Web.Http.Route("EnviarArquivos")]
         [System.Web.Http.HttpPost]
         [ValidateMimeMultipartContentFilter]
-        public async Task<FileResult> UploadSingleFile()
+        public async Task<FileResult> EnviarArquivos([FromBody]DocumentoClienteTipo documentoClienteTipo, [FromBody]DocumentoClienteSituacao documentoClienteSituacao)
         {
             UploadFile upload = new WebAPI.UploadFile();
             return await new UploadFile().GetFile(Request);
@@ -56,6 +56,8 @@ namespace BSI.GestDoc.WebAPI.Controllers
             var DocumentosClienteTipo = new BusinessLogic.UploadFiles().RetornarDocumentoClienteTipo(documentoClienteTipo.ClienteId);
             return Ok(DocumentosClienteTipo);
         }
+
+
     }
     //public class FakeController : ControllerBase { protected override void ExecuteCore() { } }
 }

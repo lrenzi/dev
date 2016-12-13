@@ -1,40 +1,21 @@
-﻿
-<script>
-    /*angular.module('app', [])
-      .controller('FileUploadCtrl', ['$scope', function ($scope) {
-          $scope.ConsultarArquivos = function () {
-              alert("k2");
-              debugger;
-              $scope.DocumentoClienteTipo = FileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
-                  $scope.DocumentoClienteTipo = data;
-              });
-          };
-      }]);*/
-
-</script>
-<div ng-controller="FileUploadCtrl">
-    <form data-ng-init="ConsultarArquivos()" data-ng-submit="AlterarCargo(cargo)">
-        <h2>Index</h2>
+﻿<div ng-controller="FileUploadCtrl">
+    <form enctype="multipart/form-data" data-ng-init="ConsultarArquivos()" data-ng-submit="EnviarArquivos()">
+        <h2>Upload de Documentos</h2>
+        <h4>Procure os documentos para envio</h4>
         <table class="table table-condensed table-bordered table-striped">
             <thead>
-            <th>ID</th>
-            <th>Nome</th>
-            <th></th>
+            <th>Tipo Documento</th>
+            <th>Arquivo</th>
             <th></th>
             </thead>
             <tbody>
-                <input type="text" name="ClienteId" id="ClienteId" value="2" ng-model="DocumentoClienteTipo.ClienteId" />
                 <tr data-ng-repeat="item in listaDocumentosClienteTipo">
-                    <td>{{item.DocCliTipoId}}</td>
                     <td>{{item.DocCliTipoNome}}</td>
-                    <td><a href="#/cargos/alterar/{{ item.DocCliTipoId}}">Alterar</a></td>
-                    <td><a href="#/cargos/excluir/{{ item.DocCliTipoId}}">Excluir</a></td>
+                    <td align="left"><input type="file" name="arquivo" id="arquivo" /></td>
                 </tr>
             </tbody>
         </table>
-        <script>
-        </script>
-        <a href="#/cargos/incluir" class="btn btn-primary">Incluir</a>
+        <input type="submit" class="btn btn-primary" value="Enviar" />
     </form>
 </div>
 

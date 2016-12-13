@@ -5,4 +5,9 @@ app.controller("FileUploadCtrl", ["$scope", "$routeParams", "$location", "FileUp
             $scope.listaDocumentosClienteTipo = data;
         });
     };
+    $scope.EnviarArquivos = function () {
+        $scope.listaDocumentosClienteTipo = FileUploadService.EnviarArquivos().then(function (data) {
+            $scope.listaDocumentosClienteTipo = data;
+        });
+    };
 }]);
