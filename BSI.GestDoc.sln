@@ -46,6 +46,27 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "packages", "packages\", "{B
 		SlnRelativePath = "packages\"
 	EndProjectSection
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "BSI.GestDoc.Website", "BSI.GestDoc.Website\", "{089A999E-D1C1-4088-A1EA-CE142CD791BD}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_1675"
+		Debug.AspNetCompiler.PhysicalPath = "BSI.GestDoc.Website\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1675\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_1675"
+		Release.AspNetCompiler.PhysicalPath = "BSI.GestDoc.Website\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1675\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "1675"
+		SlnRelativePath = "BSI.GestDoc.Website\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,6 +105,10 @@ Global
 		{B4A348DC-4E1E-479C-9C18-D3F130402F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4A348DC-4E1E-479C-9C18-D3F130402F0C}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4A348DC-4E1E-479C-9C18-D3F130402F0C}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{089A999E-D1C1-4088-A1EA-CE142CD791BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{089A999E-D1C1-4088-A1EA-CE142CD791BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{089A999E-D1C1-4088-A1EA-CE142CD791BD}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{089A999E-D1C1-4088-A1EA-CE142CD791BD}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +123,6 @@ Global
 		{EE59B92B-B91D-4DD1-9449-C6D41F4D112F} = {D9CA9184-FD13-4433-A963-D57154C531CE}
 		{781B6C30-B8B6-4D3D-9FB6-7FD197B9FBC9} = {D9CA9184-FD13-4433-A963-D57154C531CE}
 		{2AD3ACB9-AE01-4AA2-8B82-A06137109700} = {735BFEEF-8831-4C51-8FB5-E7C945DE0199}
+		{089A999E-D1C1-4088-A1EA-CE142CD791BD} = {735BFEEF-8831-4C51-8FB5-E7C945DE0199}
 	EndGlobalSection
 EndGlobal
