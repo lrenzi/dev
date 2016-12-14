@@ -1,91 +1,95 @@
 ﻿<!DOCTYPE html>
-<html>
+<html data-ng-app="AngularAuthApp">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Gerenciamento de Documentos</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link href="/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/plugins/dist/css/admin-lte.min.css" rel="stylesheet" />
-    <link href="/plugins/dist/css/skins/_all-skins.min.css" rel="stylesheet" />
+
+    <meta name="keywords" content="angularjs,SPA,Single Page Application,refresh tokens,authentication,bearer token authentication,OWIN,bootstrap,bootstrap ui,tutorial,JS framework,ASP.NET WEB API 2,Taiseer Joudeh" />
+    <meta name="description" content="SPA built using angularjs,authentication is done using bearer token,back end built using Asp.net web api 2 and OWIN Framework,creatd by Taiseer Joudeh" />
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
+    <title>AngularJS Authentication</title>
+    <link href="content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="content/css/site.css" rel="stylesheet" />
+    <link href="content/css/loading-bar.css" rel="stylesheet" />
+    <link href="content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="content/css/social-buttons.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
-<body class="hold-transition skin-blue sidebar-mini" data-ng-cloak ng-app="app">
-    <div class="wrapper">
-        <header class="main-header">
-            <a href="/" class="logo">
-                <span>LOGO BSI</span>
-            </a>
-            <nav class="navbar navbar-static-top" role="navigation">
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                </a>
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span style="text-align:left;padding-right:300px">LOGO BRADESCO</span>
-                                <span>Dino da Silva Sauro</span>
-                            </a>
+<body>
 
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <aside class="main-sidebar">
-            <section class="sidebar">
-                <ul class="sidebar-menu">
-                    <li class="left-sidebar-menu-forms" style="color:red">Propostas</li>
-
-                    <li id="left-sidebar-menu-forms" class="treeview">
-                        <a href="/">Listar</a>
-                    </li>
-                    <li id="left-sidebar-menu-forms" class="treeview">
-                        <a href="/FileUpload/Index">Upload de Documentos</a>
-                    </li>
-                    <li id="left-sidebar-menu-forms" class="treeview">
-
-                        <a href="#/FileUpload">Upload de Documentos BootStrap</a>
-                    </li>
-                </ul>
-            </section>
-        </aside>
-        <div class="content-wrapper">
-            <section class="content-header">
-                <h1>
-                    <small></small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i></a></li>
-                    <li class="active"></li>
-                </ol>
-            </section>
-            <section class="content">
-                <div ng-view></div>
-            </section>
-        </div>
-        <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                <b>Version</b> 2.3.2
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" data-ng-controller="indexController">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+                <a class="navbar-brand" href="#/">Home</a>
             </div>
-            <strong>BSI Tecnologia.</strong> All rights
-            reserved.
-        </footer>
+            <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
+                <ul class="nav navbar-nav navbar-right">
+                    <li data-ng-hide="!authentication.isAuth"><a href="#">Welcome {{authentication.userName}}</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/orders">My Orders</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Refresh Token</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
+                    <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
+                    <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="page-header text-center">
+                <h1>AngularJS Authentication</h1>
+            </div>
+            <p>AngularJS Application which uses OAuth Bearer Token for authentication and implements Refresh Tokens. The backend API is built using ASP.NET Web API 2, OWIN middleware, and ASP.NET Identity.</p>
+        </div>
+    </div>
 
-        <div class="control-sidebar-bg"></div>
+    <div class="container">
+        <div data-ng-view="">
+        </div>
     </div>
-    <div style="display:none;">
-        <script src="/plugins/jquery/js/jquery-3.1.0.js"></script>
-        <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
-        <script src="/plugins/slimscroll/js/jquery.slimscroll.min.js"></script>
-        <script src="/plugins/angular/angular.js"></script>
-        <script src="/plugins/angular/angular-route.js"></script>
-        <script src="/plugins/angular/progress.js"></script>
-        <script src="/plugins/dist/js/app.js"></script>
-        <script src="/Scripts/app.js"></script>
-        <script src="/Scripts/Controllers/FileUploadController.js"></script>
-        <script src="/Scripts/Service/FileUploadService.js"></script>        
+
+    <hr />
+
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-muted">Created by Taiseer Joudeh. Twitter: <a target="_blank" href="http://twitter.com/tjoudeh">@tjoudeh</a></p>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-muted">Taiseer Joudeh Blog: <a target="_blank" href="http://bitoftech.net">bitoftech.net</a></p>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- 3rd party libraries -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
+    <script src="scripts/angular-local-storage.min.js"></script>
+    <script src="scripts/loading-bar.min.js"></script>
+
+    <!-- Load app main script -->
+    <script src="app/app.js?v=2"></script>
+
+    <!-- Load services -->
+    <script src="app/services/authInterceptorService.js?v=2"></script>
+    <script src="app/services/authService.js?v=2"></script>
+    <script src="app/services/ordersService.js?v=2"></script>
+    <script src="app/services/tokensManagerService.js?v=2"></script>
+    <!-- Load controllers -->
+    <script src="app/controllers/indexController.js?v=2"></script>
+    <script src="app/controllers/homeController.js?v=2"></script>
+    <script src="app/controllers/loginController.js?v=2"></script>
+    <script src="app/controllers/signupController.js?v=2"></script>
+    <script src="app/controllers/ordersController.js?v=2"></script>
+    <script src="app/controllers/refreshController.js?v=2"></script>
+    <script src="app/controllers/tokensManagerController.js?v=2"></script>
+    <script src="app/controllers/associateController.js?v=2"></script>
+    <!-- Load custom filters -->
+    <!-- Load custom directives -->
+
 </body>
 </html>
