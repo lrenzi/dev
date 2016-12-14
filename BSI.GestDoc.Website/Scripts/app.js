@@ -3,12 +3,12 @@ app.config(function ($routeProvider, $locationProvider) {
     debugger;
     $routeProvider
         .when('/', {
-            templateUrl: 'views/Documento/Index.html',
-            controller: 'DocumentoController'
+            templateUrl: 'views/Login.html',
+            controller: 'LoginController'
         })
 		.when('/login', {
-		    templateUrl: 'views/login.html',
-		    controller: 'LoginCtrl'
+		    templateUrl: 'views/Login.html',
+		    controller: 'LoginController'
 		})
 		.when('/FileUpload', {
 		    templateUrl: 'views/FileUpload/Index.html',
@@ -44,7 +44,8 @@ app.config(function ($routeProvider, $locationProvider) {
 		})*/
 
 		.otherwise({
-		    redirectTo: '/'
+		    templateUrl: 'views/Login.html',
+		    controller: 'LoginController'
 		});
 
 });

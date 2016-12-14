@@ -279,6 +279,11 @@ namespace WebApplication
             bundles.Add(new ScriptBundle("~/Scripts/Service/FileUpload").Include(
                                              "~/Scripts/Service/FileUploadService.js"));
 
+            bundles.Add(new ScriptBundle("~/Scripts/Controllers/Login").Include(
+                                             "~/Scripts/Controllers/LoginController.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/Service/Login").Include(
+                                             "~/Scripts/Service/LoginService.js"));
+
         }
 
     }

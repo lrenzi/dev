@@ -976,6 +976,7 @@
     <Content Include="plugins\timepicker\js\bootstrap-timepicker.min.js" />
     <Content Include="plugins\slimscroll\js\jquery.slimscroll.js" />
     <Content Include="plugins\slimscroll\js\jquery.slimscroll.min.js" />
+    <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Core\Account\Login.js" />
     <Content Include="Scripts\Core\Account\Register.js" />
     <Content Include="Scripts\Controllers\FileUploadController.js" />
@@ -989,6 +990,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Scripts\Service\FileUploadService.js" />
+    <Content Include="Scripts\Service\LoginService.js" />
     <Content Include="Styles\Elements\General.css" />
     <Content Include="Styles\Elements\Icons.css" />
     <Content Include="Styles\Elements\Modals.css" />
