@@ -1,6 +1,6 @@
 ﻿'use strict';
 app.factory('ordersService', ['$http', 'ngAuthSettings', function ($http, ngAuthSettings) {
-
+    debugger;
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
 
     var ordersServiceFactory = {};

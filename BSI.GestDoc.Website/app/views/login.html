@@ -1,4 +1,4 @@
-﻿<form role="form">
+﻿<!--<form role="form">
     <div class="row">
         <div class="col-md-2">
             &nbsp;
@@ -27,4 +27,90 @@
             &nbsp;
         </div>
     </div>
-</form>
+</form>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Gerenciamento de Documentos</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/plugins/dist/css/admin-lte.min.css" rel="stylesheet" />
+    <link href="/plugins/dist/css/skins/_all-skins.min.css" rel="stylesheet" />
+</head>
+
+<!--<body class="hold-transition skin-blue sidebar-mini" data-ng-cloak ng-app="app">-->
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="container col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4">
+        <br />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1>Login</h1>
+            </div>
+            <div class="panel-body">
+                <!--<form method="post" role="form" data-ng-submit="EfetuarLogin()">-->
+                <form role="form">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user" style="width: auto"></i>
+                            </span>
+
+                            <input type="text" class="form-control" placeholder="Username" data-val-required="The Email field is not a valid e-mail address." data-ng-model="loginData.userName" required autofocus>
+                            <!--<input class="form-control" data-val="true" data-val-required="The Email field is not a valid e-mail address." id="Username" name="Username" placeholder="Username" type="text" value="" />-->
+                            <span class="field-validation-valid text-danger" data-valmsg-for="userLoginEmail" data-valmsg-replace="true"></span>
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-lock" style="width: auto"></i>
+                            </span>
+
+                            <!--<input class="form-control" data-val="true" data-val-required="The Password field is required." id="userLoginPassword" name="userLoginPassword" placeholder="userLoginPassword" type="password" />-->
+                            <input type="password" class="form-control" placeholder="Password" data-val-required="The Password field is required." data-ng-model="loginData.password" required>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <input data-val="true" data-val-required="The Remember me? field is required." id="RememberMe" name="RememberMe" type="checkbox" value="true" /><input name="RememberMe" type="hidden" value="false" />
+                            <label for="RememberMe">Remember me?</label>
+                        </div>
+                    </div>
+
+                    <!--<div ng-view></div>-->
+
+                    <!--<button id="btnLogin" runat="server" class="btn btn-default" style="width: 100%" type="submit">
+                        ENTRAR<i class="glyphicon glyphicon-log-in"></i>
+                    </button>-->
+
+                    <button class="btn btn-md btn-info btn-block" type="submit" data-ng-click="login()">Login</button>
+                    <div data-ng-hide="message == ''" class="alert alert-danger">
+                        {{message}}
+                    </div>
+                    <!--<a href="#/FileUpload">FileUpload</a>
+                    <a href="#/FileUpload">FileUpload</a>
+                    <a href="#/Documento">Documento</a>-->
+                </form>
+            </div>
+        </div>
+    </div>
+    <div style="display:none;">
+        <script src="/plugins/jquery/js/jquery-3.1.0.js"></script>
+        <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/plugins/slimscroll/js/jquery.slimscroll.min.js"></script>
+        <script src="/plugins/angular/angular.js"></script>
+        <script src="/plugins/angular/angular-route.js"></script>
+        <script src="/plugins/angular/progress.js"></script>
+        <script src="/plugins/dist/js/app.js"></script>
+        <!--<script src="/Scripts/app.js"></script>
+        <script src="/Scripts/Service/LoginService.js"></script>
+        <script src="/Scripts/Controllers/LoginController.js"></script>-->
+    </div>
+</body>
+</html>
