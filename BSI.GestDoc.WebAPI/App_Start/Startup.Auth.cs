@@ -35,12 +35,11 @@ namespace BSI.GestDoc.WebAPI
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
-                TokenEndpointPath = new PathString("/Token"),
-                Provider = new ApplicationOAuthProvider(PublicClientId),
-                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
-                // In production mode set AllowInsecureHttp = false
-                AllowInsecureHttp = true
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                Provider = new SimpleAuthorizationServerProvider(),
+                RefreshTokenProvider = new SimpleRefreshTokenProvider()
             };
 
             // Enable the application to use bearer tokens to authenticate users

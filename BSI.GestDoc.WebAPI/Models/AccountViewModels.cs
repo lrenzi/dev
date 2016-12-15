@@ -5,7 +5,7 @@ namespace BSI.GestDoc.WebAPI.Models
 {
     // Models returned by AccountController actions.
 
-    public class ExternalLoginViewModel
+    /*public class ExternalLoginViewModel
     {
         public string Name { get; set; }
 
@@ -23,7 +23,7 @@ namespace BSI.GestDoc.WebAPI.Models
         public IEnumerable<UserLoginInfoViewModel> Logins { get; set; }
 
         public IEnumerable<ExternalLoginViewModel> ExternalLoginProviders { get; set; }
-    }
+    }*/
 
     public class UserInfoViewModel
     {

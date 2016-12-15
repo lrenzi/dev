@@ -32,7 +32,7 @@ namespace BSI.GestDoc.Repository.DAL
             var p = new DynamicParameters();
             p.Add("@ClienteId", clienteId, DbType.String, null);
 
-            var documentoClienteTipo = SqlHelper.QuerySP<DocumentoClienteTipo>("ConsultarDocumentoClienteTipoPorCliente", p, null, null, false, 0);
+            var documentoClienteTipo = SqlHelper.QuerySP<DocumentoClienteTipo>("ConsultarDocumentoClienteTipo", p, null, null, false, 0);
             return documentoClienteTipo;
         }
 
