@@ -43,6 +43,11 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/fileUpload.html"
     });
 
+    $routeProvider.when("/fileUploadTeste", {
+        controller: "uploadCtrl",
+        templateUrl: "/app/views/fileUploadTeste.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });

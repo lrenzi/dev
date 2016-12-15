@@ -1,9 +1,9 @@
-﻿'use strict';
+﻿
 app.service("fileUploadService", ["$http", "$q", function ($http, $q) {
     var urlbase = "http://localhost:44857/api/";
     return {
         RetornarDocumentoClienteTipo: function () {
-            debugger;
+            //debugger;
             return $http.post(urlbase + "FileUpload/RetornarDocumentoClienteTipo", { ClienteId: 1})
 			.then(function (response) {
 			    if (typeof response.data === 'object') {
@@ -17,9 +17,9 @@ app.service("fileUploadService", ["$http", "$q", function ($http, $q) {
 			    return $q.reject(response.data);
 			});
         }
-        ,
-        EnviarArquivos: function () {
-            debugger;
+        //,
+        
+
             /*this.login = function (userlogin) {
 
                 var resp = $http({
@@ -39,10 +39,15 @@ app.service("fileUploadService", ["$http", "$q", function ($http, $q) {
             var files = $('#arquivo').get(0).files;
             formData.append("files", JSON.stringify(files));
             */
+            /*
+            var files = document.getElementsByName("arquivo");
+            var formData = new FormData();
+            formData.append("files", files[0]);
+
             return $http({
                 url: urlbase + "FileUpload/EnviarArquivos",
-                method: "POST",
-                data:formData,
+                method: "Post",
+                data: { documentoClienteTipo: { ClienteId: 1 }, documentoClienteSituacao: { DocCliSituId :2} },
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             })
 			.then(function (response) {
@@ -56,7 +61,7 @@ app.service("fileUploadService", ["$http", "$q", function ($http, $q) {
 			function () {
 			    debugger;
 			    return $q.reject(response.data);
-			});
-        }
+			});*/
+        //}
     };
 }]);

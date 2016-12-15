@@ -43,7 +43,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         [System.Web.Http.Route("EnviarArquivos")]
         [System.Web.Http.HttpPost]
         [ValidateMimeMultipartContentFilter]
-        public async Task<FileResult> EnviarArquivos([FromBody]DocumentoClienteTipo documentoClienteTipo, [FromBody]DocumentoClienteSituacao documentoClienteSituacao)
+        public async Task<FileResult> EnviarArquivos(DocumentoClienteTipo documentoClienteTipo, DocumentoClienteSituacao documentoClienteSituacao)
         {
             UploadFile upload = new WebAPI.UploadFile();
             return await new UploadFile().GetFile(Request);

@@ -1,21 +1,28 @@
-﻿<div>
-    <form enctype="multipart/form-data" data-ng-init="ConsultarArquivos()" method="post" data-ng-submit="EnviarArquivos()">
-        <h2>Upload de Documentos</h2>
-        <h4>Procure os documentos para envio</h4>
-        <table class="table table-condensed table-bordered table-striped">
-            <thead>
-            <th>Tipo Documento</th>
-            <th>Arquivo</th>
-            <th></th>
-            </thead>
-            <tbody>
-                <tr data-ng-repeat="item in listaDocumentosClienteTipo">
-                    <td>{{item.DocCliTipoNome}}</td>
-                    <td align="left"><input type="file" name="arquivo" id="arquivo" /></td>
-                </tr>
-            </tbody>
-        </table>
-        <input type="submit" class="btn btn-primary" value="Enviar" />
-    </form>
-</div>
-
+﻿<form method="post" enctype="multipart/form-data" data-ng-init="ConsultarArquivos()" novalidate="novalidate" data-ng-submit="EnviarArquivos()">
+    <h2>Upload de Documentos</h2>
+    <h4>Procure os documentos para envio</h4>
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <th>Tipo Documento</th>
+        <th>Arquivo</th>
+        <th></th>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="item in listaDocumentosClienteTipo">
+                <td>{{item.DocCliTipoNome}}</td>
+                <td align="left"><!--<input type="file" name="arquivo" id="arquivo" />--></td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="file" ng-file-select="onFileSelect($files)" />
+    <div class="progress" style="margin-top: 20px;">
+        <div class="progress-bar" progress-bar="uploadProgress" role="progressbar">
+            <span ng-bind="uploadProgress"></span>
+            <span>%</span>
+        </div>
+        <input type="text" ng-model="documentoClienteTipo.ClienteId" value="1" />
+        <input type="text" ng-model="documentoClienteSituacao.DocCliSituId"  value="2"/>
+        <input type="text" ng-model="documentoClienteSituacao.DocCliSituDescricao"  value="3"/>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Enviar" />
+</form>
