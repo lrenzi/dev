@@ -5,23 +5,39 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BSI.GestDoc.Repository.DAL
 {
     public class AutenticacaoDal
     {
-        public Usuario Efetuarlogin(String usuarioLogin, String usuarioSenha)
+        public async Task<Usuario> Efetuarlogin(String usuarioLogin, String usuarioSenha)
         {
+            Usuario usuarioRetorno = null;
+
             var pIn = new DynamicParameters();
             pIn.Add("@UsuarioLogin", usuarioLogin, DbType.String, null);
             pIn.Add("@UsuarioSenha", usuarioSenha, DbType.String, null);
+            pIn.Add("@StatusProcessamento", null, DbType.Int16, ParameterDirection.Output);
+            pIn.Add("@MensagemProcessamento", null, DbType.String, ParameterDirection.Output, 200);
 
-            var pOut = new DynamicParameters();
-            pOut.Add("@StatusProcessamento", DbType.String, null);
-            pOut.Add("@MensagemProcessamento", DbType.String, null);
+            //var retornoAutenticacao = SqlHelper.QuerySP<Cliente>("AutenticarUsuario", pIn, null, null, false, 0).FirstOrDefault();
 
-            var retornoAutenticacao = SqlHelper.QuerySP<Usuario>("AutenticarUsuario", pIn, pOut, null, false, 0);
-            return (Usuario)retornoAutenticacao;
+            var retornoAutenticacao = SqlHelper.QuerySP<Usuario, UsuarioPerfil,Cliente>("AutenticarUsuario", pIn, null, null, false, 0).FirstOrDefault();
+
+
+            if (retornoAutenticacao == null)
+            {
+                usuarioRetorno = new Usuario();
+            }
+            else
+            {
+                usuarioRetorno = (Usuario)retornoAutenticacao;
+            }
+            usuarioRetorno.StatusProcessamento = pIn.Get<Int16>("@StatusProcessamento");
+            usuarioRetorno.MensagemProcessamento = pIn.Get<string>("@MensagemProcessamento");
+
+            return usuarioRetorno;
         }
     }
 }

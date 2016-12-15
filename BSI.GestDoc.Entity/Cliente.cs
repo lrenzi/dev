@@ -13,6 +13,6 @@ namespace BSI.GestDoc.Entity
         public string ClientePastaDocumentos { get; set; }
         public string ClienteImagemLogoDesktop { get; set; }
         public string ClienteImagemLogoMobile { get; set; }
-        public string ClienteCorPadrao { get; set; }
+        public string ClienteCorPadrao { get; set; }                
     }
 }

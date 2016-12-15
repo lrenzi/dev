@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DapperExtensions;
 using Dapper;
 using System.Data;
+using Dapper.Mapper;
 
 namespace BSI.Dapper.Helper
 {
@@ -82,14 +83,49 @@ namespace BSI.Dapper.Helper
 
         public static IEnumerable<T> QuerySP<T>(string storedProcedure, dynamic param = null,
             dynamic outParam = null, SqlTransaction transaction = null,
-            bool buffered = true, int? commandTimeout = null ) where T : class
+            bool buffered = true, int? commandTimeout = null) where T : class
         {
             SqlConnection connection = new SqlConnection(ConnectionString);
             connection.Open();
+
             var output = connection.Query<T>(storedProcedure, param: (object)param, transaction: transaction, buffered: buffered, commandTimeout: commandTimeout, commandType: CommandType.StoredProcedure);
 
             return output;
         }
+
+
+        public static IEnumerable<T> QuerySP<T, Y, Z>(string storedProcedure, dynamic param = null,
+           dynamic outParam = null, SqlTransaction transaction = null,
+           bool buffered = true, int? commandTimeout = null) where T : class
+        {
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            var output = connection.Query<T, Y, Z>(storedProcedure, param: (object)param, transaction: transaction, buffered: buffered, commandTimeout: commandTimeout, commandType: CommandType.StoredProcedure, splitOn: "UsuarioId,UsuarioLogin,UsuarioNome,UsuarioEmail,UsuPerfilId,UsuPerfilNome,UsuPerfilDescricao,ClienteId,ClienteNome,ClientePastaDocumentos,ClienteImagemLogoDesktop,ClienteImagemLogoMobile,ClienteCorPadrao");
+
+            return output;
+        }
+
+
+        public static IEnumerable<Usuario> QuerySPCustom<Usuario, UsuarioPerfil, Cliente>(string storedProcedure, dynamic param = null,
+          dynamic outParam = null, SqlTransaction transaction = null,
+          bool buffered = true, int? commandTimeout = null) where Usuario : class
+        {
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            var output = connection.Query<Usuario, UsuarioPerfil, Cliente, Usuario>(storedProcedure, (usuario, usuarioPerfil, cliente) => 
+                {
+                    usuario. = usuarioPerfil;
+                    //usuario.Cliente = cliente;
+                    return usuario;
+                },
+                param: (object)param, transaction: transaction, buffered: buffered, commandTimeout: commandTimeout, commandType: CommandType.StoredProcedure, splitOn: "UsuarioId,UsuPerfilId,ClienteId");
+
+            return output;
+        }
+
+
 
         private static void CombineParameters(ref dynamic param, dynamic outParam = null)
         {
