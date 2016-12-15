@@ -42,7 +42,7 @@ namespace BSI.GestDoc.WebAPI
         {
             IdentityUser user = await _userManager.FindAsync(userName, password);
 
-            return user;
+            return new IdentityUser() { UserName = "Wesley", Email = "email@dominio.com" };
         }
 
         public Client FindClient(string clientId)

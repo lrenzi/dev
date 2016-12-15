@@ -44,27 +44,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "BSI.GestDoc.Website", "BSI.
 		SlnRelativePath = "BSI.GestDoc.Website\"
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "BSI.GestDoc.Website_old", "BSI.GestDoc.Website_old\", "{4ED1924F-C165-4033-A00F-33E21B8821E3}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_8053"
-		Debug.AspNetCompiler.PhysicalPath = "BSI.GestDoc.Website_old\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_8053\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_8053"
-		Release.AspNetCompiler.PhysicalPath = "BSI.GestDoc.Website_old\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_8053\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "8053"
-		SlnRelativePath = "BSI.GestDoc.Website_old\"
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,10 +78,6 @@ Global
 		{089A999E-D1C1-4088-A1EA-CE142CD791BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{089A999E-D1C1-4088-A1EA-CE142CD791BD}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{089A999E-D1C1-4088-A1EA-CE142CD791BD}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{4ED1924F-C165-4033-A00F-33E21B8821E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4ED1924F-C165-4033-A00F-33E21B8821E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4ED1924F-C165-4033-A00F-33E21B8821E3}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{4ED1924F-C165-4033-A00F-33E21B8821E3}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,6 +92,5 @@ Global
 		{EE59B92B-B91D-4DD1-9449-C6D41F4D112F} = {D9CA9184-FD13-4433-A963-D57154C531CE}
 		{781B6C30-B8B6-4D3D-9FB6-7FD197B9FBC9} = {D9CA9184-FD13-4433-A963-D57154C531CE}
 		{089A999E-D1C1-4088-A1EA-CE142CD791BD} = {735BFEEF-8831-4C51-8FB5-E7C945DE0199}
-		{4ED1924F-C165-4033-A00F-33E21B8821E3} = {735BFEEF-8831-4C51-8FB5-E7C945DE0199}
 	EndGlobalSection
 EndGlobal

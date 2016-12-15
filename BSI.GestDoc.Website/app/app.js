@@ -38,12 +38,16 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/associate.html"
     });
 
+    $routeProvider.when("/fileUpload", {
+        controller: "fileUploadController",
+        templateUrl: "/app/views/fileUpload.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });
 
-//var serviceBase = 'http://localhost:26264/';
-var serviceBase = 'http://localhost:44857/api/';
+var serviceBase = 'http://localhost:44857/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'

@@ -87,6 +87,7 @@ namespace BSI.Dapper.Helper
             SqlConnection connection = new SqlConnection(ConnectionString);
             connection.Open();
             var output = connection.Query<T>(storedProcedure, param: (object)param, transaction: transaction, buffered: buffered, commandTimeout: commandTimeout, commandType: CommandType.StoredProcedure);
+
             return output;
         }
 
