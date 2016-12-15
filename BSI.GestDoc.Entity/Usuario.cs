@@ -16,5 +16,8 @@ namespace BSI.GestDoc.Entity
         public bool UsuarioAtivo { get; set; }
         public int UsuPerfilId { get; set; }
         public int ClienteId { get; set; }
+        public string StatusProcessamento { get; set; }
+        public string MensagemProcessamento { get; set; }       
+            
     }
 }
