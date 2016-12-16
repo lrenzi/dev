@@ -105,28 +105,7 @@ namespace BSI.Dapper.Helper
 
             return output;
         }
-
-
-        public static IEnumerable<Usuario> QuerySPCustom<Usuario, UsuarioPerfil, Cliente>(string storedProcedure, dynamic param = null,
-          dynamic outParam = null, SqlTransaction transaction = null,
-          bool buffered = true, int? commandTimeout = null) where Usuario : class
-        {
-            SqlConnection connection = new SqlConnection(ConnectionString);
-            connection.Open();
-
-            var output = connection.Query<Usuario, UsuarioPerfil, Cliente, Usuario>(storedProcedure, (usuario, usuarioPerfil, cliente) => 
-                {
-                    usuario. = usuarioPerfil;
-                    //usuario.Cliente = cliente;
-                    return usuario;
-                },
-                param: (object)param, transaction: transaction, buffered: buffered, commandTimeout: commandTimeout, commandType: CommandType.StoredProcedure, splitOn: "UsuarioId,UsuPerfilId,ClienteId");
-
-            return output;
-        }
-
-
-
+        
         private static void CombineParameters(ref dynamic param, dynamic outParam = null)
         {
             if (outParam != null)

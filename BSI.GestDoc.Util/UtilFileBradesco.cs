@@ -47,28 +47,28 @@ namespace BSI.GestDoc.UtilFile
                         //Le os dados do Pdf e cria o novo com o modelo
                         LerPdf(c);
 
-                        string CaminhoDestino = Path.Combine(ConfigurationManager.AppSettings["DiretorioJuncao"], new FileInfo(c).Name);
-                        string[] Arquivos = new string[] { Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name), c };
+                        string CaminhoDestino = System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioJuncao"], new FileInfo(c).Name);
+                        string[] Arquivos = new string[] { System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name), c };
 
                         //Junta os dois arquivos em um só
                         MergePDFs(Arquivos, CaminhoDestino);
 
                         //Exclui o arquivo caso ele já exista no diretorio de destino
-                        if (File.Exists(Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name)))
-                            File.Delete(Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name));
+                        if (File.Exists(System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name)))
+                            File.Delete(System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name));
 
                         //move o arquivo para o diretorio balde
-                        File.Move(CaminhoDestino, Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name));
+                        File.Move(CaminhoDestino, System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name));
 
                         //Exclui o arquivo original
                         File.Delete(c);
                     }
                     else //outros tipos de contrato devem ser apenas movidos
                     {
-                        File.Copy(c, Path.Combine(ConfigurationManager.AppSettings["DiretorioJuncao"], new FileInfo(c).Name),true);
+                        File.Copy(c, System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioJuncao"], new FileInfo(c).Name),true);
                         File.Delete(c);
-                        File.Copy(Path.Combine(ConfigurationManager.AppSettings["DiretorioJuncao"], new FileInfo(c).Name), Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name), true);
-                        File.Delete(Path.Combine(ConfigurationManager.AppSettings["DiretorioJuncao"], new FileInfo(c).Name));
+                        File.Copy(System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioJuncao"], new FileInfo(c).Name), System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name), true);
+                        File.Delete(System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioJuncao"], new FileInfo(c).Name));
                     }
                 };
 
@@ -92,7 +92,7 @@ namespace BSI.GestDoc.UtilFile
 
                 NmArquivo = string.Format("{0}{1}", DateTime.Now.ToString("dd_MM_yyyy_HH_mm"), ConfigurationManager.AppSettings["ExtensaoZip"]);
                 CompactarArquivos(Arquivos, NmArquivo);
-                NomeArquivoZip = Path.Combine(ConfigurationManager.AppSettings["DiretorioEmail"], NmArquivo);
+                NomeArquivoZip = System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioEmail"], NmArquivo);
 
                 Arquivos.ForEach(c =>
                 {
@@ -127,7 +127,7 @@ namespace BSI.GestDoc.UtilFile
                     //Verifica se existe arquivo com o mesmo nome no diretório DiretorioBalde
                     foreach (string b in Directory.GetFiles(ConfigurationManager.AppSettings["DiretorioBalde"], "*.PDF"))
                     {
-                        if (Path.GetFileNameWithoutExtension(b).Contains(Path.GetFileNameWithoutExtension(c)))
+                        if (System.IO.Path.GetFileNameWithoutExtension(b).Contains(System.IO.Path.GetFileNameWithoutExtension(c)))
                         {
                             existe = true;
                             break;
@@ -136,7 +136,7 @@ namespace BSI.GestDoc.UtilFile
 
                     //Caso o mesmo não exista, o arquivo do diretório OUT deve ser copiado para o backup
                     if(!existe)
-                        File.Copy(c, Path.Combine(ConfigurationManager.AppSettings["DiretorioBKP"], new FileInfo(c).Name), true);
+                        File.Copy(c, System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBKP"], new FileInfo(c).Name), true);
                 }
                 return true;
             }
@@ -172,20 +172,20 @@ namespace BSI.GestDoc.UtilFile
         /// <param name="Caminho">Caminho do arquivo PDF a ser lido</param>
         private void LerPdf(string Caminho)
         {
-            Cliente cliente = new Cliente();
+            DocumentoClienteDados dadosCliente = new DocumentoClienteDados();
             string NomeArquivo = new FileInfo(Caminho).Name;
 
-            cliente.Contrato = RetornarValor(Caminho, ConfigurationManager.AppSettings["Contrato"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaContrato"].ToString()));
-            cliente.CPF = RetornarValor(Caminho, ConfigurationManager.AppSettings["CPF_MFCCB"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaMunicipio"].ToString()));
+            dadosCliente.DocCliDadosValor = RetornarValor(Caminho, ConfigurationManager.AppSettings["Contrato"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaContrato"].ToString()));
+            //cliente.CPF = RetornarValor(Caminho, ConfigurationManager.AppSettings["CPF_MFCCB"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaMunicipio"].ToString()));
 
-            //verifica se é pessoa fisica ou juridica
-            if (cliente.CPF.Length <= 14)
-                cliente.Municipio = ToTitleCase(RetornarValor(Caminho, ConfigurationManager.AppSettings["CidadeCCB"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaMunicipio"].ToString())));
-            else
-                cliente.Municipio = ToTitleCase(RetornarValor(Caminho, ConfigurationManager.AppSettings["CidadePj"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaMunicipio"].ToString())));
+            ////verifica se é pessoa fisica ou juridica
+            //if (cliente.CPF.Length <= 14)
+            //    cliente.Municipio = ToTitleCase(RetornarValor(Caminho, ConfigurationManager.AppSettings["CidadeCCB"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaMunicipio"].ToString())));
+            //else
+            //    cliente.Municipio = ToTitleCase(RetornarValor(Caminho, ConfigurationManager.AppSettings["CidadePj"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaMunicipio"].ToString())));
             
             //Preenche o modelo criando um novo arquivo
-            PreencherModelo(cliente, NomeArquivo);
+            PreencherModelo(dadosCliente, NomeArquivo);
         }
 
         /// <summary>
@@ -201,10 +201,10 @@ namespace BSI.GestDoc.UtilFile
             foreach (string c in Directory.GetFiles(ConfigurationManager.AppSettings["DiretorioBalde"]))
             {
                 //renomear o arquivo antes de jogar na pasta de backup para evitar duplicidades
-                string novoNome = Path.GetFileName(c).Replace(Path.GetFileNameWithoutExtension(c), Path.GetFileNameWithoutExtension(c) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss"));
+                string novoNome = System.IO.Path.GetFileName(c).Replace(System.IO.Path.GetFileNameWithoutExtension(c), System.IO.Path.GetFileNameWithoutExtension(c) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss"));
 
                 //move o arquivo para pasta de backup
-                File.Move(c, Path.Combine(ConfigurationManager.AppSettings["DiretorioBaldeBKP"], novoNome));
+                File.Move(c, System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBaldeBKP"], novoNome));
             }
             #endregion
 
@@ -215,7 +215,7 @@ namespace BSI.GestDoc.UtilFile
                 string novoNome = new DirectoryInfo(dir).Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss");
 
                 //move o diretório para pasta de backup
-                Directory.Move(dir, Path.Combine(ConfigurationManager.AppSettings["DiretorioBaldeBKP"], novoNome));
+                Directory.Move(dir, System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBaldeBKP"], novoNome));
             }
             #endregion
         }
@@ -225,20 +225,20 @@ namespace BSI.GestDoc.UtilFile
         /// </summary>
         /// <param name="Valores">Valores a serem preenchidos</param>
         /// <param name="NomeArquivo">Nome do arquivo a Ser gerado</param>
-        private void PreencherModelo(DadosCliente Valores, string NomeArquivo)
+        private void PreencherModelo(DocumentoClienteDados Valores, string NomeArquivo)
         {
             if (!Directory.Exists(ConfigurationManager.AppSettings["DiretorioBalde"]))
                 Directory.CreateDirectory(ConfigurationManager.AppSettings["DiretorioBalde"]);
             
-            using (Stream newpdfStream = new FileStream(Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], NomeArquivo), FileMode.Create, FileAccess.ReadWrite))
+            using (Stream newpdfStream = new FileStream(System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], NomeArquivo), FileMode.Create, FileAccess.ReadWrite))
             {
                 PdfReader pdfReader = new PdfReader(ConfigurationManager.AppSettings["ArquivoModelo"]);
                 PdfStamper pdfStamper = new PdfStamper(pdfReader, newpdfStream);
 
                 AcroFields acroFields = pdfStamper.AcroFields;
 
-                acroFields.SetField("contrato", Valores.Contrato);
-                acroFields.SetField("Cidade", Valores.Municipio);
+                acroFields.SetField("contrato", Valores.DocCliDadosValor);
+                //acroFields.SetField("Cidade", Valores.Municipio);
                 acroFields.SetField("Dia", DateTime.Now.ToString("dd"));
                 acroFields.SetField("Ano", DateTime.Now.Year.ToString().Substring(3, 1));
                 acroFields.SetField("Mes", ToTitleCase(new DateTime(1900, DateTime.Now.Month, 1).ToString("MMMM", new CultureInfo("pt-BR"))));
@@ -315,7 +315,7 @@ namespace BSI.GestDoc.UtilFile
             {
                 Zip.Password = ConfigurationManager.AppSettings["pwdZip"];
                 Zip.AddFiles(Arquivos, false, "");
-                Zip.Save(Path.Combine(ConfigurationManager.AppSettings["DiretorioEmail"], NomeArquivo));
+                Zip.Save(System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioEmail"], NomeArquivo));
                 Zip.Dispose();
             }
         }
