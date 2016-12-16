@@ -49,6 +49,15 @@ namespace BSI.GestDoc.WebAPI.Controllers
             return await new UploadFile().GetFile(Request);
         }
 
+        [System.Web.Http.Route("EnviarArquivos2")]
+        [System.Web.Http.HttpPost]
+        [ValidateMimeMultipartContentFilter]
+        public async Task<FileResult> EnviarArquivos2()
+        {
+            UploadFile upload = new WebAPI.UploadFile();
+            return await new UploadFile().GetFile(Request);
+        }
+
         [System.Web.Http.Route("RetornarDocumentoClienteTipo")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult RetornarDocumentoClienteTipo([FromBody]DocumentoClienteTipo documentoClienteTipo)

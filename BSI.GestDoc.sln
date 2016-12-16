@@ -65,6 +65,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "bootstrap-fileinput-master"
 		SlnRelativePath = "..\..\Exemplo\bootstrap-fileinput-master\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSI.GestDoc.Util", "BSI.GestDoc.Util\BSI.GestDoc.Util.csproj", "{7D5C5E30-ACB7-41A1-82ED-FBCBA8B6BFD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{1694A80C-3882-48D2-9716-74A94398D1C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1694A80C-3882-48D2-9716-74A94398D1C0}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{1694A80C-3882-48D2-9716-74A94398D1C0}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{7D5C5E30-ACB7-41A1-82ED-FBCBA8B6BFD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D5C5E30-ACB7-41A1-82ED-FBCBA8B6BFD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D5C5E30-ACB7-41A1-82ED-FBCBA8B6BFD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D5C5E30-ACB7-41A1-82ED-FBCBA8B6BFD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,5 +124,6 @@ Global
 		{781B6C30-B8B6-4D3D-9FB6-7FD197B9FBC9} = {D9CA9184-FD13-4433-A963-D57154C531CE}
 		{089A999E-D1C1-4088-A1EA-CE142CD791BD} = {735BFEEF-8831-4C51-8FB5-E7C945DE0199}
 		{1694A80C-3882-48D2-9716-74A94398D1C0} = {735BFEEF-8831-4C51-8FB5-E7C945DE0199}
+		{7D5C5E30-ACB7-41A1-82ED-FBCBA8B6BFD2} = {D9CA9184-FD13-4433-A963-D57154C531CE}
 	EndGlobalSection
 EndGlobal

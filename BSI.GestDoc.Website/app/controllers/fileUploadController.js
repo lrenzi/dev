@@ -1,53 +1,38 @@
 ﻿'use strict';
 app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "fileUploadService", function ($scope, $routeParams, $location, fileUploadService) {
     //alert("nois");
-
-    $scope.model = {};
-    $scope.selectedFile = [];
-    $scope.uploadProgress = 0;
+    $scope.dados = {
+        documentoClienteTipo: { DocCliTipoId: 1, ClienteId: 1, DocCliTipoNome: "" },
+        documentoClienteSituacao: { DocCliSituId: 1, DocCliSituDescricao : ""},
+        files: FormData()
+    };
 
     $scope.ConsultarArquivos = function () {
         //debugger;
         $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
+
+
             $scope.listaDocumentosClienteTipo = data;
-
-           
-
+        }, function (error) {
+            alert(error.data.message);
         });
     };
     $scope.EnviarArquivos = function () {
-        $scope.listaDocumentosClienteTipo = null;
-
 
         debugger;
 
-       
+        var file = document.getElementById('file').files[0]
+        $scope.dados.files.append('file', file);
 
         debugger;
 
-        var file = $scope.selectedFile[0];
-        $scope.upload = $upload.upload({
-            url: 'http://localhost:44857/api/FileUpload/EnviarArquivos',
-            method: 'POST',
-            data: angular.toJson($scope.model),
-            file: file
-        }).progress(function (evt) {
+        $scope.listaDocumentosClienteTipo = fileUploadService.EnviarArquivos($scope.dados).then(function (data) {
             debugger;
-            $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
-        }).success(function (data) {
+            $scope.listaDocumentosClienteTipo = data;
+        }, function (error) {
             debugger;
-            //do something
-        }).error(function (data, status) {
-            debugger;
-        })
-
-        alert("k");
-      
-        $scope.onFileSelect = function ($files) {
-            $scope.uploadProgress = 0;
-            $scope.selectedFile = $files;
-        };
-            
+            alert(error.data.message);
+        });
         /*
         fileUploadService.EnviarArquivos().then(function (data) {
             $scope.listaDocumentosClienteTipo = data;

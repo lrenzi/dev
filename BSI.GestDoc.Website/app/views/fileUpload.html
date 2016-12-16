@@ -9,12 +9,12 @@
         </thead>
         <tbody>
             <tr data-ng-repeat="item in listaDocumentosClienteTipo">
-                <td>{{item.DocCliTipoNome}}</td>
-                <td align="left"><!--<input type="file" name="arquivo" id="arquivo" />--></td>
+                <td>{{item.docCliTipoNome}}</td>
+                <td align="left"><input type="file" name="arquivo" id="arquivo" /></td>
             </tr>
         </tbody>
     </table>
-    <input type="file" ng-file-select="onFileSelect($files)" />
+    <input type="file" id="file" name="file" />
     <div class="progress" style="margin-top: 20px;">
         <div class="progress-bar" progress-bar="uploadProgress" role="progressbar">
             <span ng-bind="uploadProgress"></span>

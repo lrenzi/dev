@@ -1,6 +1,51 @@
 ﻿
 app.service("fileUploadService", ["$http", "$q", function ($http, $q) {
     var urlbase = "http://localhost:44857/api/";
+
+    var fileUploadServiceFactory = {};
+
+    var _retornarDocumentoClienteTipo = function () {
+        //debugger;
+        return $http.post(urlbase + "FileUpload/RetornarDocumentoClienteTipo", { ClienteId: 1 })
+        .then(function (response) {
+            if (typeof response.data === 'object') {
+                return response.data;
+            } else {
+                return $q.reject(response.data);
+            }
+        },
+        function () {
+            debugger;
+            return $q.reject(response.data);
+        });
+    };
+
+    var _enviarArquivos = function (dados_) {
+
+        debugger;
+
+        var _url = urlbase + "FileUpload/EnviarArquivos";
+
+        $http({
+            url: _url,
+            method: "POST",
+            data: dados_,
+            headers: { 'Content-Type': undefined }
+        }).success(function (response) {
+            debugger;
+        }).error(function (data, status) {
+            debugger;
+        });
+    };
+
+    fileUploadServiceFactory.RetornarDocumentoClienteTipo = _retornarDocumentoClienteTipo;
+    fileUploadServiceFactory.EnviarArquivos = _enviarArquivos
+
+    return fileUploadServiceFactory;
+
+    /*
+    return fileUploadService;
+
     return {
         RetornarDocumentoClienteTipo: function () {
             //debugger;
@@ -16,7 +61,35 @@ app.service("fileUploadService", ["$http", "$q", function ($http, $q) {
 			    debugger;
 			    return $q.reject(response.data);
 			});
-        }
+        },
+        EnviarArquivos: function () {
+            //debugger;
+
+
+            $http({
+                url: file,
+                method: "POST",
+                data: data,
+                headers: { 'Content-Type': undefined }
+            }).success(function (response) {
+                debugger;
+            }).error(function (data, status) {
+                debugger;
+            });
+
+            return $http.post(urlbase + "FileUpload/EnviarArquivos", { ClienteId: 1 })
+            .then(function (response) {
+                if (typeof response.data === 'object') {
+                    return response.data;
+                } else {
+                    return $q.reject(response.data);
+                }
+        },
+        function () {
+            debugger;
+            return $q.reject(response.data);
+        });
+    }
         //,
         
 
@@ -61,7 +134,8 @@ app.service("fileUploadService", ["$http", "$q", function ($http, $q) {
 			function () {
 			    debugger;
 			    return $q.reject(response.data);
-			});*/
+			});
         //}
-    };
+    };*/
+
 }]);
