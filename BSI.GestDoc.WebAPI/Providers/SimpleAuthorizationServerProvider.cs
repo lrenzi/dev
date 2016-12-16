@@ -9,6 +9,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using BSI.GestDoc.Repository.DAL;
+using BSI.GestDoc.Entity;
 
 namespace BSI.GestDoc.WebAPI.Providers
 {
@@ -78,41 +80,58 @@ namespace BSI.GestDoc.WebAPI.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            AutenticacaoDal Dal = new AutenticacaoDal();
 
-            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
-
-            if (allowedOrigin == null) allowedOrigin = "*";
-
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
-
-            using (AuthRepository _repo = new AuthRepository())
+            try
             {
-                IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
 
-                if (user == null)
+
+                var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
+
+                if (allowedOrigin == null) allowedOrigin = "*";
+
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+
+                //using (AuthRepository _repo = new AuthRepository())
+                //{
+                //    IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
+
+                //    if (user == null)
+                //    {
+                //        context.SetError("invalid_grant", "The user name or password is incorrect.");
+                //        return;
+                //    }
+                //}
+
+                Usuario user = await Dal.Efetuarlogin(context.UserName, context.Password);
+
+                if (user.StatusProcessamento > 0)
                 {
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                    context.SetError("invalid_grant", user.MensagemProcessamento);
                     return;
                 }
-            }
 
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
-            identity.AddClaim(new Claim("sub", context.UserName));
+                var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+                identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+                identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
+                identity.AddClaim(new Claim("sub", context.UserName));
 
-            var props = new AuthenticationProperties(new Dictionary<string, string>
+                var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
-                    { 
+                    {
                         "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
                     },
-                    { 
+                    {
                         "userName", context.UserName
                     }
                 });
 
-            var ticket = new AuthenticationTicket(identity, props);
-            context.Validated(ticket);
+                var ticket = new AuthenticationTicket(identity, props);
+                context.Validated(ticket);
+            }catch(Exception e)
+            {
+                throw e;
+            }
 
         }
 
