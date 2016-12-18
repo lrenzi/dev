@@ -234,7 +234,6 @@
     <Compile Include="Providers\SimpleRefreshTokenProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="UploadFile\FileResult.cs" />
     <Compile Include="UploadFile\UploadFile.cs" />
     <Compile Include="UploadFile\ValidateMimeMultipartContentFilter.cs" />
   </ItemGroup>

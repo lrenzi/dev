@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -9,11 +10,11 @@ namespace BSI.GestDoc.WebAPI
     public class UploadFile
     {
 
-        private readonly string workingFolder = HttpRuntime.AppDomainAppPath + @"\Uploads";
+        private readonly string workingFolder = HttpRuntime.AppDomainAppPath + ConfigurationManager.AppSettings["DiretorioUpload"];
 
         //private static readonly string ServerUploadFolder = "C:\\Temp"; //Path.GetTempPath();
 
-        public async Task<FileResult> GetFile(HttpRequestMessage Request)
+       /* public async Task<FileResult> GetFile(HttpRequestMessage Request)
         {
             var streamProvider = new MultipartFormDataStreamProvider(workingFolder);
             await Request.Content.ReadAsMultipartAsync(streamProvider);
@@ -28,6 +29,6 @@ namespace BSI.GestDoc.WebAPI
                 UpdatedTimestamp = DateTime.UtcNow,
                 DownloadLink = "TODO, will implement when file is persisited"
             };
-        }
+        }*/
     }
 }

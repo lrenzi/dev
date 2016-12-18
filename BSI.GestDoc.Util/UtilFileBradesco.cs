@@ -18,7 +18,7 @@ using BSI.GestDoc.Entity;
 
 namespace BSI.GestDoc.UtilFile
 {
-    public class UtilFile
+    public class UtilFileBradesco
     {
 
         /// <summary>
@@ -170,22 +170,14 @@ namespace BSI.GestDoc.UtilFile
         /// Lê o arquivo pdf para extrair os dados
         /// </summary>
         /// <param name="Caminho">Caminho do arquivo PDF a ser lido</param>
-        private void LerPdf(string Caminho)
+        public DocumentoClienteDados LerPdf(string Caminho)
         {
             DocumentoClienteDados dadosCliente = new DocumentoClienteDados();
             string NomeArquivo = new FileInfo(Caminho).Name;
 
             dadosCliente.DocCliDadosValor = RetornarValor(Caminho, ConfigurationManager.AppSettings["Contrato"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaContrato"].ToString()));
-            //cliente.CPF = RetornarValor(Caminho, ConfigurationManager.AppSettings["CPF_MFCCB"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaMunicipio"].ToString()));
-
-            ////verifica se é pessoa fisica ou juridica
-            //if (cliente.CPF.Length <= 14)
-            //    cliente.Municipio = ToTitleCase(RetornarValor(Caminho, ConfigurationManager.AppSettings["CidadeCCB"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaMunicipio"].ToString())));
-            //else
-            //    cliente.Municipio = ToTitleCase(RetornarValor(Caminho, ConfigurationManager.AppSettings["CidadePj"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaMunicipio"].ToString())));
-            
             //Preenche o modelo criando um novo arquivo
-            PreencherModelo(dadosCliente, NomeArquivo);
+            return dadosCliente;
         }
 
         /// <summary>

@@ -1,6 +1,4 @@
 ﻿using BSI.GestDoc.WebAPI.Entities;
-using BSI.GestDoc.WebAPI;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using System;
@@ -8,9 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
-using BSI.GestDoc.Repository.DAL;
 using BSI.GestDoc.Entity;
+using BSI.GestDoc.Repository;
 
 namespace BSI.GestDoc.WebAPI.Providers
 {

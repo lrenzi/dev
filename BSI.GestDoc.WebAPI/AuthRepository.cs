@@ -1,6 +1,5 @@
 ﻿using BSI.GestDoc.WebAPI.Entities;
 using BSI.GestDoc.WebAPI.Models;
-using BSI.GestDoc.WebAPI.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;

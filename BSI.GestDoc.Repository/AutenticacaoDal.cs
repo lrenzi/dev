@@ -7,7 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BSI.GestDoc.Repository.DAL
+namespace BSI.GestDoc.Repository
 {
     public class AutenticacaoDal
     {

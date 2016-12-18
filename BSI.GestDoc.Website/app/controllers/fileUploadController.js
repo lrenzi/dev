@@ -12,19 +12,17 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
     $scope.EnviarArquivosWebAPI = function (index_, file_) {
         
+        var docCliTipoId = $scope.listaDocumentosClienteTipo[index_].docCliTipoId;
         
         Upload.upload({
-            url: ngAuthSettings.apiServiceBaseUri + "/api/FileUpload/EnviarArquivos?idCliente=" + ngAuthSettings.clientId,
+            url: ngAuthSettings.apiServiceBaseUri + "/api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&idCliente=" + ngAuthSettings.clientId + "&docCliTipoId=" + docCliTipoId,
             file: file_.files[0]
         }).progress(function (evt) {
-
-            //debugger;
 
             document.getElementById('idProgressbar_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = parseInt(100.0 * evt.loaded / evt.total, 10) + " %";
 
         }).success(function (data, status, headers, config) {
 
-            //debugger;
             document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = "Ok";
 
         }).error(function (data, status, headers, config) {
@@ -37,7 +35,6 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
     };
 
     $scope.EnviarArquivos = function () {
-        //debugger;
 
         $scope.contador = 0;
 
@@ -45,8 +42,6 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
             var file_ = document.getElementById('idFile_' + $scope.listaDocumentosClienteTipo[contador].docCliTipoId);
             if (file_.value != "") {
-
-                //debugger;
 
                 $scope.contador = contador;
 

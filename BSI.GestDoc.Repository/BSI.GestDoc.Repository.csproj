@@ -53,7 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutenticacaoDal.cs" />
-    <Compile Include="DocumentoClienteTipoDal.cs" />
+    <Compile Include="CRUD\ClienteTipoInformacaoClienteDal.cs" />
+    <Compile Include="EnviarArquivoDal.cs" />
+    <Compile Include="CRUD\DocumentoClienteDadosDal.cs" />
+    <Compile Include="CRUD\DocumentoClienteDadosDocDal.cs" />
+    <Compile Include="CRUD\DocumentoClienteDal.cs" />
+    <Compile Include="CRUD\DocumentoClienteSituacaoDal.cs" />
+    <Compile Include="CRUD\DocumentoClienteTipoDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

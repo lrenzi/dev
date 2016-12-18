@@ -11,6 +11,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web;
 using Newtonsoft.Json;
+using BSI.GestDoc.BusinessLogic;
+using System.Configuration;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -50,11 +52,12 @@ namespace BSI.GestDoc.WebAPI.Controllers
         //    return await new UploadFile().GetFile(Request);
         //}
 
-        private readonly string workingFolder = HttpRuntime.AppDomainAppPath + @"\Uploads";
+        //private readonly string workingFolder = HttpRuntime.AppDomainAppPath + @"\Uploads";
+        private readonly string workingFolder = HttpRuntime.AppDomainAppPath + "\\" + ConfigurationManager.AppSettings["DiretorioUpload"];
 
         [System.Web.Http.Route("EnviarArquivos")]
         [System.Web.Http.HttpPost]
-        public IHttpActionResult EnviarArquivos(int idCliente)
+        public IHttpActionResult EnviarArquivos(int usuarioId, int clienteId, int docCliTipoId)
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent("form-data"))
@@ -66,20 +69,38 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 var streamProvider = new MultipartFormDataStreamProvider(workingFolder);
                 Request.Content.ReadAsMultipartAsync(streamProvider);
 
-                var fileResult_ = new FileResult
+                DocumentoCliente documentoCliente_ = new DocumentoCliente()
                 {
-                    FileNames = streamProvider.FileData.Select(entry => entry.LocalFileName),
-                    Names = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName),
-                    ContentTypes = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType),
-                    Description = streamProvider.FormData["description"],
-                    CreatedTimestamp = DateTime.UtcNow,
-                    UpdatedTimestamp = DateTime.UtcNow,
-                    DownloadLink = "TODO, will implement when file is persisited"
+                    UsuarioId = usuarioId,
+                    ClienteId = clienteId,
+                    DocCliTipoId = docCliTipoId,
+                    DocClienteNomeArquivoSalvo = streamProvider.FileData.Select(entry => entry.LocalFileName).First(),
+                    DocClienteNomeArquivoOriginal = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName).First(),
+                    DocClienteTipoArquivo = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType).First(),
+                    DocClienteDataUpload = DateTime.UtcNow
                 };
 
-                //var retorno = new { "posicao": pos, "status": "ok" };
+                Cliente cliente = new Cliente() { ClienteId = documentoCliente_.ClienteId };
+                UploadFileBL uploadFileBL = null;
 
-                return Ok(fileResult_);
+                switch (cliente.ClienteNomeEnum)
+                {
+                    case Cliente.EnumCliente.Bradesco:
+                        uploadFileBL = new UploadFileBradescoBL();
+                        uploadFileBL.EnviarDocumentoCliente(documentoCliente_);
+                        break;
+
+                    default:
+                        uploadFileBL = new UploadFileBL();
+                        uploadFileBL.EnviarDocumentoCliente(documentoCliente_);
+                        break;
+                }
+
+                return Ok(documentoCliente_);
+            }
+            catch (BusinessLogic.BusinessException.BusinessException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -87,6 +108,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
             }
         }
 
+        /*
         // Extracts Request FormatData as a strongly typed model
         private object GetFormData<T>(MultipartFormDataStreamProvider result)
         {
@@ -111,7 +133,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         {
             return fileData.Headers.ContentDisposition.FileName;
         }
-
+        
         [System.Web.Http.Route("EnviarArquivos2")]
         [System.Web.Http.HttpPost]
         [ValidateMimeMultipartContentFilter]
@@ -120,12 +142,13 @@ namespace BSI.GestDoc.WebAPI.Controllers
             UploadFile upload = new WebAPI.UploadFile();
             return await new UploadFile().GetFile(Request);
         }
+        */
 
         [System.Web.Http.Route("RetornarDocumentoClienteTipo")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult RetornarDocumentoClienteTipo([FromBody]DocumentoClienteTipo documentoClienteTipo)
         {
-            var DocumentosClienteTipo = new BusinessLogic.UploadFiles().RetornarDocumentoClienteTipo(documentoClienteTipo.ClienteId);
+            var DocumentosClienteTipo = new BusinessLogic.UploadFileBL().RetornarDocumentoClienteTipo(documentoClienteTipo.ClienteId);
             return Ok(DocumentosClienteTipo);
         }
 

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace BSI.GestDoc.Repository.DAL
+namespace BSI.GestDoc.Repository.CRUD
 {
     public class DocumentoClienteTipoDal
     {

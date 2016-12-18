@@ -9,7 +9,7 @@ namespace BSI.GestDoc.Entity
     public class ClienteTipoInformacaoCliente
     {
         public int CliTipoInfoCliId { get; set; }
-        public string ClienteId { get; set; }
-        public string TipoInfoCliId { get; set; }
+        public Int64 ClienteId { get; set; }
+        public int TipoInfoCliId { get; set; }
     }
 }
