@@ -175,7 +175,7 @@ namespace BSI.GestDoc.UtilFile
             DocumentoClienteDados dadosCliente = new DocumentoClienteDados();
             string NomeArquivo = new FileInfo(Caminho).Name;
 
-            dadosCliente.DocCliDadosValor = RetornarValor(Caminho, ConfigurationManager.AppSettings["Contrato"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["PaginaContrato"].ToString()));
+            dadosCliente.DocCliDadosValor = RetornarValor(Caminho, ConfigurationManager.AppSettings["Bradesco.PosicaoContrato"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["Bradesco.PaginaContrato"].ToString()));
             //Preenche o modelo criando um novo arquivo
             return dadosCliente;
         }

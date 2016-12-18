@@ -53,7 +53,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         //}
 
         //private readonly string workingFolder = HttpRuntime.AppDomainAppPath + @"\Uploads";
-        private readonly string workingFolder = HttpRuntime.AppDomainAppPath + "\\" + ConfigurationManager.AppSettings["DiretorioUpload"];
+        private readonly string workingFolder = HttpRuntime.AppDomainAppPath + ConfigurationManager.AppSettings["DiretorioUpload"];
 
         [System.Web.Http.Route("EnviarArquivos")]
         [System.Web.Http.HttpPost]
@@ -64,46 +64,56 @@ namespace BSI.GestDoc.WebAPI.Controllers
             {
                 return BadRequest("Unsupported media type");
             }
+
+            DocumentoCliente _documentoCliente = new DocumentoCliente();
+
             try
             {
                 var streamProvider = new MultipartFormDataStreamProvider(workingFolder);
                 Request.Content.ReadAsMultipartAsync(streamProvider);
 
-                DocumentoCliente documentoCliente_ = new DocumentoCliente()
+                _documentoCliente = new DocumentoCliente()
                 {
                     UsuarioId = usuarioId,
                     ClienteId = clienteId,
                     DocCliTipoId = docCliTipoId,
                     DocClienteNomeArquivoSalvo = streamProvider.FileData.Select(entry => entry.LocalFileName).First(),
-                    DocClienteNomeArquivoOriginal = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName).First(),
+                    DocClienteNomeArquivoOriginal = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName).First().Replace("\"", ""),
                     DocClienteTipoArquivo = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType).First(),
                     DocClienteDataUpload = DateTime.UtcNow
                 };
 
-                Cliente cliente = new Cliente() { ClienteId = documentoCliente_.ClienteId };
+                streamProvider.FileData.Select(entry => entry.LocalFileName).First()
+
+                Cliente cliente = new Cliente() { ClienteId = _documentoCliente.ClienteId };
                 UploadFileBL uploadFileBL = null;
 
                 switch (cliente.ClienteNomeEnum)
                 {
                     case Cliente.EnumCliente.Bradesco:
                         uploadFileBL = new UploadFileBradescoBL();
-                        uploadFileBL.EnviarDocumentoCliente(documentoCliente_);
+                        uploadFileBL.EnviarDocumentoCliente(_documentoCliente);
                         break;
 
                     default:
                         uploadFileBL = new UploadFileBL();
-                        uploadFileBL.EnviarDocumentoCliente(documentoCliente_);
+                        uploadFileBL.EnviarDocumentoCliente(_documentoCliente);
                         break;
                 }
 
-                return Ok(documentoCliente_);
+                return Ok(_documentoCliente);
             }
             catch (BusinessLogic.BusinessException.BusinessException ex)
             {
+                if (File.Exists(_documentoCliente.DocClienteNomeArquivoSalvo))
+                    File.Delete(_documentoCliente.DocClienteNomeArquivoSalvo);
+
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
+                if (File.Exists(_documentoCliente.DocClienteNomeArquivoSalvo))
+                    File.Delete(_documentoCliente.DocClienteNomeArquivoSalvo);
                 return BadRequest(ex.GetBaseException().Message);
             }
         }

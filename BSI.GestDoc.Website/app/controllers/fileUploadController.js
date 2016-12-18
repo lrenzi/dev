@@ -15,7 +15,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
         var docCliTipoId = $scope.listaDocumentosClienteTipo[index_].docCliTipoId;
         
         Upload.upload({
-            url: ngAuthSettings.apiServiceBaseUri + "/api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&idCliente=" + ngAuthSettings.clientId + "&docCliTipoId=" + docCliTipoId,
+            url: ngAuthSettings.apiServiceBaseUri + "/api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&clienteId=" + ngAuthSettings.clientId + "&docCliTipoId=" + docCliTipoId,
             file: file_.files[0]
         }).progress(function (evt) {
 

@@ -16,7 +16,7 @@ namespace BSI.GestDoc.BusinessLogic
             return new DocumentoClienteTipoDal().GetAllDocumentoClienteTipoByIdCliente(clienteId_).ToList();
         }
 
-        public DocumentoCliente  EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
+        public virtual DocumentoCliente  EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
         {
             return documentoCliente_;
         }

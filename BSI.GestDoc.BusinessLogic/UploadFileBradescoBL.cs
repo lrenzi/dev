@@ -11,19 +11,16 @@ namespace BSI.GestDoc.BusinessLogic
     {
         public UploadFileBradescoBL() : base()
         {
-
-
-
         }
 
-        public new DocumentoCliente EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
+        public override DocumentoCliente EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
         {
             UtilFile.UtilFileBradesco utilFileBradesco = new UtilFile.UtilFileBradesco();
 
             //Validações **
 
             #region 1 - Verifica tipo/ versão pdf
-            if (BSI.GestDoc.Util.UtilFile.GetMIMEType(documentoCliente_.DocClienteNomeArquivoSalvo).ToLower() != "pdf")
+            if (BSI.GestDoc.Util.UtilFile.GetMIMEType(documentoCliente_.DocClienteNomeArquivoOriginal).ToLower() != "application/pdf")
             {
                 throw new BusinessException.BusinessException("Erro - Documento deve ser do tipo PDF");
             }
