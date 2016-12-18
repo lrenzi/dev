@@ -2,16 +2,20 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace BSI.GestDoc.WebAPI
 {
     public class UploadFile
     {
-        private static readonly string ServerUploadFolder = "C:\\Temp"; //Path.GetTempPath();
+
+        private readonly string workingFolder = HttpRuntime.AppDomainAppPath + @"\Uploads";
+
+        //private static readonly string ServerUploadFolder = "C:\\Temp"; //Path.GetTempPath();
 
         public async Task<FileResult> GetFile(HttpRequestMessage Request)
         {
-            var streamProvider = new MultipartFormDataStreamProvider(ServerUploadFolder);
+            var streamProvider = new MultipartFormDataStreamProvider(workingFolder);
             await Request.Content.ReadAsMultipartAsync(streamProvider);
 
             return new FileResult

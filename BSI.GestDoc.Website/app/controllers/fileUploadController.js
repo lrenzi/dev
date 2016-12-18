@@ -1,34 +1,101 @@
 ﻿'use strict';
-app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "fileUploadService", function ($scope, $routeParams, $location, fileUploadService) {
-    //alert("nois");
-    $scope.dados = {
-        documentoClienteTipo: { DocCliTipoId: 1, ClienteId: 1, DocCliTipoNome: "" },
-        documentoClienteSituacao: { DocCliSituId: 1, DocCliSituDescricao : ""},
-        files: FormData()
-    };
-
+app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "fileUploadService", 'Upload', 'ngAuthSettings', function ($scope, $routeParams, $location, fileUploadService, Upload, ngAuthSettings) {
+    
     $scope.ConsultarArquivos = function () {
         //debugger;
         $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
-
-
             $scope.listaDocumentosClienteTipo = data;
         }, function (error) {
             alert(error.data.message);
         });
     };
+
+    $scope.EnviarArquivosWebAPI = function (index_, file_) {
+        
+        
+        Upload.upload({
+            url: ngAuthSettings.apiServiceBaseUri + "/api/FileUpload/EnviarArquivos?idCliente=" + ngAuthSettings.clientId,
+            file: file_.files[0]
+        }).progress(function (evt) {
+
+            //debugger;
+
+            document.getElementById('idProgressbar_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = parseInt(100.0 * evt.loaded / evt.total, 10) + " %";
+
+        }).success(function (data, status, headers, config) {
+
+            //debugger;
+            document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = "Ok";
+
+        }).error(function (data, status, headers, config) {
+
+            if (data.message == undefined)
+                document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = data;
+            else
+                document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = data.message;
+        });
+    };
+
     $scope.EnviarArquivos = function () {
+        //debugger;
+
+        $scope.contador = 0;
+
+        for (var contador = 0; contador < $scope.listaDocumentosClienteTipo.length; contador++) {
+
+            var file_ = document.getElementById('idFile_' + $scope.listaDocumentosClienteTipo[contador].docCliTipoId);
+            if (file_.value != "") {
+
+                //debugger;
+
+                $scope.contador = contador;
+
+                $scope.EnviarArquivosWebAPI(contador, file_);
+
+                
+            }
+        }
+        /*
+        var files = document.getElementsByName('file');
+
+        for (var i = 0; i < files.length; i++) {
+            var file_ = files[i];
+            if (file_.value != "") {
+
+                debugger;
+
+                Upload.upload({
+                    url: ngAuthSettings.apiServiceBaseUri + "/api/FileUpload/EnviarArquivos?idCliente=" + ngAuthSettings.clientId,
+                    file: file_.files[0]
+                }).progress(function (evt) {
+
+                    debugger;
+
+                    $scope.uploadProgress[i] = parseInt(100.0 * evt.loaded / evt.total, 10);
+
+                }).success(function (data, status, headers, config) {
+
+                    debugger;
+                    $scope.uploadProgress[i] = 100;
+                    $scope.status[i] = "Ok";
+
+                }).error(function (data, status, headers, config) {
+
+                    debugger;
+                    $scope.status[i] = data;
+                    
+                })
+            }
+        }
+
+        
+        /*
 
         debugger;
 
-        var file = document.getElementById('file').files[0]
-        $scope.dados.files.append('file', file);
-
-        debugger;
-
-        $scope.listaDocumentosClienteTipo = fileUploadService.EnviarArquivos($scope.dados).then(function (data) {
+        $scope.listaDocumentosClienteTipo = fileUploadService.EnviarArquivos(Upload, file).then(function (retorno) {
             debugger;
-            $scope.listaDocumentosClienteTipo = data;
+            $scope.listaDocumentosClienteTipo = retorno;
         }, function (error) {
             debugger;
             alert(error.data.message);

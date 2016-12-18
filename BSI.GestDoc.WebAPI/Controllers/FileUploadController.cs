@@ -10,6 +10,7 @@ using System.IO;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,13 +41,75 @@ namespace BSI.GestDoc.WebAPI.Controllers
         //    }
         //}
 
+        //[System.Web.Http.Route("EnviarArquivos")]
+        //[System.Web.Http.HttpPost]
+        //[ValidateMimeMultipartContentFilter]
+        //public async Task<FileResult> EnviarArquivos(dynamic parametro)
+        //{
+        //    UploadFile upload = new WebAPI.UploadFile();
+        //    return await new UploadFile().GetFile(Request);
+        //}
+
+        private readonly string workingFolder = HttpRuntime.AppDomainAppPath + @"\Uploads";
+
         [System.Web.Http.Route("EnviarArquivos")]
         [System.Web.Http.HttpPost]
-        [ValidateMimeMultipartContentFilter]
-        public async Task<FileResult> EnviarArquivos(DocumentoClienteTipo documentoClienteTipo, DocumentoClienteSituacao documentoClienteSituacao)
+        public IHttpActionResult EnviarArquivos(int idCliente)
         {
-            UploadFile upload = new WebAPI.UploadFile();
-            return await new UploadFile().GetFile(Request);
+            // Check if the request contains multipart/form-data.
+            if (!Request.Content.IsMimeMultipartContent("form-data"))
+            {
+                return BadRequest("Unsupported media type");
+            }
+            try
+            {
+                var streamProvider = new MultipartFormDataStreamProvider(workingFolder);
+                Request.Content.ReadAsMultipartAsync(streamProvider);
+
+                var fileResult_ = new FileResult
+                {
+                    FileNames = streamProvider.FileData.Select(entry => entry.LocalFileName),
+                    Names = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName),
+                    ContentTypes = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType),
+                    Description = streamProvider.FormData["description"],
+                    CreatedTimestamp = DateTime.UtcNow,
+                    UpdatedTimestamp = DateTime.UtcNow,
+                    DownloadLink = "TODO, will implement when file is persisited"
+                };
+
+                //var retorno = new { "posicao": pos, "status": "ok" };
+
+                return Ok(fileResult_);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.GetBaseException().Message);
+            }
+        }
+
+        // Extracts Request FormatData as a strongly typed model
+        private object GetFormData<T>(MultipartFormDataStreamProvider result)
+        {
+            if (result.FormData.HasKeys())
+            {
+                var unescapedFormData = Uri.UnescapeDataString(result.FormData
+                    .GetValues(0).FirstOrDefault() ?? String.Empty);
+                if (!String.IsNullOrEmpty(unescapedFormData))
+                    return JsonConvert.DeserializeObject<T>(unescapedFormData);
+            }
+
+            return null;
+        }
+
+        private string GetDeserializedFileName(MultipartFileData fileData)
+        {
+            var fileName = GetFileName(fileData);
+            return JsonConvert.DeserializeObject(fileName).ToString();
+        }
+
+        public string GetFileName(MultipartFileData fileData)
+        {
+            return fileData.Headers.ContentDisposition.FileName;
         }
 
         [System.Web.Http.Route("EnviarArquivos2")]

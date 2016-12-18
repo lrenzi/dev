@@ -1,12 +1,12 @@
 ﻿
-app.service("fileUploadService", ["$http", "$q", function ($http, $q) {
-    var urlbase = "http://localhost:44857/api/";
+app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', function ($http, $q, ngAuthSettings) {
 
+    var serviceBase = ngAuthSettings.apiServiceBaseUri;
     var fileUploadServiceFactory = {};
 
     var _retornarDocumentoClienteTipo = function () {
-        //debugger;
-        return $http.post(urlbase + "FileUpload/RetornarDocumentoClienteTipo", { ClienteId: 1 })
+        
+        return $http.post(serviceBase + "api/FileUpload/RetornarDocumentoClienteTipo", { ClienteId: ngAuthSettings.clientId })
         .then(function (response) {
             if (typeof response.data === 'object') {
                 return response.data;
@@ -19,12 +19,35 @@ app.service("fileUploadService", ["$http", "$q", function ($http, $q) {
             return $q.reject(response.data);
         });
     };
-
-    var _enviarArquivos = function (dados_) {
+    /*
+    var _enviarArquivos = function (fileUploadService_, file_) {
 
         debugger;
+        
 
-        var _url = urlbase + "FileUpload/EnviarArquivos";
+        fileUploadService_.upload({
+            url: 'http://localhost:44857/api/FileUpload/EnviarArquivos?idCliente=1',
+            file: _file,
+            formData: {idCliente:1}
+        }).progress(function (evt) {
+
+            $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
+
+        }).success(function (data, status, headers, config) {
+
+            debugger;
+
+            console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+        }).error(function (data, status, headers, config) {
+
+            debugger;
+
+            console.log('error status: ' + status);
+        })
+
+        /*debugger;
+
+        var _url = urlbase + "FileUpload/EnviarArquivos?idCliente=1";
 
         $http({
             url: _url,
@@ -36,10 +59,10 @@ app.service("fileUploadService", ["$http", "$q", function ($http, $q) {
         }).error(function (data, status) {
             debugger;
         });
-    };
+    };*/
 
     fileUploadServiceFactory.RetornarDocumentoClienteTipo = _retornarDocumentoClienteTipo;
-    fileUploadServiceFactory.EnviarArquivos = _enviarArquivos
+    //fileUploadServiceFactory.EnviarArquivos = _enviarArquivos
 
     return fileUploadServiceFactory;
 

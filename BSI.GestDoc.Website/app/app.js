@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar']);
+var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ngFileUpload']);
 
 app.config(function ($routeProvider) {
 
@@ -44,7 +44,7 @@ app.config(function ($routeProvider) {
     });
 
     $routeProvider.when("/fileUploadTeste", {
-        controller: "uploadCtrl",
+        controller: "fileUploadTesteController",
         templateUrl: "/app/views/fileUploadTeste.html"
     });
 
@@ -55,7 +55,7 @@ app.config(function ($routeProvider) {
 var serviceBase = 'http://localhost:44857/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
-    clientId: 'ngAuthApp'
+    clientId: '1'
 });
 
 app.config(function ($httpProvider) {
