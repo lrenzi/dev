@@ -3,16 +3,24 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
 
     $scope.loginData = {
         userName: "",
-        password: "",
+        nomeUsuario: "",
+        usuarioId: "",
+        loginUsuario: "",
+        perfilUsuario: "",
+        clienteId: "",
+        nomeCliente: "",
+        pathDocumentosCliente: "",
         useRefreshTokens: false
     };
 
     $scope.message = "";
 
     $scope.login = function () {
-
+        alert("kk");
+        
         authService.login($scope.loginData).then(function (response) {
-
+            $scope.loginData.nomeUsuario = response.nomeUsuario;
+            //_authentication.nomeUsuario = response.nomeUsuario;
             $location.path('/orders');
 
         },
@@ -22,6 +30,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     };
 
     $scope.authExternalProvider = function (provider) {
+        
         var redirectUri = location.protocol + '//' + location.host + '/authcomplete.html';
 
         var externalProviderUrl = ngAuthSettings.apiServiceBaseUri + "api/Account/ExternalLogin?provider=" + provider
@@ -33,6 +42,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     };
 
     $scope.authCompletedCB = function (fragment) {
+        
         $scope.$apply(function () {
 
             if (fragment.haslocalaccount == 'False') {

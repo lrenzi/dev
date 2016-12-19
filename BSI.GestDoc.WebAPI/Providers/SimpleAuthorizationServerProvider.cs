@@ -6,13 +6,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BSI.GestDoc.Repository.DAL;
 using BSI.GestDoc.Entity;
-using BSI.GestDoc.Repository;
 
 namespace BSI.GestDoc.WebAPI.Providers
 {
+
+
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
 
@@ -79,6 +82,7 @@ namespace BSI.GestDoc.WebAPI.Providers
         {
             AutenticacaoDal Dal = new AutenticacaoDal();
 
+
             try
             {
 
@@ -100,12 +104,13 @@ namespace BSI.GestDoc.WebAPI.Providers
                 //    }
                 //}
 
-                Usuario user = await Dal.Efetuarlogin(context.UserName, context.Password);
+                Usuario user = await Dal.Efetuarlogin(context.UserName, GetMd5Hash(context.Password));
 
                 if (user.StatusProcessamento > 0)
                 {
                     context.SetError("invalid_grant", user.MensagemProcessamento);
                     return;
+
                 }
 
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
@@ -117,17 +122,35 @@ namespace BSI.GestDoc.WebAPI.Providers
                 {
                     {
                         "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
+
                     },
                     {
                         "userName", context.UserName
+                    },
+
+                    {
+                        "as:nomeUsuario", (user.UsuarioNome == null) ? string.Empty : user.UsuarioNome
+
+                    },
+                    {
+                        "nomeUsuario", user.UsuarioNome
+                    },
+
+                    {
+                        "as:perfilUsuario", (user.UsuarioPerfil.UsuPerfilNome == null) ? string.Empty : user.UsuarioPerfil.UsuPerfilNome
+
+                    },
+                    {
+                        "perfilUsuario", user.UsuarioPerfil.UsuPerfilNome
                     }
                 });
 
                 var ticket = new AuthenticationTicket(identity, props);
                 context.Validated(ticket);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
-                throw e;
+                context.SetError("invalid_grant", e.Message);
             }
 
         }
@@ -145,7 +168,7 @@ namespace BSI.GestDoc.WebAPI.Providers
 
             // Change auth ticket for refresh token requests
             var newIdentity = new ClaimsIdentity(context.Ticket.Identity);
-            
+
             var newClaim = newIdentity.Claims.Where(c => c.Type == "newClaim").FirstOrDefault();
             if (newClaim != null)
             {
@@ -168,6 +191,27 @@ namespace BSI.GestDoc.WebAPI.Providers
 
             return Task.FromResult<object>(null);
         }
+
+        static string GetMd5Hash(string texto)
+        {
+            try
+            {
+                System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(texto);
+                byte[] hash = md5.ComputeHash(inputBytes);
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                for (int i = 0; i < hash.Length; i++)
+                {
+                    sb.Append(hash[i].ToString("X2"));
+                }
+                return sb.ToString(); // Retorna senha criptografada 
+            }
+            catch (Exception)
+            {
+                return null; // Caso encontre erro retorna nulo
+            }
+        }
+
 
     }
 }

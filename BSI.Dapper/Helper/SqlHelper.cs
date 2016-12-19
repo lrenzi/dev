@@ -105,7 +105,7 @@ namespace BSI.Dapper.Helper
 
             return output;
         }
-        
+
         private static void CombineParameters(ref dynamic param, dynamic outParam = null)
         {
             if (outParam != null)
@@ -130,6 +130,13 @@ namespace BSI.Dapper.Helper
                 return commandTimeout.Value;
 
             return ConnectionTimeout;
+        }
+        public static SqlConnection getConnection()
+        {
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            return connection;
         }
     }
 }
