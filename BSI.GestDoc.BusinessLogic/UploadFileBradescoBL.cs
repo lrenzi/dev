@@ -47,10 +47,11 @@ namespace BSI.GestDoc.BusinessLogic
             {
                 throw new BusinessException.BusinessException("Erro: Arquivo já existe para esta proposta.");
             }
-            /*
             List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(documentoCliente_.DocCliTipoId).ToList();
-            DocumentoClienteSituacao _documentoClienteSituacao = new DocumentoClienteSituacao() { DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId) };
+            //DocumentoClienteSituacao _documentoClienteSituacao = new DocumentoClienteSituacao() { DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId) };
+            documentoCliente_.DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId);
 
+            /*
             //Pesquisa o documento do cliente
             DocumentoCliente _documentoCliente = new DocumentoCliente();
             _documentoCliente.DocCliTipoId = _documentoClienteSituacao.DocCliTipoId;
@@ -109,8 +110,8 @@ namespace BSI.GestDoc.BusinessLogic
             #region 7 - Faz insert na base p / relacionar id do documento e do num.de proposta
 
             DocumentoClienteDadosDoc _documentoClienteDadosDoc = new DocumentoClienteDadosDoc();
-            _documentoClienteDadosDoc.DocClienteId = documentoCliente_.ClienteId;
-            _documentoClienteDadosDoc.DocCliDadosId = documentoCliente_.DocClienteId;
+            _documentoClienteDadosDoc.DocClienteId = documentoCliente_.DocClienteId;
+            _documentoClienteDadosDoc.DocCliDadosId = _documentoClienteDados.DocCliDadosId;
             _documentoClienteDadosDoc = new DocumentoClienteDadosDocDal().InsertDocumentoClienteDadosDoc(_documentoClienteDadosDoc);
 
             #endregion

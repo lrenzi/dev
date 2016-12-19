@@ -57,7 +57,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
         [System.Web.Http.Route("EnviarArquivos")]
         [System.Web.Http.HttpPost]
-        public IHttpActionResult EnviarArquivos(int usuarioId, int clienteId, int docCliTipoId)
+        public async Task<IHttpActionResult> EnviarArquivos(int usuarioId, int clienteId, int docCliTipoId)
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent("form-data"))
@@ -65,12 +65,14 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 return BadRequest("Unsupported media type");
             }
 
+            //string _arquivoTemp = string.Empty;
+
             DocumentoCliente _documentoCliente = new DocumentoCliente();
 
             try
             {
                 var streamProvider = new MultipartFormDataStreamProvider(workingFolder);
-                Request.Content.ReadAsMultipartAsync(streamProvider);
+                await Request.Content.ReadAsMultipartAsync(streamProvider);
 
                 _documentoCliente = new DocumentoCliente()
                 {
@@ -82,8 +84,15 @@ namespace BSI.GestDoc.WebAPI.Controllers
                     DocClienteTipoArquivo = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType).First(),
                     DocClienteDataUpload = DateTime.UtcNow
                 };
+                //_arquivoTemp = workingFolder + @"\Temp\" + _documentoCliente.DocClienteNomeArquivoSalvo.Split(char.Parse("\\")).Last();
 
-                streamProvider.FileData.Select(entry => entry.LocalFileName).First()
+                //var fileStream = File.Open(_documentoCliente.DocClienteNomeArquivoSalvo, FileMode.Open);
+                //var fileStreamDestino = File.Create(_documentoCliente.DocClienteNomeArquivoSalvo);
+                //fileStream.CopyTo(fileStreamDestino);
+
+                //File.Copy(_documentoCliente.DocClienteNomeArquivoSalvo, _arquivoTemp);
+
+                //streamProvider.FileData.Select(entry => entry.LocalFileName).First()
 
                 Cliente cliente = new Cliente() { ClienteId = _documentoCliente.ClienteId };
                 UploadFileBL uploadFileBL = null;
@@ -108,12 +117,19 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 if (File.Exists(_documentoCliente.DocClienteNomeArquivoSalvo))
                     File.Delete(_documentoCliente.DocClienteNomeArquivoSalvo);
 
+                /*if (File.Exists(_arquivoTemp))
+                    File.Delete(_arquivoTemp);*/
+
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
                 if (File.Exists(_documentoCliente.DocClienteNomeArquivoSalvo))
                     File.Delete(_documentoCliente.DocClienteNomeArquivoSalvo);
+
+                /*if (File.Exists(_arquivoTemp))
+                    File.Delete(_arquivoTemp);*/
+
                 return BadRequest(ex.GetBaseException().Message);
             }
         }

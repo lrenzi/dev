@@ -27,10 +27,10 @@ namespace BSI.GestDoc.Repository.CRUD
             return user;
         }
 
-        public IEnumerable<DocumentoClienteSituacao> GetAllDocumentoClienteSituacaoByDocCliTipoId(int docCliTipoId)
+        public IEnumerable<DocumentoClienteSituacao> GetAllDocumentoClienteSituacaoByDocCliTipoId(int pDocCliTipoId)
         {
             var p = new DynamicParameters();
-            p.Add("@DocCliTipoId", docCliTipoId, DbType.String, null);
+            p.Add("@pDocCliTipoId", pDocCliTipoId, DbType.Int32, ParameterDirection.Input);
 
             var DocumentoClienteSituacao = SqlHelper.QuerySP<DocumentoClienteSituacao>("ConsultarDocumentoClienteSituacao", p, null, null, false, 0);
             return DocumentoClienteSituacao;
