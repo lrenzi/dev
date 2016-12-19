@@ -67,3 +67,27 @@ body {
         border-top-right-radius: 0;
     }
 
+/*-------------------------------------*/
+/* Customizações do Bootstrap -------- */
+
+.navbar-inverse {
+    background-color:darkred;
+}
+.form-control:focus{
+    border-color:indianred;
+}
+.btn-info{
+    background-color:#7a0000;
+    border-color:#999;
+    transition: all 0.2s ease 0s;
+}
+.btn-info:hover, .btn-info:focus, .btn-info:active, .active.btn-info, .open .btn-info.dropdown-toggle{
+    background-color:#630000;
+    border-color:#666;
+}
+a{
+    color:#7a0000;
+}
+a:hover, a:focus{
+    color:#333;
+}
