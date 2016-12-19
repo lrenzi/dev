@@ -10,8 +10,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     $scope.message = "";
 
     $scope.login = function () {
-        alert("kk");
-        debugger;
+
         authService.login($scope.loginData).then(function (response) {
 
             $location.path('/orders');
@@ -23,7 +22,6 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     };
 
     $scope.authExternalProvider = function (provider) {
-        debugger;
         var redirectUri = location.protocol + '//' + location.host + '/authcomplete.html';
 
         var externalProviderUrl = ngAuthSettings.apiServiceBaseUri + "api/Account/ExternalLogin?provider=" + provider
@@ -35,7 +33,6 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     };
 
     $scope.authCompletedCB = function (fragment) {
-        debugger;
         $scope.$apply(function () {
 
             if (fragment.haslocalaccount == 'False') {

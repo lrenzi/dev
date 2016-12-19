@@ -2,18 +2,40 @@
 <html data-ng-app="AngularAuthApp">
 <head>
 
+    <title>BSI - Gestão de documentos para grafometria</title>
+
     <meta name="keywords" content="angularjs,SPA,Single Page Application,refresh tokens,authentication,bearer token authentication,OWIN,bootstrap,bootstrap ui,tutorial,JS framework,ASP.NET WEB API 2,Taiseer Joudeh" />
     <meta name="description" content="SPA built using angularjs,authentication is done using bearer token,back end built using Asp.net web api 2 and OWIN Framework,creatd by Taiseer Joudeh" />
     <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
-    <title>AngularJS Authentication</title>
-    <link href="content/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="content/css/site.css" rel="stylesheet" />
-    <link href="content/css/loading-bar.css" rel="stylesheet" />
-    <link href="content/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="content/css/social-buttons.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!--** css de componentes **-->
+    <link href="content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="content/css/loading-bar.min.css" rel="stylesheet" />
+    <link href="content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="content/css/blockUI/angular-block-ui.min.css" rel="stylesheet" />
+    
+    <!--** scripts js de componentes e customizados **-->
+    <script src="scripts/jquery/js/jquery-3.1.0.js"></script>
+    
+    <!--** css proprio do site e customizados **-->
+    <link href="content/css/site.css" rel="stylesheet" />
+    
 </head>
 <body>
+
+    <!--<div class="modal fade bs-example-modal-sm" id="loading" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <i class="fa fa-circle-o-notch fa-spin" style="color:darkred" ></i>
+                    Processando, aguarde...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="button" value="testefasd" onclick="javascript: $('#loading').modal('show');" />-->
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" data-ng-controller="indexController">
         <div class="container">
@@ -21,16 +43,16 @@
                 <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
                     <span class="glyphicon glyphicon-chevron-down"></span>
                 </button>
-                <a class="navbar-brand" href="#/">Home</a>
+                <a class="navbar-brand" href="#/">Inicial</a>
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
-                    <li data-ng-hide="!authentication.isAuth"><a href="#">Welcome {{authentication.userName}}</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/orders">My Orders</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Refresh Token</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
-                    <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
-                    <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#">Bem vindo {{authentication.userName}}</a></li>
+                    <!--<li data-ng-hide="!authentication.isAuth"><a href="#/orders">My Orders</a></li>-->
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Reativar Token</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Sair</a></li>
+                    <li data-ng-hide="authentication.isAuth"> <a href="#/login">Entrar</a></li>
+                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/signup">Cadastrar-se</a></li>-->
                 </ul>
             </div>
         </div>
@@ -38,9 +60,9 @@
     <div class="jumbotron">
         <div class="container">
             <div class="page-header text-center">
-                <h1>AngularJS Authentication</h1>
+                <h1>Grafometria</h1>
             </div>
-            <p>AngularJS Application which uses OAuth Bearer Token for authentication and implements Refresh Tokens. The backend API is built using ASP.NET Web API 2, OWIN middleware, and ASP.NET Identity.</p>
+            <p class="text-center">Gerenciamento de documentos para assinatura grafométrica</p>
         </div>
     </div>
 
@@ -55,10 +77,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="text-muted">Created by Taiseer Joudeh. Twitter: <a target="_blank" href="http://twitter.com/tjoudeh">@tjoudeh</a></p>
+                    <p class="text-muted">Gestão de documentos para grafometria</p>
                 </div>
                 <div class="col-md-6">
-                    <p class="text-muted">Taiseer Joudeh Blog: <a target="_blank" href="http://bitoftech.net">bitoftech.net</a></p>
+                    <p class="text-muted text-right">Direitos reservados, <a target="_blank" href="http://www.bsitecnologia.com.br">BSI Tecnologia 2016</a></p>
                 </div>
             </div>
         </div>
@@ -87,7 +109,9 @@
     <script src="app/controllers/associateController.js"></script>
     <script src="app/controllers/fileUploadController.js"></script>
     <script src="app/controllers/fileUploadTesteController.js"></script>
-    
+
+    <!--** scripts de componentes e afins que devem ser declarados após o angular.js **-->
+    <script src="scripts/angular/blockUI/angular-block-ui.min.js"></script>
 
 </body>
 </html>

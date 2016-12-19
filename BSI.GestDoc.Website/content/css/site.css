@@ -1,5 +1,6 @@
 ﻿/* Sticky footer styles
 -------------------------------------------------- */
+
 html {
     position: relative;
     min-height: 100%;
@@ -12,7 +13,15 @@ body {
   xpadding-bottom: 10px;
 }
 
+/*-------------------------------------*/
+/* LOADING MODAL (waiting)------------ */
 
+.modal-backdrop{
+    background-color:#fff;
+}
+
+/*-------------------------------------*/
+/* Rodapé ---------------------------- */
 
 #footer {
     position: absolute;
