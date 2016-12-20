@@ -43,44 +43,14 @@ namespace BSI.GestDoc.BusinessLogic
             #region 3 - Consultar numero proposta por usuário na base
             //Não pode inserir um numero de proposta na base sem antes verificar se o numero da proposta já existe na base e se a proposta foi cadastrada pelo mesmo usuário que está enviando o arquivo.
 
-            if (new EnviarArquivoDal().ConsultarNumeroPropostaPorUsuario(_documentoClienteDados.DocCliDadosValor.Trim(), documentoCliente_.UsuarioId).Count > 0)
+            List<DocumentoCliente> _documentosCliente = new EnviarArquivoDal().ConsultarNumeroPropostaPorUsuario(_documentoClienteDados.DocCliDadosValor.Trim()).ToList();
+            if (_documentosCliente.FindAll(p => p.UsuarioId != documentoCliente_.UsuarioId).Count > 0)
             {
-                throw new BusinessException.BusinessException("Erro: Arquivo já existe para esta proposta.");
+                throw new BusinessException.BusinessException("Erro: Proposta enviado por outro usuário.");
             }
             List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(documentoCliente_.DocCliTipoId).ToList();
             //DocumentoClienteSituacao _documentoClienteSituacao = new DocumentoClienteSituacao() { DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId) };
             documentoCliente_.DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId);
-
-            /*
-            //Pesquisa o documento do cliente
-            DocumentoCliente _documentoCliente = new DocumentoCliente();
-            _documentoCliente.DocCliTipoId = _documentoClienteSituacao.DocCliTipoId;
-            _documentoCliente.DocCliSituId = _documentoClienteSituacao.DocCliSituId;
-            _documentoCliente.UsuarioId = documentoCliente_.UsuarioId;
-
-            List<DocumentoCliente> _documentosCliente =
-                new DocumentoClienteDal().GetAllDocumentoClienteByUsuarioIdDocCliTipoIdDocCliSituId(
-                    _documentoCliente.UsuarioId,
-                    _documentoCliente.DocCliTipoId,
-                    _documentoCliente.DocCliSituId).ToList();
-
-            foreach (DocumentoCliente itemDocumentoCliente in _documentosCliente)
-            {
-                List<DocumentoClienteDadosDoc> _documentosClienteDadosDoc =
-                    new DocumentoClienteDadosDocDal().GetAllDocumentoClienteDadosDocByDocClienteId(itemDocumentoCliente.DocClienteId).ToList();
-                foreach (DocumentoClienteDadosDoc itemDocumentoClienteDadosDoc in _documentosClienteDadosDoc)
-                {
-                    List<DocumentoClienteDados> _documentosClienteDados = new DocumentoClienteDadosDal().GetAllDocumentoClienteDadosByDocCliDadosId(itemDocumentoClienteDadosDoc.DocCliDadosId).ToList();
-                    //Verifica se existe o numero da proposta
-                    foreach (DocumentoClienteDados itemDocumentoClienteDados in _documentosClienteDados)
-                    {
-                        if (itemDocumentoClienteDados.DocCliDadosValor.Trim().ToUpper() == _documentoClienteDados.DocCliDadosValor.Trim().ToUpper())
-                        {
-                            throw new BusinessException.BusinessException("Erro: Arquivo já existe para esta proposta.");
-                        }
-                    }
-                }
-            }*/
 
             #endregion
 

@@ -12,14 +12,13 @@ namespace BSI.GestDoc.Repository
     {
         
 
-        public List<DocumentoClienteDados> ConsultarNumeroPropostaPorUsuario(String pDocCliDadosValor, long pUsuarioId)
+        public IEnumerable<DocumentoCliente> ConsultarNumeroPropostaPorUsuario(String pDocCliDadosValor)
         {
             var p = new DynamicParameters();
             p.Add("@pDocCliDadosValor", pDocCliDadosValor, DbType.String, ParameterDirection.Input, 100);
-            p.Add("@pUsuarioId", pUsuarioId, DbType.Int64, ParameterDirection.Input);
 
-            var DocumentoClienteDados = SqlHelper.QuerySP<DocumentoClienteDados>("ConsultarNumeroPropostaPorUsuario", p, null, null, false, 0);
-            return DocumentoClienteDados.ToList();
+            var DocumentoCliente = SqlHelper.QuerySP<DocumentoCliente>("ConsultarDocumentoClientePorDocCliDadosValor", p, null, null, false, 0);
+            return DocumentoCliente;
         }
 
 
