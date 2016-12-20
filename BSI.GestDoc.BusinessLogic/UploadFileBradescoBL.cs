@@ -4,6 +4,7 @@ using BSI.GestDoc.Repository.CRUD;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static BSI.GestDoc.BusinessLogic.BusinessException.BusinessException;
 
 namespace BSI.GestDoc.BusinessLogic
 {
@@ -43,19 +44,23 @@ namespace BSI.GestDoc.BusinessLogic
             #region 3 - Consultar numero proposta por usuário na base
             //Não pode inserir um numero de proposta na base sem antes verificar se o numero da proposta já existe na base e se a proposta foi cadastrada pelo mesmo usuário que está enviando o arquivo.
 
-            List<DocumentoCliente> _documentosCliente = new EnviarArquivoDal().ConsultarNumeroPropostaPorUsuario(_documentoClienteDados.DocCliDadosValor.Trim()).ToList();
-            if (_documentosCliente.FindAll(p => p.UsuarioId != documentoCliente_.UsuarioId).Count > 0)
+            //Recupera todos os documentos de clientes que possuem o mesmo número de proposta
+            List<DocumentoCliente> _documentosClienteCadastrado = new EnviarArquivoDal().ConsultarNumeroPropostaPorUsuario(_documentoClienteDados.DocCliDadosValor.Trim()).ToList();
+            if (_documentosClienteCadastrado.FindAll(p => p.UsuarioId != documentoCliente_.UsuarioId).Count > 0)
             {
-                throw new BusinessException.BusinessException("Erro: Proposta enviado por outro usuário.");
+                throw new BusinessException.BusinessException("Proposta enviado por outro usuário.");
             }
             List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(documentoCliente_.DocCliTipoId).ToList();
-            //DocumentoClienteSituacao _documentoClienteSituacao = new DocumentoClienteSituacao() { DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId) };
             documentoCliente_.DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId);
 
             #endregion
 
             #region 5 - Consulta arquivos já existentes para o numero de proposta
             //Caso já exista um tipo e situação do arquivo na base igual ao que o usuário está tentando realizar o upload, irá perguntar ao usuário se ele deseja sobreescrever.
+            if (_documentosClienteCadastrado.FindAll(p => p.DocCliSituId == documentoCliente_.DocCliSituId).Count > 0)
+            {
+                throw new BusinessException.BusinessException(EnumTipoErro.Pergunta, "Proposta já cadastrada para este tipo de arquivo e situação. Deseja Reenviar");
+            }
             #endregion
 
             #region 4 - Insere o numero proposta em base

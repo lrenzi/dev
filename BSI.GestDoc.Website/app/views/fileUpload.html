@@ -7,6 +7,7 @@
             <th>Tipo Documento</th>
             <th>Arquivo</th>
             <th>Status</th>
+            <th>Reenvio</th>
             <th>% Evolução</th>
             </thead>
             <tbody>
@@ -14,6 +15,7 @@
                     <td>{{item.docCliTipoNome}}</td>
                     <td align="left"><input type="file" size="60" id="idFile_{{item.docCliTipoId}}" name="file" /></td>
                     <td><label id="idStatus_{{item.docCliTipoId}}"></label></td>
+                    <td><button ng-click="ReenviarArquivo()" class="btn hide btn-primary" value="Reenviar">Reenviar</button></td>
                     <td>
                         <span id="idProgressbar_{{item.docCliTipoId}}"></span>
                     </td>

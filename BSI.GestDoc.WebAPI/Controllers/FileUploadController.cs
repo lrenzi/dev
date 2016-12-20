@@ -65,8 +65,6 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 return BadRequest("Unsupported media type");
             }
 
-            //string _arquivoTemp = string.Empty;
-
             DocumentoCliente _documentoCliente = new DocumentoCliente();
 
             try
@@ -82,17 +80,8 @@ namespace BSI.GestDoc.WebAPI.Controllers
                     DocClienteNomeArquivoSalvo = streamProvider.FileData.Select(entry => entry.LocalFileName).First(),
                     DocClienteNomeArquivoOriginal = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName).First().Replace("\"", ""),
                     DocClienteTipoArquivo = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType).First(),
-                    DocClienteDataUpload = DateTime.UtcNow
+                    DocClienteDataUpload = DateTime.Now
                 };
-                //_arquivoTemp = workingFolder + @"\Temp\" + _documentoCliente.DocClienteNomeArquivoSalvo.Split(char.Parse("\\")).Last();
-
-                //var fileStream = File.Open(_documentoCliente.DocClienteNomeArquivoSalvo, FileMode.Open);
-                //var fileStreamDestino = File.Create(_documentoCliente.DocClienteNomeArquivoSalvo);
-                //fileStream.CopyTo(fileStreamDestino);
-
-                //File.Copy(_documentoCliente.DocClienteNomeArquivoSalvo, _arquivoTemp);
-
-                //streamProvider.FileData.Select(entry => entry.LocalFileName).First()
 
                 Cliente cliente = new Cliente() { ClienteId = _documentoCliente.ClienteId };
                 UploadFileBL uploadFileBL = null;
@@ -117,19 +106,13 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 if (File.Exists(_documentoCliente.DocClienteNomeArquivoSalvo))
                     File.Delete(_documentoCliente.DocClienteNomeArquivoSalvo);
 
-                /*if (File.Exists(_arquivoTemp))
-                    File.Delete(_arquivoTemp);*/
-
-                return BadRequest(ex.Message);
+                return Ok(ex);
             }
             catch (Exception ex)
             {
                 if (File.Exists(_documentoCliente.DocClienteNomeArquivoSalvo))
                     File.Delete(_documentoCliente.DocClienteNomeArquivoSalvo);
-
-                /*if (File.Exists(_arquivoTemp))
-                    File.Delete(_arquivoTemp);*/
-
+              
                 return BadRequest(ex.GetBaseException().Message);
             }
         }

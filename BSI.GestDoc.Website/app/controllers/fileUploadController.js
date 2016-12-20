@@ -22,7 +22,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
             document.getElementById('idProgressbar_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = parseInt(100.0 * evt.loaded / evt.total, 10) + " %";
 
         }).success(function (data, status, headers, config) {
-
+            debugger;
             document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = "Ok";
 
         }).error(function (data, status, headers, config) {

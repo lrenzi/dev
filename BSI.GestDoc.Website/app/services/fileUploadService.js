@@ -14,9 +14,8 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', function ($ht
                 return $q.reject(response.data);
             }
         },
-        function () {
-            debugger;
-            return $q.reject(response.data);
+        function (data, status, headers, config) {
+            alert("Erro ao acessar o serviço de Consulta de Tipo de Documento.")
         });
     };
     /*
