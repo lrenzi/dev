@@ -23,7 +23,11 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
         }).success(function (data, status, headers, config) {
             debugger;
-            document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = "Ok";
+            if (data.tipoErro == 2) {
+                $scope.hideButton[index_] = false;
+                //document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).toggle();
+            }
+            document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = data.mensagem;
 
         }).error(function (data, status, headers, config) {
 
@@ -33,6 +37,10 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
                 document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = data.message;
         });
     };
+
+    $scope.ReenviarArquivo = function () {
+        alert("rrenviar");
+    }
 
     $scope.EnviarArquivos = function () {
 

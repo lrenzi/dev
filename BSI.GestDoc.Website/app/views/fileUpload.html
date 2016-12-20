@@ -12,10 +12,11 @@
             </thead>
             <tbody>
                 <tr data-ng-repeat="item in listaDocumentosClienteTipo">
+                    {{$index = item.docCliTipoId}}
                     <td>{{item.docCliTipoNome}}</td>
                     <td align="left"><input type="file" size="60" id="idFile_{{item.docCliTipoId}}" name="file" /></td>
                     <td><label id="idStatus_{{item.docCliTipoId}}"></label></td>
-                    <td><button ng-click="ReenviarArquivo()" class="btn hide btn-primary" value="Reenviar">Reenviar</button></td>
+                    <td><button ng-click="ReenviarArquivo('this.id')" class="btn hide btn-primary" ng-hide="hideButton[$index]" value="Reenviar" id="idButton_{{item.docCliTipoId}}">Reenviar</button></td>
                     <td>
                         <span id="idProgressbar_{{item.docCliTipoId}}"></span>
                     </td>

@@ -1,4 +1,5 @@
-﻿using BSI.GestDoc.Entity;
+﻿using BSI.GestDoc.BusinessLogic.Util;
+using BSI.GestDoc.Entity;
 using BSI.GestDoc.Repository;
 using BSI.GestDoc.Repository.CRUD;
 using System;
@@ -59,7 +60,7 @@ namespace BSI.GestDoc.BusinessLogic
             //Caso já exista um tipo e situação do arquivo na base igual ao que o usuário está tentando realizar o upload, irá perguntar ao usuário se ele deseja sobreescrever.
             if (_documentosClienteCadastrado.FindAll(p => p.DocCliSituId == documentoCliente_.DocCliSituId).Count > 0)
             {
-                throw new BusinessException.BusinessException(EnumTipoErro.Pergunta, "Proposta já cadastrada para este tipo de arquivo e situação. Deseja Reenviar");
+                throw new BusinessException.BusinessException(EnumTipoMensagem.Pergunta, "Proposta já cadastrada para este tipo de arquivo e situação. Deseja Reenviar");
             }
             #endregion
 

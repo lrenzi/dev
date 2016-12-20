@@ -13,6 +13,7 @@ using System.Web;
 using Newtonsoft.Json;
 using BSI.GestDoc.BusinessLogic;
 using System.Configuration;
+using BSI.GestDoc.BusinessLogic.Util;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -99,14 +100,14 @@ namespace BSI.GestDoc.WebAPI.Controllers
                         break;
                 }
 
-                return Ok(_documentoCliente);
+                return Ok((new Retorno() { Mensagem  = "Arquivo incluído com sucesso." }));
             }
             catch (BusinessLogic.BusinessException.BusinessException ex)
             {
                 if (File.Exists(_documentoCliente.DocClienteNomeArquivoSalvo))
                     File.Delete(_documentoCliente.DocClienteNomeArquivoSalvo);
 
-                return Ok(ex);
+                return Ok(ex.GetRetorno());
             }
             catch (Exception ex)
             {
