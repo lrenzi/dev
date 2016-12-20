@@ -16,12 +16,10 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     $scope.message = "";
 
     $scope.login = function () {
-        alert("kk");
         
         authService.login($scope.loginData).then(function (response) {
-            $scope.loginData.nomeUsuario = response.nomeUsuario;
-            //_authentication.nomeUsuario = response.nomeUsuario;
-            $location.path('/orders');
+           debugger
+            $location.path('/listaPropostas');
 
         },
          function (err) {

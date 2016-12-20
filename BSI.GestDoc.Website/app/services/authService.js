@@ -55,13 +55,15 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
             _authentication.useRefreshTokens = loginData.useRefreshTokens;
-            _authentication.nomeCliente = loginData.nomeCliente;
-            _authentication.nomeUsuario = response.nomeUsuario;
-            _authentication.usuarioId = response.usuarioId;
-            _authentication.loginUsuario = response.loginUsuario;
-            _authentication.perfilUsuario = response.perfilUsuario;
-            _authentication.clienteId = response.clienteId;
-            _authentication.pathDocumentosCliente = response.pathDocumentosCliente;
+
+            ngAuthSettings.userName = loginData.userName;
+            ngAuthSettings.nomeCliente = loginData.nomeCliente;
+            ngAuthSettings.nomeUsuario = response.nomeUsuario;
+            ngAuthSettings.usuarioId = response.usuarioId;
+            ngAuthSettings.loginUsuario = response.loginUsuario;
+            ngAuthSettings.perfilUsuario = response.perfilUsuario;
+            ngAuthSettings.clienteId = response.clienteId;
+            ngAuthSettings.pathDocumentosCliente = response.pathDocumentosCliente;
 
             deferred.resolve(response);
 

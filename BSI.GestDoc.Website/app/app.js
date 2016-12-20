@@ -48,6 +48,11 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/fileUploadTeste.html"
     });
 
+    $routeProvider.when("/listaPropostas", {
+        controller: "listaPropostasController",
+        templateUrl: "/app/views/listaPropostas.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });
@@ -56,7 +61,14 @@ var serviceBase = 'http://localhost:44857/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 1,
-    usuarioId: 1
+    usuarioId: 1,
+    nomeCliente: "",
+    nomeUsuario:"",
+    usuarioId: "",
+    loginUsuario: "",
+    perfilUsuario: "",
+    clienteId: "",
+    pathDocumentosCliente: ""
 });
 
 app.config(function ($httpProvider) {

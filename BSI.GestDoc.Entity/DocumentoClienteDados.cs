@@ -12,5 +12,8 @@ namespace BSI.GestDoc.Entity
         public string DocCliDadosValor { get; set; }
         public int ClienteId { get; set; }
         public int TipoInfoCliId { get; set; }
+        //public DocumentoClienteDadosDoc DocumentoClienteDadosDoc { get; set; }
+        
+
     }
 }

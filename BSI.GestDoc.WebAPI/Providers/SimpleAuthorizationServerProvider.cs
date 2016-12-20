@@ -142,6 +142,38 @@ namespace BSI.GestDoc.WebAPI.Providers
                     },
                     {
                         "perfilUsuario", user.UsuarioPerfil.UsuPerfilNome
+                    },
+
+                    {
+                        "as:usuarioId", (user.UsuarioId == 0) ? string.Empty : ""
+
+                    },
+                    {
+                        "usuarioId", user.UsuarioId.ToString()
+                    },
+
+                    {
+                        "as:loginUsuario", (user.UsuarioLogin == null) ? string.Empty : user.UsuarioLogin
+
+                    },
+                    {
+                        "loginUsuario", user.UsuarioLogin
+                    },
+
+                    {
+                        "as:clienteId", (user.Cliente.ClienteId == 0) ? string.Empty : ""
+
+                    },
+                    {
+                        "clienteId", user.Cliente.ClienteId.ToString()
+                    },
+
+                    {
+                        "as:pathDocumentosCliente", (user.Cliente.ClientePastaDocumentos == null) ? string.Empty : user.Cliente.ClientePastaDocumentos
+
+                    },
+                    {
+                        "pathDocumentosCliente", user.Cliente.ClientePastaDocumentos
                     }
                 });
 
