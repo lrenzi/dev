@@ -6,7 +6,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
     $scope.desabilitaFile = false;
 
     $scope.ConsultarArquivos = function () {
-        //debugger;
+        
         $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
             $scope.listaDocumentosClienteTipo = data;
         }, function (error) {
@@ -27,13 +27,13 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
     }
 
     $scope.EnviarArquivosWebAPI = function (index_, file_, reenvio_, docCliTipoId) {
-
+        
         if (docCliTipoId == "") {
             docCliTipoId = $scope.listaDocumentosClienteTipo[index_].docCliTipoId;
         }
 
         Upload.upload({
-            url: ngAuthSettings.apiServiceBaseUri + "/api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&clienteId=" + ngAuthSettings.clientId + "&docCliTipoId=" + docCliTipoId + "&reenvio=" + reenvio_,
+            url: ngAuthSettings.apiServiceBaseUri + "api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&clienteId=" + ngAuthSettings.clientId + "&docCliTipoId=" + docCliTipoId + "&reenvio=" + reenvio_,
             file: file_.files[0]
         }).progress(function (evt) {
 
@@ -56,7 +56,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
 
         }).error(function (data, status, headers, config) {
-            debugger;
+            
             if (data.message == undefined)
                 document.getElementById('idStatus_' + docCliTipoId).innerText = data;
             else

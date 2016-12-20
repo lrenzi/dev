@@ -10,10 +10,11 @@ namespace BSI.GestDoc.Repository.CRUD
 {
     public class DocumentoClienteDal
     {
-        public int InsertDocumentoCliente(DocumentoCliente DocumentoCliente)
+        public DocumentoCliente InsertDocumentoCliente(DocumentoCliente DocumentoCliente)
         {
             int recordId = SqlHelper.InsertWithReturnId(DocumentoCliente);
-            return recordId;
+            DocumentoCliente.ClienteId = recordId;
+            return DocumentoCliente;
         }
 
         public IList<DocumentoCliente> GetAllDocumentoCliente()
@@ -40,7 +41,8 @@ namespace BSI.GestDoc.Repository.CRUD
 
         public DocumentoCliente UpdateDocumentoCliente(DocumentoCliente DocumentoCliente)
         {
-            throw new NotImplementedException();
+            bool update = SqlHelper.Update<DocumentoCliente>(DocumentoCliente);
+            return DocumentoCliente;
         }
 
         public DocumentoCliente GetByDocumentoClienteId(string spName, DynamicParameters DocumentoClienteId, string connectionString)

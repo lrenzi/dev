@@ -48,7 +48,8 @@ namespace BSI.GestDoc.Repository.CRUD
 
         public DocumentoClienteDadosDoc UpdateDocumentoClienteDadosDoc(DocumentoClienteDadosDoc DocumentoClienteDadosDoc)
         {
-            throw new NotImplementedException();
+            bool update = SqlHelper.Update<DocumentoClienteDadosDoc>(DocumentoClienteDadosDoc);
+            return DocumentoClienteDadosDoc;
         }
 
         public DocumentoClienteDadosDoc GetByDocumentoClienteDadosDocId(string spName, DynamicParameters DocumentoClienteDadosDocId, string connectionString)

@@ -86,16 +86,33 @@ namespace BSI.GestDoc.BusinessLogic
 
             #region 6 - Salva arquivo em servidor e faz insert na base
 
-            documentoCliente_ = new EnviarArquivoDal().InserirDocumentoCliente(documentoCliente_);
+            List<DocumentoCliente> _documentosClientes = new EnviarArquivoDal().ConsultarDocumentoClientePorDocCliDadosValorDocCliTipoId(
+                _documentoClienteDados.DocCliDadosValor,
+                documentoCliente_.DocCliTipoId).ToList();
+
+            if (_documentosClientes.Count > 0)
+            {
+                //Apaga o arquivo
+                if (System.IO.File.Exists(_documentosClientes.First().DocClienteNomeArquivoSalvo))
+                    System.IO.File.Delete(_documentosClientes.First().DocClienteNomeArquivoSalvo);
+                //Atualiza
+                documentoCliente_.DocClienteId = _documentosClientes.First().DocClienteId;
+                new DocumentoClienteDal().UpdateDocumentoCliente(documentoCliente_);
+            }
+            else //Insere
+                documentoCliente_ = new DocumentoClienteDal().InsertDocumentoCliente(documentoCliente_);
 
             #endregion
 
             #region 7 - Faz insert na base p / relacionar id do documento e do num.de proposta
 
-            DocumentoClienteDadosDoc _documentoClienteDadosDoc = new DocumentoClienteDadosDoc();
-            _documentoClienteDadosDoc.DocClienteId = documentoCliente_.DocClienteId;
-            _documentoClienteDadosDoc.DocCliDadosId = _documentoClienteDados.DocCliDadosId;
-            _documentoClienteDadosDoc = new DocumentoClienteDadosDocDal().InsertDocumentoClienteDadosDoc(_documentoClienteDadosDoc);
+            if (_documentosClientes.Count == 0)
+            {
+                DocumentoClienteDadosDoc _documentoClienteDadosDoc = new DocumentoClienteDadosDoc();
+                _documentoClienteDadosDoc.DocClienteId = documentoCliente_.DocClienteId;
+                _documentoClienteDadosDoc.DocCliDadosId = _documentoClienteDados.DocCliDadosId;
+                _documentoClienteDadosDoc = new DocumentoClienteDadosDocDal().InsertDocumentoClienteDadosDoc(_documentoClienteDadosDoc);
+            }
 
             #endregion
 

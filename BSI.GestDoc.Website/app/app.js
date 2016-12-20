@@ -53,7 +53,7 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/listaPropostas.html"
     });
 
-    $routeProvider.otherwise({ redirectTo: "/home" });
+    $routeProvider.otherwise({ redirectTo: "/login" });
 
 });
 
@@ -61,9 +61,8 @@ var serviceBase = 'http://localhost:44857/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     nomeCliente: "",
-    nomeUsuario:"",
-    usuarioId: "",
-    loginUsuario: "",
+    nomeUsuario:"Wesley Klein",
+    loginUsuario: "Wesley",
     perfilUsuario: "",
     clienteId: "",
     pathDocumentosCliente: ""
