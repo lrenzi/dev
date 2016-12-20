@@ -10,7 +10,15 @@ namespace BSI.GestDoc.Repository
 {
     public class EnviarArquivoDal
     {
-        
+        public IEnumerable<DocumentoCliente> ConsultarDocumentoClientePorDocCliDadosValorDocCliTipoId(String pDocCliDadosValor, int pDocCliTipoId)
+        {
+            var p = new DynamicParameters();
+            p.Add("@pDocCliDadosValor", pDocCliDadosValor, DbType.String, ParameterDirection.Input, 100);
+            p.Add("@pDocCliTipoId", pDocCliTipoId, DbType.Int32, ParameterDirection.Input);
+
+            var DocumentoCliente = SqlHelper.QuerySP<DocumentoCliente>("ConsultarDocumentoClientePorDocCliDadosValorDocCliTipoId", p, null, null, false, 0);
+            return DocumentoCliente;
+        }
 
         public IEnumerable<DocumentoCliente> ConsultarNumeroPropostaPorUsuario(String pDocCliDadosValor)
         {
@@ -21,20 +29,11 @@ namespace BSI.GestDoc.Repository
             return DocumentoCliente;
         }
 
-
         public DocumentoClienteDados InserirDocumentoClienteDados(DocumentoClienteDados documentoClienteDados_)
         {
             int recordId = SqlHelper.InsertWithReturnId(documentoClienteDados_);
             documentoClienteDados_.DocCliDadosId = recordId;
             return documentoClienteDados_;
         }
-
-        public DocumentoCliente InserirDocumentoCliente(DocumentoCliente documentoCliente_)
-        {
-            int recordId = SqlHelper.InsertWithReturnId(documentoCliente_);
-            documentoCliente_.DocClienteId = recordId;
-            return documentoCliente_;
-        }
-
     }
 }

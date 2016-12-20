@@ -39,7 +39,7 @@ namespace BSI.GestDoc.Repository.CRUD
         public IEnumerable<DocumentoClienteDados> GetAllDocumentoClienteDadosByDocCliDadosValor(string pDocCliDadosValor)
         {
             var p = new DynamicParameters();
-            p.Add("@pDocCliDadosValor", pDocCliDadosValor, DbType.Int64, null);
+            p.Add("@pDocCliDadosValor", pDocCliDadosValor, DbType.String, ParameterDirection.Input, 100);
 
             var DocumentoClienteDados = SqlHelper.QuerySP<DocumentoClienteDados>("ConsultarDocumentoClienteDados", p, null, null, false, 0);
             return DocumentoClienteDados;

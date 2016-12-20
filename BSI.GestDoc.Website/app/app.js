@@ -63,8 +63,8 @@ app.constant('ngAuthSettings', {
     clientId: 1,
     usuarioId: 1,
     nomeCliente: "",
-    nomeUsuario:"",
-    loginUsuario: "",
+    nomeUsuario:"Wesley Klein",
+    loginUsuario: "Wesley",
     perfilUsuario: "",
     clienteId: "",
     pathDocumentosCliente: ""

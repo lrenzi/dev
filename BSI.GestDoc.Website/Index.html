@@ -48,11 +48,12 @@
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
                     <li data-ng-hide="!authentication.isAuth"><a href="#">Bem vindo {{authentication.userName}}</a></li>
-                    <!--<li data-ng-hide="!authentication.isAuth"><a href="#/orders">My Orders</a></li>-->
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/fileUpload">Upload Documentos</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/listaPropostas">Lista Contratos</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Reativar Token</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Sair</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/login">Entrar</a></li>
-                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/signup">Cadastrar-se</a></li>-->
+                    <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Cadastrar-se</a></li>
                 </ul>
             </div>
         </div>
