@@ -57,6 +57,25 @@
             </div>
         </div>
     </div>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="left-sidebar-menu-forms" style="color:red">Propostas</li>
+
+                <li id="left-sidebar-menu-forms" class="treeview">
+                    <a href="@Url.Action(" LancamentoProducaoInclusao", "Forms" )">Listar</a>
+                </li>
+                <li id="left-sidebar-menu-forms" class="treeview">
+                    <a href="@Url.Action(" Index", "FileUpload" )">Upload de Documentos</a>
+                </li>
+                <li id="left-sidebar-menu-forms" class="treeview">
+                    @*<a href="@Url.Action(" Index", "FileUpload" )">Upload de Documentos</a>*@
+                    <a href="/FileUpload/Index">Upload de Documentos BootStrap</a>
+                </li>
+
+            </ul>
+        </section>
+    </aside>
     <div class="jumbotron">
         <div class="container">
             <div class="page-header text-center">
@@ -85,22 +104,50 @@
             </div>
         </div>
     </div>
+
+    <!-- plugins | jquery -->
+    <script src="scripts/jquery/js/jquery-3.1.0.js"></script>
+    <script src="scripts/jquery-validate/js/jquery.validate.js"></script>
+    <script src="scripts/jquery-ui/js/jquery-ui.js"></script>
+
+    <!-- bootstrap -->
+    <script src="scripts/bootstrap/js/bootbox.min.js"></script>
+    <script src="scripts/bootstrap/js/bootstrap.js"></script>
+    <link href="scripts/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- Slim Scroll-->
+    <script src="scripts/slimscroll/js/jquery.slimscroll.js"></script>
+
+    <!-- Angular-->
     <script src="scripts/angular/angular.js"></script>
     <script src="scripts/angular/angular-route.js"></script>
     <script src="scripts/angular-local-storage.min.js"></script>
+
+    <!-- Loading ???? -->
     <script src="scripts/loading-bar.min.js"></script>
+
+    <!-- Componentes para upload de arquivo-->
     <script src="scripts/ng-file-upload/ng-file-upload-shim.js"></script>
     <script src="scripts/ng-file-upload/ng-file-upload.js"></script>
+    
+   
 
-    <!-- Load app main script -->
+    <!--Admin LTE-->
+    <script src="scripts/dist/js/app.js"></script>
+    <!--Controle de Controllers e Services -->
     <script src="app/app.js"></script>
 
+    <!-- Controle de autenticação -->
     <script src="app/services/authInterceptorService.js?v=2"></script>
     <script src="app/services/authService.js?v=2"></script>
-    <script src="app/services/ordersService.js?v=2"></script>
     <script src="app/services/tokensManagerService.js?v=2"></script>
+
+    <!-- Services-->
+    <script src="app/services/ordersService.js?v=2"></script>
     <script src="app/services/fileUploadService.js?v=2"></script>
     <script src="app/services/listaPropostasService.js"></script>
+
+    <!-- Controllers -->
     <script src="app/controllers/indexController.js?v=2"></script>
     <script src="app/controllers/homeController.js?v=2"></script>
     <script src="app/controllers/loginController.js?v=2"></script>

@@ -53,7 +53,7 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/listaPropostas.html"
     });
 
-    $routeProvider.otherwise({ redirectTo: "/home" });
+    $routeProvider.otherwise({ redirectTo: "/login" });
 
 });
 
@@ -64,7 +64,6 @@ app.constant('ngAuthSettings', {
     usuarioId: 1,
     nomeCliente: "",
     nomeUsuario:"",
-    usuarioId: "",
     loginUsuario: "",
     perfilUsuario: "",
     clienteId: "",
