@@ -15,6 +15,8 @@ namespace BSI.GestDoc.BusinessLogic
         {
         }
 
+        public string Reenvio { get; set; }
+
         public override DocumentoCliente EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
         {
             UtilFile.UtilFileBradesco utilFileBradesco = new UtilFile.UtilFileBradesco();
@@ -33,6 +35,11 @@ namespace BSI.GestDoc.BusinessLogic
             try
             {
                 _documentoClienteDados = utilFileBradesco.LerPdf(documentoCliente_.DocClienteNomeArquivoSalvo);
+                Int64 _valor;
+                if (!Int64.TryParse(_documentoClienteDados.DocCliDadosValor, out _valor))
+                {
+                    throw new BusinessException.BusinessException("Valor do campo contrato deve ser numérico.");
+                }
                 _documentoClienteDados.ClienteId = documentoCliente_.ClienteId;
                 _documentoClienteDados.TipoInfoCliId = (new ClienteTipoInformacaoClienteDal().GetAllClienteTipoInformacaoClienteByIdCliente(_documentoClienteDados.ClienteId).First()).TipoInfoCliId;
             }
@@ -58,9 +65,9 @@ namespace BSI.GestDoc.BusinessLogic
 
             #region 5 - Consulta arquivos já existentes para o numero de proposta
             //Caso já exista um tipo e situação do arquivo na base igual ao que o usuário está tentando realizar o upload, irá perguntar ao usuário se ele deseja sobreescrever.
-            if (_documentosClienteCadastrado.FindAll(p => p.DocCliSituId == documentoCliente_.DocCliSituId).Count > 0)
+            if (Reenvio != "S" && _documentosClienteCadastrado.FindAll(p => p.DocCliSituId == documentoCliente_.DocCliSituId).Count > 0)
             {
-                throw new BusinessException.BusinessException(EnumTipoMensagem.Pergunta, "Proposta já cadastrada para este tipo de arquivo e situação. Deseja Reenviar");
+                throw new BusinessException.BusinessException(EnumTipoMensagem.Pergunta, "Proposta já cadastrada para este tipo de arquivo e situação. Deseja Reenviar?");
             }
             #endregion
 

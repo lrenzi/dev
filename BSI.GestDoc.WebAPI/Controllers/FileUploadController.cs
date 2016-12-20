@@ -58,7 +58,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
         [System.Web.Http.Route("EnviarArquivos")]
         [System.Web.Http.HttpPost]
-        public async Task<IHttpActionResult> EnviarArquivos(int usuarioId, int clienteId, int docCliTipoId)
+        public async Task<IHttpActionResult> EnviarArquivos(int usuarioId, int clienteId, int docCliTipoId, string reenvio)
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent("form-data"))
@@ -91,6 +91,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 {
                     case Cliente.EnumCliente.Bradesco:
                         uploadFileBL = new UploadFileBradescoBL();
+                        ((UploadFileBradescoBL)uploadFileBL).Reenvio = reenvio;
                         uploadFileBL.EnviarDocumentoCliente(_documentoCliente);
                         break;
 
@@ -99,7 +100,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                         uploadFileBL.EnviarDocumentoCliente(_documentoCliente);
                         break;
                 }
-
+                
                 return Ok((new Retorno() { Mensagem  = "Arquivo incluído com sucesso." }));
             }
             catch (BusinessLogic.BusinessException.BusinessException ex)

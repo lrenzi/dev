@@ -44,6 +44,7 @@
     <Compile Include="DocumentoCliente.cs" />
     <Compile Include="DocumentoClienteSituacao.cs" />
     <Compile Include="DocumentoClienteTipo.cs" />
+    <Compile Include="base\EntityBase.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="UsuarioPerfil.cs" />
     <Compile Include="ClienteTipoInformacaoCliente.cs" />
