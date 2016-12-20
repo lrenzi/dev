@@ -60,8 +60,6 @@ app.config(function ($routeProvider) {
 var serviceBase = 'http://localhost:44857/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
-    clientId: 1,
-    usuarioId: 1,
     nomeCliente: "",
     nomeUsuario:"",
     usuarioId: "",

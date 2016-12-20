@@ -18,7 +18,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     $scope.login = function () {
         
         authService.login($scope.loginData).then(function (response) {
-           debugger
+           
             $location.path('/listaPropostas');
 
         },

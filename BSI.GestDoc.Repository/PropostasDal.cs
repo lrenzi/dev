@@ -23,6 +23,19 @@ namespace BSI.GestDoc.Repository.DAL
             return dadosDocumentoClienteRetorno;
         }
 
+        public IEnumerable<DocumentoCliente> ConsultarInfoDocumentoCliente(DocumentoClienteDados documentoCliente)
+        {
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@pClienteId", documentoCliente.ClienteId, DbType.Int16, null);
+            parameters.Add("@pTipoInfoCliId", documentoCliente.TipoInfoCliId, DbType.Int16, null);
+            parameters.Add("@pDocCliDadosValor", documentoCliente.DocCliDadosValor, DbType.String, null);
+
+            var dadosInfoDocumentoCliente = this.QuerySPCustomInfoDocumentos("ConsultarDocumentoClientePorValorDado", parameters);
+
+            return dadosInfoDocumentoCliente;
+        }
+
         private  IEnumerable<DocumentoClienteDados> QuerySPCustom(String storedProcedure, DynamicParameters parameters)
         {
             SqlConnection connection = SqlHelper.getConnection();
@@ -31,20 +44,31 @@ namespace BSI.GestDoc.Repository.DAL
 
             using (SqlMapper.GridReader reader = connection.QueryMultiple(storedProcedure, parameters, commandType: CommandType.StoredProcedure))
             {
-                //recupera dados do cliente e informações referenciadas
-                //documentoClienteRetorno = reader.Read<DocumentoClienteDados, DocumentoClienteDadosDoc, DocumentoCliente, DocumentoClienteDados>((documentoDados, documentoClienteDadosDoc, documentoCliente) =>
-                //{
-                //    documentoDados.DocumentoClienteDadosDoc = documentoClienteDadosDoc;
-                //    documentoDados.DocumentoClienteDadosDoc.DocumentoCliente = documentoCliente;
-                //    return documentoDados;
-                //}, splitOn: "DocCliDadosId, ClienteId, TipoInfoCliId");
-
-
                 documentoClienteRetorno = reader.Read<DocumentoClienteDados>();
-
             }
 
             return documentoClienteRetorno;
+        }
+
+
+        private IEnumerable<DocumentoCliente> QuerySPCustomInfoDocumentos(String storedProcedure, DynamicParameters parameters)
+        {
+            SqlConnection connection = SqlHelper.getConnection();
+            Usuario usuarioLogado = new Usuario();
+            IEnumerable<DocumentoCliente> infoDocumentoClienteRetorno = null;
+
+            using (SqlMapper.GridReader reader = connection.QueryMultiple(storedProcedure, parameters, commandType: CommandType.StoredProcedure))
+            {
+                //recupera dados do cliente e informações referenciadas
+                infoDocumentoClienteRetorno = reader.Read<DocumentoCliente, DocumentoClienteSituacao, DocumentoClienteTipo, DocumentoCliente>((documentoCliente, documentoClienteSituacao, documentoClienteTipo) =>
+                {
+                    documentoCliente.DocumentoClienteTipo = documentoClienteTipo;
+                    documentoCliente.DocumentoClienteSituacao = documentoClienteSituacao;
+                    return documentoCliente;
+                }, splitOn: "DocCliTipoId, DocCliSituId, DocClienteId");
+            }
+
+            return infoDocumentoClienteRetorno;
         }
     }
 }

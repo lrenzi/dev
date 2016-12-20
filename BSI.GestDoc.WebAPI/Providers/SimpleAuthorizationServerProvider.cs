@@ -145,10 +145,6 @@ namespace BSI.GestDoc.WebAPI.Providers
                     },
 
                     {
-                        "as:usuarioId", (user.UsuarioId == 0) ? string.Empty : ""
-
-                    },
-                    {
                         "usuarioId", user.UsuarioId.ToString()
                     },
 
@@ -160,10 +156,6 @@ namespace BSI.GestDoc.WebAPI.Providers
                         "loginUsuario", user.UsuarioLogin
                     },
 
-                    {
-                        "as:clienteId", (user.Cliente.ClienteId == 0) ? string.Empty : ""
-
-                    },
                     {
                         "clienteId", user.Cliente.ClienteId.ToString()
                     },
