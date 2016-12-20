@@ -1,6 +1,10 @@
 ﻿'use strict';
 app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "fileUploadService", 'Upload', 'ngAuthSettings', function ($scope, $routeParams, $location, fileUploadService, Upload, ngAuthSettings) {
-    
+
+    $scope.mostraBotaoEnviar = true;
+    $scope.mostraBotaoNovo = false;
+    $scope.desabilitaFile = false;
+
     $scope.ConsultarArquivos = function () {
         //debugger;
         $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
@@ -10,36 +14,65 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
         });
     };
 
-    $scope.EnviarArquivosWebAPI = function (index_, file_) {
-        
-        var docCliTipoId = $scope.listaDocumentosClienteTipo[index_].docCliTipoId;
-        
+    $scope.IniciarTela = function () {
+
+        $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
+            $scope.listaDocumentosClienteTipo = data;
+        }, function (error) {
+            alert(error.data.message);
+        });
+        $scope.mostraBotaoEnviar = true;
+        $scope.mostraBotaoNovo = false;
+        $scope.desabilitaFile = false;
+    }
+
+    $scope.EnviarArquivosWebAPI = function (index_, file_, reenvio_, docCliTipoId) {
+
+        if (docCliTipoId == "") {
+            docCliTipoId = $scope.listaDocumentosClienteTipo[index_].docCliTipoId;
+        }
+
         Upload.upload({
-            url: ngAuthSettings.apiServiceBaseUri + "/api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&clienteId=" + ngAuthSettings.clientId + "&docCliTipoId=" + docCliTipoId,
+            url: ngAuthSettings.apiServiceBaseUri + "/api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&clienteId=" + ngAuthSettings.clientId + "&docCliTipoId=" + docCliTipoId + "&reenvio=" + reenvio_,
             file: file_.files[0]
         }).progress(function (evt) {
 
-            document.getElementById('idProgressbar_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = parseInt(100.0 * evt.loaded / evt.total, 10) + " %";
+            document.getElementById('idProgressbar_' + docCliTipoId).innerText = parseInt(100.0 * evt.loaded / evt.total, 10) + " %";
 
         }).success(function (data, status, headers, config) {
-            debugger;
+
             if (data.tipoErro == 2) {
-                $scope.hideButton[index_] = false;
-                //document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).toggle();
+                //angular.element(document.querySelector('#reenvio_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId)).value = "S";
+                //document.getElementById('reenvio_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).value = "S";
+                $scope.listaDocumentosClienteTipo[index_].reenvio = "S";
+            } else {
+                $scope.listaDocumentosClienteTipo[index_].reenvio = "N";
             }
-            document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = data.mensagem;
+            document.getElementById('idStatus_' + docCliTipoId).innerText = data.mensagem;
+
+            $scope.mostraBotaoEnviar = false; 
+            $scope.mostraBotaoNovo = true;
+            $scope.desabilitaFile = true;
+
 
         }).error(function (data, status, headers, config) {
-
+            debugger;
             if (data.message == undefined)
-                document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = data;
+                document.getElementById('idStatus_' + docCliTipoId).innerText = data;
             else
-                document.getElementById('idStatus_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).innerText = data.message;
+                document.getElementById('idStatus_' + docCliTipoId).innerText = data.message;
         });
     };
 
-    $scope.ReenviarArquivo = function () {
-        alert("rrenviar");
+    $scope.ReenviarArquivo = function (docCliTipoId, index_) {
+
+        var file_ = document.getElementById('idFile_' + docCliTipoId);
+        if (file_.value != "") {
+            $scope.EnviarArquivosWebAPI(index_, file_, "S", docCliTipoId);
+        }
+        else {
+            alert("Selecione um arquivo para Reenvio.")
+        }
     }
 
     $scope.EnviarArquivos = function () {
@@ -53,9 +86,9 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
                 $scope.contador = contador;
 
-                $scope.EnviarArquivosWebAPI(contador, file_);
+                $scope.EnviarArquivosWebAPI(contador, file_, "N", "");
 
-                
+
             }
         }
         /*
