@@ -54,7 +54,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         //}
 
         //private readonly string workingFolder = HttpRuntime.AppDomainAppPath + @"\Uploads";
-        private readonly string workingFolder = HttpRuntime.AppDomainAppPath + ConfigurationManager.AppSettings["DiretorioUpload"];
+        private readonly string WorkingFolder = HttpRuntime.AppDomainAppPath + ConfigurationManager.AppSettings["DiretorioUpload"];
 
         [System.Web.Http.Route("EnviarArquivos")]
         [System.Web.Http.HttpPost]
@@ -70,7 +70,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
             try
             {
-                var streamProvider = new MultipartFormDataStreamProvider(workingFolder);
+                var streamProvider = new MultipartFormDataStreamProvider(WorkingFolder);
                 await Request.Content.ReadAsMultipartAsync(streamProvider);
 
                 _documentoCliente = new DocumentoCliente()
@@ -78,7 +78,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                     UsuarioId = usuarioId,
                     ClienteId = clienteId,
                     DocCliTipoId = docCliTipoId,
-                    DocClienteNomeArquivoSalvo = streamProvider.FileData.Select(entry => entry.LocalFileName).First(),
+                    DocClienteNomeArquivoSalvo = streamProvider.FileData.Select(entry => entry.LocalFileName).First().Split(char.Parse("\\")).Last(),
                     DocClienteNomeArquivoOriginal = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName).First().Replace("\"", ""),
                     DocClienteTipoArquivo = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType).First(),
                     DocClienteDataUpload = DateTime.Now
@@ -92,6 +92,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                     case Cliente.EnumCliente.Bradesco:
                         uploadFileBL = new UploadFileBradescoBL();
                         ((UploadFileBradescoBL)uploadFileBL).Reenvio = reenvio;
+                        ((UploadFileBradescoBL)uploadFileBL).WorkingFolder = WorkingFolder;
                         uploadFileBL.EnviarDocumentoCliente(_documentoCliente);
                         break;
 
@@ -105,15 +106,15 @@ namespace BSI.GestDoc.WebAPI.Controllers
             }
             catch (BusinessLogic.BusinessException.BusinessException ex)
             {
-                if (File.Exists(_documentoCliente.DocClienteNomeArquivoSalvo))
-                    File.Delete(_documentoCliente.DocClienteNomeArquivoSalvo);
+                if (File.Exists(WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo))
+                    File.Delete(WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo);
 
                 return Ok(ex.GetRetorno());
             }
             catch (Exception ex)
             {
-                if (File.Exists(_documentoCliente.DocClienteNomeArquivoSalvo))
-                    File.Delete(_documentoCliente.DocClienteNomeArquivoSalvo);
+                if (File.Exists(WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo))
+                    File.Delete(WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo);
               
                 return BadRequest(ex.GetBaseException().Message);
             }
