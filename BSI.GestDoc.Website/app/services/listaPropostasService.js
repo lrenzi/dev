@@ -4,7 +4,7 @@ app.service("listaPropostasService", ["$http", "$q", 'ngAuthSettings', 'document
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
     var listaPropostasServiceFactory = {};
     var _retornarPropostasCliente = function () {
-        debugger;
+        
         return $http.post(serviceBase + "api/Proposta/ListarPropostas?usuarioId=" + ngAuthSettings.usuarioId + "&clientId=" + ngAuthSettings.clienteId + "&numeroProposta=" + documentoCliente.numeroPesquisaProposta)
         .then(function (response) {
 

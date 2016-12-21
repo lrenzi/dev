@@ -66,7 +66,7 @@ namespace BSI.GestDoc.BusinessLogic
             foreach (var documentoCliente in listaDocumentosCliente)
             {
                 //busc lista de situações por tipo do documento
-                IEnumerable<DocumentoClienteSituacao> retornoSituacaoDocumento = Dal.ListarSituacaoDocumentoCliente(documentoCliente.DocumentoClienteSituacao.DocCliSituId.ToString());
+                IEnumerable<DocumentoClienteSituacao> retornoSituacaoDocumento = Dal.ListarSituacaoDocumentoCliente(documentoCliente.DocCliTipoId.ToString());
 
                 if (retornoSituacaoDocumento != null && retornoSituacaoDocumento.Count() > 0)
                 {

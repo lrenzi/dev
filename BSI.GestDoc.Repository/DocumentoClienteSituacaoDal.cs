@@ -18,7 +18,7 @@ namespace BSI.GestDoc.Repository.DAL
         public IEnumerable<DocumentoClienteSituacao> ListarSituacaoDocumentoCliente(string docCliTipoId)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@pDocCliSituId", docCliTipoId, DbType.Int16, null);
+            parameters.Add("@pDocCliTipoId", docCliTipoId, DbType.Int16, null);
             
             var listaSituacaoDocumentoCliente = SqlHelper.QuerySP<DocumentoClienteSituacao>("ConsultarDocumentoClienteSituacao", parameters);
 
