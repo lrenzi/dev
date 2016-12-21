@@ -18,11 +18,6 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/signup.html"
     });
 
-    $routeProvider.when("/orders", {
-        controller: "ordersController",
-        templateUrl: "/app/views/orders.html"
-    });
-
     $routeProvider.when("/refresh", {
         controller: "refreshController",
         templateUrl: "/app/views/refresh.html"
@@ -33,19 +28,9 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/tokens.html"
     });
 
-    $routeProvider.when("/associate", {
-        controller: "associateController",
-        templateUrl: "/app/views/associate.html"
-    });
-
     $routeProvider.when("/fileUpload", {
         controller: "fileUploadController",
         templateUrl: "/app/views/fileUpload.html"
-    });
-
-    $routeProvider.when("/fileUploadTeste", {
-        controller: "fileUploadTesteController",
-        templateUrl: "/app/views/fileUploadTeste.html"
     });
 
     $routeProvider.when("/listaPropostas", {
@@ -60,11 +45,13 @@ app.config(function ($routeProvider) {
 var serviceBase = 'http://localhost:44857/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
+    userName: "",
     nomeCliente: "",
-    nomeUsuario:"Wesley Klein",
-    loginUsuario: "Wesley",
+    nomeUsuario: "",
+    usuarioId: 0,
+    loginUsuario: "",
     perfilUsuario: "",
-    clienteId: "",
+    clienteId: 0,
     pathDocumentosCliente: ""
 });
 
@@ -75,5 +62,4 @@ app.config(function ($httpProvider) {
 app.run(['authService', function (authService) {
     authService.fillAuthData();
 }]);
-
 

@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using BSI.GestDoc.BusinessLogic;
 using System.Configuration;
 using BSI.GestDoc.BusinessLogic.Util;
+using System.Net.Http.Headers;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -53,7 +54,26 @@ namespace BSI.GestDoc.WebAPI.Controllers
         //    return await new UploadFile().GetFile(Request);
         //}
 
-        //private readonly string workingFolder = HttpRuntime.AppDomainAppPath + @"\Uploads";
+        [System.Web.Http.Route("RetornarArquivo")]
+        [System.Web.Http.HttpPost]
+        public HttpResponseMessage RetornarArquivo([FromBody]DocumentoCliente documentoCliente)
+        {
+            DocumentoCliente _documentoCliente = new UploadFileBL().RetornarArquivo(documentoCliente);
+            UploadFileBL uploadFileBl = new UploadFileBL();
+
+            var file = WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo;
+            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+            var stream = new FileStream(file, FileMode.Open);
+            result.Content = new StreamContent(stream);
+            /*result.Content.Headers.ContentType =
+                new MediaTypeHeaderValue("application/octet-stream");*/
+            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = _documentoCliente.DocClienteNomeArquivoOriginal
+            };
+            return result;
+        }
+
         private readonly string WorkingFolder = HttpRuntime.AppDomainAppPath + ConfigurationManager.AppSettings["DiretorioUpload"];
 
         [System.Web.Http.Route("EnviarArquivos")]
@@ -93,16 +113,16 @@ namespace BSI.GestDoc.WebAPI.Controllers
                         uploadFileBL = new UploadFileBradescoBL();
                         ((UploadFileBradescoBL)uploadFileBL).Reenvio = reenvio;
                         ((UploadFileBradescoBL)uploadFileBL).WorkingFolder = WorkingFolder;
-                        uploadFileBL.EnviarDocumentoCliente(_documentoCliente);
+                        _documentoCliente = uploadFileBL.EnviarDocumentoCliente(_documentoCliente);
                         break;
 
                     default:
                         uploadFileBL = new UploadFileBL();
-                        uploadFileBL.EnviarDocumentoCliente(_documentoCliente);
+                        _documentoCliente = uploadFileBL.EnviarDocumentoCliente(_documentoCliente);
                         break;
                 }
                 
-                return Ok((new Retorno() { Mensagem  = "Arquivo incluído com sucesso." }));
+                return Ok((new Retorno() { Dados = _documentoCliente,  Mensagem  = "Arquivo incluído com sucesso." }));
             }
             catch (BusinessLogic.BusinessException.BusinessException ex)
             {

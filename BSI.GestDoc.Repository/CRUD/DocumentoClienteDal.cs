@@ -45,15 +45,12 @@ namespace BSI.GestDoc.Repository.CRUD
             return DocumentoCliente;
         }
 
-        public DocumentoCliente GetByDocumentoClienteId(string spName, DynamicParameters DocumentoClienteId, string connectionString)
+        public DocumentoCliente GetDocumentoClienteByDocClienteId(Int64 pDocClienteId)
         {
-            var user = SqlHelper.QuerySP<DocumentoCliente>(spName, DocumentoClienteId, null, null, false, 0);
-            return (DocumentoCliente)user.FirstOrDefault();
-        }
-
-        public DocumentoCliente GetDocumentoCliente(int docCliTipoId)
-        {
-            throw new NotImplementedException();
+            var p = new DynamicParameters();
+            p.Add("@pDocClienteId", pDocClienteId, DbType.Int64, ParameterDirection.Input, null);
+            var documentoCliente = SqlHelper.QuerySP<DocumentoCliente>("ConsultarDocumentoCliente", p, null, null, false, 0);
+            return (DocumentoCliente)documentoCliente.FirstOrDefault();
         }
     }
 }

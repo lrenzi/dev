@@ -26,19 +26,39 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
         $scope.desabilitaFile = false;
     }
 
+    $scope.RetornarArquivo = function (docCliTipoId) {
+        debugger;
+        var docClienteId = document.getElementById("idDocClienteId_" + docCliTipoId).value;
+        fileUploadService.RetornarArquivo(docClienteId).then(function (data) {
+           
+        }, function (error) {
+           
+            alert(error.data.message);
+        });
+    };
+
+    
+    /*$scope.RetornarArquivo = function () {
+
+        $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
+            $scope.listaDocumentosClienteTipo = data;
+        }, function (error) {
+            alert(error.data.message);
+        });
+    };*/
+
     $scope.EnviarArquivosWebAPI = function (index_, file_, reenvio_, docCliTipoId) {
         
         if (docCliTipoId == "") {
             docCliTipoId = $scope.listaDocumentosClienteTipo[index_].docCliTipoId;
         }
+        debugger;
 
         Upload.upload({
-            url: ngAuthSettings.apiServiceBaseUri + "api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&clienteId=" + ngAuthSettings.clientId + "&docCliTipoId=" + docCliTipoId + "&reenvio=" + reenvio_,
+            url: ngAuthSettings.apiServiceBaseUri + "api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&clienteId=" + ngAuthSettings.clienteId + "&docCliTipoId=" + docCliTipoId + "&reenvio=" + reenvio_,
             file: file_.files[0]
         }).progress(function (evt) {
-
             document.getElementById('idProgressbar_' + docCliTipoId).innerText = parseInt(100.0 * evt.loaded / evt.total, 10) + " %";
-
         }).success(function (data, status, headers, config) {
 
             if (data.tipoErro == 2) {
@@ -47,6 +67,9 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
                 $scope.listaDocumentosClienteTipo[index_].reenvio = "S";
             } else {
                 $scope.listaDocumentosClienteTipo[index_].reenvio = "N";
+                debugger;
+                document.getElementById("idNameFile_" + docCliTipoId).value = file_.value.split("\\")[file_.value.split("\\").length - 1];
+                document.getElementById("idDocClienteId_" + docCliTipoId).value = data.dados.docClienteId;
             }
             document.getElementById('idStatus_' + docCliTipoId).innerText = data.mensagem;
 

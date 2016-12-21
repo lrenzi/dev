@@ -15,8 +15,7 @@ namespace BSI.GestDoc.BusinessLogic
         {
         }
 
-        public string Reenvio { get; set; }
-        public string WorkingFolder { get; set; }
+       
 
         public override DocumentoCliente EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
         {

@@ -9,6 +9,7 @@
             <th>Status</th>
             <th>Reenvio</th>
             <th>Evolução</th>
+            <th>Download</th>
             </thead>
             <tbody>
                 <tr data-ng-repeat="item in listaDocumentosClienteTipo">
@@ -19,10 +20,15 @@
                     <td>
                         <span id="idProgressbar_{{item.docCliTipoId}}"></span>
                     </td>
+                    <td>
+                        <input type="hidden" name="nameFile" id="idNameFile_{{item.docCliTipoId}}" value="" />
+                        <input type="hidden" name="DocClienteId" id="idDocClienteId_{{item.docCliTipoId}}" value="" />
+                        <button ng-model="btnDownload" ng-show="item.reenvio == 'N'" ng-click="RetornarArquivo(item.docCliTipoId)" class="btn btn-primary btn-sm" value="Download" title="Visualizar o documento.">Download</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
-        <button ng-model="btnEnviar" ng-show="mostraBotaoEnviar" ng-click="EnviarArquivos()" class="btn btn-primary" value="Enviar" title="Enviar arquivos selecionados">Enviar</button>
-        <button ng-model="btnNovo" ng-show="mostraBotaoNovo" ng-click="IniciarTela()" class="btn btn-primary" value="Novo" title="Enviar novos arquivos">Novo</button>
+        <button ng-model="btnEnviar" ng-show="mostraBotaoEnviar" ng-click="EnviarArquivos()" class="btn btn-primary btn-sm" value="Enviar" title="Enviar arquivos selecionados">Enviar</button>
+        <button ng-model="btnNovo" ng-show="mostraBotaoNovo" ng-click="IniciarTela()" class="btn btn-primary btn-sm" value="Novo" title="Enviar novos arquivos">Novo</button>
     </div>
 </form>

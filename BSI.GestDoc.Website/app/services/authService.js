@@ -34,12 +34,13 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     };
 
     var _login = function (loginData) {
-        
+        debugger;
         //var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
         var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
 
         if (loginData.useRefreshTokens) {
-            data = data + "&client_id=" + ngAuthSettings.clientId;
+            debugger;
+            data = data + "&client_id=" + ngAuthSettings.clienteId;
         }
 
         var deferred = $q.defer();
@@ -52,6 +53,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             else {
                 localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: "", useRefreshTokens: false });
             }
+            debugger;
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
             _authentication.useRefreshTokens = loginData.useRefreshTokens;
