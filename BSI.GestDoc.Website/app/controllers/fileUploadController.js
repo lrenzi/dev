@@ -27,7 +27,8 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
     }
 
     $scope.RetornarArquivo = function (docCliTipoId) {
-        
+        debugger;
+
         var docClienteId = document.getElementById("idDocClienteId_" + docCliTipoId).value;
         fileUploadService.RetornarArquivo(docClienteId).then(function (data) {
            
@@ -59,7 +60,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
                 $scope.listaDocumentosClienteTipo[index_].reenvio = "S";
             } else {
                 $scope.listaDocumentosClienteTipo[index_].reenvio = "N";
-                
+                debugger;
                 document.getElementById("idNameFile_" + docCliTipoId).value = file_.value.split("\\")[file_.value.split("\\").length - 1];
                 document.getElementById("idDocClienteId_" + docCliTipoId).value = data.dados.docClienteId;
             }

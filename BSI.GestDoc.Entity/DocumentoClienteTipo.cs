@@ -7,6 +7,7 @@ using DapperAttribute = Dapper.Contrib.Extensions;
 
 namespace BSI.GestDoc.Entity
 {
+    [DapperAttribute.Table("DocumentoClienteTipo")]
     public class DocumentoClienteTipo
     {
         [DapperAttribute.Key]
@@ -18,6 +19,8 @@ namespace BSI.GestDoc.Entity
         public Cliente Cliente { get; set; }
         public IEnumerable<DocumentoClienteSituacao> ListaSituacaoDocumentoCliente { get; set; }
         //Auxiliar
+        [DapperAttribute.Write(false)]
+        [DapperAttribute.Computed]
         public string Reenvio { get; set; }
     }
 }

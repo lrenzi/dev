@@ -49,12 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DocumentoClienteCustom.cs" />
     <Compile Include="DocumentoClienteDadosDoc.cs" />
     <Compile Include="DocumentoCliente.cs" />
     <Compile Include="DocumentoClienteSituacao.cs" />
     <Compile Include="DocumentoClienteTipo.cs" />
-    <Compile Include="IDocumentoCliente.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="UsuarioPerfil.cs" />
     <Compile Include="ClienteTipoInformacaoCliente.cs" />
