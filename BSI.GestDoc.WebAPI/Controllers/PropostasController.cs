@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BSI.GestDoc.Entity;
 using System.Web.Http;
 using BSI.GestDoc.Repository.DAL;
+using BSI.GestDoc.BusinessLogic;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,18 +19,19 @@ namespace BSI.GestDoc.WebAPI.Controllers
         {
 
             PropostasDal Dal = new PropostasDal();
-            IEnumerable<DocumentoClienteDados> documentosCliente = null;
+            List<DocumentoClienteDados> listaPropostas = null;
+            DocumentoClienteBL documentoClienteBL = new DocumentoClienteBL();
 
             try
             {
-                documentosCliente = Dal.ListarPropostas(usuarioId, clientId);
+                listaPropostas = documentoClienteBL.ListarDocumentosCliente(usuarioId, clientId);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.GetBaseException().Message);
             }
 
-            return Ok(documentosCliente);
+            return Ok(listaPropostas);
         }
 
     }

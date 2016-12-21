@@ -13,7 +13,6 @@ namespace BSI.GestDoc.Entity
         public int ClienteId { get; set; }
         public int TipoInfoCliId { get; set; }
         //public DocumentoClienteDadosDoc DocumentoClienteDadosDoc { get; set; }
-        
-
+        public IList<DocumentoCliente> DocumentosCliente { get; set; }
     }
 }

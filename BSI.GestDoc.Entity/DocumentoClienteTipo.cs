@@ -13,7 +13,7 @@ namespace BSI.GestDoc.Entity
         public string DocCliTipoNome { get; set; }
         public string DocCliTipoDescricao { get; set; }
         public int DocCliTipoOrdemApresent { get; set; }
-
+        public DocumentoClienteSituacao DocumentoClienteSituacao { get; set; }
         //Auxiliar
         public string Reenvio { get; set; }
     }
