@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace BSI.GestDoc.Entity
 {
-    public class DocumentoClienteTipo: EntityBase
+    public class DocumentoClienteTipo : EntityBase
     {
         public int DocCliTipoId { get; set; }
         public int ClienteId { get; set; }
         public string DocCliTipoNome { get; set; }
         public string DocCliTipoDescricao { get; set; }
         public int DocCliTipoOrdemApresent { get; set; }
-        public DocumentoClienteSituacao DocumentoClienteSituacao { get; set; }
+        public Cliente Cliente { get; set; }
+        public IEnumerable<DocumentoClienteSituacao> ListaSituacaoDocumentoCliente { get; set; }
         //Auxiliar
         public string Reenvio { get; set; }
     }

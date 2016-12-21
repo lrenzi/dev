@@ -10,12 +10,20 @@ namespace BSI.GestDoc.Repository.DAL
 {
     public class PropostasDal
     {
-        public IEnumerable<DocumentoClienteDados> ListarPropostas(string usuarioId, string clienteId)
+        /// <summary>
+        /// Lista de Documentos dados por usuario
+        /// </summary>
+        /// <param name="usuarioId"></param>
+        /// <param name="clienteId"></param>
+        /// <param name="numeroProposta"></param>
+        /// <returns></returns>
+        public IEnumerable<DocumentoClienteDados> ListarPropostas(string usuarioId, string clienteId, string numeroProposta)
         {
 
             var parameters = new DynamicParameters();
             parameters.Add("@pClienteId", clienteId, DbType.String, null);
             parameters.Add("@pUsuarioId", usuarioId, DbType.String, null);
+            parameters.Add("@pDocCliDadosValor", numeroProposta, DbType.String, null);
 
             var dadosDocumentoClienteRetorno = this.QuerySPCustom("ConsultarDocumentoClienteDadosPorUsuario", parameters);
 
@@ -23,6 +31,11 @@ namespace BSI.GestDoc.Repository.DAL
             return dadosDocumentoClienteRetorno;
         }
 
+        /// <summary>
+        /// Consulta documento dados
+        /// </summary>
+        /// <param name="documentoCliente"></param>
+        /// <returns></returns>
         public IEnumerable<DocumentoCliente> ConsultarInfoDocumentoCliente(DocumentoClienteDados documentoCliente)
         {
 
@@ -35,6 +48,7 @@ namespace BSI.GestDoc.Repository.DAL
 
             return dadosInfoDocumentoCliente;
         }
+
 
         private  IEnumerable<DocumentoClienteDados> QuerySPCustom(String storedProcedure, DynamicParameters parameters)
         {
@@ -62,10 +76,10 @@ namespace BSI.GestDoc.Repository.DAL
                 //recupera dados do cliente e informações referenciadas
                 infoDocumentoClienteRetorno = reader.Read<DocumentoCliente, DocumentoClienteSituacao, DocumentoClienteTipo, DocumentoCliente>((documentoCliente, documentoClienteSituacao, documentoClienteTipo) =>
                 {
-                    documentoCliente.DocumentoClienteTipo = documentoClienteTipo;
                     documentoCliente.DocumentoClienteSituacao = documentoClienteSituacao;
+                    documentoCliente.DocumentoClienteTipo = documentoClienteTipo;                    
                     return documentoCliente;
-                }, splitOn: "DocCliTipoId, DocCliSituId, DocClienteId");
+                }, splitOn: "DocClienteId, DocCliSituId, DocCliTipoId");
             }
 
             return infoDocumentoClienteRetorno;
