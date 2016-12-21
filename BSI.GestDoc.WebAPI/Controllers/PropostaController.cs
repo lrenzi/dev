@@ -9,13 +9,13 @@ using BSI.GestDoc.BusinessLogic;
 
 namespace BSI.GestDoc.WebAPI.Controllers
 {
-    [System.Web.Http.RoutePrefix("api/Propostas")]
-    public class PropostasController : ApiController
+    [System.Web.Http.RoutePrefix("api/Proposta")]
+    public class PropostaController : ApiController
     {
 
         [System.Web.Http.Route("ListarPropostas")]
         [System.Web.Http.HttpPost]
-        public IHttpActionResult ListarPropostas(string usuarioId, string clientId)
+        public IHttpActionResult ListarPropostas(string usuarioId, string clientId, string numeroProposta)
         {
 
             PropostasDal Dal = new PropostasDal();
@@ -24,7 +24,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
             try
             {
-                listaPropostas = documentoClienteBL.ListarDocumentosCliente(usuarioId, clientId);
+                listaPropostas = documentoClienteBL.ListarDocumentosCliente(usuarioId, clientId, numeroProposta);
             }
             catch (Exception ex)
             {

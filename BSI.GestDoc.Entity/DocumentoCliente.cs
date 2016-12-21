@@ -17,9 +17,9 @@ namespace BSI.GestDoc.Entity
         public int DocCliTipoId { get; set; }
         public string DocClienteNomeArquivoOriginal { get; set; }
         public string DocClienteTipoArquivo { get; set; }
-
         public DocumentoClienteSituacao DocumentoClienteSituacao { get; set; }
+        public DocumentoClienteTipo DocumentoClienteTipo { get; set; }
+        public string NomeArquivoSalvoAux { get; set; }
 
-        public DocumentoClienteTipo DocumentoClienteTipo { get; set; }       
     }
 }

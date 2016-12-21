@@ -77,7 +77,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 {
                     UsuarioId = usuarioId,
                     ClienteId = clienteId,
-                    DocCliTipoId = docCliTipoId,
+                    //DocCliTipoId = docCliTipoId ,
                     DocClienteNomeArquivoSalvo = streamProvider.FileData.Select(entry => entry.LocalFileName).First(),
                     DocClienteNomeArquivoOriginal = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName).First().Replace("\"", ""),
                     DocClienteTipoArquivo = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType).First(),

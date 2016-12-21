@@ -58,7 +58,7 @@ namespace BSI.GestDoc.BusinessLogic
             {
                 throw new BusinessException.BusinessException("Proposta enviado por outro usuário.");
             }
-            List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(documentoCliente_.DocCliTipoId).ToList();
+            List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(1).ToList();
             documentoCliente_.DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId);
 
             #endregion
@@ -88,7 +88,7 @@ namespace BSI.GestDoc.BusinessLogic
 
             List<DocumentoCliente> _documentosClientes = new EnviarArquivoDal().ConsultarDocumentoClientePorDocCliDadosValorDocCliTipoId(
                 _documentoClienteDados.DocCliDadosValor,
-                documentoCliente_.DocCliTipoId).ToList();
+                1).ToList();
 
             if (_documentosClientes.Count > 0)
             {

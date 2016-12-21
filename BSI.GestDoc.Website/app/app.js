@@ -68,6 +68,11 @@ app.constant('ngAuthSettings', {
     pathDocumentosCliente: ""
 });
 
+app.constant('documentoCliente', {
+   
+    numeroPesquisaProposta: "",
+});
+
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
 });
