@@ -53,7 +53,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             else {
                 localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: "", useRefreshTokens: false });
             }
-            debugger;
+            
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
             _authentication.useRefreshTokens = loginData.useRefreshTokens;

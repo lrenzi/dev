@@ -12,7 +12,7 @@ namespace BSI.GestDoc.Repository.CRUD
     {
         public DocumentoClienteDadosDoc InsertDocumentoClienteDadosDoc(DocumentoClienteDadosDoc DocumentoClienteDadosDoc)
         {
-            int recordId = SqlHelper.InsertWithReturnId(DocumentoClienteDadosDoc);
+            Int64 recordId = SqlHelper.InsertWithReturnId(DocumentoClienteDadosDoc);
             DocumentoClienteDadosDoc.DocCliDadosDocId = recordId;
             return DocumentoClienteDadosDoc;
         }

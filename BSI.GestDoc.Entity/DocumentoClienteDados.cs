@@ -10,8 +10,8 @@ namespace BSI.GestDoc.Entity
     {
         public Int64 DocCliDadosId { get; set; }
         public string DocCliDadosValor { get; set; }
-        public int ClienteId { get; set; }
-        public int TipoInfoCliId { get; set; }
+        public Int64 ClienteId { get; set; }
+        public Int64 TipoInfoCliId { get; set; }
         //public DocumentoClienteDadosDoc DocumentoClienteDadosDoc { get; set; }
         public IList<DocumentoCliente> DocumentosCliente { get; set; }
     }

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DapperAttribute = Dapper.Contrib.Extensions;
 
 namespace BSI.GestDoc.Entity
 {
-    public class DocumentoClienteTipo : EntityBase
+    public class DocumentoClienteTipo
     {
+        [DapperAttribute.Key]
         public int DocCliTipoId { get; set; }
         public int ClienteId { get; set; }
         public string DocCliTipoNome { get; set; }

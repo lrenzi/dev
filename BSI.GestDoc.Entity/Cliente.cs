@@ -8,7 +8,7 @@ namespace BSI.GestDoc.Entity
 {
     public class Cliente
     {
-        public int ClienteId { get; set; }
+        public Int64 ClienteId { get; set; }
         public string ClienteNome { get; set; }
         public string ClientePastaDocumentos { get; set; }
         public string ClienteImagemLogoDesktop { get; set; }

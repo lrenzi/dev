@@ -15,7 +15,7 @@ namespace BSI.GestDoc.BusinessLogic
         {
         }
 
-       
+
 
         public override DocumentoCliente EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
         {
@@ -34,7 +34,7 @@ namespace BSI.GestDoc.BusinessLogic
             DocumentoClienteDados _documentoClienteDados = null;
             try
             {
-                _documentoClienteDados = utilFileBradesco.LerPdf(WorkingFolder + "\\" +  documentoCliente_.DocClienteNomeArquivoSalvo);
+                _documentoClienteDados = utilFileBradesco.LerPdf(WorkingFolder + "\\" + documentoCliente_.DocClienteNomeArquivoSalvo);
                 Int64 _valor;
                 if (!Int64.TryParse(_documentoClienteDados.DocCliDadosValor, out _valor))
                 {
@@ -100,8 +100,18 @@ namespace BSI.GestDoc.BusinessLogic
                 new DocumentoClienteDal().UpdateDocumentoCliente(documentoCliente_);
             }
             else //Insere
-                documentoCliente_ = new DocumentoClienteDal().InsertDocumentoCliente(documentoCliente_);
+            {
+                /*    documentoCliente_.DocumentoClienteSituacao = new DocumentoClienteSituacao()
+                    { DocCliSituId = documentoCliente_.DocCliSituId };
 
+                documentoCliente_.DocumentoClienteTipo = new DocumentoClienteTipo()
+                { DocCliSituId = documentoCliente_.DocCliSituId };
+
+                documentoCliente_.DocumentoClienteSituacao = new DocumentoClienteSituacao()
+                { DocCliSituId = documentoCliente_.DocCliSituId };*/
+
+                documentoCliente_ = (DocumentoCliente)new DocumentoClienteDal().InsertDocumentoCliente(documentoCliente_);
+            }
             #endregion
 
             #region 7 - Faz insert na base p / relacionar id do documento e do num.de proposta

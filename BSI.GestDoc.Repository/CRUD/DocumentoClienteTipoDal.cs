@@ -10,9 +10,9 @@ namespace BSI.GestDoc.Repository.CRUD
 {
     public class DocumentoClienteTipoDal
     {
-        public int InsertDocumentoClienteTipo(DocumentoClienteTipo documentoClienteTipo)
+        public Int64 InsertDocumentoClienteTipo(DocumentoClienteTipo documentoClienteTipo)
         {
-            int recordId = SqlHelper.InsertWithReturnId(documentoClienteTipo);
+            Int64 recordId = SqlHelper.InsertWithReturnId(documentoClienteTipo);
             return recordId;
         }
 

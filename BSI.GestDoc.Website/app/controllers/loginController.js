@@ -16,14 +16,14 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     $scope.message = "";
 
     $scope.login = function () {
-        debugger;
+        
         authService.login($scope.loginData).then(function (response) {
            
             $location.path('/listaPropostas');
 
         },
          function (err) {
-             debugger;
+             
              //$scope.message = err.error_description;
              alert(err.error_description);
          });
