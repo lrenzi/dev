@@ -7,7 +7,7 @@ namespace BSI.GestDoc.BusinessLogic
 {
     public class UploadFileBL
     {
-        public string Reenvio { get; set; }
+        public bool Reenvio { get; set; }
         public string WorkingFolder { get; set; }
 
         public UploadFileBL()

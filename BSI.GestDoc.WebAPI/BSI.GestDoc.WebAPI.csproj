@@ -328,7 +328,7 @@
       <Name>BSI.GestDoc.Entity</Name>
     </ProjectReference>
     <ProjectReference Include="..\BSI.GestDoc.Repository\BSI.GestDoc.Repository.csproj">
-      <Project>{636FE4FC-6B0A-4E8E-9B01-A6AB6ACF4B39}</Project>
+      <Project>{636fe4fc-6b0a-4e8e-9b01-a6ab6acf4b39}</Project>
       <Name>BSI.GestDoc.Repository</Name>
     </ProjectReference>
   </ItemGroup>

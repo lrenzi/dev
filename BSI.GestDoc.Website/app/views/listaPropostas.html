@@ -1,6 +1,7 @@
 ﻿<!--<div data-ng-init="ListarPropostas()" class="row">
     <div id="list" class="row">
 
+<div class="container">
 
             <table class="table table-striped" cellspacing="0" cellpadding="0">
                    <tr>Propostas</tr>
@@ -35,31 +36,19 @@
                 </td>
             </tr>
         </table>
-        <table class="table table-striped table-bordered table-hover" ng-show="showListaProposta">
-            <thead>
-                <tr>
-                    <th>Tipo</th>
-                    <th>Situação</th>
-                    <th>Arquivo salvo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr data-ng-repeat="documentos in listaPropostas.documentosCliente">
-
-                    <td>{{documentos.documentoClienteTipo.docCliTipoNome}}</td>
-                    <td>
-                        <table width="100">
-                            <tr data-ng-repeat="situacaoDocumento in documentos.documentoClienteTipo.listaSituacaoDocumentoCliente">
-                                <td>{{situacaoDocumento.docCliSituDescricao}}</td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td><a href="#">{{documentos.nomeArquivoSalvoAux}}</a></td>
-                </tr>
-            </tbody>
+        <table class="table table-condensed">
+            <tr data-ng-repeat="documentos in listaPropostas.documentosCliente">
+                <td class="col-md-3 "><h4><b>{{documentos.documentoClienteTipo.docCliTipoNome}}</b></h4></td>
+                <td>
+                    <table class="table table-condensed table-hover borderless">
+                        <tr data-ng-repeat="situacaoDocumento in documentos.documentoClienteTipo.listaSituacaoDocumentoCliente">
+                            <td class="col-md-3">{{situacaoDocumento.docCliSituDescricao}}</td>                          
+                        </tr>
+                    </table>
+                </td>
+                <td><a href="#">{{documentos.nomeArquivoSalvoAux}}</a></td>
+            </tr>
         </table>
-    </div>
-
 
     <div class="col-md-2">
         &nbsp;

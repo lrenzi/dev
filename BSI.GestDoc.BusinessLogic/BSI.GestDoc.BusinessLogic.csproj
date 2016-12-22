@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessException\BusinessException.cs" />
+    <Compile Include="AutenticacaoBL.cs" />
     <Compile Include="DocumentoClienteBL.cs" />
     <Compile Include="UploadFileBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

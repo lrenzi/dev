@@ -6,14 +6,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
     var _authentication = {
         isAuth: false,
-        userName: "",
-        nomeUsuario: "",
-        usuarioId: "",
-        loginUsuario: "",
-        perfilUsuario: "",
-        clienteId: "",
-        nomeCliente: "",
-        pathDocumentosCliente: "",
+        userName: "",        
+        clienteId: "",       
         useRefreshTokens: false
     };
 
@@ -43,7 +37,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
         var deferred = $q.defer();
 
-        $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
+        $http.post(serviceBase + 'efetuarLogin', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
             if (loginData.useRefreshTokens) {
                 localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: response.refresh_token, useRefreshTokens: true });

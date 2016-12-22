@@ -65,7 +65,7 @@ namespace BSI.GestDoc.BusinessLogic
 
             #region 5 - Consulta arquivos já existentes para o numero de proposta
             //Caso já exista um tipo e situação do arquivo na base igual ao que o usuário está tentando realizar o upload, irá perguntar ao usuário se ele deseja sobreescrever.
-            if (Reenvio != "S" && _documentosClienteCadastrado.FindAll(p => p.DocCliSituId == documentoCliente_.DocCliSituId).Count > 0)
+            if (!Reenvio && _documentosClienteCadastrado.FindAll(p => p.DocCliSituId == documentoCliente_.DocCliSituId).Count > 0)
             {
                 throw new BusinessException.BusinessException(EnumTipoMensagem.Pergunta, "Proposta já cadastrada para este tipo de arquivo e situação. Deseja Reenviar?");
             }

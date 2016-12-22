@@ -48,7 +48,7 @@
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
-                    <li data-ng-hide="!authentication.isAuth">Bem vindo {{ngAuthSettings.nomeUsuario}}</li>
+                    <li data-ng-hide="!authentication.isAuth"><a>Bem vindo {{authentication.userName}}</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/fileUpload">Upload Documentos</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/listaPropostas">Lista Contratos</a></li>
                     <!--<li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Reativar Token</a></li>-->
