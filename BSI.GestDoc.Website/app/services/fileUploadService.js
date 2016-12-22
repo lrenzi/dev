@@ -20,14 +20,33 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', function ($ht
         });
     };
 
-    var _retornarArquivo = function (docClienteId) {
+    function str2bytes(str) {
+        var bytes = new Uint8Array(str.length);
+        for (var i = 0; i < str.length; i++) {
+            bytes[i] = str.charCodeAt(i);
+        }
+        return bytes;
+    }
+
+    var _retornarArquivo = function (docClienteId, nameFile_) {
         debugger;
         
         $http.post(serviceBase + "api/FileUpload/RetornarArquivo", { DocClienteId: docClienteId })
         .then(function (response) {
             debugger;
-            var file = new Blob([response.data], { type: 'application/pdf' });
-            saveAs(file, documento.getElementById("idNameFile_"+docCliTipoId).value);
+            var blob = new Blob([str2bytes(response.data)], { type: 'application/pdf' });
+            saveAs(blob, nameFile_);
+
+            /*
+            //var file = new Blob([response.data], { type: 'application/pdf' });
+            var file = new Blob([response.data]);
+            //saveAs(file, nameFile_);
+            saveAs(file, "TESTE.PDF");
+
+            //var file = new Blob([response.data], { type: 'application/pdf' });
+            file = new Blob([response.data], { type: 'application/pdf' });
+            //saveAs(file, nameFile_);
+            saveAs(file, "TESTE2.PDF");*/
         },
         function (data, status, headers, config) {
             debugger;
