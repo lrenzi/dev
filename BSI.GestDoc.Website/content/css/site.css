@@ -20,6 +20,15 @@ background-position:bottom right;
     border: none !important;
 }
 
+.vAlignMiddle {
+    vertical-align:middle !important;
+}
+.vAlignTop {
+    vertical-align:top !important;
+}
+.vAlignBottom {
+    vertical-align:bottom !important;
+}
 
 /*-------------------------------------*/
 /* LOADING MODAL (waiting)------------ */
@@ -73,16 +82,16 @@ background-position:bottom right;
     border-color:indianred;
 }
 
-.btn-info {
+.btn {
     background-color: #7a0000;
     border-color: #999;
     transition: all 0.2s ease 0s;
 }
 
-    .btn-info:hover, .btn-info:focus, .btn-info:active, .active.btn-info, .open .btn-info.dropdown-toggle {
-        background-color: #630000;
-        border-color: #666;
-    }
+.btn:hover, .btn:focus, .btn:active{
+    background-color: #630000;
+    border-color: #666;
+}
 
 a {
     color: #7a0000;
@@ -95,5 +104,6 @@ a:hover, a:focus{
 }
 
 .navbar {
+    background-color:white;
     border-bottom:solid 1px #ffc8c8 !important;
 }
