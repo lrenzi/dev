@@ -18,39 +18,34 @@
 
 <h2>Consulta de propostas</h2>
 <h4>Informe abaixo o valor que deseja consultar</h4>
-    <div class="alert alert-info" ng-show="showMensagemListaVazia">
-        <strong>Proposta não encontrada</strong>
-    </div>
+<div class="alert alert-info" ng-show="showMensagemListaVazia">
+    <strong>Proposta não encontrada</strong>
+</div>
 
-    <div>
-        <table class="table">
-            <tr>
-                <td class="col-sm-2">
-                    <h5>Número proposta:</h5>
-                </td>
-                <td class="">
-                    <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" width="100%" />
-                </td>
-                <td class="col-sm-2 text-right">
-                    <button ng-model="btnEnviarFiltrar" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Filtrar" title="Pesquisar por proposta">Filtrar</button>
-                </td>
-            </tr>
-        </table>
-        <table class="table table-condensed">
-            <tr data-ng-repeat="documentos in listaPropostas.documentosCliente">
-                <td class="col-md-3 "><h4><b>{{documentos.documentoClienteTipo.docCliTipoNome}}</b></h4></td>
-                <td>
-                    <table class="table table-condensed table-hover borderless">
-                        <tr data-ng-repeat="situacaoDocumento in documentos.documentoClienteTipo.listaSituacaoDocumentoCliente">
-                            <td class="col-md-3">{{situacaoDocumento.docCliSituDescricao}}</td>                          
-                        </tr>
-                    </table>
-                </td>
-                <td><a href="#">{{documentos.nomeArquivoSalvoAux}}</a></td>
-            </tr>
-        </table>
-
-    <div class="col-md-2">
-        &nbsp;
-    </div>
+<table class="table">
+    <tr>
+        <td class="col-sm-2 vAlignMiddle">
+            <h5>Número proposta:</h5>
+        </td>
+        <td class="vAlignMiddle">
+            <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" width="100%" />
+        </td>
+        <td class="col-sm-2 text-center vAlignMiddle">
+            <button ng-model="btnEnviarFiltrar" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Filtrar" title="Pesquisar por proposta">Filtrar</button>
+        </td>
+    </tr>
+</table>
+<table class="table table-condensed">
+    <tr data-ng-repeat="documentos in listaPropostas.documentosCliente">
+        <td class="col-md-3 "><h4><b>{{documentos.documentoClienteTipo.docCliTipoNome}}</b></h4></td>
+        <td>
+            <table class="table table-condensed table-hover borderless">
+                <tr data-ng-repeat="situacaoDocumento in documentos.documentoClienteTipo.listaSituacaoDocumentoCliente">
+                    <td class="col-md-3">{{situacaoDocumento.docCliSituDescricao}}</td>
+                </tr>
+            </table>
+        </td>
+        <td><a href="#">{{documentos.nomeArquivoSalvoAux}}</a></td>
+    </tr>
+</table>
 
