@@ -28,14 +28,38 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', function ($ht
         return bytes;
     }
 
-    var _retornarArquivo = function (docClienteId, nameFile_) {
-        debugger;
+    var _retornarArquivo = function (docClienteId_, nameFile_) {
         
+        $http({
+            url: serviceBase + "api/FileUpload/RetornarArquivo?docClienteId=" + docClienteId_,
+            method: 'POST',
+            params: {},
+            headers: {
+                'Content-type': 'application/pdf',
+            },
+            responseType: 'arraybuffer'
+        }).success(function (data, status, headers, config) {
+            
+            var file = new Blob([data], {
+                type: 'application/pdf'
+            });
+
+            saveAs(file, nameFile_);
+            
+        }).error(function (data, status, headers, config) {
+            alert("Erro ao acessar o serviço de Consulta de Arquivo.")
+        });
+
+        /*
+
         $http.post(serviceBase + "api/FileUpload/RetornarArquivo", { DocClienteId: docClienteId })
         .then(function (response) {
             debugger;
-            var blob = new Blob([str2bytes(response.data)], { type: 'application/pdf' });
-            saveAs(blob, nameFile_);
+
+            var file = new Blob([response.data], { type: 'application/pdf' });
+            saveAs(file, nameFile_);
+
+            
 
             /*
             //var file = new Blob([response.data], { type: 'application/pdf' });
@@ -46,12 +70,12 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', function ($ht
             //var file = new Blob([response.data], { type: 'application/pdf' });
             file = new Blob([response.data], { type: 'application/pdf' });
             //saveAs(file, nameFile_);
-            saveAs(file, "TESTE2.PDF");*/
+            saveAs(file, "TESTE2.PDF");
         },
         function (data, status, headers, config) {
             debugger;
             alert("Erro ao acessar o serviço de Consulta de Arquivo.")
-        });
+        });*/
         /*
         $http({
             method: 'GET',
