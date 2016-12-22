@@ -1,21 +1,18 @@
-﻿var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ngFileUpload']);
-
-app.controller('mensagens', ['$scope', function ($scope) {
-    $scope.mensagemSucesso = 'hello';
-}]);
+﻿
+var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ngFileUpload']);
 
 app.config(function ($routeProvider) {
 
-    /*$routeProvider.when("/home", {
+    $routeProvider.when("/home", {
         controller: "homeController",
         templateUrl: "/app/views/home.html"
-    });*/
+    });
 
     $routeProvider.when("/login", {
         controller: "loginController",
         templateUrl: "/app/views/login.html"
     });
-    /*
+
     $routeProvider.when("/signup", {
         controller: "signupController",
         templateUrl: "/app/views/signup.html"
@@ -26,11 +23,11 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/refresh.html"
     });
 
-    $routeProvider.when("/efetuarLogin", {
+    $routeProvider.when("/tokens", {
         controller: "tokensManagerController",
         templateUrl: "/app/views/tokens.html"
     });
-    */
+
     $routeProvider.when("/fileUpload", {
         controller: "fileUploadController",
         templateUrl: "/app/views/fileUpload.html"
@@ -42,7 +39,7 @@ app.config(function ($routeProvider) {
     });
 
     $routeProvider.otherwise({ redirectTo: "/login" });
-    
+
 });
 
 var serviceBase = 'http://localhost:44857/';

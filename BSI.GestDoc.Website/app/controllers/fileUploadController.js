@@ -1,7 +1,5 @@
 ﻿'use strict';
-
-app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "fileUploadService", 'Upload',
-    'ngAuthSettings', function ($scope, $routeParams, $location, fileUploadService, Upload, ngAuthSettings) {
+app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "fileUploadService", 'Upload', 'ngAuthSettings', function ($scope, $routeParams, $location, fileUploadService, Upload, ngAuthSettings) {
 
     $scope.mostraBotaoEnviar = true;
     $scope.mostraBotaoNovo = false;
