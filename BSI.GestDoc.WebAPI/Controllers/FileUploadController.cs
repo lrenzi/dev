@@ -107,6 +107,13 @@ namespace BSI.GestDoc.WebAPI.Controllers
                     DocClienteDataUpload = DateTime.Now
                 };
 
+                #region 1 - Verifica tipo/ versão pdf
+                if (UtilFile.GetMIMEType(_documentoCliente.DocClienteNomeArquivoOriginal).ToLower() != "application/pdf")
+                {
+                    throw new Exception("Erro - Documento deve ser do tipo PDF");
+                }
+                #endregion
+
                 Cliente cliente = new Cliente() { ClienteId = _documentoCliente.ClienteId };
                 UploadFileBL uploadFileBL = null;
 
