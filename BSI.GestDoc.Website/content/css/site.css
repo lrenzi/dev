@@ -9,27 +9,24 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-      padding-top: 40px;
-  xpadding-bottom: 10px;
+    padding-top: 70px;
+    padding-bottom: 70px;
 }
+
+.borderless, .borderless td, .borderless th, .borderless tr {
+    border: none !important;
+}
+
 
 /*-------------------------------------*/
 /* LOADING MODAL (waiting)------------ */
 
-.modal-backdrop{
-    background-color:#fff;
+.modal-backdrop {
+    background-color: #fff;
 }
 
 /*-------------------------------------*/
 /* Rodapé ---------------------------- */
-
-#footer {
-    position: absolute;
-    bottom: 0;
-    width: 70%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-}
 
 .text-muted {
     margin: 20px 0;
@@ -60,7 +57,7 @@ body {
         }
 
     .form-login input[type="password"] {
-        margin-top:5px;
+        margin-top: 5px;
         margin-bottom: 5px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
@@ -70,23 +67,28 @@ body {
 /* Customizações do Bootstrap -------- */
 
 .navbar-inverse {
-    background-color:darkred;
+    background-color: darkred;
 }
-.form-control:focus{
-    border-color:indianred;
+
+.form-control:focus {
+    border-color: indianred;
 }
-.btn-info{
-    background-color:#7a0000;
-    border-color:#999;
+
+.btn-info {
+    background-color: #7a0000;
+    border-color: #999;
     transition: all 0.2s ease 0s;
 }
-.btn-info:hover, .btn-info:focus, .btn-info:active, .active.btn-info, .open .btn-info.dropdown-toggle{
-    background-color:#630000;
-    border-color:#666;
+
+    .btn-info:hover, .btn-info:focus, .btn-info:active, .active.btn-info, .open .btn-info.dropdown-toggle {
+        background-color: #630000;
+        border-color: #666;
+    }
+
+a {
+    color: #7a0000;
 }
-a{
-    color:#7a0000;
-}
-a:hover, a:focus{
-    color:#333;
-}
+
+    a:hover, a:focus {
+        color: #333;
+    }
