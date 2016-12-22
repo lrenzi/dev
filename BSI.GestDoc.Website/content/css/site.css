@@ -9,15 +9,15 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-      padding-top: 40px;
-  xpadding-bottom: 10px;
+    padding-top: 40px;
+    xpadding-bottom: 10px;
 }
 
 /*-------------------------------------*/
 /* LOADING MODAL (waiting)------------ */
 
-.modal-backdrop{
-    background-color:#fff;
+.modal-backdrop {
+    background-color: #fff;
 }
 
 /*-------------------------------------*/
@@ -60,7 +60,7 @@ body {
         }
 
     .form-login input[type="password"] {
-        margin-top:5px;
+        margin-top: 5px;
         margin-bottom: 5px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
@@ -70,23 +70,65 @@ body {
 /* Customizações do Bootstrap -------- */
 
 .navbar-inverse {
-    background-color:darkred;
+    background-color: darkred;
 }
-.form-control:focus{
-    border-color:indianred;
+
+.form-control:focus {
+    border-color: indianred;
 }
-.btn-info{
-    background-color:#7a0000;
-    border-color:#999;
+
+.btn-info {
+    background-color: #7a0000;
+    border-color: #999;
     transition: all 0.2s ease 0s;
 }
-.btn-info:hover, .btn-info:focus, .btn-info:active, .active.btn-info, .open .btn-info.dropdown-toggle{
-    background-color:#630000;
-    border-color:#666;
+
+    .btn-info:hover, .btn-info:focus, .btn-info:active, .active.btn-info, .open .btn-info.dropdown-toggle {
+        background-color: #630000;
+        border-color: #666;
+    }
+
+a {
+    color: #7a0000;
 }
-a{
-    color:#7a0000;
+
+    a:hover, a:focus {
+        color: #333;
+    }
+
+.divTipo {
+    background: gray;
+    width: 100%;
+    margin: 2px;
+    padding: 2px;
 }
-a:hover, a:focus{
-    color:#333;
+
+    .divTipo .divTipoNome {
+        width: 20%;
+        height: auto;
+        float: left;
+        background: red;
+        display: inline-block;
+    }
+
+.divSitu {
+    background: yellow;
+    margin: 2px;
+    padding: 2px;
+    float: right;
+    width: 79%;
 }
+
+    .divSitu .situacao {
+        width: 30%;
+        float: left;
+    }
+
+    .divSitu .link {
+        width: 69%;
+        float: right;
+    }
+
+    .borderless, .borderless td, .borderless th, .borderless tr {
+         border: none !important;
+    }

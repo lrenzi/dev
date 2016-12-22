@@ -21,14 +21,14 @@ namespace BSI.GestDoc.BusinessLogic
         public List<DocumentoClienteDados> ListarDocumentosCliente(string usuarioId, string clientId, string numeroProposta)
         {
             PropostasDal Dal = new PropostasDal();
-            IEnumerable<DocumentoClienteDados> documentosClienteDados = new  List<DocumentoClienteDados>();
-            
+            IEnumerable<DocumentoClienteDados> documentosClienteDados = new List<DocumentoClienteDados>();
+
             //Recupera lista de DocumentosDados     
             documentosClienteDados = Dal.ListarPropostas(usuarioId, clientId, numeroProposta);
-            
+
             //Recupera lista de DocumentosCliente
             this.ConsultarInformacaoesDocumentosCliente(documentosClienteDados);
-            
+
             return documentosClienteDados.ToList();
         }
 
@@ -85,14 +85,14 @@ namespace BSI.GestDoc.BusinessLogic
         {
             //foreach (var documentoCliente in listaDocumentosCliente)
             //{
-                //verifica se o documento corresponde a situacao existente na lista
-                IEnumerable<DocumentoClienteSituacao> documentoRetorno = documentoCliente.DocumentoClienteTipo.ListaSituacaoDocumentoCliente.Where(x => x.DocCliSituId == documentoCliente.DocCliSituId);
+            //verifica se o documento corresponde a situacao existente na lista
+            IEnumerable<DocumentoClienteSituacao> documentoRetorno = documentoCliente.DocumentoClienteTipo.ListaSituacaoDocumentoCliente.Where(x => x.DocCliSituId == documentoCliente.DocCliSituId && x.DocCliTipoId == documentoCliente.DocCliTipoId);
 
-                if(documentoRetorno.Count() > 0)
-                {
-                    //carrega o nome do arquivo salvo no campo auxiliar
-                    documentoCliente.NomeArquivoSalvoAux = documentoCliente.DocClienteNomeArquivoOriginal;
-                }
+            if (documentoRetorno.Count() > 0)
+            {
+                //carrega o nome do arquivo salvo no campo auxiliar
+                documentoCliente.NomeArquivoSalvoAux = documentoCliente.DocClienteNomeArquivoOriginal;
+            }
 
             //}
 

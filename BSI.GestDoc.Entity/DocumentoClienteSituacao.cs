@@ -10,7 +10,7 @@ namespace BSI.GestDoc.Entity
     {
         public int DocCliSituId { get; set; }
         public string DocCliSituDescricao { get; set; }
-       // public int DocCliTipoId { get; set; }
+        public int DocCliTipoId { get; set; }
         public int DocCliSituOrdemApresent { get; set; }
         public DocumentoClienteTipo DocumentoClienteTipo { get; set; }
         
