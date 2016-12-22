@@ -42,6 +42,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
                 $scope.listaDocumentosClienteTipo[key].progressbar = "";
                 $scope.listaDocumentosClienteTipo[key].reenvio = false;
                 $scope.listaDocumentosClienteTipo[key].download = false;
+                $scope.listaDocumentosClienteTipo[key].cssclass = "";
             });
             
             
@@ -116,6 +117,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
                 //angular.element(document.querySelector('#reenvio_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId)).value = "S";
                 //document.getElementById('reenvio_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).value = "S";
                 $scope.listaDocumentosClienteTipo[index_].reenvio = true;
+                $scope.listaDocumentosClienteTipo[key].cssclass = "bg-info";
             } else {
                 $scope.listaDocumentosClienteTipo[index_].reenvio = false;
                 
@@ -125,9 +127,13 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
                 
                 $scope.listaDocumentosClienteTipo[index_].docClienteId = data.dados.docClienteId;
                 $scope.listaDocumentosClienteTipo[index_].download = true;
+                $scope.listaDocumentosClienteTipo[key].cssclass = "bg-success";
             }
             //document.getElementById('idStatus_' + docCliTipoId).innerText = data.mensagem;
             $scope.listaDocumentosClienteTipo[index_].status = data.mensagem;
+            
+            
+            
 
             $scope.mostraBotaoEnviar = false;
             $scope.mostraBotaoNovo = true;
@@ -136,6 +142,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
         }).error(function (data, status, headers, config) {
 
+            $scope.listaDocumentosClienteTipo[key].cssclass = "bg-danger";
             if (data.message == undefined)
                 //document.getElementById('idStatus_' + docCliTipoId).innerText = data;
                 $scope.listaDocumentosClienteTipo[index_].status = data;

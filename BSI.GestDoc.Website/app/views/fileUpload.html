@@ -16,7 +16,7 @@
                 <tr data-ng-repeat="item in listaDocumentosClienteTipo">
                     <td>{{item.docCliTipoNome}}</td>
                     <td align="left"><input ng-model="file" ng-disabled="desabilitaFile" type="file" size="60" id="idFile_{{item.docCliTipoId}}" name="file" /></td>
-                    <td><label>{{item.status}}</label></td>
+                    <td ng-class="item.cssclass"><label>{{item.status}}</label></td>
                     <td><button ng-click="ReenviarArquivo(item.docCliTipoId, $index)" class="btn btn-sm" ng-show="item.reenvio" value="Reenviar" id="idButton_{{item.docCliTipoId}}">Reenviar</button></td>
                     <td>
                         <button ng-model="btnDownload" ng-show="item.download" ng-click="RetornarArquivo(item.docClienteId, item.nameFile)" class="btn btn-primary btn-sm" value="Download" title="Visualizar o documento.">Download</button>
