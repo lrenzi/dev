@@ -122,7 +122,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                         break;
                 }
                 
-                return Ok((new Retorno() { Dados = _documentoCliente,  Mensagem  = "Arquivo incluído com sucesso." }));
+                return Ok((new Retorno() { Dados = _documentoCliente,  Mensagem  = "Arquivo incluído com sucesso.", TipoErro = EnumTipoMensagem.Sucesso }));
             }
             catch (BusinessLogic.BusinessException.BusinessException ex)
             {
