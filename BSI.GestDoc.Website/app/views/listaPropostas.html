@@ -26,6 +26,7 @@
     <tr>
         <td class="col-sm-2 vAlignMiddle">
             <h5>Número proposta:</h5>
+            <button ng-model="btnDownload" ng-show="true" ng-click="RetornarArquivo('fl0kEcNlUFE=', 'nomedoarquivo.pdf')" class="btn btn-primary btn-sm" value="Download" title="Visualizar o documento.">Download</button>
         </td>
         <td class="vAlignMiddle">
             <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" width="100%" />
@@ -46,6 +47,7 @@
             </table>
         </td>
         <td><a href="#">{{documentos.nomeArquivoSalvoAux}}</a></td>
+        
     </tr>
 </table>
 

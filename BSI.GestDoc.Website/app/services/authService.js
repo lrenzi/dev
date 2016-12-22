@@ -6,8 +6,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
     var _authentication = {
         isAuth: false,
-        userName: "",        
-        clienteId: "",       
+        userName: "",
+        clienteId: "",
         useRefreshTokens: false
     };
 
@@ -45,11 +45,11 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             else {
                 localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: "", useRefreshTokens: false });
             }
-            
+
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
             _authentication.useRefreshTokens = loginData.useRefreshTokens;
-            
+
             ngAuthSettings.userName = loginData.userName;
             ngAuthSettings.nomeCliente = loginData.nomeCliente;
             ngAuthSettings.nomeUsuario = response.nomeUsuario;

@@ -16,7 +16,8 @@ namespace BSI.GestDoc.BusinessLogic.Util
 
     public enum EnumTipoMensagem
     {
-        Alerta = 1,
-        Pergunta = 2
+        Sucesso = 1,
+        Alerta = 2,
+        Pergunta = 3
     }
 }

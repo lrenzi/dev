@@ -13,8 +13,8 @@
     <link href="content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="content/css/loading-bar.min.css" rel="stylesheet" />
     <link href="content/css/font-awesome.min.css" rel="stylesheet" />
-    <!--<link href="content/css/blockUI/angular-block-ui.min.css" rel="stylesheet" />-->
-    
+    <link href="content/css/blockUI/angular-block-ui.min.css" rel="stylesheet" />
+
     <!--** scripts js de componentes e customizados **-->
     <!--<script src="scripts/jquery/js/jquery-3.1.0.js"></script>-->
     <!--** css proprio do site e customizados **-->
@@ -122,11 +122,8 @@
     <script src="app/services/listaPropostasService.js"></script>
 
     <!-- Controllers -->
-    <script src="app/controllers/indexController.js?v=2"></script>
-    <script src="app/controllers/homeController.js?v=2"></script>
     <script src="app/controllers/loginController.js?v=2"></script>
     <script src="app/controllers/signupController.js?v=2"></script>
-    <script src="app/controllers/refreshController.js?v=2"></script>
     <script src="app/controllers/tokensManagerController.js?v=2"></script>
     <script src="app/controllers/fileUploadController.js?v=2"></script>
     <script src="app/controllers/listaPropostasController.js?v=2"></script>

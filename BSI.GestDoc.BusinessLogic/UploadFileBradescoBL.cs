@@ -2,6 +2,7 @@
 using BSI.GestDoc.Entity;
 using BSI.GestDoc.Repository;
 using BSI.GestDoc.Repository.CRUD;
+using BSI.GestDoc.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,14 +20,14 @@ namespace BSI.GestDoc.BusinessLogic
 
         public override DocumentoCliente EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
         {
-            UtilFile.UtilFileBradesco utilFileBradesco = new UtilFile.UtilFileBradesco();
+            UtilFileBradesco utilFileBradesco = new UtilFileBradesco();
 
             //Validações **
 
             #region 1 - Verifica tipo/ versão pdf
-            if (BSI.GestDoc.Util.UtilFile.GetMIMEType(documentoCliente_.DocClienteNomeArquivoOriginal).ToLower() != "application/pdf")
+            if (UtilFile.GetMIMEType(documentoCliente_.DocClienteNomeArquivoOriginal).ToLower() != "application/pdf")
             {
-                throw new BusinessException.BusinessException("Erro - Documento deve ser do tipo PDF");
+                throw new Exception("Erro - Documento deve ser do tipo PDF");
             }
             #endregion
 
@@ -38,14 +39,14 @@ namespace BSI.GestDoc.BusinessLogic
                 Int64 _valor;
                 if (!Int64.TryParse(_documentoClienteDados.DocCliDadosValor, out _valor))
                 {
-                    throw new BusinessException.BusinessException("Valor do campo contrato deve ser numérico.");
+                    throw new Exception("Valor do campo contrato deve ser numérico.");
                 }
                 _documentoClienteDados.ClienteId = documentoCliente_.ClienteId;
                 _documentoClienteDados.TipoInfoCliId = (new ClienteTipoInformacaoClienteDal().GetAllClienteTipoInformacaoClienteByIdCliente(_documentoClienteDados.ClienteId).First()).TipoInfoCliId;
             }
             catch (Exception ex)
             {
-                throw new BusinessException.BusinessException("Erro ao recuperar o número do contrato. Erro [" + ex.Message + "]");
+                throw new Exception("Erro ao recuperar o número do contrato. Erro [" + ex.Message + "]");
             }
             #endregion
 
@@ -56,7 +57,7 @@ namespace BSI.GestDoc.BusinessLogic
             List<DocumentoCliente> _documentosClienteCadastrado = new EnviarArquivoDal().ConsultarNumeroPropostaPorUsuario(_documentoClienteDados.DocCliDadosValor.Trim()).ToList();
             if (_documentosClienteCadastrado.FindAll(p => p.UsuarioId != documentoCliente_.UsuarioId).Count > 0)
             {
-                throw new BusinessException.BusinessException("Proposta enviado por outro usuário.");
+                throw new BusinessException.BusinessException(0, EnumTipoMensagem.Alerta, "Proposta enviada por outro usuário.");
             }
             List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(documentoCliente_.DocCliTipoId).ToList();
             documentoCliente_.DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId);
