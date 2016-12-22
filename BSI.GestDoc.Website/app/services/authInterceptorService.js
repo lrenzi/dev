@@ -16,7 +16,7 @@ app.factory('authInterceptorService', ['$q', '$injector','$location', 'localStor
     }
 
     var _responseError = function (rejection) {
-        debugger;
+        
         if (rejection.status === 401) {
             var authService = $injector.get('authService');
             var authData = localStorageService.get('authorizationData');
