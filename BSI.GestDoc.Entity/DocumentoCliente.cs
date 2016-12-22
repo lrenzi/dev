@@ -12,6 +12,12 @@ namespace BSI.GestDoc.Entity
     {
         [DapperAttribute.Key]
         public Int64 DocClienteId { get; set; }
+        [DapperAttribute.Computed]
+        [DapperAttribute.Write(false)]
+        public string cryptoDocClienteId
+        {
+            get { return BSI.GestDoc.Util.MD5Crypt.Criptografar(DocClienteId.ToString()); }
+        }
         public Int64 UsuarioId { get; set; }
         public string DocClienteNomeArquivoSalvo { get; set; }
         public DateTime DocClienteDataUpload { get; set; }

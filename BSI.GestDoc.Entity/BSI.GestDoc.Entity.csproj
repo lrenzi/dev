@@ -64,6 +64,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BSI.GestDoc.Util\BSI.GestDoc.Util.csproj">
+      <Project>{7d5c5e30-acb7-41a1-82ed-fbcba8b6bfd2}</Project>
+      <Name>BSI.GestDoc.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

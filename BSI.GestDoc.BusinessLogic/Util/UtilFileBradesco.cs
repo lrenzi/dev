@@ -16,7 +16,7 @@ using iTextSharp.text;
 using Ionic.Zip;
 using BSI.GestDoc.Entity;
 
-namespace BSI.GestDoc.UtilFile
+namespace BSI.GestDoc.BusinessLogic.Util
 {
     public class UtilFileBradesco
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSI.GestDoc.Util
+namespace BSI.GestDoc.BusinessLogic.Util
 {
     public class UtilFile
     {

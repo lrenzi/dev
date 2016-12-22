@@ -1,10 +1,17 @@
 ﻿
 'use strict';
-app.controller("listaPropostasController", ["$scope", "$routeParams", "$location", "listaPropostasService", 'documentoCliente', function ($scope, $routeParams, $location, listaPropostasService, documentoCliente) {
+app.controller("listaPropostasController", ["$scope", "$routeParams", "$location", "listaPropostasService", 'documentoCliente', 'fileUploadService', function ($scope, $routeParams, $location, listaPropostasService, documentoCliente, fileUploadService) {
     documentoCliente.numeroPesquisaProposta = '';
     $scope.showListaProposta = false;
     $scope.showMensagemListaVazia=false;
     
+    $scope.RetornarArquivo = function (docClienteId_, fileName_) {
+        fileUploadService.RetornarArquivo(docClienteId_, fileName_).then(function (data) {
+        }, function (error) {
+            alert(error.data.message);
+        });
+    };
+
     $scope.ListarPropostas = function (keySearch) {
         documentoCliente.numeroPesquisaProposta = keySearch;
         $scope.listaPropostas = listaPropostasService.ListarPropostas().then(function (data) {

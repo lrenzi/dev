@@ -5,6 +5,8 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
     $scope.mostraBotaoNovo = false;
     $scope.desabilitaFile = false;
 
+    
+
     $scope.IniciarTela = function () {
 
         $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
@@ -31,6 +33,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
     }
 
     $scope.ConsultarArquivos = function () {
+        alert(ngAuthSettings.clienteId);
         $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
             $scope.listaDocumentosClienteTipo = data;
             iniciarListaDocumentoClienteTipo();
@@ -86,7 +89,8 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
             if (data.tipoErro == 1) {
                 $scope.listaDocumentosClienteTipo[index_].reenvio = false;
                 $scope.listaDocumentosClienteTipo[index_].nameFile = file_.value.split("\\")[file_.value.split("\\").length - 1];
-                $scope.listaDocumentosClienteTipo[index_].docClienteId = data.dados.docClienteId;
+                $scope.listaDocumentosClienteTipo[index_].docClienteId = data.dados.cryptoDocClienteId;
+                alert($scope.listaDocumentosClienteTipo[index_].docClienteId);
                 $scope.listaDocumentosClienteTipo[index_].download = true;
                 $scope.listaDocumentosClienteTipo[index_].cssclass = "bg-success";
             } else if (data.tipoErro == 2) {

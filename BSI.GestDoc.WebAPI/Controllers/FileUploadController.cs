@@ -15,6 +15,7 @@ using BSI.GestDoc.BusinessLogic;
 using System.Configuration;
 using BSI.GestDoc.BusinessLogic.Util;
 using System.Net.Http.Headers;
+using BSI.GestDoc.Util;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -56,9 +57,11 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
         [System.Web.Http.Route("RetornarArquivo")]
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage RetornarArquivo(int docClienteId)
+        public HttpResponseMessage RetornarArquivo(string docClienteId)
         {
-            DocumentoCliente _documentoCliente = new UploadFileBL().RetornarArquivo(new DocumentoCliente() { DocClienteId = docClienteId });
+            docClienteId = MD5Crypt.Descriptografar(docClienteId);
+
+            DocumentoCliente _documentoCliente = new UploadFileBL().RetornarArquivo(new DocumentoCliente() { DocClienteId = int.Parse(docClienteId) });
             UploadFileBL uploadFileBl = new UploadFileBL();
 
             var file = WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo;

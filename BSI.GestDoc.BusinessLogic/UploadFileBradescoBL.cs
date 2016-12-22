@@ -2,6 +2,7 @@
 using BSI.GestDoc.Entity;
 using BSI.GestDoc.Repository;
 using BSI.GestDoc.Repository.CRUD;
+using BSI.GestDoc.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,12 @@ namespace BSI.GestDoc.BusinessLogic
 
         public override DocumentoCliente EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
         {
-            UtilFile.UtilFileBradesco utilFileBradesco = new UtilFile.UtilFileBradesco();
+            UtilFileBradesco utilFileBradesco = new UtilFileBradesco();
 
             //Validações **
 
             #region 1 - Verifica tipo/ versão pdf
-            if (BSI.GestDoc.Util.UtilFile.GetMIMEType(documentoCliente_.DocClienteNomeArquivoOriginal).ToLower() != "application/pdf")
+            if (UtilFile.GetMIMEType(documentoCliente_.DocClienteNomeArquivoOriginal).ToLower() != "application/pdf")
             {
                 throw new Exception("Erro - Documento deve ser do tipo PDF");
             }
