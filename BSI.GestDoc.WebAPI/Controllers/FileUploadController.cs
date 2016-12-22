@@ -78,7 +78,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
         [System.Web.Http.Route("EnviarArquivos")]
         [System.Web.Http.HttpPost]
-        public async Task<IHttpActionResult> EnviarArquivos(int usuarioId, int clienteId, int docCliTipoId, string reenvio)
+        public async Task<IHttpActionResult> EnviarArquivos(int usuarioId, int clienteId, int docCliTipoId, bool reenvio)
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent("form-data"))
