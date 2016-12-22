@@ -43,22 +43,23 @@
                 <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
                     <span class="glyphicon glyphicon-chevron-down"></span>
                 </button>
-                <a class="navbar-brand" href="#/">Inicial</a>
+                <!--<a class="navbar-brand" href="#/">Inicial</a>-->
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
-                    <li data-ng-hide="!authentication.isAuth"><a href="#">Bem vindo {{authentication.userName}}</a></li>
+                    <li data-ng-hide="!authentication.isAuth">Bem vindo {{ngAuthSettings.nomeUsuario}}</li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/fileUpload">Upload Documentos</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/listaPropostas">Lista Contratos</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Reativar Token</a></li>
+                    <!--<li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Reativar Token</a></li>-->
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Sair</a></li>
-                    <li data-ng-hide="authentication.isAuth"> <a href="#/login">Entrar</a></li>
-                    <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Cadastrar-se</a></li>
+                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/login">Entrar</a></li>-->
+                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/signup">Cadastrar-se</a></li>-->
                 </ul>
             </div>
         </div>
     </div>
-    <div class="jumbotron">
+
+    <div data-ng-controller="indexController" data-ng-hide="authentication.isAuth" class="jumbotron" >
         <div class="container">
             <div class="page-header text-center">
                 <h1>Grafometria</h1>
@@ -72,9 +73,7 @@
         </div>
     </div>
 
-    <hr />
-
-    <div id="footer">
+    <div class="navbar navbar-fixed-bottom">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">

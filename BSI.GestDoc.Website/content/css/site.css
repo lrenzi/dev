@@ -9,9 +9,10 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-      padding-top: 40px;
-  xpadding-bottom: 10px;
+      padding-top: 70px;
+   padding-bottom: 70px;
 }
+
 
 /*-------------------------------------*/
 /* LOADING MODAL (waiting)------------ */
@@ -23,14 +24,6 @@ body {
 /*-------------------------------------*/
 /* Rodapé ---------------------------- */
 
-#footer {
-    position: absolute;
-    bottom: 0;
-    width: 70%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-}
-
 .text-muted {
     margin: 20px 0;
 }
@@ -41,30 +34,30 @@ body {
     margin: 0 auto;
 }
 
-    .form-login .form-login-heading {
-        margin-bottom: 10px;
+.form-login .form-login-heading {
+    margin-bottom: 10px;
+}
+
+.form-login .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+
+    .form-login .form-control:focus {
+        z-index: 2;
     }
 
-    .form-login .form-control {
-        position: relative;
-        height: auto;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        padding: 10px;
-        font-size: 16px;
-    }
-
-        .form-login .form-control:focus {
-            z-index: 2;
-        }
-
-    .form-login input[type="password"] {
-        margin-top:5px;
-        margin-bottom: 5px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
+.form-login input[type="password"] {
+    margin-top:5px;
+    margin-bottom: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
 
 /*-------------------------------------*/
 /* Customizações do Bootstrap -------- */
@@ -75,12 +68,12 @@ body {
 .form-control:focus{
     border-color:indianred;
 }
-.btn-info{
+.btn{
     background-color:#7a0000;
     border-color:#999;
     transition: all 0.2s ease 0s;
 }
-.btn-info:hover, .btn-info:focus, .btn-info:active, .active.btn-info, .open .btn-info.dropdown-toggle{
+.btn:hover, .btn:focus, .btn:active{
     background-color:#630000;
     border-color:#666;
 }
