@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using BSI.GestDoc.Repository.DAL;
 using BSI.GestDoc.Entity;
+using BSI.GestDoc.BusinessLogic;
 
 namespace BSI.GestDoc.WebAPI.Providers
 {
@@ -80,12 +80,10 @@ namespace BSI.GestDoc.WebAPI.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            AutenticacaoDal Dal = new AutenticacaoDal();
-
+            AutenticacaoBL Dal = new AutenticacaoBL();
 
             try
             {
-
 
                 var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
 
@@ -93,18 +91,8 @@ namespace BSI.GestDoc.WebAPI.Providers
 
                 context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
-                //using (AuthRepository _repo = new AuthRepository())
-                //{
-                //    IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
-
-                //    if (user == null)
-                //    {
-                //        context.SetError("invalid_grant", "The user name or password is incorrect.");
-                //        return;
-                //    }
-                //}
-
-                Usuario user = await Dal.Efetuarlogin(context.UserName, GetMd5Hash(context.Password));
+                //recupera usuario da base de dados
+                Usuario user = await Dal.EfetuarLogin(context.UserName, context.Password);
 
                 if (user.StatusProcessamento > 0)
                 {
@@ -118,6 +106,7 @@ namespace BSI.GestDoc.WebAPI.Providers
                 identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
                 identity.AddClaim(new Claim("sub", context.UserName));
 
+                #region mapeamento de atributos do usuario logado
                 var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
                     {
@@ -129,17 +118,9 @@ namespace BSI.GestDoc.WebAPI.Providers
                     },
 
                     {
-                        "as:nomeUsuario", (user.UsuarioNome == null) ? string.Empty : user.UsuarioNome
-
-                    },
-                    {
                         "nomeUsuario", user.UsuarioNome
                     },
 
-                    {
-                        "as:perfilUsuario", (user.UsuarioPerfil.UsuPerfilNome == null) ? string.Empty : user.UsuarioPerfil.UsuPerfilNome
-
-                    },
                     {
                         "perfilUsuario", user.UsuarioPerfil.UsuPerfilNome
                     },
@@ -149,10 +130,6 @@ namespace BSI.GestDoc.WebAPI.Providers
                     },
 
                     {
-                        "as:loginUsuario", (user.UsuarioLogin == null) ? string.Empty : user.UsuarioLogin
-
-                    },
-                    {
                         "loginUsuario", user.UsuarioLogin
                     },
 
@@ -161,13 +138,10 @@ namespace BSI.GestDoc.WebAPI.Providers
                     },
 
                     {
-                        "as:pathDocumentosCliente", (user.Cliente.ClientePastaDocumentos == null) ? string.Empty : user.Cliente.ClientePastaDocumentos
-
-                    },
-                    {
                         "pathDocumentosCliente", user.Cliente.ClientePastaDocumentos
                     }
                 });
+                #endregion
 
                 var ticket = new AuthenticationTicket(identity, props);
                 context.Validated(ticket);
@@ -216,25 +190,7 @@ namespace BSI.GestDoc.WebAPI.Providers
             return Task.FromResult<object>(null);
         }
 
-        static string GetMd5Hash(string texto)
-        {
-            try
-            {
-                System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
-                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(texto);
-                byte[] hash = md5.ComputeHash(inputBytes);
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                for (int i = 0; i < hash.Length; i++)
-                {
-                    sb.Append(hash[i].ToString("X2"));
-                }
-                return sb.ToString(); // Retorna senha criptografada 
-            }
-            catch (Exception)
-            {
-                return null; // Caso encontre erro retorna nulo
-            }
-        }
+       
 
 
     }

@@ -83,8 +83,6 @@ namespace BSI.GestDoc.BusinessLogic
         /// <param name="listaDocumentosCliente"></param>
         public void CarregarArquivoSalvoPorSituacaoDocumento(DocumentoCliente documentoCliente)
         {
-            //foreach (var documentoCliente in listaDocumentosCliente)
-            //{
             //verifica se o documento corresponde a situacao existente na lista
             IEnumerable<DocumentoClienteSituacao> documentoRetorno = documentoCliente.DocumentoClienteTipo.ListaSituacaoDocumentoCliente.Where(x => x.DocCliSituId == documentoCliente.DocCliSituId && x.DocCliTipoId == documentoCliente.DocCliTipoId);
 
@@ -92,10 +90,7 @@ namespace BSI.GestDoc.BusinessLogic
             {
                 //carrega o nome do arquivo salvo no campo auxiliar
                 documentoCliente.NomeArquivoSalvoAux = documentoCliente.DocClienteNomeArquivoOriginal;
-            }
-
-            //}
-
+            }            
         }
     }
 }
