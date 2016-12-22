@@ -21,7 +21,7 @@
                         <input ng-model="file" ng-disabled="desabilitaFile" type="file" id="idFile_{{item.docCliTipoId}}" name="file" class="width-full" />
                     </td>
                     <td >
-                        <label>{{item.status}}</label>
+                        <label ng-class="item.cssclass">{{item.status}}</label>
                     </td>
                     <td class="col-sm-1">
                         <button ng-click="ReenviarArquivo(item.docCliTipoId, $index)" class="btn btn-primary btn-sm" ng-show="item.reenvio" value="Reenviar" id="idButton_{{item.docCliTipoId}}">Reenviar</button>

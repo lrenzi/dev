@@ -117,7 +117,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
                 //angular.element(document.querySelector('#reenvio_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId)).value = "S";
                 //document.getElementById('reenvio_' + $scope.listaDocumentosClienteTipo[index_].docCliTipoId).value = "S";
                 $scope.listaDocumentosClienteTipo[index_].reenvio = true;
-                $scope.listaDocumentosClienteTipo[key].cssclass = "bg-info";
+                $scope.listaDocumentosClienteTipo[index_].cssclass = "bg-info";
             } else {
                 $scope.listaDocumentosClienteTipo[index_].reenvio = false;
                 
@@ -127,7 +127,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
                 
                 $scope.listaDocumentosClienteTipo[index_].docClienteId = data.dados.docClienteId;
                 $scope.listaDocumentosClienteTipo[index_].download = true;
-                $scope.listaDocumentosClienteTipo[key].cssclass = "bg-success";
+                $scope.listaDocumentosClienteTipo[index_].cssclass = "bg-success";
             }
             //document.getElementById('idStatus_' + docCliTipoId).innerText = data.mensagem;
             $scope.listaDocumentosClienteTipo[index_].status = data.mensagem;
@@ -142,7 +142,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
         }).error(function (data, status, headers, config) {
 
-            $scope.listaDocumentosClienteTipo[key].cssclass = "bg-danger";
+            $scope.listaDocumentosClienteTipo[index_].cssclass = "bg-danger";
             if (data.message == undefined)
                 //document.getElementById('idStatus_' + docCliTipoId).innerText = data;
                 $scope.listaDocumentosClienteTipo[index_].status = data;
