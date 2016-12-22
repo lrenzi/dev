@@ -126,7 +126,7 @@ namespace BSI.GestDoc.BusinessLogic
 
             #endregion
 
-            return base.EnviarDocumentoCliente(documentoCliente_);
+            return documentoCliente_;
         }
     }
 }

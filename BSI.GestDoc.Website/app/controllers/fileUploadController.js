@@ -52,10 +52,10 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
 
     $scope.ReenviarArquivo = function (docCliTipoId, index_) {
-
+        debugger;
         var file_ = document.getElementById('idFile_' + docCliTipoId);
         if (file_.value != "") {
-            $scope.EnviarArquivosWebAPI(index_, file_, true, docCliTipoId);
+            $scope.EnviarArquivoWebAPI(index_, file_, true, docCliTipoId);
         }
         else {
             alert("Selecione um arquivo para Reenvio.")
