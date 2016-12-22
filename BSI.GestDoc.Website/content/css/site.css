@@ -20,7 +20,7 @@ background-position:bottom right;
     border: none !important;
 }
 
-.vAlignMiddle {
+.vAlignMiddle, .vAlignMiddle th, .vAlignMiddle td {
     vertical-align:middle !important;
 }
 .vAlignTop {
@@ -28,6 +28,10 @@ background-position:bottom right;
 }
 .vAlignBottom {
     vertical-align:bottom !important;
+}
+
+.width-full{
+    width:100%;
 }
 
 /*-------------------------------------*/

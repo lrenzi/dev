@@ -2,7 +2,7 @@
     <div data-ng-init="ConsultarArquivos()" novalidate="novalidate">
         <h2>Upload de Documentos</h2>
         <h4>Procure os documentos para envio</h4>
-        <table class="table table-condensed ">
+        <table class="table table-condensed table-responsive vAlignMiddle">
             <thead>
                 <tr>
                     <th>Tipo Documento</th>
@@ -14,11 +14,19 @@
             </thead>
             <tbody>
                 <tr data-ng-repeat="item in listaDocumentosClienteTipo">
-                    <td>{{item.docCliTipoNome}}</td>
-                    <td align="left"><input ng-model="file" ng-disabled="desabilitaFile" type="file" size="60" id="idFile_{{item.docCliTipoId}}" name="file" /></td>
-                    <td ng-class="item.cssclass"><label>{{item.status}}</label></td>
-                    <td><button ng-click="ReenviarArquivo(item.docCliTipoId, $index)" class="btn btn-sm" ng-show="item.reenvio" value="Reenviar" id="idButton_{{item.docCliTipoId}}">Reenviar</button></td>
-                    <td>
+                    <td class="col-sm-2">
+                        {{item.docCliTipoNome}}
+                    </td>
+                    <td class="col-sm-4">
+                        <input ng-model="file" ng-disabled="desabilitaFile" type="file" id="idFile_{{item.docCliTipoId}}" name="file" class="width-full" />
+                    </td>
+                    <td >
+                        <label>{{item.status}}</label>
+                    </td>
+                    <td class="col-sm-1">
+                        <button ng-click="ReenviarArquivo(item.docCliTipoId, $index)" class="btn btn-primary btn-sm" ng-show="item.reenvio" value="Reenviar" id="idButton_{{item.docCliTipoId}}">Reenviar</button>
+                    </td>
+                    <td class="col-sm-1">
                         <button ng-model="btnDownload" ng-show="item.download" ng-click="RetornarArquivo(item.docClienteId, item.nameFile)" class="btn btn-primary btn-sm" value="Download" title="Visualizar o documento.">Download</button>
                     </td>
                 </tr>
