@@ -19,7 +19,7 @@
                     <td><label>{{item.status}}</label></td>
                     <td><button ng-click="ReenviarArquivo(item.docCliTipoId, $index)" class="btn btn-sm" ng-show="item.reenvio" value="Reenviar" id="idButton_{{item.docCliTipoId}}">Reenviar</button></td>
                     <td>
-                        <button ng-model="btnDownload" ng-show="item.reenvio == 'N'" ng-click="RetornarArquivo(item.docClienteId)" class="btn btn-primary btn-sm" value="Download" title="Visualizar o documento.">Download</button>
+                        <button ng-model="btnDownload" ng-show="item.download" ng-click="RetornarArquivo(item.docClienteId, item.nameFile)" class="btn btn-primary btn-sm" value="Download" title="Visualizar o documento.">Download</button>
                     </td>
                 </tr>
             </tbody>
