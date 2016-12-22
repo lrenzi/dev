@@ -14,13 +14,12 @@
     <link href="content/css/loading-bar.min.css" rel="stylesheet" />
     <link href="content/css/font-awesome.min.css" rel="stylesheet" />
     <link href="content/css/blockUI/angular-block-ui.min.css" rel="stylesheet" />
-    
+
     <!--** scripts js de componentes e customizados **-->
     <!--<script src="scripts/jquery/js/jquery-3.1.0.js"></script>-->
-    
     <!--** css proprio do site e customizados **-->
     <link href="content/css/site.css" rel="stylesheet" />
-    
+
 </head>
 <body>
 
@@ -60,7 +59,7 @@
         </div>
     </div>
 
-    <div data-ng-controller="indexController" data-ng-hide="authentication.isAuth" class="jumbotron" >
+    <div data-ng-controller="indexController" data-ng-hide="authentication.isAuth" class="jumbotron">
         <div class="container">
             <div class="page-header text-center">
                 <h1>Grafometria</h1>
@@ -68,12 +67,29 @@
             <p class="text-center">Interface administrativa de gerenciamento de documentos para assinatura grafométrica.</p>
         </div>
     </div>
+    <div class="container" ng-controller="mensagens" ng-show="false">
+        <div class="alert alert-success">
+            <strong>Sucesso!</strong><label ng-bind="mensagemSucesso"></label>
+        </div>
 
+        <div class="alert alert-info">
+            <strong>Informação!</strong><label ng-bind="mensagemInformacao"></label>
+        </div>
+
+        <div class="alert alert-warning">
+            <strong>Alerta!</strong><label ng-bind="mensagemAlerta"></label>
+        </div>
+
+        <div class="alert alert-danger">
+            <strong>Erro!</strong><label ng-bind="mensagemErro"></label>
+        </div>
+    </div>
     <div class="container">
         <div data-ng-view="">
         </div>
     </div>
-
+    <br />
+    
     <div class="navbar navbar-fixed-bottom">
         <div class="container">
             <div class="row">
