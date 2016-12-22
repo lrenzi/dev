@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{99629E1A-9A67-4624-A23D-74667981D77B}</ProjectGuid>
+    <ProjectGuid>{B7BB0739-51AD-4FCE-A4FE-4AFAC8D28747}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BSI.GestDoc.Entity</RootNamespace>
-    <AssemblyName>BSI.GestDoc.Entity</AssemblyName>
+    <RootNamespace>BSI.Dapper.Contrib</RootNamespace>
+    <AssemblyName>BSI.Dapper.Contrib</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,17 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.50.0\lib\net451\Dapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Dapper.Contrib, Version=1.50.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Dapper.Contrib">
       <HintPath>..\packages\Dapper.Contrib.1.50.0\lib\net45\Dapper.Contrib.dll</HintPath>
-      <Private>True</Private>
+    </Reference>
+    <Reference Include="Dapper.Mapper">
+      <HintPath>..\packages\Dapper.Mapper.1.50.1\lib\net45\Dapper.Mapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DapperExtensions">
+      <HintPath>..\packages\DapperExtensions.1.5.0\lib\net45\DapperExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,20 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DocumentoClienteDadosDoc.cs" />
-    <Compile Include="DocumentoCliente.cs" />
-    <Compile Include="DocumentoClienteSituacao.cs" />
-    <Compile Include="DocumentoClienteTipo.cs" />
-    <Compile Include="Usuario.cs" />
-    <Compile Include="UsuarioPerfil.cs" />
-    <Compile Include="ClienteTipoInformacaoCliente.cs" />
-    <Compile Include="DocumentoClienteDados.cs" />
-    <Compile Include="TipoInformacaoCliente.cs" />
-    <Compile Include="Cliente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Folder Include="Helper\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

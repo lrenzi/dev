@@ -10,9 +10,9 @@ namespace BSI.GestDoc.Repository.CRUD
 {
     public class ClienteTipoInformacaoClienteDal
     {
-        public int InsertClienteTipoInformacaoCliente(ClienteTipoInformacaoCliente ClienteTipoInformacaoCliente)
+        public Int64 InsertClienteTipoInformacaoCliente(ClienteTipoInformacaoCliente ClienteTipoInformacaoCliente)
         {
-            int recordId = SqlHelper.InsertWithReturnId(ClienteTipoInformacaoCliente);
+            Int64 recordId = SqlHelper.InsertWithReturnId(ClienteTipoInformacaoCliente);
             return recordId;
         }
 
@@ -27,7 +27,7 @@ namespace BSI.GestDoc.Repository.CRUD
             return user;
         }
 
-        public IEnumerable<ClienteTipoInformacaoCliente> GetAllClienteTipoInformacaoClienteByIdCliente(int pClienteId)
+        public IEnumerable<ClienteTipoInformacaoCliente> GetAllClienteTipoInformacaoClienteByIdCliente(Int64 pClienteId)
         {
             var p = new DynamicParameters();
             p.Add("@pClienteId", pClienteId, DbType.String, null);

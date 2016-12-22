@@ -31,7 +31,7 @@ namespace BSI.GestDoc.Repository
 
         public DocumentoClienteDados InserirDocumentoClienteDados(DocumentoClienteDados documentoClienteDados_)
         {
-            int recordId = SqlHelper.InsertWithReturnId(documentoClienteDados_);
+            Int64 recordId = SqlHelper.InsertWithReturnId(documentoClienteDados_);
             documentoClienteDados_.DocCliDadosId = recordId;
             return documentoClienteDados_;
         }

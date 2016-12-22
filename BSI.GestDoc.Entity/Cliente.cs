@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DapperAttribute = Dapper.Contrib.Extensions;
 
 namespace BSI.GestDoc.Entity
 {
+    [DapperAttribute.Table("Cliente")]
     public class Cliente
     {
-        public int ClienteId { get; set; }
+        [DapperAttribute.Key]
+        public Int64 ClienteId { get; set; }
         public string ClienteNome { get; set; }
         public string ClientePastaDocumentos { get; set; }
         public string ClienteImagemLogoDesktop { get; set; }
@@ -20,6 +23,8 @@ namespace BSI.GestDoc.Entity
             Bradesco = 1
         }
 
+        [DapperAttribute.Computed]
+        [DapperAttribute.Write(false)]
         public EnumCliente ClienteNomeEnum
         {
             get

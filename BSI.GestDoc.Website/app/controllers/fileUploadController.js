@@ -28,6 +28,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
     $scope.RetornarArquivo = function (docCliTipoId) {
         debugger;
+
         var docClienteId = document.getElementById("idDocClienteId_" + docCliTipoId).value;
         fileUploadService.RetornarArquivo(docClienteId).then(function (data) {
            
@@ -38,21 +39,13 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
     };
 
     
-    /*$scope.RetornarArquivo = function () {
-
-        $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
-            $scope.listaDocumentosClienteTipo = data;
-        }, function (error) {
-            alert(error.data.message);
-        });
-    };*/
 
     $scope.EnviarArquivosWebAPI = function (index_, file_, reenvio_, docCliTipoId) {
         
         if (docCliTipoId == "") {
             docCliTipoId = $scope.listaDocumentosClienteTipo[index_].docCliTipoId;
         }
-        debugger;
+        
 
         Upload.upload({
             url: ngAuthSettings.apiServiceBaseUri + "api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&clienteId=" + ngAuthSettings.clienteId + "&docCliTipoId=" + docCliTipoId + "&reenvio=" + reenvio_,
@@ -114,54 +107,6 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
             }
         }
-        /*
-        var files = document.getElementsByName('file');
-
-        for (var i = 0; i < files.length; i++) {
-            var file_ = files[i];
-            if (file_.value != "") {
-
-                debugger;
-
-                Upload.upload({
-                    url: ngAuthSettings.apiServiceBaseUri + "/api/FileUpload/EnviarArquivos?idCliente=" + ngAuthSettings.clientId,
-                    file: file_.files[0]
-                }).progress(function (evt) {
-
-                    debugger;
-
-                    $scope.uploadProgress[i] = parseInt(100.0 * evt.loaded / evt.total, 10);
-
-                }).success(function (data, status, headers, config) {
-
-                    debugger;
-                    $scope.uploadProgress[i] = 100;
-                    $scope.status[i] = "Ok";
-
-                }).error(function (data, status, headers, config) {
-
-                    debugger;
-                    $scope.status[i] = data;
-                    
-                })
-            }
-        }
-
         
-        /*
-
-        debugger;
-
-        $scope.listaDocumentosClienteTipo = fileUploadService.EnviarArquivos(Upload, file).then(function (retorno) {
-            debugger;
-            $scope.listaDocumentosClienteTipo = retorno;
-        }, function (error) {
-            debugger;
-            alert(error.data.message);
-        });
-        /*
-        fileUploadService.EnviarArquivos().then(function (data) {
-            $scope.listaDocumentosClienteTipo = data;
-        });*/
     };
 }]);
