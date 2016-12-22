@@ -2,27 +2,41 @@
     <div data-ng-init="ConsultarArquivos()" novalidate="novalidate">
         <h2>Upload de Documentos</h2>
         <h4>Procure os documentos para envio</h4>
-        <table class="table table-condensed table-bordered table-striped">
+        <table class="table table-condensed ">
             <thead>
-            <th>Tipo Documento</th>
-            <th>Arquivo</th>
-            <th>Status</th>
-            <th>Reenvio</th>
-            <th>Evolução</th>
+                <tr>
+                    <th>Tipo Documento</th>
+                    <th>Arquivo</th>
+                    <th>Status</th>
+                    <th>Reenvio</th>
+                    <th>Evolução</th>
+                    <th>Download</th>
+                </tr>
             </thead>
             <tbody>
                 <tr data-ng-repeat="item in listaDocumentosClienteTipo">
                     <td>{{item.docCliTipoNome}}</td>
-                    <td align="left"><input ng-model="file" ng-disabled="desabilitaFile" type="file" size="60" id="idFile_{{item.docCliTipoId}}" name="file" /></td>
-                    <td><label id="idStatus_{{item.docCliTipoId}}"></label></td>
-                    <td><button ng-click="ReenviarArquivo(item.docCliTipoId, $index)" class="btn btn-sm" ng-show="item.reenvio == 'S'" value="Reenviar" id="idButton_{{item.docCliTipoId}}">Reenviar</button></td>
+                    <td align="left">
+                        <input ng-model="file" ng-disabled="desabilitaFile" type="file" size="60" id="idFile_{{item.docCliTipoId}}" name="file" class="col-sm-7" />
+                    </td>
+                    <td>
+                        <label id="idStatus_{{item.docCliTipoId}}"></label>
+                    </td>
+                    <td>
+                        <button ng-click="ReenviarArquivo(item.docCliTipoId, $index)" class="btn btn-sm" ng-show="item.reenvio == 'S'" value="Reenviar" id="idButton_{{item.docCliTipoId}}">Reenviar</button>
+                    </td>
                     <td>
                         <span id="idProgressbar_{{item.docCliTipoId}}"></span>
+                    </td>
+                    <td>
+                        <input type="hidden" name="nameFile" id="idNameFile_{{item.docCliTipoId}}" value="" />
+                        <input type="hidden" name="DocClienteId" id="idDocClienteId_{{item.docCliTipoId}}" value="" />
+                        <button ng-model="btnDownload" ng-show="item.reenvio == 'N'" ng-click="RetornarArquivo(item.docCliTipoId)" class="btn btn-primary btn-sm" value="Download" title="Visualizar o documento.">Download</button>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <button ng-model="btnEnviar" ng-show="mostraBotaoEnviar" ng-click="EnviarArquivos()" class="btn btn-primary" value="Enviar" title="Enviar arquivos selecionados">Enviar</button>
-        <button ng-model="btnNovo" ng-show="mostraBotaoNovo" ng-click="IniciarTela()" class="btn btn-primary" value="Novo" title="Enviar novos arquivos">Novo</button>
+        <button ng-model="btnEnviar" ng-show="mostraBotaoEnviar" ng-click="EnviarArquivos()" class="btn btn-primary btn-sm" value="Enviar" title="Enviar arquivos selecionados">Enviar</button>
+        <button ng-model="btnNovo" ng-show="mostraBotaoNovo" ng-click="IniciarTela()" class="btn btn-primary btn-sm" value="Novo" title="Enviar novos arquivos">Novo</button>
     </div>
 </form>

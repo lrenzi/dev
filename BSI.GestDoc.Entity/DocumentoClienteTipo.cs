@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DapperAttribute = Dapper.Contrib.Extensions;
 
 namespace BSI.GestDoc.Entity
 {
-    public class DocumentoClienteTipo : EntityBase
+    [DapperAttribute.Table("DocumentoClienteTipo")]
+    public class DocumentoClienteTipo
     {
+        [DapperAttribute.Key]
         public int DocCliTipoId { get; set; }
         public int ClienteId { get; set; }
         public string DocCliTipoNome { get; set; }
@@ -16,6 +19,8 @@ namespace BSI.GestDoc.Entity
         public Cliente Cliente { get; set; }
         public IEnumerable<DocumentoClienteSituacao> ListaSituacaoDocumentoCliente { get; set; }
         //Auxiliar
+        [DapperAttribute.Write(false)]
+        [DapperAttribute.Computed]
         public string Reenvio { get; set; }
     }
 }

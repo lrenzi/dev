@@ -26,19 +26,32 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
         $scope.desabilitaFile = false;
     }
 
+    $scope.RetornarArquivo = function (docCliTipoId) {
+        debugger;
+
+        var docClienteId = document.getElementById("idDocClienteId_" + docCliTipoId).value;
+        fileUploadService.RetornarArquivo(docClienteId).then(function (data) {
+           
+        }, function (error) {
+           
+            alert(error.data.message);
+        });
+    };
+
+    
+
     $scope.EnviarArquivosWebAPI = function (index_, file_, reenvio_, docCliTipoId) {
         
         if (docCliTipoId == "") {
             docCliTipoId = $scope.listaDocumentosClienteTipo[index_].docCliTipoId;
         }
+        
 
         Upload.upload({
-            url: ngAuthSettings.apiServiceBaseUri + "api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&clienteId=" + ngAuthSettings.clientId + "&docCliTipoId=" + docCliTipoId + "&reenvio=" + reenvio_,
+            url: ngAuthSettings.apiServiceBaseUri + "api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&clienteId=" + ngAuthSettings.clienteId + "&docCliTipoId=" + docCliTipoId + "&reenvio=" + reenvio_,
             file: file_.files[0]
         }).progress(function (evt) {
-
             document.getElementById('idProgressbar_' + docCliTipoId).innerText = parseInt(100.0 * evt.loaded / evt.total, 10) + " %";
-
         }).success(function (data, status, headers, config) {
 
             if (data.tipoErro == 2) {
@@ -47,6 +60,9 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
                 $scope.listaDocumentosClienteTipo[index_].reenvio = "S";
             } else {
                 $scope.listaDocumentosClienteTipo[index_].reenvio = "N";
+                debugger;
+                document.getElementById("idNameFile_" + docCliTipoId).value = file_.value.split("\\")[file_.value.split("\\").length - 1];
+                document.getElementById("idDocClienteId_" + docCliTipoId).value = data.dados.docClienteId;
             }
             document.getElementById('idStatus_' + docCliTipoId).innerText = data.mensagem;
 
@@ -91,54 +107,6 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
             }
         }
-        /*
-        var files = document.getElementsByName('file');
-
-        for (var i = 0; i < files.length; i++) {
-            var file_ = files[i];
-            if (file_.value != "") {
-
-                debugger;
-
-                Upload.upload({
-                    url: ngAuthSettings.apiServiceBaseUri + "/api/FileUpload/EnviarArquivos?idCliente=" + ngAuthSettings.clientId,
-                    file: file_.files[0]
-                }).progress(function (evt) {
-
-                    debugger;
-
-                    $scope.uploadProgress[i] = parseInt(100.0 * evt.loaded / evt.total, 10);
-
-                }).success(function (data, status, headers, config) {
-
-                    debugger;
-                    $scope.uploadProgress[i] = 100;
-                    $scope.status[i] = "Ok";
-
-                }).error(function (data, status, headers, config) {
-
-                    debugger;
-                    $scope.status[i] = data;
-                    
-                })
-            }
-        }
-
         
-        /*
-
-        debugger;
-
-        $scope.listaDocumentosClienteTipo = fileUploadService.EnviarArquivos(Upload, file).then(function (retorno) {
-            debugger;
-            $scope.listaDocumentosClienteTipo = retorno;
-        }, function (error) {
-            debugger;
-            alert(error.data.message);
-        });
-        /*
-        fileUploadService.EnviarArquivos().then(function (data) {
-            $scope.listaDocumentosClienteTipo = data;
-        });*/
     };
 }]);

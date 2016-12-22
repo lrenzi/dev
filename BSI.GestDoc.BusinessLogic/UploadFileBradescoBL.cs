@@ -15,7 +15,7 @@ namespace BSI.GestDoc.BusinessLogic
         {
         }
 
-        public string Reenvio { get; set; }
+
 
         public override DocumentoCliente EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
         {
@@ -34,7 +34,7 @@ namespace BSI.GestDoc.BusinessLogic
             DocumentoClienteDados _documentoClienteDados = null;
             try
             {
-                _documentoClienteDados = utilFileBradesco.LerPdf(documentoCliente_.DocClienteNomeArquivoSalvo);
+                _documentoClienteDados = utilFileBradesco.LerPdf(WorkingFolder + "\\" + documentoCliente_.DocClienteNomeArquivoSalvo);
                 Int64 _valor;
                 if (!Int64.TryParse(_documentoClienteDados.DocCliDadosValor, out _valor))
                 {
@@ -58,7 +58,7 @@ namespace BSI.GestDoc.BusinessLogic
             {
                 throw new BusinessException.BusinessException("Proposta enviado por outro usuário.");
             }
-            List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(1).ToList();
+            List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(documentoCliente_.DocCliTipoId).ToList();
             documentoCliente_.DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId);
 
             #endregion
@@ -88,20 +88,30 @@ namespace BSI.GestDoc.BusinessLogic
 
             List<DocumentoCliente> _documentosClientes = new EnviarArquivoDal().ConsultarDocumentoClientePorDocCliDadosValorDocCliTipoId(
                 _documentoClienteDados.DocCliDadosValor,
-                1).ToList();
+                documentoCliente_.DocCliTipoId).ToList();
 
             if (_documentosClientes.Count > 0)
             {
                 //Apaga o arquivo
-                if (System.IO.File.Exists(_documentosClientes.First().DocClienteNomeArquivoSalvo))
-                    System.IO.File.Delete(_documentosClientes.First().DocClienteNomeArquivoSalvo);
+                if (System.IO.File.Exists(WorkingFolder + "\\" + _documentosClientes.First().DocClienteNomeArquivoSalvo))
+                    System.IO.File.Delete(WorkingFolder + "\\" + _documentosClientes.First().DocClienteNomeArquivoSalvo);
                 //Atualiza
                 documentoCliente_.DocClienteId = _documentosClientes.First().DocClienteId;
                 new DocumentoClienteDal().UpdateDocumentoCliente(documentoCliente_);
             }
             else //Insere
-                documentoCliente_ = new DocumentoClienteDal().InsertDocumentoCliente(documentoCliente_);
+            {
+                /*    documentoCliente_.DocumentoClienteSituacao = new DocumentoClienteSituacao()
+                    { DocCliSituId = documentoCliente_.DocCliSituId };
 
+                documentoCliente_.DocumentoClienteTipo = new DocumentoClienteTipo()
+                { DocCliSituId = documentoCliente_.DocCliSituId };
+
+                documentoCliente_.DocumentoClienteSituacao = new DocumentoClienteSituacao()
+                { DocCliSituId = documentoCliente_.DocCliSituId };*/
+
+                documentoCliente_ = (DocumentoCliente)new DocumentoClienteDal().InsertDocumentoCliente(documentoCliente_);
+            }
             #endregion
 
             #region 7 - Faz insert na base p / relacionar id do documento e do num.de proposta

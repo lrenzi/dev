@@ -9,9 +9,10 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    padding-top: 40px;
-    xpadding-bottom: 10px;
+      padding-top: 70px;
+   padding-bottom: 70px;
 }
+
 
 /*-------------------------------------*/
 /* LOADING MODAL (waiting)------------ */
@@ -23,14 +24,6 @@ body {
 /*-------------------------------------*/
 /* Rodapé ---------------------------- */
 
-#footer {
-    position: absolute;
-    bottom: 0;
-    width: 70%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-}
-
 .text-muted {
     margin: 20px 0;
 }
@@ -41,26 +34,26 @@ body {
     margin: 0 auto;
 }
 
-    .form-login .form-login-heading {
-        margin-bottom: 10px;
-    }
+.form-login .form-login-heading {
+    margin-bottom: 10px;
+}
 
-    .form-login .form-control {
-        position: relative;
-        height: auto;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        padding: 10px;
-        font-size: 16px;
-    }
+.form-login .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
 
-        .form-login .form-control:focus {
-            z-index: 2;
-        }
+    .form-login .form-control:focus {
+        z-index: 2;
+    }
 
     .form-login input[type="password"] {
-        margin-top: 5px;
+        margin-top:5px;
         margin-bottom: 5px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
@@ -76,59 +69,18 @@ body {
 .form-control:focus {
     border-color: indianred;
 }
-
-.btn-info {
-    background-color: #7a0000;
-    border-color: #999;
+.btn-info{
+    background-color:#7a0000;
+    border-color:#999;
     transition: all 0.2s ease 0s;
 }
-
-    .btn-info:hover, .btn-info:focus, .btn-info:active, .active.btn-info, .open .btn-info.dropdown-toggle {
-        background-color: #630000;
-        border-color: #666;
-    }
-
-a {
-    color: #7a0000;
+.btn-info:hover, .btn-info:focus, .btn-info:active, .active.btn-info, .open .btn-info.dropdown-toggle{
+    background-color:#630000;
+    border-color:#666;
 }
-
-    a:hover, a:focus {
-        color: #333;
-    }
-
-.divTipo {
-    background: gray;
-    width: 100%;
-    margin: 2px;
-    padding: 2px;
+a{
+    color:#7a0000;
 }
-
-    .divTipo .divTipoNome {
-        width: 20%;
-        height: auto;
-        float: left;
-        background: red;
-        display: inline-block;
-    }
-
-.divSitu {
-    background: yellow;
-    margin: 2px;
-    padding: 2px;
-    float: right;
-    width: 79%;
+a:hover, a:focus{
+    color:#333;
 }
-
-    .divSitu .situacao {
-        width: 30%;
-        float: left;
-    }
-
-    .divSitu .link {
-        width: 69%;
-        float: right;
-    }
-
-    .borderless, .borderless td, .borderless th, .borderless tr {
-         border: none !important;
-    }

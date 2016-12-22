@@ -6,7 +6,8 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', function ($ht
 
     var _retornarDocumentoClienteTipo = function () {
         
-        return $http.post(serviceBase + "api/FileUpload/RetornarDocumentoClienteTipo", { ClienteId: ngAuthSettings.clientId })
+        //return $http.post(serviceBase + "api/FileUpload/RetornarDocumentoClienteTipo", { ClienteId: ngAuthSettings.clienteId })
+        return $http.post(serviceBase + "api/FileUpload/RetornarDocumentoClienteTipo", { ClienteId: 1 })
         .then(function (response) {
             if (typeof response.data === 'object') {
                 return response.data;
@@ -18,50 +19,39 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', function ($ht
             alert("Erro ao acessar o serviço de Consulta de Tipo de Documento.")
         });
     };
-    /*
-    var _enviarArquivos = function (fileUploadService_, file_) {
 
+    var _retornarArquivo = function (docClienteId) {
         debugger;
         
-
-        fileUploadService_.upload({
-            url: 'http://localhost:44857/api/FileUpload/EnviarArquivos?idCliente=1',
-            file: _file,
-            formData: {idCliente:1}
-        }).progress(function (evt) {
-
-            $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
-
-        }).success(function (data, status, headers, config) {
-
+        $http.post(serviceBase + "api/FileUpload/RetornarArquivo", { DocClienteId: docClienteId })
+        .then(function (response) {
             debugger;
-
-            console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-        }).error(function (data, status, headers, config) {
-
+            var file = new Blob([response.data], { type: 'application/pdf' });
+            saveAs(file, documento.getElementById("idNameFile_"+docCliTipoId).value);
+        },
+        function (data, status, headers, config) {
             debugger;
-
-            console.log('error status: ' + status);
-        })
-
-        /*debugger;
-
-        var _url = urlbase + "FileUpload/EnviarArquivos?idCliente=1";
-
+            alert("Erro ao acessar o serviço de Consulta de Arquivo.")
+        });
+        /*
         $http({
-            url: _url,
-            method: "POST",
-            data: dados_,
-            headers: { 'Content-Type': undefined }
-        }).success(function (response) {
+            method: 'GET',
+            cache: false,
+            url: serviceBase + 'api/FileUpload/RetornarArquivo?docClienteId=1',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        }).success(function (data, status) {
             debugger;
+            console.log(data) // displays text data if the file is a text file, binary if it's an image            
+            // now what should I write here to download the file I receive from the WebAPI method.
         }).error(function (data, status) {
             debugger;
-        });
-    };*/
+        });*/
+    }
 
     fileUploadServiceFactory.RetornarDocumentoClienteTipo = _retornarDocumentoClienteTipo;
-    //fileUploadServiceFactory.EnviarArquivos = _enviarArquivos
+    fileUploadServiceFactory.RetornarArquivo = _retornarArquivo;
 
     return fileUploadServiceFactory;
 
