@@ -87,14 +87,14 @@ background-position:bottom right;
 }
 
 .btn {
-    background-color: #7a0000;
-    border-color: #999;
+    background-color: #7a0000 !important;
+    border-color: #999 !important;
     transition: all 0.2s ease 0s;
 }
 
 .btn:hover, .btn:focus, .btn:active{
-    background-color: #630000;
-    border-color: #666;
+    background-color: #630000 !important;
+    border-color: #666 !important;
 }
 
 a {
@@ -110,4 +110,23 @@ a:hover, a:focus{
 .navbar {
     background-color:white;
     border-bottom:solid 1px #ffc8c8 !important;
+}
+
+#loading-bar {
+  pointer-events: all;
+  z-index: 99999;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  cursor: wait;
+  position: fixed;
+  background-color: rgba(250, 250, 250, 0.3);
+}
+
+.alert-error{
+    color:red;
 }
