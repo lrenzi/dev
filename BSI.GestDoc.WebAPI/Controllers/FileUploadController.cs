@@ -56,21 +56,21 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
         [System.Web.Http.Route("RetornarArquivo")]
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage RetornarArquivo([FromBody]DocumentoCliente documentoCliente)
+        public HttpResponseMessage RetornarArquivo(int docClienteId)
         {
-            DocumentoCliente _documentoCliente = new UploadFileBL().RetornarArquivo(documentoCliente);
+            DocumentoCliente _documentoCliente = new UploadFileBL().RetornarArquivo(new DocumentoCliente() { DocClienteId = docClienteId });
             UploadFileBL uploadFileBl = new UploadFileBL();
 
             var file = WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo;
             HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
             var stream = new FileStream(file, FileMode.Open);
             result.Content = new StreamContent(stream);
-            result.Content.Headers.ContentType =
-                new MediaTypeHeaderValue("application/octet-stream");
             result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
             {
                 FileName = _documentoCliente.DocClienteNomeArquivoOriginal
             };
+            result.Content.Headers.ContentType =
+                new MediaTypeHeaderValue("application/octet-stream");
             return result;
         }
 
