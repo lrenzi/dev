@@ -7,10 +7,13 @@ html {
 }
 
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-      padding-top: 70px;
-   padding-bottom: 70px;
+/* Margin bottom by footer height */
+margin-bottom: 60px;
+padding-top: 70px;
+padding-bottom: 70px;
+background-image:url(http://s3.online24.pt/foto/como-criar-uma-assinatura-digital-73_bg.jpg);
+background-repeat:no-repeat;
+background-position:bottom right;
 }
 
 
@@ -48,9 +51,9 @@ body {
     font-size: 16px;
 }
 
-    .form-login .form-control:focus {
-        z-index: 2;
-    }
+.form-login .form-control:focus {
+    z-index: 2;
+}
 
 .form-login input[type="password"] {
     margin-top:5px;
@@ -62,9 +65,6 @@ body {
 /*-------------------------------------*/
 /* Customizações do Bootstrap -------- */
 
-.navbar-inverse {
-    background-color:darkred;
-}
 .form-control:focus{
     border-color:indianred;
 }
@@ -82,4 +82,11 @@ a{
 }
 a:hover, a:focus{
     color:#333;
+}
+.jumbotron {
+    background-color:transparent;
+}
+
+.navbar {
+    border-bottom:solid 1px #ffc8c8 !important;
 }

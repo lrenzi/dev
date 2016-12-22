@@ -15,21 +15,22 @@
 
 </div>-->
 
-<div class="container">
+<h2>Consulta de propostas</h2>
+<h4>Informe abaixo o valor que deseja consultar</h4>
     <div class="alert alert-info" ng-show="showMensagemListaVazia">
         <strong>Proposta não encontrada</strong>
     </div>
 
     <div>
-        <table class="table table-striped table-bordered table-hover">
+        <table class="table">
             <tr>
-                <td>
-                    <h4>Filtrar por Proposta </h4>
+                <td class="col-sm-2">
+                    <h5>Número proposta:</h5>
                 </td>
-                <td>
-                    <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control" maxlength="100" />
+                <td class="">
+                    <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" width="100%" />
                 </td>
-                <td>
+                <td class="col-sm-2 text-right">
                     <button ng-model="btnEnviarFiltrar" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Filtrar" title="Pesquisar por proposta">Filtrar</button>
                 </td>
             </tr>
@@ -63,6 +64,4 @@
     <div class="col-md-2">
         &nbsp;
     </div>
-</div>
-
 
