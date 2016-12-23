@@ -18,9 +18,6 @@
 
 <h2>Consulta de propostas</h2>
 <h4>Informe abaixo o valor que deseja consultar</h4>
-<div class="alert alert-info" ng-show="showMensagemListaVazia">
-    <strong>Proposta não encontrada</strong>
-</div>
 
 <table class="table">
     <tr>
@@ -29,39 +26,37 @@
             <button ng-model="btnDownload" ng-show="true" ng-click="RetornarArquivo('fl0kEcNlUFE=', 'nomedoarquivo.pdf')" class="btn btn-primary btn-sm" value="Download" title="Visualizar o documento.">Download</button>
         </td>
         <td class="vAlignMiddle">
-            <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" width="100%" />
+            <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" width="100%" autofocus />
         </td>
         <td class="col-sm-2 text-center vAlignMiddle">
-            <button ng-model="btnEnviarFiltrar" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Filtrar" title="Pesquisar por proposta">Filtrar</button>
+            <button ng-model="btnEnviarFiltrar" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Filtrar" title="Pesquisar por proposta" >Filtrar</button>
         </td>
     </tr>
 </table>
-<table class="table " ng-show="showListaProposta" border="1">
+
+<div class="alert alert-warning" ng-show="showMensagemListaVazia">
+    <strong>Proposta não encontrada</strong>
+</div>
+
+<table class="table" ng-show="showListaProposta" >
     <thead>
         <tr>
-            <th>Tipo</th>
-            <th>Situação</th>
-            <th>Arquivo salvo</th>
+            <th class="col-md-3">Documento</th>
+            <th class="" style="width:200px">Situação</th>
+            <th>Download</th>
         </tr>
     </thead>
-
     <tbody>
-
-        <tr data-ng-repeat="tipo in listaPropostas">
-            <td class="col-md-3"><h4><b>{{tipo.docCliTipoNome}}</b></h4></td>
-            <td>
-                <table class="table table-condensed table-hover borderless" border="1">
+        <tr data-ng-repeat="tipo in listaPropostas" >
+            <td class="col-md-3"><h5><b>{{tipo.docCliTipoNome}}</b></h5></td>
+            <td colspan="2">
+                <table class="table table-condensed table-hover borderless" >
                     <tr data-ng-repeat="situacaoDocumento in tipo.listaSituacaoDocumentoCliente">
-                        <td class="col-md-3">{{situacaoDocumento.docCliSituDescricao}}</td>
+                        <td class="" style="width:200px">{{situacaoDocumento.docCliSituDescricao}}</td>
                         <td>
-                            <table>
-                                <tr>
-                                    <td><a ng-click="RetornarArquivo({{situacaoDocumento.documentoCliente.docClienteId}}, {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}})">
-                                        {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}}
-                                        </a>
-                                   </td>
-                                </tr>
-                            </table>
+                            <a ng-click="RetornarArquivo({{situacaoDocumento.documentoCliente.docClienteId}}, {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}})">
+                            {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}}
+                            </a>
                         </td>
                     </tr>
                 </table>
