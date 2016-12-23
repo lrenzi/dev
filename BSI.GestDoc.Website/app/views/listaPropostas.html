@@ -36,18 +36,37 @@
         </td>
     </tr>
 </table>
-<table class="table table-condensed">
-    <tr data-ng-repeat="documentos in listaPropostas.documentosCliente">
-        <td class="col-md-3 "><h4><b>{{documentos.documentoClienteTipo.docCliTipoNome}}</b></h4></td>
-        <td>
-            <table class="table table-condensed table-hover borderless">
-                <tr data-ng-repeat="situacaoDocumento in documentos.documentoClienteTipo.listaSituacaoDocumentoCliente">
-                    <td class="col-md-3">{{situacaoDocumento.docCliSituDescricao}}</td>
-                </tr>
-            </table>
-        </td>
-        <td><a href="#">{{documentos.nomeArquivoSalvoAux}}</a></td>
-        
-    </tr>
+<table class="table " ng-show="showListaProposta" border="1">
+    <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>Situação</th>
+            <th>Arquivo salvo</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr data-ng-repeat="tipo in listaPropostas">
+            <td class="col-md-3"><h4><b>{{tipo.docCliTipoNome}}</b></h4></td>
+            <td>
+                <table class="table table-condensed table-hover borderless" border="1">
+                    <tr data-ng-repeat="situacaoDocumento in tipo.listaSituacaoDocumentoCliente">
+                        <td class="col-md-3">{{situacaoDocumento.docCliSituDescricao}}</td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td><a ng-click="RetornarArquivo({{situacaoDocumento.documentoCliente.docClienteId}}, {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}})">
+                                        {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}}
+                                        </a>
+                                   </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
 </table>
 

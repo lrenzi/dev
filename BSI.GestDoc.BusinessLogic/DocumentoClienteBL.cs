@@ -27,8 +27,9 @@ namespace BSI.GestDoc.BusinessLogic
             foreach (var tipoDocumento in listaTipoDocumento)
             {
                 tipoDocumento.ListaSituacaoDocumentoCliente = this.ListarDocumentoSituacaoPorTipo(tipoDocumento.DocCliTipoId);
+
             }
-            
+
             return listaTipoDocumento;
         }
 
@@ -59,11 +60,11 @@ namespace BSI.GestDoc.BusinessLogic
         public List<DocumentoClienteTipo> ListarDocumentosCliente(string usuarioId, string clientId, string numeroProposta)
         {
             PropostasDal Dal = new PropostasDal();
-           IEnumerable<DocumentoClienteDados> documentosClienteDados = new List<DocumentoClienteDados>();
+            IEnumerable<DocumentoClienteDados> documentosClienteDados = new List<DocumentoClienteDados>();
 
             //recupera os tipos, e situações de cada tipo de documentos, do cliente logado
             IEnumerable<DocumentoClienteTipo> documentosTipoDocumentoCliente = this.ListarDocumentoTipoSituacao(usuarioId);
-            
+
             //Recupera lista de DocumentosDados  pelo codigo do cliente logado   
             documentosClienteDados = Dal.ListarPropostas(usuarioId, clientId, numeroProposta);
 
@@ -76,7 +77,11 @@ namespace BSI.GestDoc.BusinessLogic
             return documentosTipoDocumentoCliente.ToList();
         }
 
-
+        /// <summary>
+        /// Atribui a cada situação a documento cliente
+        /// </summary>
+        /// <param name="documentosTipo"></param>
+        /// <param name="listaDocumentoDados"></param>
         private void AtribuirTipoSituacaoParaDocumentoCliente(IEnumerable<DocumentoClienteTipo> documentosTipo, IEnumerable<DocumentoClienteDados> listaDocumentoDados)
         {
 
@@ -89,20 +94,13 @@ namespace BSI.GestDoc.BusinessLogic
 
                         IEnumerable<DocumentoCliente> documentoClienteRetorno = documentoDado.DocumentosCliente.ToList().Where(x => x.DocCliSituId == situacao.DocCliSituId && x.DocCliTipoId == tipo.DocCliTipoId);
 
-                        if(documentoClienteRetorno.Count() > 0)
+                        if (documentoClienteRetorno.Count() > 0)
                         {
-                            situacao.DocumentoCliente = (DocumentoCliente)documentoClienteRetorno.ToList()[0];
+                            situacao.DocumentoCliente = (DocumentoCliente)documentoClienteRetorno.ToList()[0];                            
                         }
 
                     }
                 }
-            }
-
-            foreach (var documentoDado in listaDocumentoDados)
-            {
-
-                
-
             }
 
         }
@@ -124,10 +122,6 @@ namespace BSI.GestDoc.BusinessLogic
                 if (retornoListaDocumentosCliente != null && retornoListaDocumentosCliente.Count() > 0)
                 {
                     documentoClienteDado.DocumentosCliente = retornoListaDocumentosCliente.ToList();
-
-                    //Recupera lista de Situações por Tipo de DocumentoCliente
-                    //this.ListarSituacaoPorTipoDocumentoCliente(retornoListaDocumentosCliente);
-                    
                 }
             }
         }
@@ -169,50 +163,6 @@ namespace BSI.GestDoc.BusinessLogic
                 documentoRetorno.ToList()[0].NomeArquivoSalvoAux = documentoCliente.DocClienteNomeArquivoOriginal;
             }
         }
-
-        /// Lista de DocumentosDados
-        /// </summary>
-        /// <param name="listaDocumentosCliente"></param>
-        //public void CarregarArquivoSalvoPorSituacaoDocumento(IEnumerable<DocumentoClienteDados> listaDocumentosClienteDados)
-        //{
-        //    PropostasDal Dal = new PropostasDal();
-
-        //    foreach (var documentoClienteDado in listaDocumentosClienteDados)
-        //    {
-        //        List<DocumentoClienteTipo> documentosAux = documentoClienteDado.DocumentosCliente.ToList();
-
-
-        //        foreach (var documentoCliente in documentoClienteDado.DocumentosCliente)
-        //        {
-        //            DocumentoClienteTipo tipo = documentoCliente.DocumentoClienteTipo;
-
-
-        //            IEnumerable<DocumentoClienteTipo> tipoExistente = documentosAux.ToList().Where(x => x.DocCliTipoId == tipo.DocCliTipoId);
-
-
-        //            if (tipoExistente.Count() == 0)
-        //            {
-        //                documentosAux.Add(tipo);
-        //            }else
-        //            {
-        //                IEnumerable<DocumentoClienteSituacao> situacoesTipo = tipoExistente.ToList()[0].ListaSituacaoDocumentoCliente;
-        //                situacoesTipo.ToList().Add()
-
-        //            }
-        //        }
-
-        //        //consulta informações para documentos cliente
-        //        IEnumerable<DocumentoCliente> retornoListaDocumentosCliente = Dal.ConsultarInfoDocumentoCliente(documentoClienteDado);
-
-        //        if (retornoListaDocumentosCliente != null && retornoListaDocumentosCliente.Count() > 0)
-        //        {
-        //            documentoClienteDado.DocumentosCliente = retornoListaDocumentosCliente.ToList();
-
-        //            //Recupera lista de Situações por Tipo de DocumentoCliente
-        //            this.ListarSituacaoPorTipoDocumentoCliente(retornoListaDocumentosCliente);
-        //        }
-        //    }
-        //}
 
     }
 }
