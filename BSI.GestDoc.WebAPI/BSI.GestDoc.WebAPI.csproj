@@ -331,6 +331,10 @@
       <Project>{636fe4fc-6b0a-4e8e-9b01-a6ab6acf4b39}</Project>
       <Name>BSI.GestDoc.Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BSI.GestDoc.Util\BSI.GestDoc.Util.csproj">
+      <Project>{7d5c5e30-acb7-41a1-82ed-fbcba8b6bfd2}</Project>
+      <Name>BSI.GestDoc.Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201407121205456_AddClientsAndRefreshTokenTables.resx">

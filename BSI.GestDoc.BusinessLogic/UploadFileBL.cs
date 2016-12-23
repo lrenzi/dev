@@ -7,7 +7,7 @@ namespace BSI.GestDoc.BusinessLogic
 {
     public class UploadFileBL
     {
-        public string Reenvio { get; set; }
+        public bool Reenvio { get; set; }
         public string WorkingFolder { get; set; }
 
         public UploadFileBL()
@@ -21,7 +21,7 @@ namespace BSI.GestDoc.BusinessLogic
 
         public virtual DocumentoCliente  EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
         {
-            return documentoCliente_;
+            throw new System.NotImplementedException("Método EnviarDocumentoCliente da classe UploadFileBL não implementado.");
         }
 
         public virtual DocumentoCliente RetornarArquivo(DocumentoCliente documentoCliente_)

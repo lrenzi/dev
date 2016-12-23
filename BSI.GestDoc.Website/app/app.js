@@ -3,30 +3,35 @@ var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'an
 
 app.config(function ($routeProvider) {
 
-    $routeProvider.when("/home", {
+    /*$routeProvider.when("/home", {
         controller: "homeController",
         templateUrl: "/app/views/home.html"
+    });*/
+
+    $routeProvider.when("/", {
+        controller: "loginController",
+        templateUrl: "/app/views/login.html"
     });
 
     $routeProvider.when("/login", {
         controller: "loginController",
         templateUrl: "/app/views/login.html"
     });
-
+    /*
     $routeProvider.when("/signup", {
         controller: "signupController",
         templateUrl: "/app/views/signup.html"
-    });
+    });*/
 
-    $routeProvider.when("/refresh", {
+    /*$routeProvider.when("/refresh", {
         controller: "refreshController",
         templateUrl: "/app/views/refresh.html"
-    });
-
-    $routeProvider.when("/efetuarLogin", {
+    });*/
+    /*
+    $routeProvider.when("/tokens", {
         controller: "tokensManagerController",
         templateUrl: "/app/views/tokens.html"
-    });
+    });*/
 
     $routeProvider.when("/fileUpload", {
         controller: "fileUploadController",
@@ -56,7 +61,6 @@ app.constant('ngAuthSettings', {
 });
 
 app.constant('documentoCliente', {
-   
     numeroPesquisaProposta: "",
 });
 

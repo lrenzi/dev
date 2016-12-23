@@ -7,16 +7,32 @@ html {
 }
 
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-    padding-top: 70px;
-    padding-bottom: 70px;
+/* Margin bottom by footer height */
+margin-bottom: 60px;
+padding-top: 70px;
+padding-bottom: 70px;
+background-image:url(http://s3.online24.pt/foto/como-criar-uma-assinatura-digital-73_bg.jpg);
+background-repeat:no-repeat;
+background-position:bottom right;
 }
 
 .borderless, .borderless td, .borderless th, .borderless tr {
     border: none !important;
 }
 
+.vAlignMiddle, .vAlignMiddle th, .vAlignMiddle td {
+    vertical-align:middle !important;
+}
+.vAlignTop {
+    vertical-align:top !important;
+}
+.vAlignBottom {
+    vertical-align:bottom !important;
+}
+
+.width-full{
+    width:100%;
+}
 
 /*-------------------------------------*/
 /* LOADING MODAL (waiting)------------ */
@@ -52,9 +68,9 @@ body {
         font-size: 16px;
     }
 
-        .form-login .form-control:focus {
-            z-index: 2;
-        }
+.form-login .form-control:focus {
+    z-index: 2;
+}
 
     .form-login input[type="password"] {
         margin-top: 5px;
@@ -66,29 +82,51 @@ body {
 /*-------------------------------------*/
 /* Customizações do Bootstrap -------- */
 
-.navbar-inverse {
-    background-color: darkred;
+.form-control:focus{
+    border-color:indianred;
 }
 
-.form-control:focus {
-    border-color: indianred;
-}
-
-.btn-info {
-    background-color: #7a0000;
-    border-color: #999;
+.btn {
+    background-color: #7a0000 !important;
+    border-color: #999 !important;
     transition: all 0.2s ease 0s;
 }
 
-    .btn-info:hover, .btn-info:focus, .btn-info:active, .active.btn-info, .open .btn-info.dropdown-toggle {
-        background-color: #630000;
-        border-color: #666;
-    }
+.btn:hover, .btn:focus, .btn:active{
+    background-color: #630000 !important;
+    border-color: #666 !important;
+}
 
 a {
     color: #7a0000;
 }
+a:hover, a:focus{
+    color:#333;
+}
+.jumbotron {
+    background-color:transparent;
+}
 
-    a:hover, a:focus {
-        color: #333;
-    }
+.navbar {
+    background-color:white;
+    border-bottom:solid 1px #ffc8c8 !important;
+}
+
+#loading-bar {
+  pointer-events: all;
+  z-index: 99999;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  cursor: wait;
+  position: fixed;
+  background-color: rgba(250, 250, 250, 0.3);
+}
+
+.alert-error{
+    color:red;
+}

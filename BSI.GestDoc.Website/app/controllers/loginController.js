@@ -24,8 +24,8 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
         },
          function (err) {
              
-             //$scope.message = err.error_description;
-             alert(err.error_description);
+             $scope.message = err.error_description;
+             //alert(err.error_description);
          });
     };
 

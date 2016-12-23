@@ -6,8 +6,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
     var _authentication = {
         isAuth: false,
-        userName: "",        
-        clienteId: "",       
+        userName: "",
+        clienteId: "",
         useRefreshTokens: false
     };
 
@@ -38,18 +38,20 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         var deferred = $q.defer();
 
         $http.post(serviceBase + 'efetuarLogin', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-
+            
             if (loginData.useRefreshTokens) {
                 localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
             }
             else {
                 localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: "", useRefreshTokens: false });
             }
-            
+
+            localStorageService.set('nome', loginData.userName);
+
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
             _authentication.useRefreshTokens = loginData.useRefreshTokens;
-            
+
             ngAuthSettings.userName = loginData.userName;
             ngAuthSettings.nomeCliente = loginData.nomeCliente;
             ngAuthSettings.nomeUsuario = response.nomeUsuario;

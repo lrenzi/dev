@@ -15,6 +15,7 @@ using BSI.GestDoc.BusinessLogic;
 using System.Configuration;
 using BSI.GestDoc.BusinessLogic.Util;
 using System.Net.Http.Headers;
+using BSI.GestDoc.Util;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -56,21 +57,23 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
         [System.Web.Http.Route("RetornarArquivo")]
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage RetornarArquivo([FromBody]DocumentoCliente documentoCliente)
+        public HttpResponseMessage RetornarArquivo(string docClienteId)
         {
-            DocumentoCliente _documentoCliente = new UploadFileBL().RetornarArquivo(documentoCliente);
+            docClienteId = MD5Crypt.Descriptografar(docClienteId);
+
+            DocumentoCliente _documentoCliente = new UploadFileBL().RetornarArquivo(new DocumentoCliente() { DocClienteId = int.Parse(docClienteId) });
             UploadFileBL uploadFileBl = new UploadFileBL();
 
             var file = WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo;
             HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
             var stream = new FileStream(file, FileMode.Open);
             result.Content = new StreamContent(stream);
-            /*result.Content.Headers.ContentType =
-                new MediaTypeHeaderValue("application/octet-stream");*/
             result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
             {
                 FileName = _documentoCliente.DocClienteNomeArquivoOriginal
             };
+            result.Content.Headers.ContentType =
+                new MediaTypeHeaderValue("application/octet-stream");
             return result;
         }
 
@@ -78,7 +81,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
         [System.Web.Http.Route("EnviarArquivos")]
         [System.Web.Http.HttpPost]
-        public async Task<IHttpActionResult> EnviarArquivos(int usuarioId, int clienteId, int docCliTipoId, string reenvio)
+        public async Task<IHttpActionResult> EnviarArquivos(int usuarioId, int clienteId, int docCliTipoId, bool reenvio)
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent("form-data"))
@@ -104,6 +107,13 @@ namespace BSI.GestDoc.WebAPI.Controllers
                     DocClienteDataUpload = DateTime.Now
                 };
 
+                #region 1 - Verifica tipo/ versão pdf
+                if (UtilFile.GetMIMEType(_documentoCliente.DocClienteNomeArquivoOriginal).ToLower() != "application/pdf")
+                {
+                    throw new Exception("Erro - Documento deve ser do tipo PDF");
+                }
+                #endregion
+
                 Cliente cliente = new Cliente() { ClienteId = _documentoCliente.ClienteId };
                 UploadFileBL uploadFileBL = null;
 
@@ -122,7 +132,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                         break;
                 }
                 
-                return Ok((new Retorno() { Dados = _documentoCliente,  Mensagem  = "Arquivo incluído com sucesso." }));
+                return Ok((new Retorno() { Dados = _documentoCliente,  Mensagem  = "Arquivo incluído com sucesso.", TipoErro = EnumTipoMensagem.Sucesso }));
             }
             catch (BusinessLogic.BusinessException.BusinessException ex)
             {
