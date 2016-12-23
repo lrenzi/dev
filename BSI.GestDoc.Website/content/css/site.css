@@ -133,3 +133,7 @@ a:hover, a:focus{
 .alert-error{
     color:red;
 }
+
+.cursor-pointer{
+    cursor:pointer;
+}

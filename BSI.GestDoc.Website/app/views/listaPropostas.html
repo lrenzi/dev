@@ -53,8 +53,8 @@
                     <tr data-ng-repeat="situacaoDocumento in tipo.listaSituacaoDocumentoCliente">
                         <td class="" style="width:200px">{{situacaoDocumento.docCliSituDescricao}}</td>
                         <td>
-                            <a ng-click="RetornarArquivo(situacaoDocumento.documentoCliente.cryptoDocClienteId, situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal)">
-                                {{situacaoDocumento.documentoCliente.docClienteNomeArquivoSalvo}}
+                            <a class="cursor-pointer" ng-click="RetornarArquivo(situacaoDocumento.documentoCliente.cryptoDocClienteId, situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal)">
+                                {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}}
                             </a>
                         </td>
                     </tr>
