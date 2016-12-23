@@ -19,8 +19,8 @@ namespace BSI.GestDoc.WebAPI.Controllers
         {
 
             PropostasDal Dal = new PropostasDal();
-            List<DocumentoClienteDados> listaPropostas = null;
             DocumentoClienteBL documentoClienteBL = new DocumentoClienteBL();
+            List<DocumentoClienteTipo> listaPropostas = null;
 
             try
             {
