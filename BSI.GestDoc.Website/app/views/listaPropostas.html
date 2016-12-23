@@ -22,8 +22,7 @@
 <table class="table">
     <tr>
         <td class="col-sm-2 vAlignMiddle">
-            <h5>Número proposta:</h5>
-            <button ng-model="btnDownload" ng-show="true" ng-click="RetornarArquivo('fl0kEcNlUFE=', 'nomedoarquivo.pdf')" class="btn btn-primary btn-sm" value="Download" title="Visualizar o documento.">Download</button>
+            <h5>Número proposta:</h5>            
         </td>
         <td class="vAlignMiddle">
             <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" width="100%" autofocus />
@@ -54,8 +53,8 @@
                     <tr data-ng-repeat="situacaoDocumento in tipo.listaSituacaoDocumentoCliente">
                         <td class="" style="width:200px">{{situacaoDocumento.docCliSituDescricao}}</td>
                         <td>
-                            <a ng-click="RetornarArquivo({{situacaoDocumento.documentoCliente.docClienteId}}, {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}})">
-                            {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}}
+                            <a ng-click="RetornarArquivo(situacaoDocumento.documentoCliente.cryptoDocClienteId, situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal)">
+                                {{situacaoDocumento.documentoCliente.docClienteNomeArquivoSalvo}}
                             </a>
                         </td>
                     </tr>
