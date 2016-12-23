@@ -53,6 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DocumentoClienteSituacaoDal.cs" />
+    <Compile Include="SituacaoDocumentoDal.cs" />
+    <Compile Include="TipoDocumentoDal.cs" />
     <Compile Include="PropostasDal.cs" />
     <Compile Include="AutenticacaoDal.cs" />
     <Compile Include="CRUD\ClienteTipoInformacaoClienteDal.cs" />

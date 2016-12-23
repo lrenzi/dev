@@ -18,6 +18,12 @@ namespace BSI.GestDoc.Entity
 
         [DapperAttribute.Write(false)]
         public DocumentoClienteTipo DocumentoClienteTipo { get; set; }
-        
+
+        [DapperAttribute.Write(false)]
+        public DocumentoCliente DocumentoCliente { get; set; }
+
+        [DapperAttribute.Computed]
+        [DapperAttribute.Write(false)]
+        public string NomeArquivoSalvoAux { get; set; }
     }
 }

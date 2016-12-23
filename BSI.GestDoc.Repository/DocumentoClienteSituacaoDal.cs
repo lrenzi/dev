@@ -15,7 +15,7 @@ namespace BSI.GestDoc.Repository.DAL
         /// </summary>
         /// <param name="docCliTipoId"></param>
         /// <returns></returns>
-        public IEnumerable<DocumentoClienteSituacao> ListarSituacaoDocumentoCliente(string docCliTipoId)
+        public IEnumerable<DocumentoClienteSituacao> ListarSituacaoDocumentoCliente(int docCliTipoId)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@pDocCliTipoId", docCliTipoId, DbType.Int16, null);

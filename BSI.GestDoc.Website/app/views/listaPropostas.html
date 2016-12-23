@@ -11,25 +11,37 @@
                     <h4>Filtrar por Proposta </h4>
                 </td>
                 <td>
-                    <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control" maxlength="100" required/>
+                    <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control" maxlength="100" required />
                 </td>
                 <td>
                     <button ng-model="btnEnviarFiltrar" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Filtrar" title="Pesquisar por proposta">Filtrar</button>
                 </td>
             </tr>
         </table>
-        <table class="table table-condensed">
-            <tr data-ng-repeat="documentos in listaPropostas.documentosCliente">
-                <td class="col-md-3 "><h4><b>{{documentos.documentoClienteTipo.docCliTipoNome}}</b></h4></td>
-                <td>
-                    <table class="table table-condensed table-hover borderless">
-                        <tr data-ng-repeat="situacaoDocumento in documentos.documentoClienteTipo.listaSituacaoDocumentoCliente">
-                            <td class="col-md-3">{{situacaoDocumento.docCliSituDescricao}}</td>                          
-                        </tr>
-                    </table>
-                </td>
-                <td><a href="#">{{documentos.nomeArquivoSalvoAux}}</a></td>
-            </tr>
+        <table class="table table-condensed" >
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Situação</th>
+                    <th>Arquivo salvo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<table class="table table-condensed">-->
+
+                <!--<tr data-ng-repeat="tipo in listaPropostas">
+
+                    <td class="col-md-3 "><h4><b>{{tipo.docCliTipoNome}}</b></h4></td>
+                    <td>
+                        <table class="table table-condensed table-hover borderless">
+                            <tr data-ng-repeat="situacaoDocumento in tipo.listaSituacaoDocumentoCliente">
+                                <td class="col-md-3">{{situacaoDocumento.docCliSituDescricao}}</td>
+                                <td><a href="#">{{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}}</a></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>-->
+            </tbody>
         </table>
 
         <div class="col-md-2">
