@@ -1,66 +1,49 @@
-﻿<!--<div data-ng-init="ListarPropostas()" class="row">
-    <div id="list" class="row">
-
-<div class="container">
-
-            <table class="table table-striped" cellspacing="0" cellpadding="0">
-                   <tr>Propostas</tr>
-                    <tr data-ng-repeat="item in listaPropostas">
-                        <td>{{item.DocCliDadosValor}}</td>
-                        <td>{{item.DocCliDadosId}}</td>
-                        <td>{{item.ClienteId}}</td>
-                    </tr>
-            </table>
-
-        </div>
-
-</div>-->
-
-<h2>Consulta de propostas</h2>
+﻿<h2>Consulta de propostas</h2>
 <h4>Informe abaixo o valor que deseja consultar</h4>
 
-<table class="table">
-    <tr>
-        <td class="col-sm-2 vAlignMiddle">
-            <h5>Número proposta:</h5>            
-        </td>
-        <td class="vAlignMiddle">
-            <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" width="100%" autofocus />
-        </td>
-        <td class="col-sm-2 text-center vAlignMiddle">
-            <button ng-model="btnEnviarFiltrar" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Filtrar" title="Pesquisar por proposta" >Filtrar</button>
-        </td>
-    </tr>
-</table>
-
-<div class="alert alert-warning" ng-show="showMensagemListaVazia">
-    <strong>Proposta não encontrada</strong>
-</div>
-
-<table class="table" ng-show="showListaProposta" >
-    <thead>
+<form role="form" name="loginform">
+    <table class="table">
         <tr>
-            <th class="col-md-3">Documento</th>
-            <th class="" style="width:200px">Situação</th>
-            <th>Download</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr data-ng-repeat="tipo in listaPropostas" >
-            <td class="col-md-3"><h5><b>{{tipo.docCliTipoNome}}</b></h5></td>
-            <td colspan="2">
-                <table class="table table-condensed table-hover borderless" >
-                    <tr data-ng-repeat="situacaoDocumento in tipo.listaSituacaoDocumentoCliente">
-                        <td class="" style="width:200px">{{situacaoDocumento.docCliSituDescricao}}</td>
-                        <td>
-                            <a class="cursor-pointer" ng-click="RetornarArquivo(situacaoDocumento.documentoCliente.cryptoDocClienteId, situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal)">
-                                {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}}
-                            </a>
-                        </td>
-                    </tr>
-                </table>
+            <td class="col-sm-2 vAlignMiddle">
+                <h5>Número proposta:</h5>
+            </td>
+            <td class="vAlignMiddle">
+                <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" width="100%" required autofocus />
+            </td>
+            <td class="col-sm-2 text-center vAlignMiddle">
+                <button ng-model="btnEnviarFiltrar" ng-enter="ListarPropostas(numeroPropostaPesquisa)" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Filtrar" title="Pesquisar por proposta">Filtrar</button>
             </td>
         </tr>
-    </tbody>
-</table>
+    </table>
 
+    <div class="alert alert-warning" ng-show="showMensagemListaVazia">
+        <strong>{{valorMensagem}}</strong>
+    </div>
+
+    <table class="table" ng-show="showListaProposta">
+        <thead>
+            <tr>
+                <th class="col-md-3">Documento</th>
+                <th class="" style="width:200px">Situação</th>
+                <th>Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="tipo in listaPropostas">
+                <td class="col-md-3"><h5><b>{{tipo.docCliTipoNome}}</b></h5></td>
+                <td colspan="2">
+                    <table class="table table-condensed table-hover borderless">
+                        <tr data-ng-repeat="situacaoDocumento in tipo.listaSituacaoDocumentoCliente">
+                            <td class="" style="width:200px">{{situacaoDocumento.docCliSituDescricao}}</td>
+                            <td>
+                                <a class="cursor-pointer" ng-click="RetornarArquivo(situacaoDocumento.documentoCliente.cryptoDocClienteId, situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal)">
+                                    {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}}
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>

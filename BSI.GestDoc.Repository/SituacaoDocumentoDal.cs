@@ -10,7 +10,11 @@ namespace BSI.GestDoc.Repository.DAL
 {
     public class SituacaoDocumentoDal
     {
-       
+       /// <summary>
+       /// Recupera lista de situações pelo tipo do documento
+       /// </summary>
+       /// <param name="codTipoDocumento"></param>
+       /// <returns></returns>
         public IEnumerable<DocumentoClienteSituacao> ListarSituacaoDocumento(string codTipoDocumento)
         {
 

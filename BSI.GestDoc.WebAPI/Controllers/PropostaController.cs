@@ -12,7 +12,13 @@ namespace BSI.GestDoc.WebAPI.Controllers
     [System.Web.Http.RoutePrefix("api/Proposta")]
     public class PropostaController : ApiController
     {
-
+        /// <summary>
+        /// Recupera lista de Documento cliente (Propostas)
+        /// </summary>
+        /// <param name="usuarioId"></param>
+        /// <param name="clientId"></param>
+        /// <param name="numeroProposta"></param>
+        /// <returns></returns>
         [System.Web.Http.Route("ListarPropostas")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult ListarPropostas(string usuarioId, string clientId, string numeroProposta)
