@@ -23,15 +23,15 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/signup.html"
     });*/
 
-    /*$routeProvider.when("/refresh", {
+    $routeProvider.when("/refresh", {
         controller: "refreshController",
         templateUrl: "/app/views/refresh.html"
-    });*/
-    /*
+    });
+    
     $routeProvider.when("/tokens", {
         controller: "tokensManagerController",
         templateUrl: "/app/views/tokens.html"
-    });*/
+    });
 
     $routeProvider.when("/fileUpload", {
         controller: "fileUploadController",
@@ -46,6 +46,27 @@ app.config(function ($routeProvider) {
     $routeProvider.otherwise({ redirectTo: "/login" });
 
 });
+
+app.factory("userPersistenceService", [
+	"$cookies", function ($cookies) {
+	    var userName = "";
+
+	    return {
+	        setCookieData: function (username) {
+	            userName = username;
+	            $cookies.put("userName", username);
+	        },
+	        getCookieData: function () {
+	            userName = $cookies.get("userName");
+	            return userName;
+	        },
+	        clearCookieData: function () {
+	            userName = "";
+	            $cookies.remove("userName");
+	        }
+	    }
+	}
+]);
 
 var serviceBase = 'http://localhost:44857/';
 app.constant('ngAuthSettings', {

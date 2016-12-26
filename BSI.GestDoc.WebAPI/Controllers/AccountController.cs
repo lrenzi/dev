@@ -34,7 +34,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         }
 
         // POST api/Account/Register
-        [AllowAnonymous]
+        /*[AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(UserModel userModel)
         {
@@ -159,7 +159,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
             var accessTokenResponse = GenerateLocalAccessTokenResponse(model.UserName);
 
             return Ok(accessTokenResponse);
-        }
+        }*/
 
         [AllowAnonymous]
         [HttpGet]
@@ -254,23 +254,23 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 return "redirect_uri is invalid";
             }
 
-            var clientId = GetQueryString(Request, "client_id");
+            var clientId = GetQueryString(Request, "clienteId");
 
             if (string.IsNullOrWhiteSpace(clientId))
             {
-                return "client_Id is required";
+                return "ClienteId is required";
             }
 
             var client = _repo.FindClient(clientId);
 
             if (client == null)
             {
-                return string.Format("Client_id '{0}' is not registered in the system.", clientId);
+                return string.Format("clienteId '{0}' is not registered in the system.", clientId);
             }
 
             if (!string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase))
             {
-                return string.Format("The given URL is not allowed by Client_id '{0}' configuration.", clientId);
+                return string.Format("The given URL is not allowed by clienteId '{0}' configuration.", clientId);
             }
 
             redirectUriOutput = redirectUri.AbsoluteUri;

@@ -4,7 +4,7 @@ app.factory('authInterceptorService', ['$q', '$injector','$location', 'localStor
     var authInterceptorServiceFactory = {};
 
     var _request = function (config) {
-
+        
         config.headers = config.headers || {};
        
         var authData = localStorageService.get('authorizationData');

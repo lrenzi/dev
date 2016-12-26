@@ -71,8 +71,8 @@ namespace BSI.GestDoc.WebAPI.Providers
                 return Task.FromResult<object>(null);
             }
 
-            context.OwinContext.Set<string>("as:clientAllowedOrigin", client.AllowedOrigin);
-            context.OwinContext.Set<string>("as:clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
+            context.OwinContext.Set<string>("clientAllowedOrigin", client.AllowedOrigin);
+            context.OwinContext.Set<string>("clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
 
             context.Validated();
             return Task.FromResult<object>(null);
@@ -85,7 +85,7 @@ namespace BSI.GestDoc.WebAPI.Providers
             try
             {
 
-                var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
+                var allowedOrigin = context.OwinContext.Get<string>("clientAllowedOrigin");
 
                 if (allowedOrigin == null) allowedOrigin = "*";
 
@@ -109,10 +109,10 @@ namespace BSI.GestDoc.WebAPI.Providers
                 #region mapeamento de atributos do usuario logado
                 var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
-                    {
+                    /*{
                         "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
 
-                    },
+                    },*/
                     {
                         "userName", context.UserName
                     },
@@ -155,12 +155,12 @@ namespace BSI.GestDoc.WebAPI.Providers
 
         public override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
         {
-            var originalClient = context.Ticket.Properties.Dictionary["as:client_id"];
+            var originalClient = context.Ticket.Properties.Dictionary["clientId"];
             var currentClient = context.ClientId;
 
             if (originalClient != currentClient)
             {
-                context.SetError("invalid_clientId", "Refresh token is issued to a different clientId.");
+                context.SetError("invalid_ClienteId", "Refresh token is issued to a different clientId.");
                 return Task.FromResult<object>(null);
             }
 

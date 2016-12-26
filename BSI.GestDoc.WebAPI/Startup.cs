@@ -44,7 +44,7 @@ namespace BSI.GestDoc.WebAPI
             {
 
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/efetuarLogin"),
+                TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                 Provider = new SimpleAuthorizationServerProvider(),
                 RefreshTokenProvider = new SimpleRefreshTokenProvider()

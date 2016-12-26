@@ -53,8 +53,10 @@ namespace BSI.GestDoc.WebAPI
 
         public async Task<bool> AddRefreshToken(RefreshToken token)
         {
-
-           var existingToken = _ctx.RefreshTokens.Where(r => r.Subject == token.Subject && r.ClientId == token.ClientId).SingleOrDefault();
+            try
+            {
+                var existingToken = _ctx.RefreshTokens.Where(r => r.Subject == token.Subject && r.ClientId == token.ClientId).SingleOrDefault();
+           
 
            if (existingToken != null)
            {
@@ -63,6 +65,12 @@ namespace BSI.GestDoc.WebAPI
           
             _ctx.RefreshTokens.Add(token);
 
+            
+            }
+            catch (Exception ex)
+            {
+                string a = "";
+            }
             return await _ctx.SaveChangesAsync() > 0;
         }
 

@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "fileUploadService", 'Upload', 'ngAuthSettings', function ($scope, $routeParams, $location, fileUploadService, Upload, ngAuthSettings) {
+app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "fileUploadService", 'Upload', 'ngAuthSettings', 'localStorageService', function ($scope, $routeParams, $location, fileUploadService, Upload, ngAuthSettings, localStorageService) {
 
     $scope.mostraBotaoEnviar = true;
     $scope.mostraBotaoNovo = false;
@@ -33,6 +33,12 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
     }
 
     $scope.ConsultarArquivos = function () {
+
+       
+       
+        //userPersistenceService.setCookieData("WESLEY");
+        //alert(userPersistenceService.getCookieData());
+
         //alert(ngAuthSettings.clienteId);
         $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
             $scope.listaDocumentosClienteTipo = data;
@@ -77,11 +83,14 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
     $scope.EnviarArquivoWebAPI = function (index_, file_, reenvio_, docCliTipoId) {
 
+        
+        var infClientes = localStorageService.get('ngAuthSettings');
+
         if (docCliTipoId == "") {
             docCliTipoId = $scope.listaDocumentosClienteTipo[index_].docCliTipoId;
         }
         Upload.upload({
-            url: ngAuthSettings.apiServiceBaseUri + "api/FileUpload/EnviarArquivos?usuarioId=" + ngAuthSettings.usuarioId + "&clienteId=" + ngAuthSettings.clienteId + "&docCliTipoId=" + docCliTipoId + "&reenvio=" + reenvio_,
+            url: ngAuthSettings.apiServiceBaseUri + "api/FileUpload/EnviarArquivos?usuarioId=" + infClientes.usuarioId + "&clienteId=" + infClientes.clienteId + "&docCliTipoId=" + docCliTipoId + "&reenvio=" + reenvio_,
             file: file_.files[0]
         }).progress(function (evt) {
             $scope.listaDocumentosClienteTipo[index_].progressbar = parseInt(100.0 * evt.loaded / evt.total, 10) + " %";

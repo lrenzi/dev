@@ -9,8 +9,8 @@
             <thead>
                 <tr>
                     <th>Action</th>
-                    <th>Subject</th>
-                    <th>Client</th>
+                    <th>IdentityName</th>
+                    <th>ClienteId</th>
                     <th>Issued At (UTC)</th>
                     <th>Expires At (UTC)</th>
                 </tr>
@@ -21,10 +21,10 @@
                         <a data-ng-click="deleteRefreshTokens($index,token.id)" href="">Remove</a>
                     </td>
                     <td>
-                        {{ token.subject }}
+                        {{ token.identityName }}
                     </td>
                     <td>
-                        {{ token.clientId }}
+                        {{ token.clienteId }}
                     </td>
                     <td>
                         {{ token.issuedUtc | date:'medium' }}

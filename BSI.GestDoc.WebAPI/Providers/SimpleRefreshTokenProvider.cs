@@ -1,4 +1,5 @@
-﻿using BSI.GestDoc.WebAPI.Entities;
+﻿using BSI.GestDoc.Entity;
+using BSI.GestDoc.WebAPI.Entities;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 using System;
@@ -15,7 +16,7 @@ namespace BSI.GestDoc.WebAPI.Providers
 
         public async Task CreateAsync(AuthenticationTokenCreateContext context)
         {
-            var clientid = context.Ticket.Properties.Dictionary["as:client_id"];
+            var clientid = context.Ticket.Properties.Dictionary["clienteId"];
 
             if (string.IsNullOrEmpty(clientid))
             {
@@ -24,53 +25,52 @@ namespace BSI.GestDoc.WebAPI.Providers
 
             var refreshTokenId = Guid.NewGuid().ToString("n");
 
-            using (AuthRepository _repo = new AuthRepository())
+            BusinessLogic.AutenticacaoBL _auth = new BusinessLogic.AutenticacaoBL();
+
+            var refreshTokenLifeTime = System.Configuration.ConfigurationManager.AppSettings["clientRefreshTokenLifeTime"];
+
+            var token = new Token()
             {
-                var refreshTokenLifeTime = context.OwinContext.Get<string>("as:clientRefreshTokenLifeTime"); 
-               
-                var token = new RefreshToken() 
-                { 
-                    Id = Helper.GetHash(refreshTokenId),
-                    ClientId = clientid, 
-                    Subject = context.Ticket.Identity.Name,
-                    IssuedUtc = DateTime.UtcNow,
-                    ExpiresUtc = DateTime.UtcNow.AddMinutes(Convert.ToDouble(refreshTokenLifeTime)) 
-                };
+                Id = Helper.GetHash(refreshTokenId),
+                ClienteId = int.Parse(clientid),
+                IdentityName = context.Ticket.Identity.Name,
+                IssuedUtc = DateTime.UtcNow,
+                ExpiresUtc = DateTime.UtcNow.AddMinutes(Convert.ToDouble(refreshTokenLifeTime))
+            };
 
-                context.Ticket.Properties.IssuedUtc = token.IssuedUtc;
-                context.Ticket.Properties.ExpiresUtc = token.ExpiresUtc;
-                
-                token.ProtectedTicket = context.SerializeTicket();
+            context.Ticket.Properties.IssuedUtc = token.IssuedUtc;
+            context.Ticket.Properties.ExpiresUtc = token.ExpiresUtc;
 
-                var result = await _repo.AddRefreshToken(token);
+            token.ProtectedTicket = context.SerializeTicket();
 
-                if (result)
-                {
-                    context.SetToken(refreshTokenId);
-                }
-             
+            var result = await _auth.AddRefreshToken(token);
+
+            if (result)
+            {
+                context.SetToken(refreshTokenId);
             }
+
+
         }
 
         public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
 
-            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
+            var allowedOrigin = context.OwinContext.Get<string>("clientAllowedOrigin");
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
             string hashedTokenId = Helper.GetHash(context.Token);
 
-            using (AuthRepository _repo = new AuthRepository())
-            {
-                var refreshToken = await _repo.FindRefreshToken(hashedTokenId);
+            BusinessLogic.AutenticacaoBL _auth = new BusinessLogic.AutenticacaoBL();
+            var existingToken = _auth.GetAllRefreshTokens().ToList().FindAll(r => r.Id == hashedTokenId).SingleOrDefault();
 
-                if (refreshToken != null )
-                {
-                    //Get protectedTicket from refreshToken class
-                    context.DeserializeTicket(refreshToken.ProtectedTicket);
-                    var result = await _repo.RemoveRefreshToken(hashedTokenId);
-                }
+            if (existingToken != null)
+            {
+                //Get protectedTicket from refreshToken class
+                context.DeserializeTicket(existingToken.ProtectedTicket);
+                var result = await _auth.RemoveRefreshToken(existingToken.TokenId);
             }
+
         }
 
         public void Create(AuthenticationTokenCreateContext context)

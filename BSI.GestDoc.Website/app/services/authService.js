@@ -28,16 +28,17 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     };
 
     var _login = function (loginData) {
+        
         //var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
         var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
 
         if (loginData.useRefreshTokens) {
-            data = data + "&client_id=" + ngAuthSettings.clienteId;
+            data = data + "&clienteId=" + ngAuthSettings.clienteId;
         }
 
         var deferred = $q.defer();
 
-        $http.post(serviceBase + 'efetuarLogin', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
+        $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
             
             if (loginData.useRefreshTokens) {
                 localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
@@ -61,9 +62,12 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             ngAuthSettings.clienteId = response.clienteId;
             ngAuthSettings.pathDocumentosCliente = response.pathDocumentosCliente;
 
+            localStorageService.set('ngAuthSettings', ngAuthSettings);
+
             deferred.resolve(response);
 
         }).error(function (err, status) {
+            
             _logOut();
             deferred.reject(err);
         });
@@ -94,6 +98,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     };
 
     var _refreshToken = function () {
+        
         var deferred = $q.defer();
 
         var authData = localStorageService.get('authorizationData');
@@ -102,7 +107,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
             if (authData.useRefreshTokens) {
 
-                var data = "grant_type=refresh_token&refresh_token=" + authData.refreshToken + "&client_id=" + ngAuthSettings.clientId;
+                var data = "grant_type=refresh_token&refresh_token=" + authData.refreshToken + "&clienteId=" + ngAuthSettings.clientId;
 
                 localStorageService.remove('authorizationData');
 

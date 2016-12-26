@@ -4,7 +4,7 @@ app.controller('tokensManagerController', ['$scope', 'tokensManagerService', fun
     $scope.refreshTokens = [];
 
     tokensManagerService.getRefreshTokens().then(function (results) {
-
+        
         $scope.refreshTokens = results.data;
 
     }, function (error) {

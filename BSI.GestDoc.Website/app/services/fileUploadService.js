@@ -1,12 +1,15 @@
 ﻿
-app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', function ($http, $q, ngAuthSettings) {
+app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', 'localStorageService', function ($http, $q, ngAuthSettings, localStorageService) {
 
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
     var fileUploadServiceFactory = {};
 
     var _retornarDocumentoClienteTipo = function () {
+
         
-        return $http.post(serviceBase + "api/FileUpload/RetornarDocumentoClienteTipo", { ClienteId: 1 })
+        var infClientes = localStorageService.get('ngAuthSettings');
+
+        return $http.post(serviceBase + "api/FileUpload/RetornarDocumentoClienteTipo", { ClienteId: infClientes.clienteId })
         .then(function (response) {
             if (typeof response.data === 'object') {
                 return response.data;

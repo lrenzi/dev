@@ -1,6 +1,7 @@
 ﻿using BSI.Dapper.Helper;
 using BSI.GestDoc.Entity;
 using Dapper;
+using DapperExtensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,24 @@ namespace BSI.GestDoc.Repository.DAL
 {
     public class AutenticacaoDal
     {
+        public IList<Token> GetAtllToken()
+        {
+            return SqlHelper.GetAll<Token>();
+        }
+
+        public bool RemoveToken(long TokenId)
+        {
+            var pg = new PredicateGroup { Operator = GroupOperator.And, Predicates = new List<IPredicate>() };
+            pg.Predicates.Add(Predicates.Field<Token>(f => f.TokenId, Operator.Eq, TokenId, true));
+
+            return SqlHelper.Delete<Token>(pg);
+        }
+
+        public bool InsertToken(Token Token)
+        {
+            return SqlHelper.Insert<Token>(Token);
+        }
+
         public async Task<Usuario> Efetuarlogin(String usuarioLogin, String usuarioSenha)
         {
             Usuario usuarioRetorno = null;

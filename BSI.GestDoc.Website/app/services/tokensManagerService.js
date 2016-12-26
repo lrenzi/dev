@@ -6,7 +6,7 @@ app.factory('tokensManagerService', ['$http','ngAuthSettings', function ($http,n
     var tokenManagerServiceFactory = {};
 
     var _getRefreshTokens = function () {
-
+        
         return $http.get(serviceBase + 'api/refreshtokens').then(function (results) {
             return results;
         });
