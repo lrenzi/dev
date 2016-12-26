@@ -17,24 +17,12 @@
     
     <!--** scripts js de componentes e customizados **-->
     <!--<script src="scripts/jquery/js/jquery-3.1.0.js"></script>-->
+    
     <!--** css proprio do site e customizados **-->
     <link href="content/css/site.css" rel="stylesheet" />
 
 </head>
 <body>
-
-    <!--<div class="modal fade bs-example-modal-sm" id="loading" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <i class="fa fa-circle-o-notch fa-spin" style="color:darkred" ></i>
-                    Processando, aguarde...
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <input type="button" value="testefasd" onclick="javascript: $('#loading').modal('show');" />-->
 
     <div class="navbar navbar-fixed-top navbar-top" role="navigation" data-ng-controller="indexController">
         <div class="container">
@@ -68,6 +56,7 @@
             <p class="text-center">Interface administrativa de gerenciamento de documentos para assinatura grafométrica.</p>
         </div>
     </div>
+
     <div class="container" ng-show="false">
         <div class="alert alert-success">
             <strong>Sucesso!</strong><label ng-bind="mensagemSucesso"></label>
@@ -85,7 +74,8 @@
             <strong>Erro!</strong><label ng-bind="mensagemErro"></label>
         </div>
     </div>
-    <div class="container">
+
+    <div data-ng-hide="authentication.isAuth" class="container">
         <div data-ng-view="">
         </div>
     </div>
@@ -102,6 +92,7 @@
             </div>
         </div>
     </div>
+
     <!-- Angular -->
     <script src="scripts/angular/angular.js"></script>
     <script src="scripts/angular/angular-route.js"></script>

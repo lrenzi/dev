@@ -18,6 +18,7 @@ namespace BSI.GestDoc.Entity
         public int DocCliTipoOrdemApresent { get; set; }
         public Cliente Cliente { get; set; }
         public IEnumerable<DocumentoClienteSituacao> ListaSituacaoDocumentoCliente { get; set; }
+        
         ////Auxiliar
         //[DapperAttribute.Write(false)]
         //[DapperAttribute.Computed]

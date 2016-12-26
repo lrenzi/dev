@@ -3,7 +3,9 @@
 app.controller("listaPropostasController", ["$scope", "$routeParams", "$location", "listaPropostasService", 'documentoCliente', 'fileUploadService', function ($scope, $routeParams, $location, listaPropostasService, documentoCliente, fileUploadService) {
     documentoCliente.numeroPesquisaProposta = '';
     $scope.showListaProposta = false;
-    $scope.showMensagemListaVazia=false;
+    $scope.showMensagemListaVazia = false;
+    $scope.listaSituacoesProposta = [];
+    $scope.valorMensagem = "";
     
     $scope.RetornarArquivo = function (docClienteId_, fileName_) {
         fileUploadService.RetornarArquivo(docClienteId_, fileName_).then(function (data) {
@@ -13,6 +15,11 @@ app.controller("listaPropostasController", ["$scope", "$routeParams", "$location
     };
 
     $scope.ListarPropostas = function (keySearch) {
+        
+        if (keySearch == undefined || keySearch.trim() == "") {
+            return
+        }
+
         documentoCliente.numeroPesquisaProposta = keySearch;
         $scope.listaPropostas = listaPropostasService.ListarPropostas().then(function (data) {
             $scope.listaPropostas = data;
@@ -20,9 +27,8 @@ app.controller("listaPropostasController", ["$scope", "$routeParams", "$location
             if ($scope.listaPropostas.length == 0) {
                 $scope.showListaProposta = false;
                 $scope.showMensagemListaVazia = true;
+                $scope.valorMensagem = "Proposta não encontrada";
             } else {
-                
-                $scope.listaPropostas = $scope.listaPropostas[0];
                 $scope.showListaProposta = true;
                 $scope.showMensagemListaVazia = false;
             }
