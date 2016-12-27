@@ -39,9 +39,9 @@ namespace BSI.GestDoc.BusinessLogic
             this.AssociarTipoSituacaoParaDocumentoCliente(listaDocumentosTipo, documentosClienteDados);
 
             //Associa o tipo de documento correspondente ao documento dados consultado pelo CliDocID
-            List<DocumentoClienteTipo> tiposDocumentoCliente = this.AssociarTipoDocumentoCliente(listaDocumentosTipo, documentosClienteDados);
+            //List<DocumentoClienteTipo> tiposDocumentoCliente = this.AssociarTipoDocumentoCliente(listaDocumentosTipo, documentosClienteDados);
 
-            return tiposDocumentoCliente.ToList();
+            return listaDocumentosTipo.ToList();
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings', function ($scope, $location, authService, ngAuthSettings) {
-
+app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings','localStorageService', function ($scope, $location, authService, ngAuthSettings,localStorageService) {
+    
     $scope.loginData = {
         userName: "",
         nomeUsuario: "",
@@ -10,8 +10,11 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
         clienteId: "",
         nomeCliente: "",
         pathDocumentosCliente: "",
-        useRefreshTokens: false
+        useRefreshTokens: false,    
     };
+    
+    localStorageService.remove('authorizationData');
+    
 
     $scope.message = "";
 

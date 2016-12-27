@@ -85,6 +85,12 @@ app.constant('documentoCliente', {
     numeroPesquisaProposta: "",
 });
 
+app.constant('cadastroUsuario', {
+    userNameUsuario: "",
+    nomeUsuario: "",
+    emailUsuario: ""
+});
+
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
 });
