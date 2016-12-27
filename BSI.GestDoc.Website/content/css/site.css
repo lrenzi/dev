@@ -101,10 +101,11 @@ background-position:bottom right;
 }
 
 a {
-    color: #7a0000;
+    color: #c60b0b;
 }
 a:hover, a:focus{
-    color:#222;
+    color:#000;
+    transition: all 0.1s ease 0s;
 }
 .jumbotron {
     background-color:transparent;
@@ -116,7 +117,7 @@ a:hover, a:focus{
 }
 
 .navbar a:hover, .navbar a:active, .navbar a:focus {
-    transition: all 0.2s ease 0s;
+    transition: all 0.1s ease 0s;
 }
 
 #loading-bar {
