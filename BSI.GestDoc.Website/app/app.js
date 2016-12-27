@@ -44,7 +44,7 @@ app.config(function ($routeProvider) {
     });
 
     $routeProvider.when("/cadastrarUsuario", {
-        controller: "cadastrarUsuarioController",
+        controller: "cadastroUsuarioController",
         templateUrl: "/app/views/cadastroUsuario.html"
     });
 
@@ -90,11 +90,11 @@ app.constant('documentoCliente', {
     numeroPesquisaProposta: "",
 });
 
-app.constant('cadastroUsuario', {
-    userNameUsuario: "",
-    nomeUsuario: "",
-    emailUsuario: ""
-});
+//app.constant('cadastroUsuario', {
+//    userNameUsuario: "",
+//    nomeUsuario: "",
+//    emailUsuario: ""
+//});
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
