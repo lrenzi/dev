@@ -60,22 +60,29 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
             $scope.EnviarArquivoWebAPI(index_, file_, true, docCliTipoId);
         }
         else {
-            mensagemService.mensagemInformativo("Selecione um arquivo para Reenvio.")
+            mensagemService.mensagemInformativo("Selecione um arquivo para Reenvio.");
         }
     };
 
     $scope.EnviarArquivo = function () {
 
         $scope.contador = 0;
+        var quantidadeArquivoEncontrados = 0;
+        mensagemService.limparMensagem();
 
         for (var contador = 0; contador < $scope.listaDocumentosClienteTipo.length; contador++) {
 
             var file_ = document.getElementById('idFile_' + $scope.listaDocumentosClienteTipo[contador].docCliTipoId);
 
             if (file_.value != "") {
+                quantidadeArquivoEncontrados++;
                 $scope.contador = contador;
                 $scope.EnviarArquivoWebAPI(contador, file_, false, "");
             }
+        }
+        
+        if (quantidadeArquivoEncontrados == 0) {
+            mensagemService.mensagemInformativo("Selecione um arquivo para Envio.");
         }
     };
 

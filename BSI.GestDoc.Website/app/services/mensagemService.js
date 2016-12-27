@@ -75,4 +75,9 @@
         objMensagem.mensagem = listaMensagem;
         $rootScope.mensagens.push(objMensagem);
     }
+
+    this.limparMensagem = function () {
+        $rootScope.mensagens = [];
+        $rootScope.exibirMensagem = false;
+    }
 }]);
