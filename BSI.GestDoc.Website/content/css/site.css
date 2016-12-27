@@ -83,25 +83,28 @@ background-position:bottom right;
 /* Customizações do Bootstrap -------- */
 
 .form-control:focus{
-    border-color:indianred;
+    border-color:#888;
 }
 
 .btn {
-    background-color: #7a0000 !important;
-    border-color: #999 !important;
-    transition: all 0.2s ease 0s;
+    background-color: #ffc8c8 !important;
+    border-color: #ccc !important;
+    transition: all 0.1s ease 0s;
+    color:#333;
+    font-weight:bold;
 }
 
 .btn:hover, .btn:focus, .btn:active{
-    background-color: #630000 !important;
-    border-color: #666 !important;
+    background-color: #333 !important;
+    border-color: #ffc8c8 !important;
+    color:#ffc8c8;
 }
 
 a {
     color: #7a0000;
 }
 a:hover, a:focus{
-    color:#333;
+    color:#222;
 }
 .jumbotron {
     background-color:transparent;
@@ -110,6 +113,10 @@ a:hover, a:focus{
 .navbar {
     background-color:white;
     border-bottom:solid 1px #ffc8c8 !important;
+}
+
+.navbar a:hover, .navbar a:active, .navbar a:focus {
+    transition: all 0.2s ease 0s;
 }
 
 #loading-bar {
