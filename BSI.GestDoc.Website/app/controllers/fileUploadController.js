@@ -1,11 +1,9 @@
 ﻿'use strict';
-app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "fileUploadService", 'Upload', 'ngAuthSettings', 'localStorageService', function ($scope, $routeParams, $location, fileUploadService, Upload, ngAuthSettings, localStorageService) {
+app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "fileUploadService", 'Upload', 'ngAuthSettings', 'localStorageService', 'mensagemService', function ($scope, $routeParams, $location, fileUploadService, Upload, ngAuthSettings, localStorageService, mensagemService) {
 
     $scope.mostraBotaoEnviar = true;
     $scope.mostraBotaoNovo = false;
     $scope.desabilitaFile = false;
-
-    
 
     $scope.IniciarTela = function () {
 
@@ -13,7 +11,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
             $scope.listaDocumentosClienteTipo = data;
             iniciarListaDocumentoClienteTipo();
         }, function (error) {
-            alert(error.data.message);
+            mensagemService.mensagemErro(error.data.message);
         });
         $scope.mostraBotaoEnviar = true;
         $scope.mostraBotaoNovo = false;
@@ -44,14 +42,14 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
             $scope.listaDocumentosClienteTipo = data;
             iniciarListaDocumentoClienteTipo();
         }, function (error) {
-            alert(error.data.message);
+            mensagemService.mensagemErro(error.data.message);
         });
     };
 
     $scope.RetornarArquivo = function (docClienteId_, fileName_) {
         fileUploadService.RetornarArquivo(docClienteId_, fileName_).then(function (data) {
         }, function (error) {
-            alert(error.data.message);
+            mensagemService.mensagemErro(error.data.message);
         });
     };
 
@@ -62,7 +60,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
             $scope.EnviarArquivoWebAPI(index_, file_, true, docCliTipoId);
         }
         else {
-            alert("Selecione um arquivo para Reenvio.")
+            mensagemService.mensagemInformativo("Selecione um arquivo para Reenvio.")
         }
     };
 

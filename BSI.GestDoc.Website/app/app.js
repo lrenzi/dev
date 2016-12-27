@@ -106,3 +106,11 @@ app.directive('ngEnter', function () {
         });
     };
 });
+
+app.run(function ($rootScope) {
+    //Efetua a limpeza das mensagens do rootscope
+    $rootScope.$on("$locationChangeStart", function (event, next, current) {
+        $rootScope.exibirMensagem = false;
+        $rootScope.mensagens = [];
+    });
+});

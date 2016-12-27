@@ -57,21 +57,12 @@
         </div>
     </div>
 
-    <div class="container" ng-show="false">
-        <div class="alert alert-success">
-            <strong>Sucesso!</strong><label ng-bind="mensagemSucesso"></label>
-        </div>
-
-        <div class="alert alert-info">
-            <strong>Informação!</strong><label ng-bind="mensagemInformacao"></label>
-        </div>
-
-        <div class="alert alert-warning">
-            <strong>Alerta!</strong><label ng-bind="mensagemAlerta"></label>
-        </div>
-
-        <div class="alert alert-danger">
-            <strong>Erro!</strong><label ng-bind="mensagemErro"></label>
+    <div class="container" ng-show="exibirMensagem">
+        <div ng-class="m.tipoMensagem" ng-repeat="m in mensagens">
+            <div class="row">
+                <strong>{{m.titulo}}</strong>
+                <label class="col-md-12" ng-bind="t" ng-repeat="t in m.mensagem"></label>
+            </div>
         </div>
     </div>
 
@@ -112,6 +103,8 @@
     <script src="app/services/tokensManagerService.js?v=2"></script>
     <script src="app/services/fileUploadService.js?v=2"></script>
     <script src="app/services/listaPropostasService.js"></script>
+    <script src="app/services/mensagemService.js"></script>
+   
 
     <!-- Controllers -->
     <script src="app/controllers/indexController.js?v=2"></script>
