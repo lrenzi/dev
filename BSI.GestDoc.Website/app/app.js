@@ -43,6 +43,11 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/listaPropostas.html"
     });
 
+    $routeProvider.when("/cadastrarUsuario", {
+        controller: "cadastrarUsuarioController",
+        templateUrl: "/app/views/cadastroUsuario.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/login" });
 
 });

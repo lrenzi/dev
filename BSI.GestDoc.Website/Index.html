@@ -38,6 +38,7 @@
                     <li data-ng-hide="!authentication.isAuth"><a>Bem vindo {{authentication.userName}}</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/fileUpload">Upload Documentos</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/listaPropostas">Lista Contratos</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/cadastrarUsuario">Cadastrar Usuário</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/tokens">Tokens</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Reativar Token</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Sair</a></li>
@@ -112,6 +113,7 @@
     <script src="app/services/tokensManagerService.js?v=2"></script>
     <script src="app/services/fileUploadService.js?v=2"></script>
     <script src="app/services/listaPropostasService.js"></script>
+    <script src="app/services/cadastrarUsuarioService.js"></script>
 
     <!-- Controllers -->
     <script src="app/controllers/indexController.js?v=2"></script>
@@ -122,6 +124,7 @@
     <script src="app/controllers/tokensManagerController.js?v=2"></script>
     <script src="app/controllers/fileUploadController.js?v=2"></script>
     <script src="app/controllers/listaPropostasController.js?v=2"></script>
+    <script src="app/controllers/cadastrarUsuarioController.js?v=2"></script>
 
     <!--plugin para download de arquivo-->
     <script src="scripts/fileSaver.js"></script>
