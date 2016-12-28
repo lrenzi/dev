@@ -118,10 +118,20 @@ app.directive('ngEnter', function () {
     };
 });
 
+app.directive('titulos', function () {
+    return {
+        template: '<h2>{{titulo}}</h2> <h4>{{subTitulo}}</h4>'
+    };
+});
+
+
 app.run(function ($rootScope) {
-    //Efetua a limpeza das mensagens do rootscope
+    //Efetua a limpeza das mensagens e títulos do rootscope
     $rootScope.$on("$locationChangeStart", function (event, next, current) {
         $rootScope.exibirMensagem = false;
         $rootScope.mensagens = [];
+
+        $rootScope.titulo = '';
+        $rootScope.subTitulo = '';
     });
 });

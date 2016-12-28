@@ -1,6 +1,6 @@
 ﻿
 'use strict';
-app.controller("cadastroUsuarioController", ["$scope", "$routeParams", "$location", "cadastroUsuarioService", function ($scope, $routeParams, $location, cadastroUsuarioService) {
+app.controller("cadastroUsuarioController", ["$scope", "$routeParams", "$location", "cadastroUsuarioService", "utilService", function ($scope, $routeParams, $location, cadastroUsuarioService, utilService) {
 
     $scope.userNameUsuario = '';
     $scope.nomeUsuario = '';
@@ -9,6 +9,8 @@ app.controller("cadastroUsuarioController", ["$scope", "$routeParams", "$locatio
     $scope.perfilUsuario = '';
     $scope.showMessage = false;
     
+    utilService.defirniTitulos('Cadastrar Usuário', '');
+
     $scope.CadastrarUsuario = function (userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario) {
         cadastroUsuarioService.CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario).then(function (data) {
             $scope.retornoCadastro = data;
@@ -20,7 +22,7 @@ app.controller("cadastroUsuarioController", ["$scope", "$routeParams", "$locatio
             }
 
         }, function (error) {
-            alert(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
     }
 
@@ -29,7 +31,7 @@ app.controller("cadastroUsuarioController", ["$scope", "$routeParams", "$locatio
         $scope.listaPerfis = cadastroUsuarioService.ConsultaPerfil(usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao).then(function (data) {
             $scope.listaPerfis = data;            
         }, function (error) {
-            alert(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
 
     }

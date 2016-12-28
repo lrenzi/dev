@@ -1,9 +1,11 @@
 ﻿'use strict';
-app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "fileUploadService", 'Upload', 'ngAuthSettings', 'localStorageService', 'mensagemService', function ($scope, $routeParams, $location, fileUploadService, Upload, ngAuthSettings, localStorageService, mensagemService) {
+app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "fileUploadService", 'Upload', 'ngAuthSettings', 'localStorageService', 'utilService', function ($scope, $routeParams, $location, fileUploadService, Upload, ngAuthSettings, localStorageService, utilService) {
 
     $scope.mostraBotaoEnviar = true;
     $scope.mostraBotaoNovo = false;
     $scope.desabilitaFile = false;
+
+    utilService.defirniTitulos('Upload de Documentos', 'Procure os documentos para envio');
 
     $scope.IniciarTela = function () {
 
@@ -11,7 +13,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
             $scope.listaDocumentosClienteTipo = data;
             iniciarListaDocumentoClienteTipo();
         }, function (error) {
-            mensagemService.mensagemErro(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
         $scope.mostraBotaoEnviar = true;
         $scope.mostraBotaoNovo = false;
@@ -42,14 +44,14 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
             $scope.listaDocumentosClienteTipo = data;
             iniciarListaDocumentoClienteTipo();
         }, function (error) {
-            mensagemService.mensagemErro(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
     };
 
     $scope.RetornarArquivo = function (docClienteId_, fileName_) {
         fileUploadService.RetornarArquivo(docClienteId_, fileName_).then(function (data) {
         }, function (error) {
-            mensagemService.mensagemErro(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
     };
 
@@ -60,7 +62,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
             $scope.EnviarArquivoWebAPI(index_, file_, true, docCliTipoId);
         }
         else {
-            mensagemService.mensagemInformativo("Selecione ao menos um arquivo para reenvio.");
+            utilService.mensagemInformativo("Selecione ao menos um arquivo para reenvio.");
         }
     };
 
@@ -68,7 +70,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
         $scope.contador = 0;
         var quantidadeArquivoEncontrados = 0;
-        mensagemService.limparMensagem();
+        utilService.limparMensagem();
 
         for (var contador = 0; contador < $scope.listaDocumentosClienteTipo.length; contador++) {
 
@@ -82,7 +84,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
         }
         
         if (quantidadeArquivoEncontrados == 0) {
-            mensagemService.mensagemInformativo("Selecione ao menos um arquivo para envio.");
+            utilService.mensagemInformativo("Selecione ao menos um arquivo para envio.");
             //testes wesley wk
             //mensagemService.mensagemInformativo(["Selecione ao menos um arquivo para envio.", "Outra mensagem qualquer para testar a mensageria."]);
             //mensagemService.mensagemErro("Ocorreu um erro de processamento no servidor durante o request do capiroto. ER3302x.");
