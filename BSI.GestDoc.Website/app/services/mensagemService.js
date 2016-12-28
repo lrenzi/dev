@@ -5,16 +5,16 @@
         var listaMensagem = [];
         if (Array.isArray(mensagem)) {
             for (var i = 0; i < mensagem.length; i++) {
-                listaMensagem.push(mensagem[i]);
+                listaMensagem.push("▪ " + mensagem[i]);
             }
         } else {
-            listaMensagem.push(mensagem);
+            listaMensagem.push("▪ " + mensagem);
         }
 
         var objMensagem = {};
         objMensagem.tipoMensagem = 'alert alert-success';
         $rootScope.exibirMensagem = true;
-        objMensagem.titulo = 'Sucesso! ';
+        objMensagem.titulo = 'Sucesso';
         objMensagem.mensagem = listaMensagem;
         $rootScope.mensagens.push(objMensagem)
     }
@@ -24,16 +24,16 @@
         var listaMensagem = [];
         if (Array.isArray(mensagem)) {
             for (var i = 0; i < mensagem.length; i++) {
-                listaMensagem.push(mensagem[i]);
+                listaMensagem.push("▪ " + mensagem[i]);
             }
         } else {
-            listaMensagem.push(mensagem);
+            listaMensagem.push("▪ " + mensagem);
         }
 
         var objMensagem = {};
         objMensagem.tipoMensagem = 'alert alert-info';
         $rootScope.exibirMensagem = true;
-        objMensagem.titulo = 'Informativo! ';
+        objMensagem.titulo = 'Informativo';
         objMensagem.mensagem = listaMensagem;
         $rootScope.mensagens.push(objMensagem);
     }
@@ -43,16 +43,16 @@
         var listaMensagem = [];
         if (Array.isArray(mensagem)) {
             for (var i = 0; i < mensagem.length; i++) {
-                listaMensagem.push(mensagem[i]);
+                listaMensagem.push("▪ " + mensagem[i]);
             }
         } else {
-            listaMensagem.push(mensagem);
+            listaMensagem.push("▪ " + mensagem);
         }
 
         var objMensagem = {};
         objMensagem.tipoMensagem = 'alert alert-warning';
         $rootScope.exibirMensagem = true;
-        objMensagem.titulo = 'Alerta! ';
+        objMensagem.titulo = 'Alerta';
         objMensagem.mensagem = listaMensagem;
         $rootScope.mensagens.push(objMensagem);
     }
@@ -62,16 +62,16 @@
         var listaMensagem = [];
         if (Array.isArray(mensagem)) {
             for (var i = 0; i < mensagem.length; i++) {
-                listaMensagem.push(mensagem[i]);
+                listaMensagem.push("▪ " + mensagem[i]);
             }
         } else {
-            listaMensagem.push(mensagem);
+            listaMensagem.push("▪ " + mensagem);
         }
 
         var objMensagem = {};
         objMensagem.tipoMensagem = 'alert alert-danger';
         $rootScope.exibirMensagem = true;
-        objMensagem.titulo = 'Erro ';
+        objMensagem.titulo = 'Erro';
         objMensagem.mensagem = listaMensagem;
         $rootScope.mensagens.push(objMensagem);
     }

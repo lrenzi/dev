@@ -60,7 +60,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
             $scope.EnviarArquivoWebAPI(index_, file_, true, docCliTipoId);
         }
         else {
-            mensagemService.mensagemInformativo("Selecione um arquivo para Reenvio.");
+            mensagemService.mensagemInformativo("Selecione ao menos um arquivo para reenvio.");
         }
     };
 
@@ -82,7 +82,12 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
         }
         
         if (quantidadeArquivoEncontrados == 0) {
-            mensagemService.mensagemInformativo("Selecione um arquivo para Envio.");
+            mensagemService.mensagemInformativo("Selecione ao menos um arquivo para envio.");
+            //testes wesley wk
+            //mensagemService.mensagemInformativo(["Selecione ao menos um arquivo para envio.", "Outra mensagem qualquer para testar a mensageria."]);
+            //mensagemService.mensagemErro("Ocorreu um erro de processamento no servidor durante o request do capiroto. ER3302x.");
+            //mensagemService.mensagemSucesso("Operação executada com sucesso.");
+            //mensagemService.mensagemAlerta("Se você soltar o cabo da marreta vai feder, tem certeza que deseja soltar?");
         }
     };
 

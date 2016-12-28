@@ -34,6 +34,18 @@ background-position:bottom right;
     width:100%;
 }
 
+/* Classe genérica para adicionar um gradiente branco de altura de 25px e 20% de opacidade em elementos html */
+.gradient {
+    /* IE9, iOS 3.2+ */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%,color-stop(0, rgba(255, 255, 255, 0.2)),color-stop(0.01, rgba(255, 255, 255, 0)));
+    /* Android 2.3 */
+    background-image: -webkit-linear-gradient(top,rgba(255, 255, 255, 0.2) 24px,rgba(255, 255, 255, 0) 25px);
+    /* IE10+ */
+    background-image: linear-gradient(to bottom,rgba(255, 255, 255, 0.2) 24px,rgba(255, 255, 255, 0) 25px);
+    background-image: -ms-linear-gradient(top,rgba(255, 255, 255, 0.2) 24px,rgba(255, 255, 255, 0) 25px);
+}
+ 
+
 /*-------------------------------------*/
 /* LOADING MODAL (waiting)------------ */
 
@@ -138,6 +150,22 @@ a:hover, a:focus{
   background-repeat:no-repeat;
 }
 
+.alert{
+    border-radius: 6px;
+    /*border:solid 1px #888;*/
+
+    /* IE9, iOS 3.2+ */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%,color-stop(0, rgba(255, 255, 255, 0.2)),color-stop(0.01, rgba(255, 255, 255, 0)));
+    /* Android 2.3 */
+    background-image: -webkit-linear-gradient(top,rgba(255, 255, 255, 0.2) 24px,rgba(255, 255, 255, 0) 25px);
+    /* IE10+ */
+    background-image: linear-gradient(to bottom,rgba(255, 255, 255, 0.2) 24px,rgba(255, 255, 255, 0) 25px);
+    background-image: -ms-linear-gradient(top,rgba(255, 255, 255, 0.2) 24px,rgba(255, 255, 255, 0) 25px);
+}
+.alert .alert-title{
+    margin-right:10px;
+}
+
 .alert-error{
     color:red;
 }
@@ -145,3 +173,4 @@ a:hover, a:focus{
 .cursor-pointer{
     cursor:pointer;
 }
+
