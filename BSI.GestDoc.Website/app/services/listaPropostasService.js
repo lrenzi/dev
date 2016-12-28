@@ -1,11 +1,13 @@
 ﻿
-app.service("listaPropostasService", ["$http", "$q", 'ngAuthSettings', 'documentoCliente', function ($http, $q, ngAuthSettings, documentoCliente) {
+app.service("listaPropostasService", ["$http", "$q", 'ngAuthSettings', 'documentoCliente', 'localStorageService', function ($http, $q, ngAuthSettings, documentoCliente, localStorageService) {
 
+
+    var infClientes = localStorageService.get('ngAuthSettings');
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
     var listaPropostasServiceFactory = {};
     var _retornarPropostasCliente = function () {
         
-        return $http.post(serviceBase + "api/Proposta/ListarPropostas?usuarioId=" + ngAuthSettings.usuarioId + "&clientId=" + ngAuthSettings.clienteId + "&numeroProposta=" + documentoCliente.numeroPesquisaProposta)
+        return $http.post(serviceBase + "api/Proposta/ListarPropostas?usuarioId=" + infClientes.usuarioId + "&clientId=" + infClientes.clienteId + "&numeroProposta=" + documentoCliente.numeroPesquisaProposta)
         .then(function (response) {
 
             if (typeof response.data === 'object') {

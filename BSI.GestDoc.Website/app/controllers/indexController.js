@@ -6,7 +6,7 @@ app.controller('indexController', ['$scope', '$location', 'authService', functio
         authService.logOut();
         $location.path('/login');
     }
-
+    
     $scope.authentication = authService.authentication;
 
 }]);

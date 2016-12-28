@@ -43,6 +43,11 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/listaPropostas.html"
     });
 
+    $routeProvider.when("/cadastrarUsuario", {
+        controller: "cadastroUsuarioController",
+        templateUrl: "/app/views/cadastroUsuario.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/login" });
 
 });
@@ -84,6 +89,12 @@ app.constant('ngAuthSettings', {
 app.constant('documentoCliente', {
     numeroPesquisaProposta: "",
 });
+
+//app.constant('cadastroUsuario', {
+//    userNameUsuario: "",
+//    nomeUsuario: "",
+//    emailUsuario: ""
+//});
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');

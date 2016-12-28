@@ -32,16 +32,21 @@ namespace BSI.GestDoc.BusinessLogic
             //Recupera lista de DocumentosDados  pelo codigo do cliente logado   
             documentosClienteDados = Dal.ListarPropostas(usuarioId, clientId, numeroProposta);
 
-            //Recupera lista de DocumentosCliente
-            this.ConsultarInformacaoesDocumentosCliente(documentosClienteDados);
+            if (documentosClienteDados.Count() > 0)
+            {
+                //Recupera lista de DocumentosCliente
+                this.ConsultarInformacaoesDocumentosCliente(documentosClienteDados);
 
-            //Associa o documentoCliente para o tipo de documento
-            this.AssociarTipoSituacaoParaDocumentoCliente(listaDocumentosTipo, documentosClienteDados);
-
+                //Associa o documentoCliente para o tipo de documento
+                this.AssociarTipoSituacaoParaDocumentoCliente(listaDocumentosTipo, documentosClienteDados);
+            }else
+            {
+                return new List<DocumentoClienteTipo>();
+            }
             //Associa o tipo de documento correspondente ao documento dados consultado pelo CliDocID
-            List<DocumentoClienteTipo> tiposDocumentoCliente = this.AssociarTipoDocumentoCliente(listaDocumentosTipo, documentosClienteDados);
+            //List<DocumentoClienteTipo> tiposDocumentoCliente = this.AssociarTipoDocumentoCliente(listaDocumentosTipo, documentosClienteDados);
 
-            return tiposDocumentoCliente.ToList();
+            return listaDocumentosTipo.ToList();
         }
 
         /// <summary>
