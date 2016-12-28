@@ -13,9 +13,9 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
         useRefreshTokens: false,    
     };
     
-    localStorageService.remove('authorizationData');
-    
-
+    if (authService.authentication.isAuth) {
+        $location.path('/listaPropostas');
+    }
     $scope.message = "";
 
     $scope.login = function () {

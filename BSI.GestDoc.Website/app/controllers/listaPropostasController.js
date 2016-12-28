@@ -1,16 +1,18 @@
 ﻿
 'use strict';
-app.controller("listaPropostasController", ["$scope", "$routeParams", "$location", "listaPropostasService", 'documentoCliente', 'fileUploadService', function ($scope, $routeParams, $location, listaPropostasService, documentoCliente, fileUploadService) {
+app.controller("listaPropostasController", ["$scope", "$routeParams", "$location", "listaPropostasService", 'documentoCliente', 'fileUploadService', 'utilService', function ($scope, $routeParams, $location, listaPropostasService, documentoCliente, fileUploadService, utilService) {
     documentoCliente.numeroPesquisaProposta = '';
     $scope.showListaProposta = false;
     $scope.showMensagemListaVazia = false;
     $scope.listaSituacoesProposta = [];
     $scope.valorMensagem = "";
     
+    utilService.defirniTitulos('Consulta de propostas', 'Informe abaixo o valor que deseja consultar');
+
     $scope.RetornarArquivo = function (docClienteId_, fileName_) {
         fileUploadService.RetornarArquivo(docClienteId_, fileName_).then(function (data) {
         }, function (error) {
-            alert(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
     };
 
@@ -33,7 +35,7 @@ app.controller("listaPropostasController", ["$scope", "$routeParams", "$location
                 $scope.showMensagemListaVazia = false;
             }
         }, function (error) {
-            alert(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
     };
 }]);
