@@ -1,6 +1,6 @@
 ﻿
 'use strict';
-app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usuarioService", "localStorageService", function ($scope, $routeParams, $location, usuarioService, localStorageService) {
+app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usuarioService", "localStorageService", "utilService", function ($scope, $routeParams, $location, usuarioService, localStorageService, utilService) {
 
     $scope.userNameUsuario = '';
     $scope.nomeUsuario = '';
@@ -9,6 +9,8 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
     $scope.perfilUsuario = '';
     $scope.showMessage = false;
     $scope.showDivAlteracao = false;
+
+    utilService.defirniTitulos('Consulta de Usuários', 'Informe abaixo o valor que deseja consultar');
 
     $scope.CadastrarUsuario = function (userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario) {
         usuarioService.CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario).then(function (data) {
@@ -21,7 +23,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
             }
 
         }, function (error) {
-            alert(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
     }
 
@@ -30,7 +32,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         $scope.listaPerfis = usuarioService.ConsultaPerfil(usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao).then(function (data) {
             $scope.listaPerfis = data;
         }, function (error) {
-            alert(error.data.message);
+            alert(error.data.message); utilService.mensagemErro(error.data.message);
         });
     }
 
@@ -41,7 +43,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         $scope.listaUsuarios = usuarioService.ConsultarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail, usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId).then(function (data) {
             $scope.listaUsuarios = data;
         }, function (error) {
-            alert(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
     }
 
@@ -64,7 +66,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
             $scope.ConsultarUsuario('','','','','','','','')
 
         }, function (error) {
-            alert(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
     }
 
@@ -89,7 +91,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
 
 
         }, function (error) {
-            alert(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
     }
 

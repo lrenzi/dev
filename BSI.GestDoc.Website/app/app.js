@@ -48,11 +48,6 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/cadastroUsuario.html"
     });
 
-    $routeProvider.when("/consultarUsuarioById", {
-        controller: "usuarioController",
-        templateUrl: "/app/views/edicaoUsuario.html"
-    });
-
     $routeProvider.when("/consultarUsuario", {
         controller: "usuarioController",
         templateUrl: "/app/views/listaUsuarios.html"
