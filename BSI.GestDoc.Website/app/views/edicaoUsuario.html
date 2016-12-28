@@ -1,4 +1,4 @@
-﻿<h2>Cadastrar Usuário</h2>
+﻿<h2>Editar Usuário</h2>
 
 <form role="form" name="cadastroform">
     <div class="alert alert-success" ng-show="showMessage">
@@ -7,20 +7,20 @@
     <div class="row">
         <div class="form-group col-md-4">
             <label for="userName">User Name</label>
-            <input type="text" ng-model="userNameUsuario" name="userNameUsuario" class="form-control input-sm" maxlength="10"
-                   required autofocus  />
+            <input type="text" data-ng-model="usuarioEmail" name="userNameUsuario" class="form-control input-sm" maxlength="10" 
+                   required autofocus />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-4">
             <label for="nome">Nome</label>
-            <input ng-model="nomeUsuario" type="text" class="form-control input-sm" required autofocus name="input"  maxlength="200">
+            <input ng-model="retornoUsuario.usuarioEmail"  type="text" class="form-control input-sm" required autofocus name="input" >
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-4">
             <label for="email">Email</label>
-            <input type="email" name="input" ng-model="emailUsuario" required autofocus class="form-control input-sm"  maxlength="100">
+            <input type="email" name="input" ng-model="showMessage" data-ng-model="showMessage" required autofocus class="form-control input-sm" >
         </div>
     </div>
     <div class="row">
@@ -35,7 +35,7 @@
     <div class="row">
         <div class="form-group col-md-4">
             <label for="senha">Senha</label>
-            <input ng-model="senhaUsuario" type="password" class="form-control input-sm" required autofocus name="input">
+            <input ng-model="senhaUsuario" type="password" class="form-control input-sm" required autofocus name="input" >
         </div>
     </div>
     

@@ -27,7 +27,7 @@ app.config(function ($routeProvider) {
         controller: "refreshController",
         templateUrl: "/app/views/refresh.html"
     });
-    
+
     $routeProvider.when("/tokens", {
         controller: "tokensManagerController",
         templateUrl: "/app/views/tokens.html"
@@ -44,8 +44,18 @@ app.config(function ($routeProvider) {
     });
 
     $routeProvider.when("/cadastrarUsuario", {
-        controller: "cadastroUsuarioController",
+        controller: "usuarioController",
         templateUrl: "/app/views/cadastroUsuario.html"
+    });
+
+    $routeProvider.when("/consultarUsuarioById", {
+        controller: "usuarioController",
+        templateUrl: "/app/views/edicaoUsuario.html"
+    });
+
+    $routeProvider.when("/consultarUsuario", {
+        controller: "usuarioController",
+        templateUrl: "/app/views/listaUsuarios.html"
     });
 
     $routeProvider.otherwise({ redirectTo: "/login" });
