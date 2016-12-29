@@ -14,8 +14,10 @@
     <link href="content/css/loading-bar.min.css" rel="stylesheet" />
     <link href="content/css/font-awesome.min.css" rel="stylesheet" />
     <!--<link href="content/css/blockUI/angular-block-ui.min.css" rel="stylesheet" />-->
+    
     <!--** scripts js de componentes e customizados **-->
     <!--<script src="scripts/jquery/js/jquery-3.1.0.js"></script>-->
+    
     <!--** css proprio do site e customizados **-->
     <link href="content/css/site.css" rel="stylesheet" />
 
@@ -30,7 +32,6 @@
                     <span class="glyphicon glyphicon-chevron-down"></span>
                 </button>
                 <img src="content/img/bsi_logo_sm.png" class="img-fluid" alt="BSI Tecnologia">
-                <!--<a class="navbar-brand" href="#/">Inicial</a>-->
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
@@ -42,8 +43,6 @@
                     <li data-ng-hide="!authentication.isAuth"><a href="#/tokens">Tokens</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Reativar Token</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Sair</a></li>
-                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/login">Entrar</a></li>-->
-                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/signup">Cadastrar-se</a></li>-->
                 </ul>
             </div>
         </div>
