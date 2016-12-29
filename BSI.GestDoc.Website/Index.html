@@ -23,9 +23,9 @@
 
 </head>
 <body>
-
+    <a id="top" class="invisible"></a>
     <!--CABEÇALHO-->
-    <div id="cabecalho" class="navbar navbar-fixed-top navbar-top" role="navigation" data-ng-controller="indexController">
+    <div class="navbar navbar-fixed-top navbar-top" role="navigation" data-ng-controller="indexController">
         <div class="container">
             <div class="navbar-header">
                 <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
@@ -60,8 +60,8 @@
 
 
     <!--MIOLO-->
-    <!--<div data-ng-hide="!authentication.isAuth" class="container">-->
-    <div id="miolo" class="container">
+    <a id="middle" class="invisible"></a>
+    <div class="container">
         <titulos></titulos>
 
         <div ng-show="exibirMensagem">
@@ -76,7 +76,7 @@
     </div>
 
     <!--RODAPÉ-->
-    <div id="rodape" class="navbar navbar-fixed-bottom">
+    <div class="navbar navbar-fixed-bottom">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -88,6 +88,8 @@
             </div>
         </div>
     </div>
+
+    <a id="bottom" class="invisible"></a>
 
     <!-- Angular -->
     <script src="scripts/angular/angular.js"></script>
