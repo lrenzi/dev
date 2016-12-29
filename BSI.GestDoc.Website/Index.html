@@ -40,8 +40,8 @@
                     <li data-ng-hide="!authentication.isAuth"><a href="#/listaPropostas">Lista Contratos</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/consultarUsuario">Lista Usuários</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/cadastrarUsuario">Cadastrar Usuário</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/tokens">Tokens</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Reativar Token</a></li>
+                    <!--<li data-ng-hide="!authentication.isAuth"><a href="#/tokens">Tokens</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Reativar Token</a></li>-->
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Sair</a></li>
                 </ul>
             </div>
@@ -93,6 +93,10 @@
     <script src="scripts/angular/angular.js"></script>
     <script src="scripts/angular/angular-route.js"></script>
     <script src="scripts/angular-local-storage.min.js"></script>
+
+    <!--Paginação-->
+    <script src="scripts/pagination/dirPagination.js"></script>
+
     <!-- Loading -->
     <script src="scripts/loading-bar.min.js"></script>
     <!-- Upload -->

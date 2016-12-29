@@ -79,8 +79,10 @@ namespace BSI.GestDoc.BusinessLogic
         {
             UsuarioDal UsuarioDal = new UsuarioDal();
 
+            usuarioAtivo = usuarioAtivo != null && usuarioAtivo.Trim() != "" && usuarioAtivo == "true" ? "1" : "0";
+
             return UsuarioDal.AlterarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
-                                                    usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId);
+                                                    Util.UtilCriptografia.GetMd5Hash(usuarioSenha), usuarioAtivo, usuPerfilId, usuClienteId);
         }
     }
 }

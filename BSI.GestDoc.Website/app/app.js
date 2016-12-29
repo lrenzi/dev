@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ngFileUpload']);
+var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ngFileUpload', 'angularUtils.directives.dirPagination']);
 
 app.config(function ($routeProvider) {
 
@@ -139,4 +139,17 @@ app.run(function ($rootScope) {
         $rootScope.titulo = '';
         $rootScope.subTitulo = '';
     });
+});
+
+app.directive("focusOn", function ($timeout) {
+    return {
+        restrict: "A",
+        link: function (scope, element, attrs) {
+            scope.$on(attrs.focusOn, function (e) {
+                $timeout((function () {
+                    element[0].focus();
+                }), 10);
+            });
+        }
+    };
 });
