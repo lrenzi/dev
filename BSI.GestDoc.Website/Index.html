@@ -24,6 +24,7 @@
 </head>
 <body>
 
+    <!--CABEÇALHO-->
     <div class="navbar navbar-fixed-top navbar-top" role="navigation" data-ng-controller="indexController">
         <div class="container">
             <div class="navbar-header">
@@ -31,11 +32,10 @@
                     <span class="glyphicon glyphicon-chevron-down"></span>
                 </button>
                 <img src="content/img/bsi_logo_sm.png" class="img-fluid" alt="BSI Tecnologia">
-                <!--<a class="navbar-brand" href="#/">Inicial</a>-->
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
-                    <li data-ng-hide="!authentication.isAuth"><a>Bem vindo {{authentication.nomeUsuario}}</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a>Bem vindo {{authentication.userName}}</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/fileUpload">Upload Documentos</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/listaPropostas">Lista Contratos</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/consultarUsuario">Lista Usuários</a></li>
@@ -43,13 +43,12 @@
                     <li data-ng-hide="!authentication.isAuth"><a href="#/tokens">Tokens</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Reativar Token</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Sair</a></li>
-                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/login">Entrar</a></li>-->
-                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/signup">Cadastrar-se</a></li>-->
                 </ul>
             </div>
         </div>
     </div>
 
+    <!--Titulo da pagina de login-->
     <div data-ng-controller="indexController" data-ng-hide="authentication.isAuth" class="jumbotron">
         <div class="container">
             <div class="page-header text-center">
@@ -59,20 +58,24 @@
         </div>
     </div>
 
-    <div class="container" ng-show="exibirMensagem">
-        <div ng-class="m.tipoMensagem" role="alert" ng-repeat="m in mensagens">
-            <strong class="alert-title">{{m.titulo}}</strong>
-            <label class="center-block no-margin" ng-bind="t" ng-repeat="t in m.mensagem"></label>
+
+    <!--MIOLO-->
+    <!--<div data-ng-hide="!authentication.isAuth" class="container">-->
+    <div class="container">
+        <titulos></titulos>
+
+        <div ng-show="exibirMensagem">
+            <div ng-class="m.tipoMensagem" role="alert" ng-repeat="m in mensagens">
+                <strong class="alert-title">{{m.titulo}}</strong>
+                <label class="center-block no-margin" ng-bind="t" ng-repeat="t in m.mensagem"></label>
+            </div>
+        </div>
+
+        <div data-ng-view="">
         </div>
     </div>
 
-    <!--<div data-ng-hide="!authentication.isAuth" class="container">-->
-    <div class="container">
-            <titulos></titulos>
-            <div data-ng-view="">
-            </div>
-        </div>
-    
+    <!--RODAPÉ-->
     <div class="navbar navbar-fixed-bottom">
         <div class="container">
             <div class="row">

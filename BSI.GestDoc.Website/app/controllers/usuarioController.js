@@ -11,9 +11,11 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
     $scope.showDivAlteracao = false;
 
     utilService.defirniTitulos('Consulta de Usuários', 'Informe abaixo o valor que deseja consultar');
+    //utilService.defirniTitulos("Cadastrar Usuário", "Informe abaixo os dados para criação do novo usuáio");
 
     $scope.CadastrarUsuario = function (userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario) {
         usuarioService.CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario).then(function (data) {
+            
             $scope.retornoCadastro = data;
 
             if ($scope.retornoCadastro != '' && $scope.retornoCadastro != null) {
