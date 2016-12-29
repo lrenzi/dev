@@ -102,7 +102,7 @@ background-position:bottom right;
     background-color: #ffc8c8 !important;
     border-color: #ccc !important;
     transition: all 0.1s ease 0s;
-    color:#333;
+    color:#111;
     font-weight:bold;
     
     /* IE9, iOS 3.2+ */
@@ -114,10 +114,22 @@ background-position:bottom right;
     background-image: -ms-linear-gradient(top,rgba(255, 255, 255, 0.2) 8px,rgba(255, 255, 255, 0) 18px);
 }
 
+.btn-green {
+    background-color:palegreen !important;
+}
+
+.btn-blue {
+    background-color:lightsteelblue !important;
+}
+
+.btn-yellow {
+    background-color:#fda !important;
+}
+
 .btn:hover, .btn:focus, .btn:active{
     background-color: #333 !important;
-    border-color: #ffc8c8 !important;
-    color:#ffc8c8;
+    border-color: #eee !important;
+    color:#fff;
 }
 
 a {

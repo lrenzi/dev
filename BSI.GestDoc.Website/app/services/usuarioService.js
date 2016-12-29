@@ -68,7 +68,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
         
         return $http.post(serviceBase + "api/Usuario/Alterar?usuarioId=" + usuarioId + "&usuarioLogin="
             + usuarioLogin + "&clienteId=" + '' + "&usuarioNome=" + usuarioNome + "&usuarioEmail=" + usuarioEmail +
-            "&usuarioSenha=" + usuarioAtivo + "&usuarioAtivo=" + '' + "&usuPerfilId=" + usuPerfilId + "&usuClienteId=" + usuClienteId)
+              "&usuarioSenha=" + usuarioSenha + "&usuarioAtivo=" + usuarioAtivo + "&usuPerfilId=" + usuPerfilId + "&usuClienteId=" + usuClienteId)
         .then(function (response) {
 
             if (typeof response.data === 'object') {
