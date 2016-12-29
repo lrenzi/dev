@@ -81,7 +81,7 @@
         <div class="row">
             <div class="form-group col-md-6">
                 <label for="nome">Nome</label>
-                <input data-ng-model="usuarioNome" id="usuarioNome" type="text" class="form-control input-sm" maxlength="200" focus-on="focusTextInput" title="Campo obrigatório" required>
+                <input data-ng-model="usuarioNome" id="usuarioNome" type="text" class="form-control input-sm" maxlength="200"  title="Campo obrigatório" required>
             </div>
         </div>
         <div class="row">
@@ -118,7 +118,8 @@
         </div>
 
         <div class="row">
-            <button type="submit" ng-model="btnEnviar" ng-click="AlterarUsuario()" class="btn btn-primary btn-sm" value="Enviar" title="Efetuar Alteração Usuário">Enviar</button>
+            <button type="submit" ng-model="btnEnviar" ng-click="AlterarUsuario()" class="btn btn-primary btn-sm" value="Enviar" title="Efetuar Alteração Usuário" >Enviar</button>
+            <button type="submit" ng-model="btnCancelar" ng-click="CancelarAlteracao()" class="btn btn-primary btn-sm" value="Cancelar" title="Cancelar Alteração Usuário" focus-on="focusTextInput">Cancelar</button>
         </div>
     </div>
 </form>
