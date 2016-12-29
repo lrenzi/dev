@@ -1,17 +1,14 @@
 ﻿<form role="form" name="loginform">
-    <table class="table">
-        <tr>
-            <td class="col-sm-2 vAlignMiddle">
-                <h5>Número proposta:</h5>
-            </td>
-            <td class="vAlignMiddle">
-                <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" width="100%" required autofocus title="Digite o valor a ser pesquisado" />
-            </td>
-            <td class="col-sm-2 text-center vAlignMiddle">
-                <button ng-model="btnEnviarFiltrar" ng-enter="ListarPropostas(numeroPropostaPesquisa)" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Pesquisar" title="Pesquisar">Pesquisar</button>
-            </td>
-        </tr>
-    </table>
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label for="numeroPropostaPesquisa" class="label-required">Número proposta:</label>
+            <!--<input type="text" ng-model="userNameUsuario" name="userNameUsuario" class="form-control input-sm" maxlength="10" title="Informe o nome de usuário do novo usuário" required autofocus />-->
+            <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" required autofocus title="Digite o valor a ser pesquisado" />
+        </div>
+    </div>
+    <div class="margin-bottom">
+        <button ng-model="btnEnviarFiltrar" ng-enter="ListarPropostas(numeroPropostaPesquisa)" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Pesquisar" title="Pesquisar">Pesquisar</button>
+    </div>
 
     <div class="alert alert-warning" ng-show="showMensagemListaVazia">
         <strong>{{valorMensagem}}</strong>
