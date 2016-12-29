@@ -1,7 +1,4 @@
 ﻿<form role="form" name="cadastroform">
-    <div class="alert alert-success" ng-show="showMessage">
-        <strong>Cadastro efetuado com sucesso!</strong>
-    </div>
     <div class="row">
         <div class="form-group col-md-4">
             <label for="userName">Nome de usuário</label>
@@ -33,6 +30,12 @@
         <div class="form-group col-md-4">
             <label for="senha">Senha</label>
             <input ng-model="senhaUsuario" type="password" class="form-control input-sm" required  name="input" title="Informe a senha do novo usuário" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label for="senha">Confirmar Senha</label>
+            <input ng-model="usuarioSenhaConfirmacao" type="password" class="form-control input-sm" required name="input" title="Informe a senha do novo usuário" />
         </div>
     </div>
     

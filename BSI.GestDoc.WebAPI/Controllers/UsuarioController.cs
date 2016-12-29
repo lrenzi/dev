@@ -97,8 +97,6 @@ namespace BSI.GestDoc.WebAPI.Controllers
             try
             {
 
-                usuarioAtivo = usuarioAtivo!=null && usuarioAtivo.Trim() != "" && usuarioAtivo == "true" ? "1" : "0";
-
                 retorno = usuarioBL.AlterarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
                                                     usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId);
             }

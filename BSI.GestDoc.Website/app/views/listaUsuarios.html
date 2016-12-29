@@ -3,17 +3,41 @@
     <div class="alert alert-success" ng-show="showMessage">
         <strong>Usuário alterado com sucesso!</strong>
     </div>
+
+    <table class="table" align="left">
+        <tr>
+            <td width="12%">
+                <h5>Buscar usuário:</h5>
+            </td>
+
+            <td>
+                <table width="50%">
+                    <tr>
+                        <td>
+                            <input type="search" ng-model="search.usuarioNome" placeholder="Nome usuário" class="form-control input-sm"  maxlength="100" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <!--<div class="row">
+        <div class="form-group col-md-4">
+
+        </div>
+    </div>-->
+
     <table class="table">
         <thead>
-            <tr>
-                <th class="col-md-3">Usuário</th>
-                <th class="col-md-3">Nome</th>
-                <th class="col-md-3">Status</th>
-                <th class="col-md-3">Email</th>
+            <tr class="cursor-pointer">
+                <th class="col-md-3" ng-click="sort('usuarioLogin')">Usuário</th>
+                <th class="col-md-3" ng-click="sort('usuarioNome')">Nome</th>
+                <th class="col-md-3" ng-click="sort('usuarioAtivoDescricao')">Status</th>
+                <th class="col-md-3" ng-click="sort('usuarioEmail')">Email</th>
             </tr>
         </thead>
         <tbody>
-            <tr data-ng-repeat="usuario in listaUsuarios">
+            <tr dir-paginate="usuario in listaUsuarios|orderBy:sortKey:reverse|filter:search|itemsPerPage:7">
                 <td>{{usuario.usuarioLogin}}</td>
                 <td>{{usuario.usuarioNome}}</td>
                 <td>{{usuario.usuarioAtivoDescricao}}</td>
@@ -24,15 +48,19 @@
                     </button>
                 </td>
                 <td ng-if="usuario.usuarioAtivo == false">
-                    <button ng-model="btnAtivar" ng-click="AtivarUsuario(usuario)" class="btn btn-primary btn-sm" value="Ativar" title="Efetuar ativação do Usuário">Ativar</button>
+                    <button ng-model="btnAtivar" ng-click="AtivarUsuario(usuario)" class="btn btn-primary btn-sm btn-green" value="Ativar" title="Efetuar ativação do Usuário">Ativar</button>
                 </td>
                 <td ng-if="usuario.usuarioAtivo == true">
                     <button ng-model="btnInativar" ng-click="InativarUsuario(usuario)" class="btn btn-primary btn-sm" value="Inativar" title="Efetuar inativação do Usuário">Inativar</button>
                 </td>
             </tr>
         </tbody>
+       
     </table>
-
+    <dir-pagination-controls max-size="7"
+                             direction-links="true"
+                             boundary-links="true">
+    </dir-pagination-controls>
     <!--Edicao do registro selecionado-->
     <div ng-show="showDivAlteracao">
         <h1>Alterar Usuário</h1>
@@ -40,37 +68,55 @@
         <div class="row">
             <div class="form-group col-md-1">
                 <label for="userName">Id Usuário</label>
-                <input type="text" data-ng-model="usuarioId" id="usuarioId" class="form-control input-sm" disabled required autofocus />
+                <input type="text" data-ng-model="usuarioId" id="usuarioId" class="form-control input-sm" disabled required title="Campo obrigatório"/>
             </div>
         </div>
         <div class="row">
 
             <div class="form-group col-md-2">
                 <label for="userName">User Name</label>
-                <input type="text" name="input" data-ng-model="usuarioLogin" id="usuarioLogin" class="form-control input-sm" maxlength="10" required  disabled/>
+                <input type="text" name="input" data-ng-model="usuarioLogin" id="usuarioLogin" class="form-control input-sm" maxlength="10" required disabled title="Campo obrigatório"/>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6">
                 <label for="nome">Nome</label>
-                <input data-ng-model="usuarioNome" id="usuarioNome" type="text" class="form-control input-sm" required  name="input" maxlength="200">
+                <input data-ng-model="usuarioNome" id="usuarioNome" type="text" class="form-control input-sm" maxlength="200" focus-on="focusTextInput" title="Campo obrigatório" required>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-3">
                 <label for="email">Email</label>
-                <input type="email" name="input" data-ng-model="usuarioEmail" id="usuarioEmail" required  class="form-control input-sm" maxlength="100">
+                <input type="email" name="input" data-ng-model="usuarioEmail" id="usuarioEmail" required class="form-control input-sm" maxlength="100" title="Favor informar endereço de email válido!">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-3" data-ng-init="ConsultaPerfil('','','','')">
                 <label for="perfil">Perfil</label>
                 <select ng-options="perfil.usuPerfilId as perfil.usuPerfilNome for perfil in listaPerfis"
-                        data-ng-model="usuPerfilId" id="usuPerfilId" required  class="form-control input-sm">
+                        data-ng-model="usuPerfilId" id="usuPerfilId" required class="form-control input-sm" title="Campo obrigatório">
                     <option value="">Selecione</option>
                 </select>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-md-3" data-ng-init="ConsultaPerfil('','','','')">
+                <label for="perfil">Alterar senha</label>
+                <input type="checkbox" ng-model="chkAlterarSenha" id="chkAlterarSenha" ng-click="ExibirCampoSenha()"/>                 
+            </div>           
+        </div>            
+        <div class="row" ng-show="showDivSenha">
+            <div class="form-group col-md-4">
+                <label for="senha">Senha</label>
+                <input ng-model="senhaUsuario" type="password" class="form-control input-sm" required name="input" title="Informe a senha" />
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="senha">Confirmar Senha</label>
+                <input ng-model="confirmacaoSenhaUsuario" type="password" class="form-control input-sm" required name="input" title="Confirme a senha" />
+            </div>
+        </div>
+
         <div class="row">
             <button type="submit" ng-model="btnEnviar" ng-click="AlterarUsuario()" class="btn btn-primary btn-sm" value="Enviar" title="Efetuar Alteração Usuário">Enviar</button>
         </div>

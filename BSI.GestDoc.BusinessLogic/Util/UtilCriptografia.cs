@@ -14,6 +14,10 @@ namespace BSI.GestDoc.BusinessLogic.Util
         {
             try
             {
+
+                if (texto == null || texto == "")
+                    return texto;
+
                 System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
                 byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(texto);
                 byte[] hash = md5.ComputeHash(inputBytes);

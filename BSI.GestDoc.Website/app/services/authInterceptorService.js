@@ -2,7 +2,7 @@
 app.factory('authInterceptorService', ['$q', '$injector', '$location', 'localStorageService', 'utilService', function ($q, $injector, $location, localStorageService, utilService) {
 
     var authInterceptorServiceFactory = {};
-
+    
     var _request = function (config) {
         
         utilService.limparMensagem();
