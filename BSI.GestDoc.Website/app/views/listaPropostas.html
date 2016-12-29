@@ -5,10 +5,10 @@
                 <h5>Número proposta:</h5>
             </td>
             <td class="vAlignMiddle">
-                <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" width="100%" required  oninvalid="this.setCustomValidity('Este campo é obrigatório')" autofocus />
+                <input type="text" ng-model="numeroPropostaPesquisa" name="numeroPropostaPesquisa" class="form-control input-sm" maxlength="100" width="100%" required autofocus title="Digite o valor a ser pesquisado" />
             </td>
             <td class="col-sm-2 text-center vAlignMiddle">
-                <button ng-model="btnEnviarFiltrar" ng-enter="ListarPropostas(numeroPropostaPesquisa)" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Filtrar" title="Pesquisar por proposta">Filtrar</button>
+                <button ng-model="btnEnviarFiltrar" ng-enter="ListarPropostas(numeroPropostaPesquisa)" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Pesquisar" title="Pesquisar">Pesquisar</button>
             </td>
         </tr>
     </table>
