@@ -136,10 +136,11 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                 $scope.usuarioAtivo = $scope.retornoUsuario[0].usuarioAtivo;
                 $scope.usuPerfilId = $scope.retornoUsuario[0].usuPerfilId;
                 $scope.clienteId = $scope.retornoUsuario[0].clienteId;
+                $scope.gotoBottom();
                 $scope.showDivAlteracao = true;
                 $scope.showDivSenha = false;
                 //$scope.$broadcast("focusTextInput");
-                $scope.gotoBottom();
+               
             }
 
         }, function (error) {
