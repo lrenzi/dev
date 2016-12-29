@@ -22,10 +22,14 @@ namespace BSI.GestDoc.Entity
         public int StatusProcessamento { get; set; }
         public string MensagemProcessamento { get; set; }
 
+        public string UsuarioAtivoDescricao
+        {
+            get { return UsuarioAtivo ? "Ativo" : "Inativo"; }
+        }
+
         [DapperAttribute.Write(false)]
         public Cliente Cliente { get; set; }
         [DapperAttribute.Write(false)]
-        public UsuarioPerfil UsuarioPerfil { get; set; }
-        
+        public UsuarioPerfil UsuarioPerfil { get; set; }       
     }
 }

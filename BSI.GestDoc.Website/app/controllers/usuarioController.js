@@ -42,6 +42,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
 
         $scope.listaUsuarios = usuarioService.ConsultarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail, usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId).then(function (data) {
             $scope.listaUsuarios = data;
+            
         }, function (error) {
             utilService.mensagemErro(error.data.message);
         });
@@ -58,16 +59,16 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                                                                 $scope.usuPerfilId,
                                                                  $scope.clienteId).then(function (data) {
 
-            $scope.retornoAlteracao = data;
+                                                                     $scope.retornoAlteracao = data;
 
-            $scope.showMessage = true;
-            $scope.showDivAlteracao = false;
+                                                                     $scope.showMessage = true;
+                                                                     $scope.showDivAlteracao = false;
 
-            $scope.ConsultarUsuario('','','','','','','','')
+                                                                     $scope.ConsultarUsuario('', '', '', '', '', '', '', '')
 
-        }, function (error) {
-            utilService.mensagemErro(error.data.message);
-        });
+                                                                 }, function (error) {
+                                                                     utilService.mensagemErro(error.data.message);
+                                                                 });
     }
 
     $scope.AbrirTelaAlteracao = function (usuario) {
@@ -94,5 +95,43 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
             utilService.mensagemErro(error.data.message);
         });
     }
+
+    $scope.AtivarUsuario = function (usuario) {
+        
+        usuario.usuarioAtivo = true; //ativa usuario
+
+        $scope.retornoAtivacao = usuarioService.AlterarUsuario(usuario.usuarioId, usuario.usuarioLogin, usuario.usuarioNome, usuario.usuarioEmail, usuario.usuarioSenha, usuario.usuarioAtivo, usuario.usuPerfilId, usuario.clienteId).then(function (data) {
+
+                                                                     $scope.retornoAlteracao = data;
+
+                                                                     $scope.showMessage = true;
+                                                                     $scope.showDivAlteracao = false;
+
+                                                                     $scope.ConsultarUsuario('', '', '', '', '', '', '', '')
+
+                                                                 }, function (error) {
+                                                                     utilService.mensagemErro(error.data.message);
+                                                                 });
+    }
+
+
+    $scope.InativarUsuario = function (usuario) {
+        
+        usuario.usuarioAtivo = false; //inativa usuario
+
+        $scope.retornoAtivacao = usuarioService.AlterarUsuario(usuario.usuarioId, usuario.usuarioLogin, usuario.usuarioNome, usuario.usuarioEmail, usuario.usuarioSenha, usuario.usuarioAtivo, usuario.usuPerfilId, usuario.clienteId).then(function (data) {
+
+                                                                     $scope.retornoAlteracao = data;
+
+                                                                     $scope.showMessage = true;
+                                                                     $scope.showDivAlteracao = false;
+
+                                                                     $scope.ConsultarUsuario('', '', '', '', '', '', '', '')
+
+                                                                 }, function (error) {
+                                                                     utilService.mensagemErro(error.data.message);
+                                                                 });
+    }
+
 
 }]);
