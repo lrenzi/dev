@@ -24,7 +24,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
             }
         },
         function (data, status, headers, config) {
-            alert("Erro ao acessar o serviço de Cadastro de Usuarios.")
+            data.message = "Erro ao acessar o serviço de Cadastro de Usuarios.";
         });        
     };
 
@@ -42,7 +42,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
             }
         },
         function (data, status, headers, config) {
-            alert("Erro ao acessar o serviço de Cadastro de Usuarios.")
+            data.message = "Erro ao acessar o serviço de Cadastro de Usuarios.";
         });
     };
 
@@ -59,7 +59,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
             }
         },
         function (data, status, headers, config) {
-            alert("Erro ao acessar o serviço de Consulta de Usuarios.")
+            data.message = "Erro ao acessar o serviço de Consulta de Usuarios.";
         });
     };
 
@@ -78,7 +78,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
             }
         },
         function (data, status, headers, config) {
-            alert("Erro ao acessar o serviço de Alterar de Usuario.")
+            data.message = "Erro ao acessar o serviço de Alterar de Usuario.";
         });
     };
 
@@ -96,7 +96,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
             }
         },
         function (data, status, headers, config) {
-            alert("Erro ao acessar o serviço de Consulta de Usuario.")
+            data.message = "Erro ao acessar o serviço de Consulta de Usuario.";
         });
     };
 

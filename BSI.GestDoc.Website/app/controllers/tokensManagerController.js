@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('tokensManagerController', ['$scope', 'tokensManagerService', function ($scope, tokensManagerService) {
+app.controller('tokensManagerController', ['$scope', 'tokensManagerService', 'utilService', function ($scope, tokensManagerService, utilService) {
 
     $scope.refreshTokens = [];
 
@@ -8,7 +8,7 @@ app.controller('tokensManagerController', ['$scope', 'tokensManagerService', fun
         $scope.refreshTokens = results.data;
 
     }, function (error) {
-        alert(error.data.message);
+        utilService.mensagemErro(error.data.message);
     });
 
     $scope.deleteRefreshTokens = function (index, tokenid) {
@@ -20,7 +20,7 @@ app.controller('tokensManagerController', ['$scope', 'tokensManagerService', fun
             $scope.refreshTokens.splice(index, 1);
 
         }, function (error) {
-            alert(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
     }
 

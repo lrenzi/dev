@@ -54,7 +54,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         $scope.listaPerfis = usuarioService.ConsultaPerfil(usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao).then(function (data) {
             $scope.listaPerfis = data;
         }, function (error) {
-            alert(error.data.message); utilService.mensagemErro(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
     }
 
