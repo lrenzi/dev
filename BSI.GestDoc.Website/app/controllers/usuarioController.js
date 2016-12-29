@@ -1,6 +1,6 @@
 ﻿
 'use strict';
-app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usuarioService", "localStorageService", "utilService", function ($scope, $routeParams, $location, usuarioService, localStorageService, utilService) {
+app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usuarioService", "localStorageService", "utilService", '$anchorScroll', function ($scope, $routeParams, $location, usuarioService, localStorageService, utilService, $anchorScroll) {
 
     $scope.userNameUsuario = '';
     $scope.nomeUsuario = '';
@@ -25,9 +25,10 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
 
             return
         }
-        
+
         if ($scope.usuarioSenhaConfirmacao != $scope.senhaUsuario) {
             utilService.mensagemAlerta("A senha não confere, favor informar novamente!");
+            gotoTop();
             return
         }
 
@@ -86,7 +87,8 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
 
             if ($scope.senhaUsuario != $scope.confirmacaoSenhaUsuario) {
                 utilService.mensagemAlerta("A senha informada não confere, favor informar novamente!");
-                $scope.showMessage = false;
+                gotoTop();
+                //$scope.showMessage = false;
                 return
             } else {
                 $scope.usuarioSenha = $scope.senhaUsuario;
@@ -136,7 +138,8 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                 $scope.clienteId = $scope.retornoUsuario[0].clienteId;
                 $scope.showDivAlteracao = true;
                 $scope.showDivSenha = false;
-                $scope.$broadcast("focusTextInput");
+                //$scope.$broadcast("focusTextInput");
+                $scope.gotoBottom();
             }
 
         }, function (error) {
@@ -171,19 +174,25 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         usuario.usuarioAtivo = false; //inativa usuario
 
         $scope.retornoAtivacao = usuarioService.AlterarUsuario(usuario.usuarioId, usuario.usuarioLogin, usuario.usuarioNome, usuario.usuarioEmail, '', usuario.usuarioAtivo, usuario.usuPerfilId, usuario.clienteId).then(function (data) {
-            
+
             $scope.retornoAlteracao = data;
 
             $scope.showMessage = true;
             $scope.showDivAlteracao = false;
 
             $scope.ConsultarUsuario('', '', '', '', '', '', '', '')
-           // utilService.mensagemSucesso("Usuário inativado com sucesso!");
+            // utilService.mensagemSucesso("Usuário inativado com sucesso!");
         }, function (error) {
             utilService.mensagemErro(error.data.message);
         });
     }
 
+
+    $scope.CancelarAlteracao = function () {
+
+        $scope.showDivAlteracao = false;
+        $scope.showDivSenha = false;
+    }
 
     $scope.ExibirCampoSenha = function () {
 
@@ -194,5 +203,15 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         }
     }
 
+    $scope.gotoBottom = function () {
+    
+        $location.hash('bottom');
+        $anchorScroll();
+    };
+
+    $scope.gotoTop = function () {
+        $location.hash('top');
+        $anchorScroll();
+    };
 
 }]);
