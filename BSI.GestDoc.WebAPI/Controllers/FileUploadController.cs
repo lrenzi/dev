@@ -65,16 +65,25 @@ namespace BSI.GestDoc.WebAPI.Controllers
             UploadFileBL uploadFileBl = new UploadFileBL();
 
             var file = WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo;
-            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
-            var stream = new FileStream(file, FileMode.Open);
-            result.Content = new StreamContent(stream);
-            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            HttpResponseMessage result = null;
+            if (!File.Exists(file))
             {
-                FileName = _documentoCliente.DocClienteNomeArquivoOriginal
-            };
-            result.Content.Headers.ContentType =
-                new MediaTypeHeaderValue("application/octet-stream");
-            return result;
+                result = new HttpResponseMessage(HttpStatusCode.Conflict);
+                return result;
+            }
+            else
+            {
+                result = new HttpResponseMessage(HttpStatusCode.OK);
+                var stream = new FileStream(file, FileMode.Open);
+                result.Content = new StreamContent(stream);
+                result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = _documentoCliente.DocClienteNomeArquivoOriginal
+                };
+                result.Content.Headers.ContentType =
+                    new MediaTypeHeaderValue("application/octet-stream");
+                return result;
+            }
         }
 
         private readonly string WorkingFolder = HttpRuntime.AppDomainAppPath + ConfigurationManager.AppSettings["DiretorioUpload"];
@@ -131,8 +140,8 @@ namespace BSI.GestDoc.WebAPI.Controllers
                         _documentoCliente = uploadFileBL.EnviarDocumentoCliente(_documentoCliente);
                         break;
                 }
-                
-                return Ok((new Retorno() { Dados = _documentoCliente,  Mensagem  = "Arquivo incluído com sucesso.", TipoErro = EnumTipoMensagem.Sucesso }));
+
+                return Ok((new Retorno() { Dados = _documentoCliente, Mensagem = "Arquivo incluído com sucesso.", TipoErro = EnumTipoMensagem.Sucesso }));
             }
             catch (BusinessLogic.BusinessException.BusinessException ex)
             {
@@ -145,7 +154,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
             {
                 if (File.Exists(WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo))
                     File.Delete(WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo);
-              
+
                 return BadRequest(ex.GetBaseException().Message);
             }
         }

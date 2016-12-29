@@ -24,7 +24,7 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', 'localStorage
 
     var _retornarArquivo = function (docClienteId_, nameFile_) {
         
-        $http({
+        return $http({
             url: serviceBase + "api/FileUpload/RetornarArquivo?docClienteId=" + docClienteId_,
             method: 'POST',
             params: {},
@@ -41,7 +41,14 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', 'localStorage
             saveAs(file, nameFile_);
             
         }).error(function (data, status, headers, config) {
-            alert("Erro ao acessar o serviço de Consulta de Arquivo.")
+            switch (status) {
+                case 409:
+                    data.message = "Arquivo não encontrado no servidor, entre em contato com um administrador.";
+                    break;
+                default:
+                    data.message = "Erro ao acessar o serviço de Consulta de Arquivo.";
+                    break;
+            }
         });
 
     }
