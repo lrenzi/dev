@@ -1,4 +1,5 @@
 ﻿<h2>Cadastrar Usuário</h2>
+<h4>Informe abaixo os dados para criação do novo usuáio</h4>
 
 <form role="form" name="cadastroform">
     <div class="alert alert-success" ng-show="showMessage">
@@ -6,28 +7,27 @@
     </div>
     <div class="row">
         <div class="form-group col-md-4">
-            <label for="userName">User Name</label>
-            <input type="text" ng-model="userNameUsuario" name="userNameUsuario" class="form-control input-sm" maxlength="10"
-                   required autofocus />
+            <label for="userName">Nome de usuário</label>
+            <input type="text" ng-model="userNameUsuario" name="userNameUsuario" class="form-control input-sm" maxlength="10" title="Informe o nome de usuário do novo usuário" required autofocus />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-4">
             <label for="nome">Nome</label>
-            <input ng-model="nomeUsuario" type="text" class="form-control input-sm" required autofocus name="input">
+            <input ng-model="nomeUsuario" type="text" class="form-control input-sm" required  name="input" title="Informe o nome do novo usuário" />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-4">
             <label for="email">Email</label>
-            <input type="email" name="input" ng-model="emailUsuario" required autofocus class="form-control input-sm">
+            <input type="email" name="input" ng-model="emailUsuario" required  class="form-control input-sm" title="Informe o email do novo usuário" />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-4" data-ng-init="ConsultaPerfil('','','','')">
             <label for="perfil">Perfil</label>
 
-            <select ng-options="perfil.usuPerfilNome for perfil in listaPerfis track by perfil.usuPerfilId" ng-model="perfilUsuario" required autofocus class="form-control input-sm">
+            <select ng-options="perfil.usuPerfilNome for perfil in listaPerfis track by perfil.usuPerfilId" ng-model="perfilUsuario" required  class="form-control input-sm" title="Informe o perfil do novo usuário">
                 <option value="">Selecione</option>
             </select>           
         </div>
@@ -35,11 +35,11 @@
     <div class="row">
         <div class="form-group col-md-4">
             <label for="senha">Senha</label>
-            <input ng-model="senhaUsuario" type="password" class="form-control input-sm" required autofocus name="input">
+            <input ng-model="senhaUsuario" type="password" class="form-control input-sm" required  name="input" title="Informe a senha do novo usuário" />
         </div>
     </div>
     
     <div class="row">
-        <button type="submit" ng-model="btnEnviar"  ng-click="CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario)"  class="btn btn-primary btn-sm" value="Enviar" title="Pesquisar por proposta">Enviar</button>
+        <button type="submit" ng-model="btnEnviar"  ng-click="CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario)"  class="btn btn-primary btn-sm" value="Cadastrar" title="Cadastrar usuário">Cadastrar</button>
     </div>
 </form>
