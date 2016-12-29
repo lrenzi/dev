@@ -1,0 +1,72 @@
+﻿
+<form role="form" name="usuarioform" data-ng-init="ConsultarUsuario('','','','','','','','')">
+    <div class="alert alert-success" ng-show="showMessage">
+        <strong>Usuário alterado com sucesso!</strong>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="col-md-3">Usuário</th>
+                <th class="col-md-3">Nome</th>
+                <th class="col-md-3">Status</th>
+                <th class="col-md-3">Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="usuario in listaUsuarios">
+                <td>{{usuario.usuarioLogin}}</td>
+                <td>{{usuario.usuarioNome}}</td>
+                <td>{{usuario.usuarioAtivo}}</td>
+                <td>{{usuario.usuarioEmail}}</td>
+                <td>
+                    <button ng-model="btnAlterar" ng-click="AbrirTelaAlteracao(usuario)" class="btn btn-primary btn-sm" value="Alterar" title="Alterar Usuário">
+                        Alterar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!--Edicao do registro selecionado-->
+    <div ng-show="showDivAlteracao">
+        <h1>Alterar Usuário</h1>
+        
+        <div class="row">
+            <div class="form-group col-md-1">
+                <label for="userName">Id Usuário</label>
+                <input type="text" data-ng-model="usuarioId" id="usuarioId" class="form-control input-sm" disabled required autofocus />
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="form-group col-md-2">
+                <label for="userName">User Name</label>
+                <input type="text" name="input" data-ng-model="usuarioLogin" id="usuarioLogin" class="form-control input-sm" maxlength="10" required autofocus />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="nome">Nome</label>
+                <input data-ng-model="usuarioNome" id="usuarioNome" type="text" class="form-control input-sm" required autofocus name="input" maxlength="200">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="email">Email</label>
+                <input type="email" name="input" data-ng-model="usuarioEmail" id="usuarioEmail" required autofocus class="form-control input-sm" maxlength="100">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3" data-ng-init="ConsultaPerfil('','','','')">
+                <label for="perfil">Perfil</label>
+                <select ng-options="perfil.usuPerfilId as perfil.usuPerfilNome for perfil in listaPerfis" 
+                       data-ng-model="usuPerfilId" id="usuPerfilId" required autofocus class="form-control input-sm" >
+                    <option value="">Selecione</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" ng-model="btnEnviar" ng-click="AlterarUsuario()" class="btn btn-primary btn-sm" value="Enviar" title="Pesquisar por proposta">Enviar</button>
+        </div>
+    </div>
+</form>

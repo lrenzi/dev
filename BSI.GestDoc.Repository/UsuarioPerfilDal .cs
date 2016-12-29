@@ -8,7 +8,14 @@ namespace BSI.GestDoc.Repository.DAL
 {
     public class UsuarioPerfilDal
     {
-        
+        /// <summary>
+        /// Consulta os perfis de usuarios
+        /// </summary>
+        /// <param name="usuPerfilId"></param>
+        /// <param name="clienteId"></param>
+        /// <param name="usuPerfilNome"></param>
+        /// <param name="usuPerfilDescricao"></param>
+        /// <returns></returns>
         public IEnumerable<UsuarioPerfil> ConsultarUsuarioPerfil(string usuPerfilId, string clienteId, string usuPerfilNome, string usuPerfilDescricao )
         {
 
@@ -22,6 +29,6 @@ namespace BSI.GestDoc.Repository.DAL
 
 
             return listaUsuarioPerfil;
-        }
+        }        
     }
 }

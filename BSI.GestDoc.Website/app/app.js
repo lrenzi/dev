@@ -27,7 +27,7 @@ app.config(function ($routeProvider) {
         controller: "refreshController",
         templateUrl: "/app/views/refresh.html"
     });
-    
+
     $routeProvider.when("/tokens", {
         controller: "tokensManagerController",
         templateUrl: "/app/views/tokens.html"
@@ -44,8 +44,13 @@ app.config(function ($routeProvider) {
     });
 
     $routeProvider.when("/cadastrarUsuario", {
-        controller: "cadastroUsuarioController",
+        controller: "usuarioController",
         templateUrl: "/app/views/cadastroUsuario.html"
+    });
+
+    $routeProvider.when("/consultarUsuario", {
+        controller: "usuarioController",
+        templateUrl: "/app/views/listaUsuarios.html"
     });
 
     $routeProvider.otherwise({ redirectTo: "/login" });
@@ -118,10 +123,20 @@ app.directive('ngEnter', function () {
     };
 });
 
+app.directive('titulos', function () {
+    return {
+        template: '<h2>{{titulo}}</h2> <h4>{{subTitulo}}</h4>'
+    };
+});
+
+
 app.run(function ($rootScope) {
-    //Efetua a limpeza das mensagens do rootscope
+    //Efetua a limpeza das mensagens e títulos do rootscope
     $rootScope.$on("$locationChangeStart", function (event, next, current) {
         $rootScope.exibirMensagem = false;
         $rootScope.mensagens = [];
+
+        $rootScope.titulo = '';
+        $rootScope.subTitulo = '';
     });
 });

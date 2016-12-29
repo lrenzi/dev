@@ -1,4 +1,4 @@
-﻿app.service("mensagemService", ["$rootScope", function ($rootScope) {
+﻿app.service("utilService", ["$rootScope", function ($rootScope) {
 
     this.mensagemSucesso = function (mensagem) {
 
@@ -79,5 +79,9 @@
     this.limparMensagem = function () {
         $rootScope.mensagens = [];
         $rootScope.exibirMensagem = false;
+    }
+    this.defirniTitulos = function (titulo, subTitulo) {
+        $rootScope.titulo = titulo;
+        $rootScope.subTitulo = subTitulo;
     }
 }]);

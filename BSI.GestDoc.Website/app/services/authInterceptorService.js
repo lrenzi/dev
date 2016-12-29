@@ -1,11 +1,11 @@
 ﻿'use strict';
-app.factory('authInterceptorService', ['$q', '$injector', '$location', 'localStorageService', 'mensagemService', function ($q, $injector, $location, localStorageService, mensagemService) {
+app.factory('authInterceptorService', ['$q', '$injector', '$location', 'localStorageService', 'utilService', function ($q, $injector, $location, localStorageService, utilService) {
 
     var authInterceptorServiceFactory = {};
 
     var _request = function (config) {
         
-        mensagemService.limparMensagem();
+        utilService.limparMensagem();
 
         config.headers = config.headers || {};
        
