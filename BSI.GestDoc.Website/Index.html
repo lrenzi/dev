@@ -14,16 +14,15 @@
     <link href="content/css/loading-bar.min.css" rel="stylesheet" />
     <link href="content/css/font-awesome.min.css" rel="stylesheet" />
     <!--<link href="content/css/blockUI/angular-block-ui.min.css" rel="stylesheet" />-->
-    
     <!--** scripts js de componentes e customizados **-->
     <!--<script src="scripts/jquery/js/jquery-3.1.0.js"></script>-->
-    
     <!--** css proprio do site e customizados **-->
     <link href="content/css/site.css" rel="stylesheet" />
 
 </head>
 <body>
 
+    <!--CABEÇALHO-->
     <div class="navbar navbar-fixed-top navbar-top" role="navigation" data-ng-controller="indexController">
         <div class="container">
             <div class="navbar-header">
@@ -50,6 +49,7 @@
         </div>
     </div>
 
+    <!--Titulo da pagina de login-->
     <div data-ng-controller="indexController" data-ng-hide="authentication.isAuth" class="jumbotron">
         <div class="container">
             <div class="page-header text-center">
@@ -59,20 +59,24 @@
         </div>
     </div>
 
-    <div class="container" ng-show="exibirMensagem">
-        <div ng-class="m.tipoMensagem" role="alert" ng-repeat="m in mensagens">
-            <strong class="alert-title">{{m.titulo}}</strong>
-            <label class="center-block no-margin" ng-bind="t" ng-repeat="t in m.mensagem"></label>
+
+    <!--MIOLO-->
+    <!--<div data-ng-hide="!authentication.isAuth" class="container">-->
+    <div class="container">
+        <titulos></titulos>
+
+        <div ng-show="exibirMensagem">
+            <div ng-class="m.tipoMensagem" role="alert" ng-repeat="m in mensagens">
+                <strong class="alert-title">{{m.titulo}}</strong>
+                <label class="center-block no-margin" ng-bind="t" ng-repeat="t in m.mensagem"></label>
+            </div>
+        </div>
+
+        <div data-ng-view="">
         </div>
     </div>
 
-    <!--<div data-ng-hide="!authentication.isAuth" class="container">-->
-    <div class="container">
-            <titulos></titulos>
-            <div data-ng-view="">
-            </div>
-        </div>
-    
+    <!--RODAPÉ-->
     <div class="navbar navbar-fixed-bottom">
         <div class="container">
             <div class="row">
