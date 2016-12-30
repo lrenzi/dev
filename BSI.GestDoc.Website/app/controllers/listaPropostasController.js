@@ -31,11 +31,12 @@ app.controller("listaPropostasController", ["$scope", "$routeParams", "$location
 
             if ($scope.listaPropostas.length == 0) {
                 $scope.showListaProposta = false;
-                $scope.showMensagemListaVazia = true;
-                $scope.valorMensagem = "Proposta não encontrada";
+                //$scope.showMensagemListaVazia = true;
+                //$scope.valorMensagem = "Proposta não encontrada";
+                utilService.mensagemAlerta("Proposta não encontrada");
             } else {
                 $scope.showListaProposta = true;
-                $scope.showMensagemListaVazia = false;
+                //$scope.showMensagemListaVazia = false;
             }
         }, function (error) {
             utilService.mensagemErro(error.data.message);

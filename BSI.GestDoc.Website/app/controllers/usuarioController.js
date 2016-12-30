@@ -11,10 +11,18 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
     $scope.showDivAlteracao = false;
     $scope.showDivSenha = false;
 
-    utilService.defirniTitulos('Consulta de Usuários', 'Informe abaixo o valor que deseja consultar');
-    //utilService.defirniTitulos("Cadastrar Usuário", "Informe abaixo os dados para criação do novo usuáio");
+    //verifica a rota para definir o titulo da página
+    if ($location.$$path == "/consultarUsuario") {
+        utilService.defirniTitulos('Consulta de Usuários', 'Informe abaixo o valor que deseja consultar');
 
+    } else if ($location.$$path == "/cadastrarUsuario") {
+        utilService.defirniTitulos("Cadastrar Usuário", "Informe abaixo os dados para criação do novo usuário");
+    }
+
+    //efetua cadastro do usuario
     $scope.CadastrarUsuario = function (userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario) {
+
+        utilService.limparMensagem();
 
         if ($scope.userNameUsuario == undefined || $scope.userNameUsuario == ""
             || $scope.nomeUsuario == undefined || $scope.nomeUsuario == ""
@@ -26,18 +34,24 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
             return
         }
 
+        //verifica se a senha digitada na confirmação confere 
         if ($scope.usuarioSenhaConfirmacao != $scope.senhaUsuario) {
             utilService.mensagemAlerta("A senha não confere, favor informar novamente!");
-            gotoTop();
+           
             return
         }
 
-
+        //efetua cadastro do usuario
         usuarioService.CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario).then(function (data) {
-
             $scope.retornoCadastro = data;
-
-            utilService.mensagemSucesso("Cadastro efetuado com sucesso!");
+            
+            if (typeof $scope.retornoCadastro === 'object') {
+                utilService.mensagemSucesso("Cadastro efetuado com sucesso!");
+                $scope.LimparFormularioCadastro();
+            } else if (typeof $scope.retornoCadastro === 'string') {
+                utilService.mensagemAlerta($scope.retornoCadastro);
+            }           
+           
 
             if ($scope.retornoCadastro != '' && $scope.retornoCadastro != null) {
                 $scope.showMessage = true;
@@ -46,10 +60,21 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
             }
 
         }, function (error) {
-            utilService.mensagemErro(error.data.message);
+            //utilService.mensagemErro(error.data.message);
         });
     }
 
+    //limpa campos de cadastro
+    $scope.LimparFormularioCadastro = function () {
+        $scope.userNameUsuario = "";
+        $scope.nomeUsuario = "";
+        $scope.emailUsuario = "";
+        $scope.perfilUsuario = "";
+        $scope.senhaUsuario = "";
+        $scope.usuarioSenhaConfirmacao = "";
+    }
+
+    //efetua consulta de perfil do usuario
     $scope.ConsultaPerfil = function (usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao) {
 
         $scope.listaPerfis = usuarioService.ConsultaPerfil(usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao).then(function (data) {
@@ -59,6 +84,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         });
     }
 
+    //efetua consulta do usuario
     $scope.ConsultarUsuario = function (usuarioId, usuarioLogin, usuarioNome, usuarioEmail, usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId) {
 
         $scope.showDivAlteracao = false;
@@ -71,6 +97,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         });
     }
 
+    //efetua alteração do usuario
     $scope.AlterarUsuario = function () {
 
         if ($scope.usuarioNome == "" || $scope.usuarioNome == undefined
@@ -79,15 +106,17 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
             return
         }
 
+        //exibe campos para alteração do registro do usuário
         if ($scope.showDivSenha) {
 
             if ($scope.senhaUsuario == undefined || $scope.senhaUsuario == "" || $scope.confirmacaoSenhaUsuario == undefined || $scope.confirmacaoSenhaUsuario == "") {
                 return
             }
 
+            //valida se a senha digitada confere na confirmação
             if ($scope.senhaUsuario != $scope.confirmacaoSenhaUsuario) {
                 utilService.mensagemAlerta("A senha informada não confere, favor informar novamente!");
-                gotoTop();
+                // gotoTop();
                 //$scope.showMessage = false;
                 return
             } else {
@@ -97,6 +126,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
             $scope.usuarioSenha = "";
         }
 
+        //efetua alteração do registro do usuário
         $scope.retornoAlteracao = usuarioService.AlterarUsuario($scope.usuarioId,
                                                                 $scope.usuarioLogin,
                                                                 $scope.usuarioNome,
@@ -120,9 +150,11 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                                                                  });
     }
 
+    //exibe tela de lista/alteração de usuário
     $scope.AbrirTelaAlteracao = function (usuario) {
         var infClientes = localStorageService.get('ngAuthSettings');
 
+        //retorna lista de usuarios
         $scope.retornoUsuario = usuarioService.ConsultarUsuario(usuario.usuarioId, usuario.usuarioLogin, usuario.usuarioNome, usuario.usuarioEmail, usuario.usuarioAtivo, usuario.usuarioSenha, usuario.usuPerfilId, usuario.clienteId).then(function (data) {
             $scope.retornoUsuario = data;
             $scope.chkAlterarSenha = false;
@@ -136,11 +168,12 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                 $scope.usuarioAtivo = $scope.retornoUsuario[0].usuarioAtivo;
                 $scope.usuPerfilId = $scope.retornoUsuario[0].usuPerfilId;
                 $scope.clienteId = $scope.retornoUsuario[0].clienteId;
-                $scope.gotoBottom();
                 $scope.showDivAlteracao = true;
                 $scope.showDivSenha = false;
                 //$scope.$broadcast("focusTextInput");
-               
+                $scope.gotoBottom();
+                
+                window.scrollTo(0, document.body.scrollHeight + 100);
             }
 
         }, function (error) {
@@ -148,11 +181,13 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         });
     }
 
+    //ordena lista de usuarios
     $scope.sort = function (keyname) {
         $scope.sortKey = keyname;
         $scope.reverse = !$scope.reverse;
     }
 
+    //efetua ativação do usuário selecionado
     $scope.AtivarUsuario = function (usuario) {
 
         usuario.usuarioAtivo = true; //ativa usuario
@@ -169,7 +204,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         });
     }
 
-
+    //efetua desativação do usuário selecionado
     $scope.InativarUsuario = function (usuario) {
 
         usuario.usuarioAtivo = false; //inativa usuario
@@ -188,13 +223,14 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         });
     }
 
-
+    //cancela alteração do registro do usuario
     $scope.CancelarAlteracao = function () {
 
         $scope.showDivAlteracao = false;
         $scope.showDivSenha = false;
     }
 
+    //exibe campos de senha
     $scope.ExibirCampoSenha = function () {
 
         if ($scope.showDivSenha) {
@@ -204,12 +240,14 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         }
     }
 
+    //move o scroll para rodapé da tela
     $scope.gotoBottom = function () {
-    
-        $location.hash('bottom');
+        
+        $location.hash('testeBaixo');
         $anchorScroll();
     };
 
+    //move o scroll para topo da tela
     $scope.gotoTop = function () {
         $location.hash('top');
         $anchorScroll();

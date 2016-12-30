@@ -18,7 +18,8 @@ namespace BSI.GestDoc.WebAPI.Controllers
         /// <param name="perfilUsuario"></param>
         /// <param name="senhaUsuario"></param>
         /// <param name="clientId"></param>
-        /// <returns></returns>
+        /// <returns>IEnumerable<Usuario> - sucesso no cadasto</returns>
+        /// <returns>String(message) - Nome do usuário já existe</returns>
         [System.Web.Http.Route("CadastrarUsuario")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult CadastrarUsuario(string userNameUsuario, string nomeUsuario, string emailUsuario,

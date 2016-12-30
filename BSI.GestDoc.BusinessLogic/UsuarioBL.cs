@@ -1,6 +1,7 @@
 ﻿using BSI.GestDoc.Entity;
 using BSI.GestDoc.Repository.DAL;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BSI.GestDoc.BusinessLogic
 {
@@ -20,16 +21,29 @@ namespace BSI.GestDoc.BusinessLogic
         /// <param name="senhaUsuario"></param>
         /// <param name="clientId"></param>
         /// <returns></returns>
-        public dynamic CadastrarUsuario(string userNameUsuario, string nomeUsuario, string emailUsuario, 
+        public dynamic CadastrarUsuario(string userNameUsuario, string nomeUsuario, string emailUsuario,
             string perfilUsuario, string senhaUsuario, string clientId)
         {
             UsuarioDal UsuarioDal = new UsuarioDal();
-            
-            //usado para cadastro do usuario
-            string usuarioAtivo = "1";
+            IEnumerable<Usuario> userNameSingle = null;
+            dynamic retorno = null;
 
-           return UsuarioDal.CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, Util.UtilCriptografia.GetMd5Hash(senhaUsuario), usuarioAtivo, clientId);
-            
+            //Consulta o usuário pelo "userName", não é permitido o cadastro de dois usuários com mesmo "userName"
+            userNameSingle = this.ConsultarUsuario(null, userNameUsuario, null, null, null, null, null, null);
+
+            //valida se o username ja existe
+            if (userNameSingle == null || userNameSingle.Count() == 0)
+            {
+                //usado para cadastro do usuario
+                string usuarioAtivo = "1";
+                retorno = UsuarioDal.CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, Util.UtilCriptografia.GetMd5Hash(senhaUsuario), usuarioAtivo, clientId);
+            }
+            else
+            {
+                retorno = "Nome de usuário já existente!";
+            }
+
+            return retorno;
         }
 
         /// <summary>
@@ -45,8 +59,6 @@ namespace BSI.GestDoc.BusinessLogic
             UsuarioPerfilDal UsuPerfilDal = new UsuarioPerfilDal();
 
             UsuPerfilDal.ConsultarUsuarioPerfil(usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao);
-            
-         
         }
 
         /// <summary>
@@ -64,7 +76,7 @@ namespace BSI.GestDoc.BusinessLogic
                                                     string usuarioSenha, string usuarioAtivo, string usuPerfilId, string usuClienteId)
         {
             UsuarioDal UsuarioDal = new UsuarioDal();
-            
+
             return UsuarioDal.ConsultarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
                                                     usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId);
         }

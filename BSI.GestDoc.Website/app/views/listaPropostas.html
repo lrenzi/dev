@@ -9,10 +9,6 @@
         <button ng-model="btnEnviarFiltrar" ng-enter="ListarPropostas(numeroPropostaPesquisa)" ng-click="ListarPropostas(numeroPropostaPesquisa)" class="btn btn-primary btn-sm" value="Pesquisar" title="Pesquisar">Pesquisar</button>
     </div>
 
-    <div class="alert alert-warning" ng-show="showMensagemListaVazia">
-        <strong>{{valorMensagem}}</strong>
-    </div>
-
     <table class="table" ng-show="showListaProposta">
         <thead>
             <tr>
