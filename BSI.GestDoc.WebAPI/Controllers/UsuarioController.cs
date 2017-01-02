@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Web.Http;
 using BSI.GestDoc.BusinessLogic;
+using System.Collections.Generic;
+using BSI.GestDoc.Entity;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -59,19 +62,33 @@ namespace BSI.GestDoc.WebAPI.Controllers
         {
 
             UsuarioBL usuarioBL = new UsuarioBL();
-            dynamic retorno = null;
+
+            IEnumerable<Usuario> retorno = null;
 
             try
             {
+
                 retorno = usuarioBL.ConsultarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
                                                     usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId);
+
+                return Ok(
+                            retorno.Select(e => new
+                            {
+                                e.UsuarioLogin,
+                                e.UsuarioNome,
+                                e.UsuarioAtivoDescricao,
+                                e.UsuarioEmail,
+                                e.UsuarioPerfil
+                            })
+                        );
+
+
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.GetBaseException().Message);
             }
 
-            return Ok(retorno);
         }
 
         /// <summary>

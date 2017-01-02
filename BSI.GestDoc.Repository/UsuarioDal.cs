@@ -62,10 +62,26 @@ namespace BSI.GestDoc.Repository.DAL
             parameters.Add("@pUsuPerfilId", usuPerfilId, DbType.Int16, null);
             parameters.Add("@pClienteId", usuClienteId, DbType.Int16, null);
 
-            var listaUsuarios = SqlHelper.QuerySP<Usuario>("ConsultarUsuario", parameters);
+            SqlConnection connection = SqlHelper.getConnection();
+            Usuario usuarioLogado = new Usuario();
+            IEnumerable<Usuario> listaUsuarios = null;
 
+            using (SqlMapper.GridReader reader = connection.QueryMultiple("ConsultarUsuario", parameters, commandType: CommandType.StoredProcedure))
+            {
+                //recupera dados do cliente e informações referenciadas
+                listaUsuarios = reader.Read<Usuario, UsuarioPerfil, Usuario>((usuario, usuarioPerfil) =>
+                {
+                    usuario.UsuarioPerfil = usuarioPerfil;
+                    return usuario;
+                }, splitOn: "UsuarioId, UsuPerfilNome");
+            }
 
             return listaUsuarios;
+
+            //var listaUsuarios = SqlHelper.QuerySP<Usuario>("ConsultarUsuario", parameters);
+
+
+            //return listaUsuarios;
         }
 
         /// <summary>

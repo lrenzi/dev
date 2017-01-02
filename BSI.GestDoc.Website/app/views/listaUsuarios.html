@@ -13,6 +13,7 @@
                 <th class="col-md-3" ng-click="sort('usuarioNome')">Nome</th>
                 <th class="col-md-1" ng-click="sort('usuarioAtivoDescricao')">Status</th>
                 <th class="col-md-3" ng-click="sort('usuarioEmail')">Email</th>
+                <th class="col-md-3" ng-click="sort('usuarioPerfil.usuPerfilNome')">Perfil</th>
                 <th class="col-md-1" ></th>
                 <th class="col-md-1" ></th>
             </tr>
@@ -23,6 +24,7 @@
                 <td>{{usuario.usuarioNome}}</td>
                 <td>{{usuario.usuarioAtivoDescricao}}</td>
                 <td>{{usuario.usuarioEmail}}</td>
+                <td>{{usuario.usuarioPerfil.usuPerfilNome}}</td>
                 <td class="text-center">
                     <button ng-model="btnAlterar" ng-click="AbrirTelaAlteracao(usuario)" class="btn btn-primary btn-xs" value="Alterar" title="Alterar Usuário">
                         Alterar
