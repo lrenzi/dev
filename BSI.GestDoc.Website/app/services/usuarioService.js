@@ -1,12 +1,12 @@
 ﻿
 app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageService', function ($http, $q, ngAuthSettings, localStorageService) {
-    
+
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
     var usuarioServiceFactory = {};
     var infClientes = localStorageService.get('ngAuthSettings');
 
-    var _cadastrarUsuario = function (userNameUsuario, nomeUsuario, emailUsuario,perfilUsuario, senhaUsuario) {
-        
+    var _cadastrarUsuario = function (userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario) {
+
         if (userNameUsuario.trim() == "" || nomeUsuario.trim() == "" || emailUsuario.trim() == "" ||
            perfilUsuario.usuPerfilId == "" || senhaUsuario.trim() == "") {
             return
@@ -16,8 +16,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
             + userNameUsuario + "&nomeUsuario=" + nomeUsuario + "&emailUsuario=" + emailUsuario
             + "&perfilUsuario=" + perfilUsuario.usuPerfilId + "&senhaUsuario=" + senhaUsuario + "&clientId=" + infClientes.clienteId)
         .then(function (response) {
-
-            if (typeof response.data === 'object') {
+            if (typeof response.data === 'object' || typeof response.data === 'string') {
                 return response.data;
             } else {
                 return $q.reject(response.data);
@@ -25,13 +24,13 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
         },
         function (data, status, headers, config) {
             data.message = "Erro ao acessar o serviço de Cadastro de Usuarios.";
-        });        
+        });
     };
 
 
 
     var _consultaPerfil = function (usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao) {
-        
+
         return $http.post(serviceBase + "api/UsuarioPerfil/Consultar?usuPerfilId="
             + '' + "&clienteId=" + '' + "&usuPerfilNome=" + '' + "&usuPerfilDescricao=" + '')
         .then(function (response) {
@@ -64,8 +63,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
     };
 
     var _alterarUsuario = function (usuarioId, usuarioLogin, usuarioNome, usuarioEmail, usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId) {
-        
-        
+
         return $http.post(serviceBase + "api/Usuario/Alterar?usuarioId=" + usuarioId + "&usuarioLogin="
             + usuarioLogin + "&clienteId=" + '' + "&usuarioNome=" + usuarioNome + "&usuarioEmail=" + usuarioEmail +
               "&usuarioSenha=" + usuarioSenha + "&usuarioAtivo=" + usuarioAtivo + "&usuPerfilId=" + usuPerfilId + "&usuClienteId=" + usuClienteId)
@@ -83,12 +81,12 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
     };
 
     var _abrirTelaAlteracao = function (usuarioId, usuarioLogin, usuarioNome, usuarioEmail, usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId) {
-        
+
         return $http.post(serviceBase + "api/Usuario/Consultar?usuarioId=" + usuarioId + "&usuarioLogin="
             + usuarioLogin + "&clienteId=" + '' + "&usuarioNome=" + usuarioNome + "&usuarioEmail=" + usuarioEmail +
             "&usuarioSenha=" + usuarioAtivo + "&usuarioAtivo=" + '' + "&usuPerfilId=" + usuPerfilId + "&usuClienteId=" + usuClienteId)
         .then(function (response) {
-            debugger
+            
             if (typeof response.data === 'object') {
                 return response.data;
             } else {
@@ -100,7 +98,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
         });
     };
 
-    
+
     usuarioServiceFactory.CadastrarUsuario = _cadastrarUsuario;
     usuarioServiceFactory.ConsultaPerfil = _consultaPerfil;
     usuarioServiceFactory.ConsultarUsuario = _consultarUsuarios;

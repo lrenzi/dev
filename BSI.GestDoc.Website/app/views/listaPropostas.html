@@ -8,34 +8,29 @@
     </form>
 </div>
 
-
-<div class="alert alert-warning" ng-show="showMensagemListaVazia">
-    <strong>{{valorMensagem}}</strong>
-</div>
-
-<table class="table" ng-show="showListaProposta">
-    <thead>
-        <tr>
-            <th class="col-md-3">Documento</th>
-            <th class="" style="width:200px">Situação</th>
-            <th>Download</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr data-ng-repeat="tipo in listaPropostas">
-            <td class="col-md-3"><h5><b>{{tipo.docCliTipoNome}}</b></h5></td>
-            <td colspan="2">
-                <table class="table table-condensed table-hover borderless">
-                    <tr data-ng-repeat="situacaoDocumento in tipo.listaSituacaoDocumentoCliente">
-                        <td class="" style="width:200px">{{situacaoDocumento.docCliSituDescricao}}</td>
-                        <td>
-                            <a class="cursor-pointer" ng-click="RetornarArquivo(situacaoDocumento.documentoCliente.cryptoDocClienteId, situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal)">
-                                {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}}
-                            </a>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table>
+    <table class="table" ng-show="showListaProposta">
+        <thead>
+            <tr>
+                <th class="col-md-3">Documento</th>
+                <th class="" style="width:200px">Situação</th>
+                <th>Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="tipo in listaPropostas">
+                <td class="col-md-3"><h5><b>{{tipo.docCliTipoNome}}</b></h5></td>
+                <td colspan="2">
+                    <table class="table table-condensed table-hover borderless">
+                        <tr data-ng-repeat="situacaoDocumento in tipo.listaSituacaoDocumentoCliente">
+                            <td class="" style="width:200px">{{situacaoDocumento.docCliSituDescricao}}</td>
+                            <td>
+                                <a class="cursor-pointer" ng-click="RetornarArquivo(situacaoDocumento.documentoCliente.cryptoDocClienteId, situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal)">
+                                    {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}}
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
