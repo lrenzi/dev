@@ -5,7 +5,7 @@ app.factory('authInterceptorService', ['$q', '$injector', '$location', 'localSto
     
     var _request = function (config) {
         
-        utilService.limparMensagem();
+       // utilService.limparMensagem();
 
         config.headers = config.headers || {};
        

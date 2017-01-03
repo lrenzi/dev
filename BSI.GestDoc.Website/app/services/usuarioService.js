@@ -68,7 +68,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
             + usuarioLogin + "&clienteId=" + '' + "&usuarioNome=" + usuarioNome + "&usuarioEmail=" + usuarioEmail +
               "&usuarioSenha=" + usuarioSenha + "&usuarioAtivo=" + usuarioAtivo + "&usuPerfilId=" + usuPerfilId + "&usuClienteId=" + usuClienteId)
         .then(function (response) {
-
+            
             if (typeof response.data === 'object') {
                 return response.data;
             } else {

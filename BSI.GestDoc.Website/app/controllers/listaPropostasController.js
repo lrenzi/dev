@@ -25,6 +25,8 @@ app.controller("listaPropostasController", ["$scope", "$routeParams", "$location
             return
         }
 
+        utilService.limparMensagem();
+
         documentoCliente.numeroPesquisaProposta = keySearch;
         $scope.listaPropostas = listaPropostasService.ListarPropostas().then(function (data) {
             $scope.listaPropostas = data;
