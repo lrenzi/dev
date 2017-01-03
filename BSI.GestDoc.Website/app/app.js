@@ -109,20 +109,6 @@ app.run(['authService', function (authService) {
     authService.fillAuthData();
 }]);
 
-app.directive('ngEnter', function () {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-            if (event.which === 13) {
-                scope.$apply(function () {
-                    scope.$eval(attrs.ngEnter);
-                });
-
-                event.preventDefault();
-            }
-        });
-    };
-});
-
 app.run(function ($rootScope) {
     //Efetua a limpeza das mensagens e títulos do rootscope
     $rootScope.$on("$locationChangeStart", function (event, next, current) {
