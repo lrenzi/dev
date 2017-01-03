@@ -1,6 +1,6 @@
 ﻿
 'use strict';
-app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usuarioService", "localStorageService", "utilService", '$anchorScroll', '$timeout', function ($scope, $routeParams, $location, usuarioService, localStorageService, utilService, $anchorScroll, $timeout) {
+app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usuarioService", "localStorageService", "utilService", '$anchorScroll', '$timeout', '$rootScope', function ($scope, $routeParams, $location, usuarioService, localStorageService, utilService, $anchorScroll, $timeout, $rootScope) {
 
     $scope.userNameUsuario = '';
     $scope.nomeUsuario = '';
@@ -16,6 +16,16 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
     //  { column: "usuarioLogin" },
     //  { column: "usuarioNome" }
     //];
+
+    //$scope.mensagemSucesso = function (mensagem) {
+    //    debugger
+    //    var objMensagem = {};
+    //    objMensagem.tipoMensagem = 'alert alert-success';
+    //    $rootScope.exibirMensagem = true;
+    //    objMensagem.titulo = 'Sucesso';
+    //    objMensagem.mensagem = mensagem;
+    //    $rootScope.mensagens.push(objMensagem)
+    //}
 
     //verifica a rota para definir o titulo da página
     if ($location.$$path == "/consultarUsuario") {
@@ -47,6 +57,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
             return
         }
 
+
         //efetua cadastro do usuario
         usuarioService.CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario).then(function (data) {
             $scope.retornoCadastro = data;
@@ -54,6 +65,8 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
             if (typeof $scope.retornoCadastro === 'object') {
                 utilService.mensagemSucesso("Cadastro efetuado com sucesso!");
                 $scope.LimparFormularioCadastro();
+                //$scope.reset();
+                
             } else if (typeof $scope.retornoCadastro === 'string') {
                 utilService.mensagemAlerta($scope.retornoCadastro);
             }
@@ -78,6 +91,8 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         $scope.perfilUsuario = "";
         $scope.senhaUsuario = "";
         $scope.usuarioSenhaConfirmacao = "";
+        $scope.cadastroform.reload();
+        //$scope.cadastroform.$setPristine();
     }
 
     //efetua consulta de perfil do usuario
@@ -153,7 +168,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                                                                      $scope.senhaUsuario = "";
                                                                      $scope.confirmacaoSenhaUsuario = "";
                                                                      $scope.chkAlterarSenha = false;
-                                                                     
+
                                                                  }, function (error) {
                                                                      utilService.mensagemErro(error.data.message);
                                                                  });
@@ -200,14 +215,15 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
     $scope.AtivarUsuario = function (usuario) {
 
         usuario.usuarioAtivo = true; //ativa usuario
+        utilService.limparMensagem();
 
         $scope.retornoAtivacao = usuarioService.AlterarUsuario(usuario.usuarioId, usuario.usuarioLogin, usuario.usuarioNome, usuario.usuarioEmail, '', usuario.usuarioAtivo, usuario.usuPerfilId, usuario.clienteId).then(function (data) {
-
+            
             $scope.retornoAlteracao = data;
             $scope.showMessage = true;
             $scope.showDivAlteracao = false;
-           // $scope.ConsultarUsuario('', '', '', '', '', '', '', '')
-            utilService.mensagemSucesso("Usuário ativado com sucesso!");
+            $scope.ConsultarUsuario('', '', '', '', '', '', '', '');
+            utilService.mensagemSucesso("Usuário ativado com sucesso!", true);
         }, function (error) {
             utilService.mensagemErro(error.data.message);
         });
@@ -217,6 +233,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
     $scope.InativarUsuario = function (usuario) {
 
         usuario.usuarioAtivo = false; //inativa usuario
+        utilService.limparMensagem();
 
         $scope.retornoAtivacao = usuarioService.AlterarUsuario
             (usuario.usuarioId, usuario.usuarioLogin, usuario.usuarioNome, usuario.usuarioEmail, '',
@@ -225,7 +242,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                         $scope.showMessage = true;
                         $scope.showDivAlteracao = false;
                         $scope.ConsultarUsuario('', '', '', '', '', '', '', '');
-                        utilService.mensagemSucesso("Usuário inativado com sucesso!");
+                        utilService.mensagemSucesso("Usuário inativado com sucesso!", true);
                     }, function (error) {
                         utilService.mensagemErro(error.data.message);
                     });

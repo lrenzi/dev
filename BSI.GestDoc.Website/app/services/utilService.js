@@ -1,6 +1,10 @@
 ﻿app.service("utilService", ["$rootScope", function ($rootScope) {
 
-    this.mensagemSucesso = function (mensagem) {
+    var exibirMensagemReqest = false;
+
+    this.mensagemSucesso = function (mensagem, exibirMensagem) {
+
+        exibirMensagemReqest = exibirMensagem;
 
         var listaMensagem = [];
         if (Array.isArray(mensagem)) {
@@ -19,7 +23,7 @@
         $rootScope.mensagens.push(objMensagem)
     }
 
-    this.mensagemInformativo = function ( mensagem) {
+    this.mensagemInformativo = function (mensagem) {
 
         var listaMensagem = [];
         if (Array.isArray(mensagem)) {
@@ -77,9 +81,20 @@
     }
 
     this.limparMensagem = function () {
+
         $rootScope.mensagens = [];
         $rootScope.exibirMensagem = false;
+
     }
+
+    this.limparMensagemRequest = function () {
+        if (!exibirMensagemReqest) {
+            $rootScope.mensagens = [];
+            $rootScope.exibirMensagem = false;
+        }
+    }
+
+
     this.definirTitulos = function (titulo, subTitulo) {
         $rootScope.titulo = titulo;
         $rootScope.subTitulo = subTitulo;
