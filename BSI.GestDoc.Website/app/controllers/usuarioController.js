@@ -171,7 +171,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                 $scope.showDivAlteracao = true;
                 $scope.showDivSenha = false;
                 //$scope.$broadcast("focusTextInput");
-                $scope.gotoBottom();
+                //$scope.gotoBottom();
                 
                 window.scrollTo(0, document.body.scrollHeight + 100);
             }
