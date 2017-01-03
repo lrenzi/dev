@@ -1,6 +1,6 @@
 ﻿
 'use strict';
-app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usuarioService", "localStorageService", "utilService", '$anchorScroll', function ($scope, $routeParams, $location, usuarioService, localStorageService, utilService, $anchorScroll) {
+app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usuarioService", "localStorageService", "utilService", '$anchorScroll', '$timeout', function ($scope, $routeParams, $location, usuarioService, localStorageService, utilService, $anchorScroll, $timeout) {
 
     $scope.userNameUsuario = '';
     $scope.nomeUsuario = '';
@@ -10,6 +10,12 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
     $scope.showMessage = false;
     $scope.showDivAlteracao = false;
     $scope.showDivSenha = false;
+    //$scope.filters = {};
+
+    //$scope.headers = [
+    //  { column: "usuarioLogin" },
+    //  { column: "usuarioNome" }
+    //];
 
     //verifica a rota para definir o titulo da página
     if ($location.$$path == "/consultarUsuario") {
@@ -37,21 +43,21 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         //verifica se a senha digitada na confirmação confere 
         if ($scope.usuarioSenhaConfirmacao != $scope.senhaUsuario) {
             utilService.mensagemAlerta("A senha não confere, favor informar novamente!");
-           
+
             return
         }
 
         //efetua cadastro do usuario
         usuarioService.CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario).then(function (data) {
             $scope.retornoCadastro = data;
-            
+
             if (typeof $scope.retornoCadastro === 'object') {
                 utilService.mensagemSucesso("Cadastro efetuado com sucesso!");
                 $scope.LimparFormularioCadastro();
             } else if (typeof $scope.retornoCadastro === 'string') {
                 utilService.mensagemAlerta($scope.retornoCadastro);
-            }           
-           
+            }
+
 
             if ($scope.retornoCadastro != '' && $scope.retornoCadastro != null) {
                 $scope.showMessage = true;
@@ -60,7 +66,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
             }
 
         }, function (error) {
-            //utilService.mensagemErro(error.data.message);
+            utilService.mensagemErro(error.data.message);
         });
     }
 
@@ -100,6 +106,8 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
     //efetua alteração do usuario
     $scope.AlterarUsuario = function () {
 
+        utilService.limparMensagem();
+
         if ($scope.usuarioNome == "" || $scope.usuarioNome == undefined
             || $scope.usuarioEmail == "" || $scope.usuarioEmail == undefined
             || $scope.usuPerfilId == "" || $scope.usuPerfilId == undefined) {
@@ -116,7 +124,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
             //valida se a senha digitada confere na confirmação
             if ($scope.senhaUsuario != $scope.confirmacaoSenhaUsuario) {
                 utilService.mensagemAlerta("A senha informada não confere, favor informar novamente!");
-                // gotoTop();
+                $scope.gotoTop();
                 //$scope.showMessage = false;
                 return
             } else {
@@ -135,16 +143,17 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                                                                 $scope.usuarioAtivo,
                                                                 $scope.usuPerfilId,
                                                                  $scope.clienteId).then(function (data) {
-
+                                                                     utilService.mensagemSucesso("Cadastro efetuado com sucesso!");
                                                                      $scope.retornoAlteracao = data;
 
                                                                      $scope.showMessage = true;
                                                                      $scope.showDivAlteracao = false;
-                                                                     $scope.ConsultarUsuario('', '', '', '', '', '', '', '')
+                                                                     //$scope.ConsultarUsuario('', '', '', '', '', '', '', '');
                                                                      $scope.showDivSenha = false;
-                                                                     $scope.senhaUsuario = ""
-                                                                     $scope.confirmacaoSenhaUsuario = ""
-                                                                     $scope.chkAlterarSenha = false
+                                                                     $scope.senhaUsuario = "";
+                                                                     $scope.confirmacaoSenhaUsuario = "";
+                                                                     $scope.chkAlterarSenha = false;
+                                                                     
                                                                  }, function (error) {
                                                                      utilService.mensagemErro(error.data.message);
                                                                  });
@@ -171,9 +180,9 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                 $scope.showDivAlteracao = true;
                 $scope.showDivSenha = false;
                 //$scope.$broadcast("focusTextInput");
-                //$scope.gotoBottom();
-                
-                window.scrollTo(0, document.body.scrollHeight + 100);
+                $scope.gotoBottom();
+
+                //window.scrollTo(0, document.body.scrollHeight + 100);
             }
 
         }, function (error) {
@@ -197,8 +206,8 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
             $scope.retornoAlteracao = data;
             $scope.showMessage = true;
             $scope.showDivAlteracao = false;
-            $scope.ConsultarUsuario('', '', '', '', '', '', '', '')
-            //utilService.mensagemSucesso("Usuário ativado com sucesso!");
+           // $scope.ConsultarUsuario('', '', '', '', '', '', '', '')
+            utilService.mensagemSucesso("Usuário ativado com sucesso!");
         }, function (error) {
             utilService.mensagemErro(error.data.message);
         });
@@ -209,23 +218,22 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
 
         usuario.usuarioAtivo = false; //inativa usuario
 
-        $scope.retornoAtivacao = usuarioService.AlterarUsuario(usuario.usuarioId, usuario.usuarioLogin, usuario.usuarioNome, usuario.usuarioEmail, '', usuario.usuarioAtivo, usuario.usuPerfilId, usuario.clienteId).then(function (data) {
-
-            $scope.retornoAlteracao = data;
-
-            $scope.showMessage = true;
-            $scope.showDivAlteracao = false;
-
-            $scope.ConsultarUsuario('', '', '', '', '', '', '', '')
-            // utilService.mensagemSucesso("Usuário inativado com sucesso!");
-        }, function (error) {
-            utilService.mensagemErro(error.data.message);
-        });
+        $scope.retornoAtivacao = usuarioService.AlterarUsuario
+            (usuario.usuarioId, usuario.usuarioLogin, usuario.usuarioNome, usuario.usuarioEmail, '',
+                    usuario.usuarioAtivo, usuario.usuPerfilId, usuario.clienteId).then(function (data) {
+                        $scope.retornoAlteracao = data;
+                        $scope.showMessage = true;
+                        $scope.showDivAlteracao = false;
+                        $scope.ConsultarUsuario('', '', '', '', '', '', '', '');
+                        utilService.mensagemSucesso("Usuário inativado com sucesso!");
+                    }, function (error) {
+                        utilService.mensagemErro(error.data.message);
+                    });
     }
 
     //cancela alteração do registro do usuario
     $scope.CancelarAlteracao = function () {
-
+        utilService.limparMensagem();
         $scope.showDivAlteracao = false;
         $scope.showDivSenha = false;
     }
@@ -242,15 +250,16 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
 
     //move o scroll para rodapé da tela
     $scope.gotoBottom = function () {
-        
-        $location.hash('testeBaixo');
-        $anchorScroll();
+
+        window.setTimeout("window.scrollTo(0, document.body.scrollHeight + 100)", 100);
+        //$anchorScroll();
     };
 
     //move o scroll para topo da tela
     $scope.gotoTop = function () {
-        $location.hash('top');
-        $anchorScroll();
+        window.setTimeout("window.scrollTo(0, document.body.scrollHeight -5000)", 100);
+        //$location.hash('top');
+        //$anchorScroll();
     };
 
 }]);

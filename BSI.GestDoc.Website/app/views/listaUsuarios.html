@@ -20,6 +20,7 @@
         </thead>
         <tbody>
             <tr dir-paginate="usuario in listaUsuarios|orderBy:sortKey:reverse|filter:search|itemsPerPage:7">
+            <!--<tr ng-repeat="usuario in listaUsuarios">-->
                 <td>{{usuario.usuarioLogin}}</td>
                 <td>{{usuario.usuarioNome}}</td>
                 <td>{{usuario.usuarioAtivoDescricao}}</td>
