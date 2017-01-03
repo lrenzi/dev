@@ -5,7 +5,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
     $scope.mostraBotaoNovo = false;
     $scope.desabilitaFile = false;
 
-    utilService.defirniTitulos('Upload de Documentos', 'Procure os documentos para envio');
+    utilService.definirTitulos('Upload de Documentos', 'Procure os documentos para envio');
 
     $scope.IniciarTela = function () {
 

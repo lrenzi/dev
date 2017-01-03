@@ -80,7 +80,7 @@
         $rootScope.mensagens = [];
         $rootScope.exibirMensagem = false;
     }
-    this.defirniTitulos = function (titulo, subTitulo) {
+    this.definirTitulos = function (titulo, subTitulo) {
         $rootScope.titulo = titulo;
         $rootScope.subTitulo = subTitulo;
     }

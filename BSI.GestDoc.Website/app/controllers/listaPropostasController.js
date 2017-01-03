@@ -7,7 +7,7 @@ app.controller("listaPropostasController", ["$scope", "$routeParams", "$location
     $scope.listaSituacoesProposta = [];
     $scope.valorMensagem = "";
 
-    utilService.defirniTitulos('Consulta de propostas', 'Informe abaixo o valor que deseja consultar');
+    utilService.definirTitulos('Consulta de propostas', 'Informe abaixo o valor que deseja consultar');
 
     $scope.RetornarArquivo = function (docClienteId_, fileName_) {
         fileUploadService.RetornarArquivo(docClienteId_, fileName_).then(function (data) {

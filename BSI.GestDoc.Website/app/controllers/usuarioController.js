@@ -19,10 +19,10 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
 
     //verifica a rota para definir o titulo da página
     if ($location.$$path == "/consultarUsuario") {
-        utilService.defirniTitulos('Consulta de Usuários', 'Informe abaixo o valor que deseja consultar');
+        utilService.definirTitulos('Consulta de Usuários', 'Informe abaixo o valor que deseja consultar');
 
     } else if ($location.$$path == "/cadastrarUsuario") {
-        utilService.defirniTitulos("Cadastrar Usuário", "Informe abaixo os dados para criação do novo usuário");
+        utilService.definirTitulos("Cadastrar Usuário", "Informe abaixo os dados para criação do novo usuário");
     }
 
     //efetua cadastro do usuario

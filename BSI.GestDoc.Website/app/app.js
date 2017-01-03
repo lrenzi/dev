@@ -123,13 +123,6 @@ app.directive('ngEnter', function () {
     };
 });
 
-app.directive('titulos', function () {
-    return {
-        template: '<h2>{{titulo}}</h2> <h4>{{subTitulo}}</h4>'
-    };
-});
-
-
 app.run(function ($rootScope) {
     //Efetua a limpeza das mensagens e títulos do rootscope
     $rootScope.$on("$locationChangeStart", function (event, next, current) {
@@ -140,17 +133,3 @@ app.run(function ($rootScope) {
         $rootScope.subTitulo = '';
     });
 });
-
-app.directive("focusOn", function ($timeout) {
-    return {
-        restrict: "A",
-        link: function (scope, element, attrs) {
-            scope.$on(attrs.focusOn, function (e) {
-                $timeout((function () {
-                    element[0].focus();
-                }), 10);
-            });
-        }
-    };
-});
-
