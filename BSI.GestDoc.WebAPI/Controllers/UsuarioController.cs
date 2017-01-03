@@ -71,16 +71,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 retorno = usuarioBL.ConsultarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
                                                     usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId);
 
-                return Ok(
-                            retorno.Select(e => new
-                            {
-                                e.UsuarioLogin,
-                                e.UsuarioNome,
-                                e.UsuarioAtivoDescricao,
-                                e.UsuarioEmail,
-                                e.UsuarioPerfil
-                            })
-                        );
+                return Ok(retorno);
 
 
             }
