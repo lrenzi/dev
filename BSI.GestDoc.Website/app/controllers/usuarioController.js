@@ -74,6 +74,8 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         $scope.usuarioSenhaConfirmacao = "";
     }
 
+   
+
     //efetua consulta de perfil do usuario
     $scope.ConsultaPerfil = function (usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao) {
 

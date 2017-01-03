@@ -57,6 +57,32 @@ app.config(function ($routeProvider) {
 
 });
 
+app.filter('customFilter', function () {
+    return function (items, filter, columns) {
+        
+        if (filter == "" || filter == undefined) {
+            return items;
+        }
+        var exists = false;
+        var filtered = [];
+        columns = columns.split("|");
+        for (var i = 0; i < items.length; i++) {
+            exists = false;
+            for (var j = 0; j < columns.length; j++) {
+                if (!exists) {
+                    if (items[i][columns[j]] != undefined) {
+                        if (items[i][columns[j]].indexOf(filter) > -1) {
+                            filtered.push(items[i]);
+                            exists = true;
+                        }
+                    }
+                }
+            }
+        }
+        return filtered;
+    };
+});
+
 app.factory("userPersistenceService", [
 	"$cookies", function ($cookies) {
 	    var userName = "";

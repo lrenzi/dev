@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr dir-paginate="usuario in listaUsuarios|orderBy:sortKey:reverse|filter:search|itemsPerPage:7">
+            <tr dir-paginate="usuario in listaUsuarios|orderBy:'usuarioLogin':reverse|customFilter:search:'usuarioLogin|usuarioNome|usuarioEmail'|itemsPerPage:7">
                 <td>{{usuario.usuarioLogin}}</td>
                 <td>{{usuario.usuarioNome}}</td>
                 <td>{{usuario.usuarioAtivoDescricao}}</td>
