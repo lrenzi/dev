@@ -15,6 +15,7 @@ namespace BSI.GestDoc.Entity
         public string DocCliSituDescricao { get; set; }
         public int DocCliTipoId { get; set; }
         public int DocCliSituOrdemApresent { get; set; }
+        public int DocObrigatorio { get; set; }
 
         [DapperAttribute.Write(false)]
         public DocumentoClienteTipo DocumentoClienteTipo { get; set; }
