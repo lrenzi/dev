@@ -18,15 +18,14 @@ namespace BSI.GestDoc.WebAPI.Controllers
             _auth = new AutenticacaoBL();
         }
 
-        [Authorize(Users = "Bradven1")]
+        [Authorize(Users = "Admin")]
         [Route("")]
         public IHttpActionResult Get()
         {
             return Ok(_auth.GetAllRefreshTokens());
         }
 
-        //[Authorize(Users = "Admin")]
-        [AllowAnonymous]
+        [System.Web.Http.Authorize]
         [Route("")]
         public async Task<IHttpActionResult> Delete(string tokenId)
         {

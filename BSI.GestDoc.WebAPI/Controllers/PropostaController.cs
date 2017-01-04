@@ -19,6 +19,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         /// <param name="clientId"></param>
         /// <param name="numeroProposta"></param>
         /// <returns></returns>
+        [System.Web.Http.Authorize]
         [System.Web.Http.Route("ListarPropostas")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult ListarPropostas(string usuarioId, string clientId, string numeroProposta)

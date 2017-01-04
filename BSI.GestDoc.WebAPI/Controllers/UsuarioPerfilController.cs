@@ -19,6 +19,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         /// <param name="usuPerfilNome"></param>
         /// <param name="usuPerfilDescricao"></param>
         /// <returns></returns>
+        [System.Web.Http.Authorize]
         [System.Web.Http.Route("Consultar")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult Consultar(string usuPerfilId, string clienteId, string usuPerfilNome, string usuPerfilDescricao)

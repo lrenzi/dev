@@ -4,6 +4,7 @@ using BSI.GestDoc.BusinessLogic;
 using System.Collections.Generic;
 using BSI.GestDoc.Entity;
 using System.Linq;
+using Microsoft.AspNet.Identity;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,6 +24,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         /// <param name="clientId"></param>
         /// <returns>IEnumerable<Usuario> - sucesso no cadasto</returns>
         /// <returns>String(message) - Nome do usuário já existe</returns>
+        [Authorize]
         [System.Web.Http.Route("CadastrarUsuario")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult CadastrarUsuario(string userNameUsuario, string nomeUsuario, string emailUsuario,
@@ -55,6 +57,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         /// <param name="senhaUsuario"></param>
         /// <param name="clientId"></param>
         /// <returns></returns>
+        [Authorize]
         [System.Web.Http.Route("Consultar")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult Consultar(string usuarioId, string usuarioLogin, string usuarioNome, string usuarioEmail,
@@ -94,6 +97,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         /// <param name="usuPerfilId"></param>
         /// <param name="usuClienteId"></param>
         /// <returns></returns>
+        [Authorize]
         [System.Web.Http.Route("Alterar")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult AlterarUsuario(string usuarioId, string usuarioLogin, string usuarioNome, string usuarioEmail,

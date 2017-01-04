@@ -55,6 +55,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         //    return await new UploadFile().GetFile(Request);
         //}
 
+        [System.Web.Http.Authorize]
         [System.Web.Http.Route("RetornarArquivo")]
         [System.Web.Http.HttpPost]
         public HttpResponseMessage RetornarArquivo(string docClienteId)
@@ -88,6 +89,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
         private readonly string WorkingFolder = HttpRuntime.AppDomainAppPath + ConfigurationManager.AppSettings["DiretorioUpload"];
 
+        [System.Web.Http.Authorize]
         [System.Web.Http.Route("EnviarArquivos")]
         [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> EnviarArquivos(int usuarioId, int clienteId, int docCliTipoId, bool reenvio)
@@ -195,6 +197,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         }
         */
 
+        [System.Web.Http.Authorize]
         [System.Web.Http.Route("RetornarDocumentoClienteTipo")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult RetornarDocumentoClienteTipo([FromBody]DocumentoClienteTipo documentoClienteTipo)

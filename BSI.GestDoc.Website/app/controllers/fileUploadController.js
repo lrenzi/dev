@@ -33,13 +33,6 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
     }
 
     $scope.ConsultarArquivos = function () {
-
-       
-       
-        //userPersistenceService.setCookieData("WESLEY");
-        //alert(userPersistenceService.getCookieData());
-
-        //alert(ngAuthSettings.clienteId);
         $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
             $scope.listaDocumentosClienteTipo = data;
             iniciarListaDocumentoClienteTipo();

@@ -95,26 +95,6 @@ app.filter('customFilter', function () {
     };
 });
 
-app.factory("userPersistenceService", [
-	"$cookies", function ($cookies) {
-	    var userName = "";
-
-	    return {
-	        setCookieData: function (username) {
-	            userName = username;
-	            $cookies.put("userName", username);
-	        },
-	        getCookieData: function () {
-	            userName = $cookies.get("userName");
-	            return userName;
-	        },
-	        clearCookieData: function () {
-	            userName = "";
-	            $cookies.remove("userName");
-	        }
-	    }
-	}
-]);
 
 var serviceBase = 'http://localhost:44857/';
 app.constant('ngAuthSettings', {
@@ -132,12 +112,6 @@ app.constant('ngAuthSettings', {
 app.constant('documentoCliente', {
     numeroPesquisaProposta: "",
 });
-
-//app.constant('cadastroUsuario', {
-//    userNameUsuario: "",
-//    nomeUsuario: "",
-//    emailUsuario: ""
-//});
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
