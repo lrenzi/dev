@@ -64,7 +64,7 @@ namespace BSI.GestDoc.BusinessLogic
         {
 
             AutenticacaoDal autDal = new AutenticacaoDal();
-            foreach (var existingToken in autDal.GetAtllToken().ToList().FindAll(r => r.IdentityName == token.IdentityName && r.ClienteId == token.ClienteId))
+            foreach (var existingToken in autDal.GetAtllToken().ToList().FindAll(r => r.IdentityName == token.IdentityName && r.UsuarioId == token.UsuarioId))
             {
 
                 if (existingToken != null)

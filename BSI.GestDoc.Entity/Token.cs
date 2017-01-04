@@ -16,7 +16,7 @@ namespace BSI.GestDoc.Entity
         public string IdentityName { get; set; }
         public DateTime IssuedUtc { get; set; }
         public DateTime ExpiresUtc { get; set; }
-        public Int64 ClienteId { get; set; }
+        public Int64 UsuarioId { get; set; }
 
         public string ProtectedTicket { get; set; }
     }

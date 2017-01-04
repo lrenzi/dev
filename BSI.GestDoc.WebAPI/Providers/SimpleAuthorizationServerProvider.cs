@@ -1,5 +1,4 @@
-﻿using BSI.GestDoc.WebAPI.Entities;
-using Microsoft.Owin.Security;
+﻿using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
@@ -21,7 +20,7 @@ namespace BSI.GestDoc.WebAPI.Providers
 
             string clientId = string.Empty;
             string clientSecret = string.Empty;
-            Client client = null;
+            Usuario usuario = null;
 
             if (!context.TryGetBasicCredentials(out clientId, out clientSecret))
             {
@@ -37,20 +36,17 @@ namespace BSI.GestDoc.WebAPI.Providers
                 return Task.FromResult<object>(null);
             }
 
-            using (AuthRepository _repo = new AuthRepository())
-            {
-                client = _repo.FindClient(context.ClientId);
-            }
+            usuario = new UsuarioBL().ConsultarUsuarioById(context.ClientId);
 
-            if (client == null)
+            if (usuario == null)
             {
                 context.SetError("invalid_clientId", string.Format("Client '{0}' is not registered in the system.", context.ClientId));
                 return Task.FromResult<object>(null);
             }
 
-            if (client.ApplicationType == Models.ApplicationTypes.NativeConfidential)
+            if (usuario.ApplicationType == Entity.Enum.ApplicationTypes.NativeConfidential)
             {
-                if (string.IsNullOrWhiteSpace(clientSecret))
+                /*if (string.IsNullOrWhiteSpace(clientSecret))
                 {
                     context.SetError("invalid_clientId", "Client secret should be sent.");
                     return Task.FromResult<object>(null);
@@ -62,17 +58,17 @@ namespace BSI.GestDoc.WebAPI.Providers
                         context.SetError("invalid_clientId", "Client secret is invalid.");
                         return Task.FromResult<object>(null);
                     }
-                }
+                }*/
             }
 
-            if (!client.Active)
+            if (!usuario.UsuarioAtivo)
             {
                 context.SetError("invalid_clientId", "Client is inactive.");
                 return Task.FromResult<object>(null);
             }
 
-            context.OwinContext.Set<string>("clientAllowedOrigin", client.AllowedOrigin);
-            context.OwinContext.Set<string>("clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
+            context.OwinContext.Set<string>("clientAllowedOrigin", usuario.AllowedOrigin);
+            context.OwinContext.Set<string>("clientRefreshTokenLifeTime", System.Configuration.ConfigurationManager.AppSettings["clientRefreshTokenLifeTime"].ToString());
 
             context.Validated();
             return Task.FromResult<object>(null);
@@ -109,10 +105,7 @@ namespace BSI.GestDoc.WebAPI.Providers
                 #region mapeamento de atributos do usuario logado
                 var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
-                    /*{
-                        "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
-
-                    },*/
+                   
                     {
                         "userName", context.UserName
                     },

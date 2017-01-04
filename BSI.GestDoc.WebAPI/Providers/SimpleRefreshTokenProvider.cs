@@ -1,5 +1,4 @@
 ﻿using BSI.GestDoc.Entity;
-using BSI.GestDoc.WebAPI.Entities;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 using System;
@@ -16,9 +15,9 @@ namespace BSI.GestDoc.WebAPI.Providers
 
         public async Task CreateAsync(AuthenticationTokenCreateContext context)
         {
-            var clientid = context.Ticket.Properties.Dictionary["clienteId"];
+            var usuarioId = context.Ticket.Properties.Dictionary["usuarioId"];
 
-            if (string.IsNullOrEmpty(clientid))
+            if (string.IsNullOrEmpty(usuarioId))
             {
                 return;
             }
@@ -32,7 +31,7 @@ namespace BSI.GestDoc.WebAPI.Providers
             var token = new Token()
             {
                 Id = Helper.GetHash(refreshTokenId),
-                ClienteId = int.Parse(clientid),
+                UsuarioId = int.Parse(usuarioId),
                 IdentityName = context.Ticket.Identity.Name,
                 IssuedUtc = DateTime.UtcNow,
                 ExpiresUtc = DateTime.UtcNow.AddMinutes(Convert.ToDouble(refreshTokenLifeTime))

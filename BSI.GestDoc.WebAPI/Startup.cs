@@ -30,7 +30,7 @@ namespace BSI.GestDoc.WebAPI
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<AuthContext, BSI.GestDoc.WebAPI.Migrations.Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<AuthContext, BSI.GestDoc.WebAPI.Migrations.Configuration>());
 
         }
 

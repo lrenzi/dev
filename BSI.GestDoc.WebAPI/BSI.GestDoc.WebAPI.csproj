@@ -210,24 +210,16 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="AuthContext.cs" />
-    <Compile Include="AuthRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\UsuarioPerfilController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\PropostaController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
-    <Compile Include="Entities\Client.cs" />
-    <Compile Include="Entities\RefreshToken.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
-    <Compile Include="Migrations\201407121205456_AddClientsAndRefreshTokenTables.cs" />
-    <Compile Include="Migrations\201407121205456_AddClientsAndRefreshTokenTables.Designer.cs">
-      <DependentUpon>201407121205456_AddClientsAndRefreshTokenTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\ExternalLoginModels.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
@@ -312,6 +304,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Uploads\Temp\" />
   </ItemGroup>
   <ItemGroup>
@@ -337,11 +331,6 @@
       <Project>{7d5c5e30-acb7-41a1-82ed-fbcba8b6bfd2}</Project>
       <Name>BSI.GestDoc.Util</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407121205456_AddClientsAndRefreshTokenTables.resx">
-      <DependentUpon>201407121205456_AddClientsAndRefreshTokenTables.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

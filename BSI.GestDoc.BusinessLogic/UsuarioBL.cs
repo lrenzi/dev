@@ -81,6 +81,17 @@ namespace BSI.GestDoc.BusinessLogic
                                                     usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId);
         }
 
+        public Usuario ConsultarUsuarioById(string usuarioId)
+        {
+            UsuarioDal UsuarioDal = new UsuarioDal();
+
+            List<Usuario> retorno = UsuarioDal.ConsultarUsuario(usuarioId, string.Empty, string.Empty, string.Empty,
+                                                    string.Empty, string.Empty, string.Empty, string.Empty).ToList();
+            if (retorno.Count == 0)
+                return null;
+            return retorno[0];
+        }
+
         /// <summary>
         /// Altera dados do Usuário
         /// </summary>

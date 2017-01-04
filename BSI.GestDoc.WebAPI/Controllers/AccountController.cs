@@ -1,4 +1,5 @@
-﻿using BSI.GestDoc.WebAPI.Models;
+﻿using BSI.GestDoc.BusinessLogic;
+using BSI.GestDoc.WebAPI.Models;
 using BSI.GestDoc.WebAPI.Results;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -21,7 +22,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private AuthRepository _repo = null;
+        //private AuthRepository _repo = null;
 
         private IAuthenticationManager Authentication
         {
@@ -30,7 +31,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
         public AccountController()
         {
-            _repo = new AuthRepository();
+            //_repo = new AuthRepository();
         }
 
         // POST api/Account/Register
@@ -161,7 +162,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
             return Ok(accessTokenResponse);
         }*/
 
-        [AllowAnonymous]
+        /*[AllowAnonymous]
         [HttpGet]
         [Route("ObtainLocalAccessToken")]
         public async Task<IHttpActionResult> ObtainLocalAccessToken(string provider, string externalAccessToken)
@@ -178,7 +179,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 return BadRequest("Invalid Provider or External Access Token");
             }
 
-            IdentityUser user = await _repo.FindAsync(new UserLoginInfo(provider, verifiedAccessToken.user_id));
+            /*IdentityUser user = await _repo.FindAsync(new UserLoginInfo(provider, verifiedAccessToken.user_id));
 
             bool hasRegistered = user != null;
 
@@ -191,14 +192,15 @@ namespace BSI.GestDoc.WebAPI.Controllers
             var accessTokenResponse = GenerateLocalAccessTokenResponse(user.UserName);
 
             return Ok(accessTokenResponse);
+            return Ok(true);
 
-        }
+        }*/
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _repo.Dispose();
+                
             }
 
             base.Dispose(disposing);
@@ -254,23 +256,23 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 return "redirect_uri is invalid";
             }
 
-            var clientId = GetQueryString(Request, "clienteId");
+            var usuarioId = GetQueryString(Request, "usuarioId");
 
-            if (string.IsNullOrWhiteSpace(clientId))
+            if (string.IsNullOrWhiteSpace(usuarioId))
             {
-                return "ClienteId is required";
+                return "UsuarioId is required";
             }
 
-            var client = _repo.FindClient(clientId);
+            var usuario = new UsuarioBL().ConsultarUsuarioById(usuarioId);
 
-            if (client == null)
+            if (usuario == null)
             {
-                return string.Format("clienteId '{0}' is not registered in the system.", clientId);
+                return string.Format("usuarioId '{0}' is not registered in the system.", usuarioId);
             }
 
-            if (!string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(usuario.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase))
             {
-                return string.Format("The given URL is not allowed by clienteId '{0}' configuration.", clientId);
+                return string.Format("The given URL is not allowed by usuarioId '{0}' configuration.", usuarioId);
             }
 
             redirectUriOutput = redirectUri.AbsoluteUri;
@@ -292,7 +294,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
             return match.Value;
         }
 
-        private async Task<ParsedExternalAccessToken> VerifyExternalAccessToken(string provider, string accessToken)
+        /*private async Task<ParsedExternalAccessToken> VerifyExternalAccessToken(string provider, string accessToken)
         {
             ParsedExternalAccessToken parsedToken = null;
 
@@ -351,9 +353,9 @@ namespace BSI.GestDoc.WebAPI.Controllers
             }
 
             return parsedToken;
-        }
+        }*/
 
-        private JObject GenerateLocalAccessTokenResponse(string userName)
+        /*private JObject GenerateLocalAccessTokenResponse(string userName)
         {
 
             var tokenExpiration = TimeSpan.FromDays(1);
@@ -383,9 +385,9 @@ namespace BSI.GestDoc.WebAPI.Controllers
         );
 
             return tokenResponse;
-        }
+        }*/
 
-        private class ExternalLoginData
+       /* private class ExternalLoginData
         {
             public string LoginProvider { get; set; }
             public string ProviderKey { get; set; }
@@ -419,7 +421,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                     ExternalAccessToken = identity.FindFirstValue("ExternalAccessToken"),
                 };
             }
-        }
+        }*/
 
         #endregion
     }

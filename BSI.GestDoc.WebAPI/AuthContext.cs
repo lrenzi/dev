@@ -1,5 +1,4 @@
-﻿using BSI.GestDoc.WebAPI.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,8 +15,8 @@ namespace BSI.GestDoc.WebAPI
      
         }
 
-        public DbSet<Client> Clients { get; set; }
-        public DbSet<RefreshToken> RefreshTokens { get; set; }
+        //public DbSet<Client> Clients { get; set; }
+        //public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 
 }

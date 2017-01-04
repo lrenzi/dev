@@ -46,7 +46,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
     };
 
     var _consultarUsuarios = function (usuarioId, usuarioLogin, usuarioNome, usuarioEmail, usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId) {
-        debugger;
+        
         return $http.post(serviceBase + "api/Usuario/Consultar?usuarioId=" + usuarioId + "&usuarioLogin="
             + usuarioLogin + "&clienteId=" + '' + "&usuarioNome=" + usuarioNome + "&usuarioEmail=" + usuarioEmail +
             "&usuarioSenha=" + usuarioAtivo + "&usuarioAtivo=" + '' + "&usuPerfilId=" + usuPerfilId + "&usuClienteId=" + usuClienteId)
