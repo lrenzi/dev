@@ -1,6 +1,4 @@
 ﻿using BSI.GestDoc.BusinessLogic;
-using BSI.GestDoc.WebAPI.Models;
-using BSI.GestDoc.WebAPI.Results;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;

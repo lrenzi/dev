@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSI.GestDoc.BusinessLogic",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSI.GestDoc.WebAPI", "BSI.GestDoc.WebAPI\BSI.GestDoc.WebAPI.csproj", "{EE59B92B-B91D-4DD1-9449-C6D41F4D112F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSI.GestDoc.WebAPI.Tests", "BSI.GestDoc.WebAPI.Tests\BSI.GestDoc.WebAPI.Tests.csproj", "{781B6C30-B8B6-4D3D-9FB6-7FD197B9FBC9}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{735BFEEF-8831-4C51-8FB5-E7C945DE0199}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "BSI.GestDoc.Website", "BSI.GestDoc.Website\", "{089A999E-D1C1-4088-A1EA-CE142CD791BD}"
@@ -45,27 +43,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "BSI.GestDoc.Website", "BSI.
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSI.GestDoc.Util", "BSI.GestDoc.Util\BSI.GestDoc.Util.csproj", "{7D5C5E30-ACB7-41A1-82ED-FBCBA8B6BFD2}"
-EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "sql", "sql\", "{1352E3E7-85E3-4243-85E2-D415DD720597}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_2804"
-		Debug.AspNetCompiler.PhysicalPath = "sql\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_2804\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_2804"
-		Release.AspNetCompiler.PhysicalPath = "sql\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_2804\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "2804"
-		SlnRelativePath = "sql\"
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,10 +70,6 @@ Global
 		{EE59B92B-B91D-4DD1-9449-C6D41F4D112F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE59B92B-B91D-4DD1-9449-C6D41F4D112F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE59B92B-B91D-4DD1-9449-C6D41F4D112F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{781B6C30-B8B6-4D3D-9FB6-7FD197B9FBC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{781B6C30-B8B6-4D3D-9FB6-7FD197B9FBC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{781B6C30-B8B6-4D3D-9FB6-7FD197B9FBC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{781B6C30-B8B6-4D3D-9FB6-7FD197B9FBC9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{089A999E-D1C1-4088-A1EA-CE142CD791BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{089A999E-D1C1-4088-A1EA-CE142CD791BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{089A999E-D1C1-4088-A1EA-CE142CD791BD}.Release|Any CPU.ActiveCfg = Debug|Any CPU
@@ -105,10 +78,6 @@ Global
 		{7D5C5E30-ACB7-41A1-82ED-FBCBA8B6BFD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D5C5E30-ACB7-41A1-82ED-FBCBA8B6BFD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D5C5E30-ACB7-41A1-82ED-FBCBA8B6BFD2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1352E3E7-85E3-4243-85E2-D415DD720597}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1352E3E7-85E3-4243-85E2-D415DD720597}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1352E3E7-85E3-4243-85E2-D415DD720597}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{1352E3E7-85E3-4243-85E2-D415DD720597}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,7 +90,6 @@ Global
 		{636FE4FC-6B0A-4E8E-9B01-A6AB6ACF4B39} = {BDE75E5E-9843-4B95-B6B7-33650229586D}
 		{10FA099B-596B-4FDD-BA8F-8D2FA7E3C504} = {D9CA9184-FD13-4433-A963-D57154C531CE}
 		{EE59B92B-B91D-4DD1-9449-C6D41F4D112F} = {D9CA9184-FD13-4433-A963-D57154C531CE}
-		{781B6C30-B8B6-4D3D-9FB6-7FD197B9FBC9} = {D9CA9184-FD13-4433-A963-D57154C531CE}
 		{089A999E-D1C1-4088-A1EA-CE142CD791BD} = {735BFEEF-8831-4C51-8FB5-E7C945DE0199}
 		{7D5C5E30-ACB7-41A1-82ED-FBCBA8B6BFD2} = {D9CA9184-FD13-4433-A963-D57154C531CE}
 	EndGlobalSection
