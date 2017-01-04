@@ -91,7 +91,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         $scope.perfilUsuario = "";
         $scope.senhaUsuario = "";
         $scope.usuarioSenhaConfirmacao = "";
-        $scope.cadastroform.reload();
+        //$scope.cadastroform.reload();
         //$scope.cadastroform.$setPristine();
     }
 
