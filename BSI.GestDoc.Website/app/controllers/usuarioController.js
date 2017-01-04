@@ -115,7 +115,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         $scope.listaUsuarios = usuarioService.ConsultarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail, usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId).then(function (data) {
             $scope.listaUsuarios = data;
 
-        }, function (error) {
+        }, function (err) {
             utilService.mensagemErro(error.data.message);
         });
     }

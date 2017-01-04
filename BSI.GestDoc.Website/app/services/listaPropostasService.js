@@ -16,7 +16,7 @@ app.service("listaPropostasService", ["$http", "$q", 'ngAuthSettings', 'document
                 return $q.reject(response.data);                
             }
         },
-        function (data, status, headers, config) {
+        function (err) {
             utilService.mensagemAlerta("Erro ao acessar o serviço de Consulta de Documentos do Cliente.")
         });
     };
