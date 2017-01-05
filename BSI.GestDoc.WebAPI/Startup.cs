@@ -30,7 +30,6 @@ namespace BSI.GestDoc.WebAPI
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<AuthContext, BSI.GestDoc.WebAPI.Migrations.Configuration>());
 
         }
 
@@ -53,25 +52,6 @@ namespace BSI.GestDoc.WebAPI
             // Token Generation
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(OAuthBearerOptions);
-
-            /*//Configure Google External Login
-            googleAuthOptions = new GoogleOAuth2AuthenticationOptions()
-            {
-                ClientId = "xxxxxx",
-                ClientSecret = "xxxxxx",
-                Provider = new GoogleAuthProvider()
-            };
-            app.UseGoogleAuthentication(googleAuthOptions);
-
-            //Configure Facebook External Login
-            facebookAuthOptions = new FacebookAuthenticationOptions()
-            {
-                AppId = "xxxxxx",
-                AppSecret = "xxxxxx",
-                Provider = new FacebookAuthProvider()
-            };
-            app.UseFacebookAuthentication(facebookAuthOptions);*/
-
         }
     }
 

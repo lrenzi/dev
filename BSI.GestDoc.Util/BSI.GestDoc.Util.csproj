@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper.cs" />
     <Compile Include="MD5Crypt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

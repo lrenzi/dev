@@ -32,8 +32,8 @@ app.factory('authInterceptorService', ['$q', '$injector', '$location', 'localSto
                 }
             }
             authService.logOut();
-            $location.path('/login');
             alert("Não autorizado!");
+            $location.path('/login');
 
         } else if (rejection.status === -1) {
             utilService.mensagemErro("Não foi possível efetuar a conexão com o serviço, favor contactar o administrador!");

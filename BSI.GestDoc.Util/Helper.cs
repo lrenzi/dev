@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
 
-namespace BSI.GestDoc.WebAPI
+namespace BSI.GestDoc.Util
 {
     public class Helper
     {
