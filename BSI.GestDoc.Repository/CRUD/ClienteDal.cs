@@ -19,7 +19,8 @@ namespace BSI.GestDoc.Repository.CRUD
 
         public Cliente Update(Cliente Cliente)
         {
-            throw new NotImplementedException();
+            bool update = SqlHelper.Update<Cliente>(Cliente);
+            return Cliente;
         }
 
         public bool Delete(long ClienteId)

@@ -57,11 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CRUD\ClienteDal.cs" />
-    <Compile Include="DocumentoClienteSituacaoDal.cs" />
-    <Compile Include="UsuarioPerfilDal .cs" />
-    <Compile Include="UsuarioDal.cs" />
-    <Compile Include="SituacaoDocumentoDal.cs" />
-    <Compile Include="TipoDocumentoDal.cs" />
+    <Compile Include="CRUD\UsuarioPerfilDal .cs" />
+    <Compile Include="CRUD\UsuarioDal.cs" />
     <Compile Include="PropostasDal.cs" />
     <Compile Include="AutenticacaoDal.cs" />
     <Compile Include="CRUD\ClienteTipoInformacaoClienteDal.cs" />

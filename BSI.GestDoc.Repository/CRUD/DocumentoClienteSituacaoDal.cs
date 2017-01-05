@@ -51,5 +51,38 @@ namespace BSI.GestDoc.Repository.CRUD
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Lista Situações por Tipo de Documento
+        /// </summary>
+        /// <param name="docCliTipoId"></param>
+        /// <returns></returns>
+        public IEnumerable<DocumentoClienteSituacao> ListarSituacaoDocumentoCliente(int docCliTipoId)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@pDocCliTipoId", docCliTipoId, DbType.Int16, null);
+
+            var listaSituacaoDocumentoCliente = SqlHelper.QuerySP<DocumentoClienteSituacao>("ConsultarDocumentoClienteSituacao", parameters);
+
+            return listaSituacaoDocumentoCliente;
+        }
+
+        /// <summary>
+        /// Recupera lista de situações pelo tipo do documento
+        /// </summary>
+        /// <param name="codTipoDocumento"></param>
+        /// <returns></returns>
+        public IEnumerable<DocumentoClienteSituacao> ListarSituacaoDocumento(string codTipoDocumento)
+        {
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@pDocCliTipoId", codTipoDocumento, DbType.Int16, null);
+
+
+            var listaSituacaoDocumento = SqlHelper.QuerySP<DocumentoClienteSituacao>("ConsultarDocumentoClienteSituacao", parameters);
+
+
+            return listaSituacaoDocumento;
+        }
     }
 }

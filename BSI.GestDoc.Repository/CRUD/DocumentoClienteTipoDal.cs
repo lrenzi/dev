@@ -51,5 +51,21 @@ namespace BSI.GestDoc.Repository.CRUD
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Recupera lista de Tipo de documentos pelo clienteID logado
+        /// </summary>
+        /// <param name="clienteId"></param>
+        /// <returns></returns>
+        public IEnumerable<DocumentoClienteTipo> ListarTipoDocumento(string clienteId)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@ClienteId", clienteId, DbType.Int16, null);
+
+            var listaTipos = SqlHelper.QuerySP<DocumentoClienteTipo>("ConsultarDocumentoClienteTipo", parameters);
+
+
+            return listaTipos;
+        }
     }
 }

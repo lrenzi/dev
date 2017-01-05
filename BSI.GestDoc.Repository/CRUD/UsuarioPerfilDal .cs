@@ -4,7 +4,7 @@ using Dapper;
 using System.Collections.Generic;
 using System.Data;
 
-namespace BSI.GestDoc.Repository.DAL
+namespace BSI.GestDoc.Repository.CRUD
 {
     public class UsuarioPerfilDal
     {

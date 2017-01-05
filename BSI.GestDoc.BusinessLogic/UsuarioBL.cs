@@ -1,5 +1,5 @@
 ﻿using BSI.GestDoc.Entity;
-using BSI.GestDoc.Repository.DAL;
+using BSI.GestDoc.Repository.CRUD;
 using System.Collections.Generic;
 using System.Linq;
 

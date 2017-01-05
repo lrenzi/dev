@@ -1,4 +1,5 @@
 ﻿using BSI.GestDoc.Entity;
+using BSI.GestDoc.Repository.CRUD;
 using BSI.GestDoc.Repository.DAL;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace BSI.GestDoc.BusinessLogic
         /// <returns></returns>
         public IEnumerable<DocumentoClienteTipo> ListarDocumentoTipoSituacao(string clienteId)
         {
-            TipoDocumentoDal Dal = new TipoDocumentoDal();
+            DocumentoClienteTipoDal Dal = new DocumentoClienteTipoDal();
             IEnumerable<DocumentoClienteTipo> listaTipoDocumento = null;
 
             //Recupera lista de Tipo     
