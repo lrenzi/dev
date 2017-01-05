@@ -27,7 +27,7 @@ namespace BSI.GestDoc.BusinessLogic
             IEnumerable<DocumentoClienteDados> documentosClienteDados = new List<DocumentoClienteDados>();
 
             //recupera os tipos, e situações de cada tipo de documentos, do cliente logado
-            IEnumerable<DocumentoClienteTipo> listaDocumentosTipo = this.ListarDocumentoTipoSituacao(usuarioId);
+            IEnumerable<DocumentoClienteTipo> listaDocumentosTipo = this.ListarDocumentoTipoSituacao(clientId);
 
             //Recupera lista de DocumentosDados  pelo codigo do cliente logado   
             documentosClienteDados = Dal.ListarPropostas(usuarioId, clientId, numeroProposta);
