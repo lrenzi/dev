@@ -1,6 +1,7 @@
 ﻿using BSI.Dapper.Helper;
 using BSI.GestDoc.Entity;
 using Dapper;
+using DapperExtensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,24 +11,47 @@ namespace BSI.GestDoc.Repository.CRUD
 {
     public class ClienteTipoInformacaoClienteDal
     {
+        #region CRUD
+
         public Int64 Insert(ClienteTipoInformacaoCliente ClienteTipoInformacaoCliente)
         {
             Int64 recordId = SqlHelper.InsertWithReturnId(ClienteTipoInformacaoCliente);
             return recordId;
         }
 
-        public IList<ClienteTipoInformacaoCliente> GetAllClienteTipoInformacaoCliente()
+        public ClienteTipoInformacaoCliente Update(ClienteTipoInformacaoCliente ClienteTipoInformacaoCliente)
+        {
+            bool update = SqlHelper.Update<ClienteTipoInformacaoCliente>(ClienteTipoInformacaoCliente);
+            return ClienteTipoInformacaoCliente;
+        }
+
+        public bool Delete(long pCliTipoInfoCliId)
+        {
+            var pg = new PredicateGroup { Operator = GroupOperator.And, Predicates = new List<IPredicate>() };
+            pg.Predicates.Add(Predicates.Field<ClienteTipoInformacaoCliente>(f => f.CliTipoInfoCliId, Operator.Eq, pCliTipoInfoCliId, true));
+
+            return SqlHelper.Delete<ClienteTipoInformacaoCliente>(pg);
+        }
+
+        public IList<ClienteTipoInformacaoCliente> GetAll()
         {
             return SqlHelper.GetAll<ClienteTipoInformacaoCliente>();
         }
 
-        public IEnumerable<ClienteTipoInformacaoCliente> GetAllClienteTipoInformacaoCliente(string spName, string connectionString)
+        public ClienteTipoInformacaoCliente GetClienteTipoInformacaoCliente(int pCliTipoInfoCliId)
         {
-            var user = SqlHelper.QuerySP<ClienteTipoInformacaoCliente>(spName, null, null, null, false, 0);
-            return user;
+            var p = new DynamicParameters();
+            p.Add("@pCliTipoInfoCliId", pCliTipoInfoCliId, DbType.String, null);
+
+            var Cliente = SqlHelper.QuerySP<ClienteTipoInformacaoCliente>("ConsultarClienteTipoInformacaoCliente", p, null, null, false, 0);
+            return (ClienteTipoInformacaoCliente)Cliente.FirstOrDefault();
         }
 
-        public IEnumerable<ClienteTipoInformacaoCliente> GetAllClienteTipoInformacaoClienteByIdCliente(Int64 pClienteId)
+        #endregion
+
+        #region Customizados
+
+        public IEnumerable<ClienteTipoInformacaoCliente> GetAllByIdCliente(Int64 pClienteId)
         {
             var p = new DynamicParameters();
             p.Add("@pClienteId", pClienteId, DbType.String, null);
@@ -36,20 +60,6 @@ namespace BSI.GestDoc.Repository.CRUD
             return ClienteTipoInformacaoCliente;
         }
 
-        public ClienteTipoInformacaoCliente UpdateClienteTipoInformacaoCliente(ClienteTipoInformacaoCliente ClienteTipoInformacaoCliente)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ClienteTipoInformacaoCliente GetByClienteTipoInformacaoClienteId(string spName, DynamicParameters ClienteTipoInformacaoClienteId, string connectionString)
-        {
-            var user = SqlHelper.QuerySP<ClienteTipoInformacaoCliente>(spName, ClienteTipoInformacaoClienteId, null, null, false, 0);
-            return (ClienteTipoInformacaoCliente)user.FirstOrDefault();
-        }
-
-        public ClienteTipoInformacaoCliente GetClienteTipoInformacaoCliente(int docCliTipoId)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }

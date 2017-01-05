@@ -11,6 +11,8 @@ namespace BSI.GestDoc.Repository.CRUD
 {
     public class ClienteDal
     {
+        #region CRUD
+
         public Int64 Insert(Cliente Cliente)
         {
             Int64 recordId = SqlHelper.InsertWithReturnId(Cliente);
@@ -23,15 +25,15 @@ namespace BSI.GestDoc.Repository.CRUD
             return Cliente;
         }
 
-        public bool Delete(long ClienteId)
+        public bool Delete(long pClienteId)
         {
             var pg = new PredicateGroup { Operator = GroupOperator.And, Predicates = new List<IPredicate>() };
-            pg.Predicates.Add(Predicates.Field<Cliente>(f => f.ClienteId, Operator.Eq, ClienteId, true));
+            pg.Predicates.Add(Predicates.Field<Cliente>(f => f.ClienteId, Operator.Eq, pClienteId, true));
 
-            return SqlHelper.Delete<Token>(pg);
+            return SqlHelper.Delete<Cliente>(pg);
         }
 
-        public IList<Cliente> GetAllCliente()
+        public IList<Cliente> GetAll()
         {
             return SqlHelper.GetAll<Cliente>();
         }
@@ -44,5 +46,7 @@ namespace BSI.GestDoc.Repository.CRUD
             var Cliente = SqlHelper.QuerySP<Cliente>("ConsultarCliente", p, null, null, false, 0);
             return (Cliente)Cliente.FirstOrDefault();
         }
+
+        #endregion
     }
 }

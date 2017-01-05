@@ -27,7 +27,7 @@ namespace BSI.GestDoc.BusinessLogic
             UsuarioDal UsuarioDal = new UsuarioDal();
             IEnumerable<Usuario> userNameSingle = null;
             dynamic retorno = null;
-
+            Usuario usuario = new Usuario();
             //Consulta o usuário pelo "userName", não é permitido o cadastro de dois usuários com mesmo "userName"
             userNameSingle = this.ConsultarUsuario(null, userNameUsuario, null, null, null, null, null, null);
 
@@ -35,15 +35,25 @@ namespace BSI.GestDoc.BusinessLogic
             if (userNameSingle == null || userNameSingle.Count() == 0)
             {
                 //usado para cadastro do usuario
-                string usuarioAtivo = "1";
-                retorno = UsuarioDal.CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, Util.UtilCriptografia.GetMd5Hash(senhaUsuario), usuarioAtivo, clientId);
+                
+                usuario.UsuarioLogin = userNameUsuario;
+                usuario.UsuarioNome = nomeUsuario;
+                usuario.UsuarioEmail = emailUsuario;
+                usuario.UsuarioSenha = Util.UtilCriptografia.GetMd5Hash(senhaUsuario);
+                usuario.UsuarioAtivo = true;
+                usuario.UsuPerfilId = int.Parse(perfilUsuario);
+                usuario.ClienteId = int.Parse(clientId);
+                usuario.AllowedOrigin = "*";
+                retorno = UsuarioDal.Insert(usuario);
             }
             else
             {
                 retorno = "Nome de usuário já existente!";
             }
 
-            return retorno;
+            usuario = UsuarioDal.GetUsuario(retorno);
+
+            return usuario;
         }
 
         /// <summary>
@@ -78,18 +88,13 @@ namespace BSI.GestDoc.BusinessLogic
             UsuarioDal UsuarioDal = new UsuarioDal();
 
             return UsuarioDal.ConsultarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
-                                                    usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId);
+                                                    usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId, null);
         }
 
         public Usuario ConsultarUsuarioById(string usuarioId)
         {
             UsuarioDal UsuarioDal = new UsuarioDal();
-
-            List<Usuario> retorno = UsuarioDal.ConsultarUsuario(usuarioId, string.Empty, string.Empty, string.Empty,
-                                                    string.Empty, string.Empty, string.Empty, string.Empty).ToList();
-            if (retorno.Count == 0)
-                return null;
-            return retorno[0];
+            return UsuarioDal.GetUsuario(long.Parse(usuarioId));
         }
 
         /// <summary>
@@ -101,11 +106,24 @@ namespace BSI.GestDoc.BusinessLogic
                                                     string usuarioSenha, string usuarioAtivo, string usuPerfilId, string usuClienteId)
         {
             UsuarioDal UsuarioDal = new UsuarioDal();
+            Usuario usuario = new Usuario();
+            //usuarioAtivo = usuarioAtivo != null && usuarioAtivo.Trim() != "" && usuarioAtivo == "true" ? "1" : "0";
+            usuario = UsuarioDal.GetUsuario(long.Parse(usuarioId));
 
-            usuarioAtivo = usuarioAtivo != null && usuarioAtivo.Trim() != "" && usuarioAtivo == "true" ? "1" : "0";
+            //usado para cadastro do usuario
+            usuario.UsuarioId = long.Parse(usuarioId);
+            usuario.UsuarioLogin = usuarioLogin;
+            usuario.UsuarioNome = usuarioNome;
+            usuario.UsuarioEmail = usuarioEmail;
+            if (!string.IsNullOrEmpty(usuarioSenha))
+                usuario.UsuarioSenha = Util.UtilCriptografia.GetMd5Hash(usuarioSenha);
+            usuario.UsuarioAtivo = bool.Parse(usuarioAtivo != null && usuarioAtivo.Trim() != "" && usuarioAtivo == "true" ? "true" : "false");
+            usuario.UsuPerfilId = int.Parse(usuPerfilId);
+            usuario.ClienteId = int.Parse(usuClienteId);
+            return UsuarioDal.Update(usuario);
 
-            return UsuarioDal.AlterarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
-                                                    Util.UtilCriptografia.GetMd5Hash(usuarioSenha), usuarioAtivo, usuPerfilId, usuClienteId);
+            /*return UsuarioDal.AlterarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
+                                                    Util.UtilCriptografia.GetMd5Hash(usuarioSenha), usuarioAtivo, usuPerfilId, usuClienteId);*/
         }
     }
 }

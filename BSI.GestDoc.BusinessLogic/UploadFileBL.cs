@@ -25,7 +25,7 @@ namespace BSI.GestDoc.BusinessLogic
 
         public string RecuperarCaminhoPastaDocumentosByDocClienteId(long docClienteId_)
         {
-            DocumentoCliente _documentoCliente = new DocumentoClienteDal().GetDocumentoClienteByDocClienteId(docClienteId_);
+            DocumentoCliente _documentoCliente = new DocumentoClienteDal().GetDocumentoCliente(docClienteId_);
             if (_documentoCliente == null)
                 throw new BusinessException.BusinessException(Util.EnumTipoMensagem.Alerta, "Erro ao consultar o caminho do arquivo. Documento do Cliente não identificado.");
             return RecuperarCaminhoPastaDocumentosByClienteId(_documentoCliente.ClienteId);
@@ -33,7 +33,7 @@ namespace BSI.GestDoc.BusinessLogic
 
         public List<DocumentoClienteTipo> RetornarDocumentoClienteTipo(int clienteId_)
         {
-            return new DocumentoClienteTipoDal().GetAllDocumentoClienteTipoByIdCliente(clienteId_).ToList();
+            return new DocumentoClienteTipoDal().GetAllByIdCliente(clienteId_).ToList();
         }
 
         public virtual DocumentoCliente  EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
@@ -43,7 +43,7 @@ namespace BSI.GestDoc.BusinessLogic
 
         public virtual DocumentoCliente RetornarArquivo(DocumentoCliente documentoCliente_)
         {
-            return new DocumentoClienteDal().GetDocumentoClienteByDocClienteId(documentoCliente_.DocClienteId);
+            return new DocumentoClienteDal().GetDocumentoCliente(documentoCliente_.DocClienteId);
         }
 
         

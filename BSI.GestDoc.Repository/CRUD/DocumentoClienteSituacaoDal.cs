@@ -1,6 +1,7 @@
 ﻿using BSI.Dapper.Helper;
 using BSI.GestDoc.Entity;
 using Dapper;
+using DapperExtensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,22 +11,45 @@ namespace BSI.GestDoc.Repository.CRUD
 {
     public class DocumentoClienteSituacaoDal
     {
-        public Int64 InsertDocumentoClienteSituacao(DocumentoClienteSituacao DocumentoClienteSituacao)
+        #region CRUD
+
+        public Int64 Insert(DocumentoClienteSituacao DocumentoClienteSituacao)
         {
             Int64 recordId = SqlHelper.InsertWithReturnId(DocumentoClienteSituacao);
             return recordId;
         }
 
-        public IList<DocumentoClienteSituacao> GetAllDocumentoClienteSituacao()
+        public DocumentoClienteSituacao Update(DocumentoClienteSituacao DocumentoClienteSituacao)
+        {
+            bool update = SqlHelper.Update<DocumentoClienteSituacao>(DocumentoClienteSituacao);
+            return DocumentoClienteSituacao;
+        }
+
+
+        public bool Delete(long pDocCliSituId)
+        {
+            var pg = new PredicateGroup { Operator = GroupOperator.And, Predicates = new List<IPredicate>() };
+            pg.Predicates.Add(Predicates.Field<DocumentoClienteSituacao>(f => f.DocCliSituId, Operator.Eq, pDocCliSituId, true));
+
+            return SqlHelper.Delete<DocumentoClienteSituacao>(pg);
+        }
+
+        public IList<DocumentoClienteSituacao> GetAll()
         {
             return SqlHelper.GetAll<DocumentoClienteSituacao>();
         }
 
-        public IEnumerable<DocumentoClienteSituacao> GetAllDocumentoClienteSituacao(string spName, string connectionString)
+        public DocumentoClienteSituacao GetDocumentoClienteSituacao(int pDocCliSituId)
         {
-            var user = SqlHelper.QuerySP<DocumentoClienteSituacao>(spName, null, null, null, false, 0);
-            return user;
+            var p = new DynamicParameters();
+            p.Add("@pDocCliSituId", pDocCliSituId, DbType.Int64, ParameterDirection.Input, null);
+            var documentoCliente = SqlHelper.QuerySP<DocumentoClienteSituacao>("ConsultarDocumentoClienteSituacao", p, null, null, false, 0);
+            return (DocumentoClienteSituacao)documentoCliente.FirstOrDefault();
         }
+
+        #endregion
+
+        #region Customizados
 
         public IEnumerable<DocumentoClienteSituacao> GetAllDocumentoClienteSituacaoByDocCliTipoId(int pDocCliTipoId)
         {
@@ -34,22 +58,6 @@ namespace BSI.GestDoc.Repository.CRUD
 
             var DocumentoClienteSituacao = SqlHelper.QuerySP<DocumentoClienteSituacao>("ConsultarDocumentoClienteSituacao", p, null, null, false, 0);
             return DocumentoClienteSituacao;
-        }
-
-        public DocumentoClienteSituacao UpdateDocumentoClienteSituacao(DocumentoClienteSituacao DocumentoClienteSituacao)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DocumentoClienteSituacao GetByDocumentoClienteSituacaoId(string spName, DynamicParameters DocumentoClienteSituacaoId, string connectionString)
-        {
-            var user = SqlHelper.QuerySP<DocumentoClienteSituacao>(spName, DocumentoClienteSituacaoId, null, null, false, 0);
-            return (DocumentoClienteSituacao)user.FirstOrDefault();
-        }
-
-        public DocumentoClienteSituacao GetDocumentoClienteSituacao(int docCliTipoId)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -63,7 +71,6 @@ namespace BSI.GestDoc.Repository.CRUD
             parameters.Add("@pDocCliTipoId", docCliTipoId, DbType.Int16, null);
 
             var listaSituacaoDocumentoCliente = SqlHelper.QuerySP<DocumentoClienteSituacao>("ConsultarDocumentoClienteSituacao", parameters);
-
             return listaSituacaoDocumentoCliente;
         }
 
@@ -78,11 +85,10 @@ namespace BSI.GestDoc.Repository.CRUD
             var parameters = new DynamicParameters();
             parameters.Add("@pDocCliTipoId", codTipoDocumento, DbType.Int16, null);
 
-
             var listaSituacaoDocumento = SqlHelper.QuerySP<DocumentoClienteSituacao>("ConsultarDocumentoClienteSituacao", parameters);
-
-
             return listaSituacaoDocumento;
         }
+
+        #endregion
     }
 }

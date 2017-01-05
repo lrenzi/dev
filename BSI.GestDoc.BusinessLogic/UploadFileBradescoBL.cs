@@ -42,7 +42,7 @@ namespace BSI.GestDoc.BusinessLogic
                     throw new Exception("Valor do campo contrato deve ser numérico.");
                 }
                 _documentoClienteDados.ClienteId = documentoCliente_.ClienteId;
-                _documentoClienteDados.TipoInfoCliId = (new ClienteTipoInformacaoClienteDal().GetAllClienteTipoInformacaoClienteByIdCliente(_documentoClienteDados.ClienteId).First()).TipoInfoCliId;
+                _documentoClienteDados.TipoInfoCliId = (new ClienteTipoInformacaoClienteDal().GetAllByIdCliente(_documentoClienteDados.ClienteId).First()).TipoInfoCliId;
             }
             catch (Exception ex)
             {
@@ -74,7 +74,7 @@ namespace BSI.GestDoc.BusinessLogic
 
             #region 4 - Insere o numero proposta em base
             //Se o numero da proposta está OK e ainda não existe na base, irá realizar o insert na base, caso já exista irá utilizar o ID do numero de proposta que já existe na base
-            List<DocumentoClienteDados> _documentosClienteDados = new DocumentoClienteDadosDal().GetAllDocumentoClienteDadosByDocCliDadosValor(_documentoClienteDados.DocCliDadosValor).ToList();
+            List<DocumentoClienteDados> _documentosClienteDados = new DocumentoClienteDadosDal().GetAllByDocCliDadosValor(_documentoClienteDados.DocCliDadosValor).ToList();
             if (_documentosClienteDados.Count == 0)
             {
                 _documentoClienteDados = new EnviarArquivoDal().InserirDocumentoClienteDados(_documentoClienteDados);
@@ -98,20 +98,11 @@ namespace BSI.GestDoc.BusinessLogic
                     System.IO.File.Delete(WorkingFolder + "\\" + _documentosClientes.First().DocClienteNomeArquivoSalvo);
                 //Atualiza
                 documentoCliente_.DocClienteId = _documentosClientes.First().DocClienteId;
-                new DocumentoClienteDal().UpdateDocumentoCliente(documentoCliente_);
+                new DocumentoClienteDal().Update(documentoCliente_);
             }
             else //Insere
             {
-                /*    documentoCliente_.DocumentoClienteSituacao = new DocumentoClienteSituacao()
-                    { DocCliSituId = documentoCliente_.DocCliSituId };
-
-                documentoCliente_.DocumentoClienteTipo = new DocumentoClienteTipo()
-                { DocCliSituId = documentoCliente_.DocCliSituId };
-
-                documentoCliente_.DocumentoClienteSituacao = new DocumentoClienteSituacao()
-                { DocCliSituId = documentoCliente_.DocCliSituId };*/
-
-                documentoCliente_ = (DocumentoCliente)new DocumentoClienteDal().InsertDocumentoCliente(documentoCliente_);
+                documentoCliente_ = (DocumentoCliente)new DocumentoClienteDal().Insert(documentoCliente_);
             }
             #endregion
 
@@ -122,7 +113,7 @@ namespace BSI.GestDoc.BusinessLogic
                 DocumentoClienteDadosDoc _documentoClienteDadosDoc = new DocumentoClienteDadosDoc();
                 _documentoClienteDadosDoc.DocClienteId = documentoCliente_.DocClienteId;
                 _documentoClienteDadosDoc.DocCliDadosId = _documentoClienteDados.DocCliDadosId;
-                _documentoClienteDadosDoc = new DocumentoClienteDadosDocDal().InsertDocumentoClienteDadosDoc(_documentoClienteDadosDoc);
+                _documentoClienteDadosDoc = new DocumentoClienteDadosDocDal().Insert(_documentoClienteDadosDoc);
             }
 
             #endregion

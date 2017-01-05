@@ -20,15 +20,19 @@ namespace BSI.GestDoc.Entity
         public bool UsuarioAtivo { get; set; }
         public int UsuPerfilId { get; set; }
         public int ClienteId { get; set; }
-        public int StatusProcessamento { get; set; }
-        public string MensagemProcessamento { get; set; }
-
         public string AllowedOrigin { get; set; }
 
+
+        #region Auxiliares
+        [DapperAttribute.Write(false)]
         public string UsuarioAtivoDescricao
         {
             get { return UsuarioAtivo ? "Ativo" : "Inativo"; }
         }
+        [DapperAttribute.Write(false)]
+        public int StatusProcessamento { get; set; }
+        [DapperAttribute.Write(false)]
+        public string MensagemProcessamento { get; set; }
 
         [DapperAttribute.Write(false)]
         public Cliente Cliente { get; set; }
@@ -37,5 +41,6 @@ namespace BSI.GestDoc.Entity
 
         [DapperAttribute.Write(false)]
         public ApplicationTypes ApplicationType { get { return ApplicationTypes.JavaScript; } }
+        #endregion
     }
 }

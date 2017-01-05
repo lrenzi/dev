@@ -58,10 +58,10 @@ namespace BSI.GestDoc.BusinessLogic
         public IEnumerable<DocumentoClienteTipo> ListarDocumentoTipoSituacao(string clienteId)
         {
             DocumentoClienteTipoDal Dal = new DocumentoClienteTipoDal();
-            IEnumerable<DocumentoClienteTipo> listaTipoDocumento = null;
+            List<DocumentoClienteTipo> listaTipoDocumento = null;
 
             //Recupera lista de Tipo     
-            listaTipoDocumento = Dal.ListarTipoDocumento(clienteId);
+            listaTipoDocumento = Dal.GetAllByIdCliente(int.Parse(clienteId)).ToList();
 
             foreach (var tipoDocumento in listaTipoDocumento)
             {

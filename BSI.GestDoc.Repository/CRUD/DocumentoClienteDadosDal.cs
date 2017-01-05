@@ -1,6 +1,7 @@
 ﻿using BSI.Dapper.Helper;
 using BSI.GestDoc.Entity;
 using Dapper;
+using DapperExtensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,33 +11,48 @@ namespace BSI.GestDoc.Repository.CRUD
 {
     public class DocumentoClienteDadosDal
     {
-        public Int64 InsertDocumentoClienteDados(DocumentoClienteDados DocumentoClienteDados)
+        #region CRUD
+
+        public Int64 Insert(DocumentoClienteDados DocumentoClienteDados)
         {
             Int64 recordId = SqlHelper.InsertWithReturnId(DocumentoClienteDados);
             return recordId;
         }
 
-        public IList<DocumentoClienteDados> GetAllDocumentoClienteDados()
+        public DocumentoClienteDados Update(DocumentoClienteDados DocumentoClienteDados)
+        {
+            bool update = SqlHelper.Update<DocumentoClienteDados>(DocumentoClienteDados);
+            return DocumentoClienteDados;
+        }
+
+        public bool Delete(long pDocCliDadosId)
+        {
+            var pg = new PredicateGroup { Operator = GroupOperator.And, Predicates = new List<IPredicate>() };
+            pg.Predicates.Add(Predicates.Field<DocumentoClienteDados>(f => f.DocCliDadosId, Operator.Eq, pDocCliDadosId, true));
+
+            return SqlHelper.Delete<DocumentoClienteDados>(pg);
+        }
+
+        public IList<DocumentoClienteDados> GetAll()
         {
             return SqlHelper.GetAll<DocumentoClienteDados>();
         }
 
-        public IEnumerable<DocumentoClienteDados> GetAllDocumentoClienteDados(string spName, string connectionString)
-        {
-            var user = SqlHelper.QuerySP<DocumentoClienteDados>(spName, null, null, null, false, 0);
-            return user;
-        }
 
-        public IEnumerable<DocumentoClienteDados> GetAllDocumentoClienteDadosByDocCliDadosId(long docCliDadosId)
+        public DocumentoClienteDados GetDocumentoClienteDados(long pDocCliDadosId)
         {
             var p = new DynamicParameters();
-            p.Add("@DocCliDadosId", docCliDadosId, DbType.Int64, null);
+            p.Add("@pDocCliDadosId", pDocCliDadosId, DbType.Int64, null);
 
-            var DocumentoClienteDados = SqlHelper.QuerySP<DocumentoClienteDados>("ConsultarDocumentoClienteDados", p, null, null, false, 0);
-            return DocumentoClienteDados;
+            var Cliente = SqlHelper.QuerySP<DocumentoClienteDados>("ConsultarDocumentoClienteDados", p, null, null, false, 0);
+            return (DocumentoClienteDados)Cliente.FirstOrDefault();
         }
 
-        public IEnumerable<DocumentoClienteDados> GetAllDocumentoClienteDadosByDocCliDadosValor(string pDocCliDadosValor)
+        #endregion
+
+        #region Customizados
+
+        public IEnumerable<DocumentoClienteDados> GetAllByDocCliDadosValor(string pDocCliDadosValor)
         {
             var p = new DynamicParameters();
             p.Add("@pDocCliDadosValor", pDocCliDadosValor, DbType.String, ParameterDirection.Input, 100);
@@ -45,20 +61,6 @@ namespace BSI.GestDoc.Repository.CRUD
             return DocumentoClienteDados;
         }
 
-        public DocumentoClienteDados UpdateDocumentoClienteDados(DocumentoClienteDados DocumentoClienteDados)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DocumentoClienteDados GetByDocumentoClienteDadosId(string spName, DynamicParameters DocumentoClienteDadosId, string connectionString)
-        {
-            var user = SqlHelper.QuerySP<DocumentoClienteDados>(spName, DocumentoClienteDadosId, null, null, false, 0);
-            return (DocumentoClienteDados)user.FirstOrDefault();
-        }
-
-        public DocumentoClienteDados GetDocumentoClienteDados(int docCliTipoId)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BSI.Dapper.Helper;
 using BSI.GestDoc.Entity;
 using Dapper;
+using DapperExtensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,25 +11,46 @@ namespace BSI.GestDoc.Repository.CRUD
 {
     public class DocumentoClienteDal
     {
-        public DocumentoCliente InsertDocumentoCliente(DocumentoCliente DocumentoCliente)
+        #region CRUD
+        public DocumentoCliente Insert(DocumentoCliente DocumentoCliente)
         {
             Int64 recordId = SqlHelper.InsertWithReturnId(DocumentoCliente);
             DocumentoCliente.ClienteId = recordId;
             return DocumentoCliente;
         }
 
-        public IList<DocumentoCliente> GetAllDocumentoCliente()
+        public DocumentoCliente Update(DocumentoCliente DocumentoCliente)
+        {
+            bool update = SqlHelper.Update<DocumentoCliente>(DocumentoCliente);
+            return DocumentoCliente;
+        }
+
+        public bool Delete(long pDocClienteId)
+        {
+            var pg = new PredicateGroup { Operator = GroupOperator.And, Predicates = new List<IPredicate>() };
+            pg.Predicates.Add(Predicates.Field<DocumentoCliente>(f => f.DocClienteId, Operator.Eq, pDocClienteId, true));
+
+            return SqlHelper.Delete<DocumentoCliente>(pg);
+        }
+
+        public IList<DocumentoCliente> GetAll()
         {
             return SqlHelper.GetAll<DocumentoCliente>();
         }
 
-        public IEnumerable<DocumentoCliente> GetAllDocumentoCliente(string spName, string connectionString)
+        public DocumentoCliente GetDocumentoCliente(Int64 pDocClienteId)
         {
-            var user = SqlHelper.QuerySP<DocumentoCliente>(spName, null, null, null, false, 0);
-            return user;
+            var p = new DynamicParameters();
+            p.Add("@pDocClienteId", pDocClienteId, DbType.Int64, ParameterDirection.Input, null);
+            var documentoCliente = SqlHelper.QuerySP<DocumentoCliente>("ConsultarDocumentoCliente", p, null, null, false, 0);
+            return (DocumentoCliente)documentoCliente.FirstOrDefault();
         }
 
-        public IEnumerable<DocumentoCliente> GetAllDocumentoClienteByUsuarioIdDocCliTipoIdDocCliSituId(long idUsuario, int docCliTipoId, int docCliSituId)
+        #endregion
+
+        #region Customizados
+
+        public IEnumerable<DocumentoCliente> GetAllByUsuarioIdDocCliTipoIdDocCliSituId(long idUsuario, int docCliTipoId, int docCliSituId)
         {
             var p = new DynamicParameters();
             p.Add("@UsuarioId", idUsuario, DbType.Int64, null);
@@ -39,18 +61,8 @@ namespace BSI.GestDoc.Repository.CRUD
             return DocumentoCliente;
         }
 
-        public DocumentoCliente UpdateDocumentoCliente(DocumentoCliente DocumentoCliente)
-        {
-            bool update = SqlHelper.Update<DocumentoCliente>(DocumentoCliente);
-            return DocumentoCliente;
-        }
 
-        public DocumentoCliente GetDocumentoClienteByDocClienteId(Int64 pDocClienteId)
-        {
-            var p = new DynamicParameters();
-            p.Add("@pDocClienteId", pDocClienteId, DbType.Int64, ParameterDirection.Input, null);
-            var documentoCliente = SqlHelper.QuerySP<DocumentoCliente>("ConsultarDocumentoCliente", p, null, null, false, 0);
-            return (DocumentoCliente)documentoCliente.FirstOrDefault();
-        }
+
+        #endregion
     }
 }
