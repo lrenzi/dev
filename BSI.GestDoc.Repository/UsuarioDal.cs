@@ -78,10 +78,6 @@ namespace BSI.GestDoc.Repository.DAL
 
             return listaUsuarios;
 
-            //var listaUsuarios = SqlHelper.QuerySP<Usuario>("ConsultarUsuario", parameters);
-
-
-            //return listaUsuarios;
         }
 
         /// <summary>

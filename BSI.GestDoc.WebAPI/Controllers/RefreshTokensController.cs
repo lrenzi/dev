@@ -26,7 +26,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         }
 
         [System.Web.Http.Authorize]
-        [Route("")]
+        [Authorize(Users = "Admin")]
         public async Task<IHttpActionResult> Delete(string tokenId)
         {
             var existingToken = _auth.GetAllRefreshTokens().ToList().FindAll(r => r.Id == tokenId).SingleOrDefault();

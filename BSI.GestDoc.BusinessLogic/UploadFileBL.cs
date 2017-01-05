@@ -14,6 +14,23 @@ namespace BSI.GestDoc.BusinessLogic
         {
         }
 
+        public string RecuperarCaminhoPastaDocumentosByClienteId(long clienteId_) {
+            Cliente _cliente = new ClienteDal().GetCliente(clienteId_);
+            if (_cliente == null)
+                throw new BusinessException.BusinessException(Util.EnumTipoMensagem.Alerta, "Erro ao consultar o caminho do arquivo. Cliente não identificado.");
+            if (string.IsNullOrEmpty(_cliente.ClientePastaDocumentos))
+                throw new BusinessException.BusinessException(Util.EnumTipoMensagem.Alerta, "Erro ao consultar o caminho do arquivo. Caminho não cadastrado.");
+            return _cliente.ClientePastaDocumentos;
+        }
+
+        public string RecuperarCaminhoPastaDocumentosByDocClienteId(long docClienteId_)
+        {
+            DocumentoCliente _documentoCliente = new DocumentoClienteDal().GetDocumentoClienteByDocClienteId(docClienteId_);
+            if (_documentoCliente == null)
+                throw new BusinessException.BusinessException(Util.EnumTipoMensagem.Alerta, "Erro ao consultar o caminho do arquivo. Documento do Cliente não identificado.");
+            return RecuperarCaminhoPastaDocumentosByClienteId(_documentoCliente.ClienteId);
+        }
+
         public List<DocumentoClienteTipo> RetornarDocumentoClienteTipo(int clienteId_)
         {
             return new DocumentoClienteTipoDal().GetAllDocumentoClienteTipoByIdCliente(clienteId_).ToList();

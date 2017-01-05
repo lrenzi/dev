@@ -208,6 +208,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\bradfin\" />
+    <Folder Include="Uploads\hospeins\" />
     <Folder Include="Uploads\Temp\" />
   </ItemGroup>
   <ItemGroup>

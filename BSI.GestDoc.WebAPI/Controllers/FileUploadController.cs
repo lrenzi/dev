@@ -24,36 +24,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
     [System.Web.Http.RoutePrefix("api/FileUpload")]
     public class FileUploadController : ApiController
     {
-        //public HttpResponseMessage Get()
-        //{
-        //    var body = RenderViewToString("FileUpload", "~/Views/FileUpload/Index.cshtml", new object());
-        //    return Request.CreateResponse(HttpStatusCode.OK, new { content = body });
-        //}
-
-        //public static string RenderViewToString(string controllerName, string viewName, object viewData)
-        //{
-        //    using (var writer = new StringWriter())
-        //    {
-        //        var routeData = new RouteData();
-        //        routeData.Values.Add("controller", controllerName);
-        //        var fakeControllerContext = new ControllerContext(new HttpContextWrapper(new HttpContext(new HttpRequest(null, "http://google.com", null), new HttpResponse(null))), routeData, new FakeController());
-        //        var razorViewEngine = new RazorViewEngine();
-        //        var razorViewResult = razorViewEngine.FindView(fakeControllerContext, viewName, "", false);
-
-        //        var viewContext = new ViewContext(fakeControllerContext, razorViewResult.View, new ViewDataDictionary(viewData), new TempDataDictionary(), writer);
-        //        razorViewResult.View.Render(viewContext, writer);
-        //        return writer.ToString();
-        //    }
-        //}
-
-        //[System.Web.Http.Route("EnviarArquivos")]
-        //[System.Web.Http.HttpPost]
-        //[ValidateMimeMultipartContentFilter]
-        //public async Task<FileResult> EnviarArquivos(dynamic parametro)
-        //{
-        //    UploadFile upload = new WebAPI.UploadFile();
-        //    return await new UploadFile().GetFile(Request);
-        //}
+        private string WorkingFolder = HttpRuntime.AppDomainAppPath + ConfigurationManager.AppSettings["DiretorioUpload"];
 
         [System.Web.Http.Authorize]
         [System.Web.Http.Route("RetornarArquivo")]
@@ -62,8 +33,10 @@ namespace BSI.GestDoc.WebAPI.Controllers
         {
             docClienteId = MD5Crypt.Descriptografar(docClienteId);
 
-            DocumentoCliente _documentoCliente = new UploadFileBL().RetornarArquivo(new DocumentoCliente() { DocClienteId = int.Parse(docClienteId) });
+            DocumentoCliente _documentoCliente = new UploadFileBL().RetornarArquivo(new DocumentoCliente() { DocClienteId = long.Parse(docClienteId) });
             UploadFileBL uploadFileBl = new UploadFileBL();
+
+            WorkingFolder += "\\" + new UploadFileBL().RecuperarCaminhoPastaDocumentosByDocClienteId(long.Parse(docClienteId));
 
             var file = WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo;
             HttpResponseMessage result = null;
@@ -87,12 +60,12 @@ namespace BSI.GestDoc.WebAPI.Controllers
             }
         }
 
-        private readonly string WorkingFolder = HttpRuntime.AppDomainAppPath + ConfigurationManager.AppSettings["DiretorioUpload"];
+        
 
         [System.Web.Http.Authorize]
         [System.Web.Http.Route("EnviarArquivos")]
         [System.Web.Http.HttpPost]
-        public async Task<IHttpActionResult> EnviarArquivos(int usuarioId, int clienteId, int docCliTipoId, bool reenvio)
+        public async Task<IHttpActionResult> EnviarArquivos(int usuarioId, long clienteId, int docCliTipoId, bool reenvio)
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent("form-data"))
@@ -104,6 +77,8 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
             try
             {
+                WorkingFolder += "\\" + new UploadFileBL().RecuperarCaminhoPastaDocumentosByClienteId(clienteId);
+
                 var streamProvider = new MultipartFormDataStreamProvider(WorkingFolder);
                 await Request.Content.ReadAsMultipartAsync(streamProvider);
 

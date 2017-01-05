@@ -24,7 +24,6 @@ namespace BSI.GestDoc.WebAPI.Controllers
         [System.Web.Http.HttpPost]
         public IHttpActionResult ListarPropostas(string usuarioId, string clientId, string numeroProposta)
         {
-
             PropostasDal Dal = new PropostasDal();
             DocumentoClienteBL documentoClienteBL = new DocumentoClienteBL();
             List<DocumentoClienteTipo> listaPropostas = null;
