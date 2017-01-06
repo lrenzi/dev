@@ -17,7 +17,10 @@ namespace BSI.GestDoc.WebAPI.Providers
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-
+            context.Validated();
+            return Task.FromResult<object>(null);
+            /*
+            //Deixei comentado, para possivel implementação de login com clientid
             string clientId = string.Empty;
             string clientSecret = string.Empty;
             Usuario usuario = null;
@@ -59,7 +62,7 @@ namespace BSI.GestDoc.WebAPI.Providers
                         return Task.FromResult<object>(null);
                     }
                 }*/
-            }
+            /*}
 
             if (!usuario.UsuarioAtivo)
             {
@@ -71,7 +74,7 @@ namespace BSI.GestDoc.WebAPI.Providers
             context.OwinContext.Set<string>("clientRefreshTokenLifeTime", System.Configuration.ConfigurationManager.AppSettings["clientRefreshTokenLifeTime"].ToString());
 
             context.Validated();
-            return Task.FromResult<object>(null);
+            return Task.FromResult<object>(null);*/
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
@@ -128,10 +131,6 @@ namespace BSI.GestDoc.WebAPI.Providers
 
                     {
                         "clienteId", user.Cliente.ClienteId.ToString()
-                    },
-
-                    {
-                        "pathDocumentosCliente", user.Cliente.ClientePastaDocumentos
                     }
                 });
                 #endregion

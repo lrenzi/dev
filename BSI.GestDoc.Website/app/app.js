@@ -23,15 +23,15 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/signup.html"
     });*/
 
-    $routeProvider.when("/refresh", {
+    /*$routeProvider.when("/refresh", {
         controller: "refreshController",
         templateUrl: "/app/views/refresh.html"
-    });
+    });*/
 
-    $routeProvider.when("/tokens", {
+    /*$routeProvider.when("/tokens", {
         controller: "tokensManagerController",
         templateUrl: "/app/views/tokens.html"
-    });
+    });*/
 
     $routeProvider.when("/fileUpload", {
         controller: "fileUploadController",
@@ -105,8 +105,7 @@ app.constant('ngAuthSettings', {
     usuarioId: 0,
     loginUsuario: "",
     perfilUsuario: "",
-    clienteId: 0,
-    pathDocumentosCliente: ""
+    clienteId: 0
 });
 
 app.constant('documentoCliente', {

@@ -13,11 +13,10 @@
     <link href="content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="content/css/loading-bar.min.css" rel="stylesheet" />
     <link href="content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="content/css/social-buttons.css" rel="stylesheet" />
     <!--<link href="content/css/blockUI/angular-block-ui.min.css" rel="stylesheet" />-->
-    
     <!--** scripts js de componentes e customizados **-->
     <!--<script src="scripts/jquery/js/jquery-3.1.0.js"></script>-->
-    
     <!--** css proprio do site e customizados **-->
     <link href="content/css/site.css" rel="stylesheet" />
 
@@ -28,7 +27,7 @@
     <div class="navbar navbar-fixed-top navbar-top" role="navigation" data-ng-controller="indexController">
         <div class="container">
             <div class="navbar-header">
-                <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
+                <button class="btn btn-success navbar-toggle" data-toggle="collapse"  data-target=".navbar-collapse">
                     <span class="glyphicon glyphicon-chevron-down"></span>
                 </button>
                 <img src="content/img/bsi_logo_sm.png" class="img-fluid" alt="BSI Tecnologia">
@@ -47,7 +46,6 @@
             </div>
         </div>
     </div>
-
     <!--Titulo da pagina de login-->
     <div data-ng-controller="indexController" data-ng-hide="authentication.isAuth" class="jumbotron">
         <div class="container">
@@ -91,6 +89,9 @@
     </div>
 
     <a id="bottom" class="invisible"></a>
+
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
     <!-- Angular -->
     <script src="scripts/angular/angular.js"></script>

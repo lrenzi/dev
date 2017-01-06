@@ -18,7 +18,7 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', 'localStorage
             }
         },
         function (data, status, headers, config) {
-            data.message = "Erro ao acessar o serviço de Consulta de Tipo de Documento.";
+            data.message = "Erro ao acessar o serviço de Consulta de Tipo de Documento, entre em contato com um administrador.";
         });
     };
 

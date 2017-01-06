@@ -58,9 +58,8 @@ namespace BSI.GestDoc.WebAPI.Controllers
                     new MediaTypeHeaderValue("application/octet-stream");
                 return result;
             }
-        }
 
-        
+        }
 
         [System.Web.Http.Authorize]
         [System.Web.Http.Route("EnviarArquivos")]
@@ -136,52 +135,22 @@ namespace BSI.GestDoc.WebAPI.Controllers
             }
         }
 
-        /*
-        // Extracts Request FormatData as a strongly typed model
-        private object GetFormData<T>(MultipartFormDataStreamProvider result)
-        {
-            if (result.FormData.HasKeys())
-            {
-                var unescapedFormData = Uri.UnescapeDataString(result.FormData
-                    .GetValues(0).FirstOrDefault() ?? String.Empty);
-                if (!String.IsNullOrEmpty(unescapedFormData))
-                    return JsonConvert.DeserializeObject<T>(unescapedFormData);
-            }
-
-            return null;
-        }
-
-        private string GetDeserializedFileName(MultipartFileData fileData)
-        {
-            var fileName = GetFileName(fileData);
-            return JsonConvert.DeserializeObject(fileName).ToString();
-        }
-
-        public string GetFileName(MultipartFileData fileData)
-        {
-            return fileData.Headers.ContentDisposition.FileName;
-        }
-        
-        [System.Web.Http.Route("EnviarArquivos2")]
-        [System.Web.Http.HttpPost]
-        [ValidateMimeMultipartContentFilter]
-        public async Task<FileResult> EnviarArquivos2()
-        {
-            UploadFile upload = new WebAPI.UploadFile();
-            return await new UploadFile().GetFile(Request);
-        }
-        */
 
         [System.Web.Http.Authorize]
         [System.Web.Http.Route("RetornarDocumentoClienteTipo")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult RetornarDocumentoClienteTipo([FromBody]DocumentoClienteTipo documentoClienteTipo)
         {
-            var DocumentosClienteTipo = new BusinessLogic.UploadFileBL().RetornarDocumentoClienteTipo(documentoClienteTipo.ClienteId);
-            return Ok(DocumentosClienteTipo);
+            List<DocumentoClienteTipo> retorno = null;
+            try
+            {
+                retorno = new BusinessLogic.UploadFileBL().RetornarDocumentoClienteTipo(documentoClienteTipo.ClienteId);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(retorno);
         }
-
-
     }
-    //public class FakeController : ControllerBase { protected override void ExecuteCore() { } }
 }
