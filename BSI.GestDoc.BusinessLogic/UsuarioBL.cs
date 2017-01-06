@@ -45,15 +45,16 @@ namespace BSI.GestDoc.BusinessLogic
                 usuario.ClienteId = int.Parse(clientId);
                 usuario.AllowedOrigin = "*";
                 retorno = UsuarioDal.Insert(usuario);
+                retorno = UsuarioDal.GetUsuario(retorno);
             }
             else
             {
                 retorno = "Nome de usuário já existente!";
             }
 
-            usuario = UsuarioDal.GetUsuario(retorno);
+            
 
-            return usuario;
+            return retorno;
         }
 
         /// <summary>
