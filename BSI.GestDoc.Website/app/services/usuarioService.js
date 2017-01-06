@@ -13,7 +13,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
             return
         }
 
-        $http.post(serviceBase + "api/Usuario/CadastrarUsuario?userNameUsuario="
+       return $http.post(serviceBase + "api/Usuario/CadastrarUsuario?userNameUsuario="
             + userNameUsuario + "&nomeUsuario=" + nomeUsuario + "&emailUsuario=" + emailUsuario
             + "&perfilUsuario=" + perfilUsuario.usuPerfilId + "&senhaUsuario=" + senhaUsuario + "&clientId=" + infClientes.clienteId)
         .then(function (response) {
@@ -102,6 +102,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
     };
 
     var _abrirTelaAlteracao = function (usuarioId, usuarioLogin, usuarioNome, usuarioEmail, usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId) {
+        utilser
 
         return $http.post(serviceBase + "api/Usuario/Consultar?usuarioId=" + usuarioId + "&usuarioLogin="
             + usuarioLogin + "&clienteId=" + '' + "&usuarioNome=" + usuarioNome + "&usuarioEmail=" + usuarioEmail +

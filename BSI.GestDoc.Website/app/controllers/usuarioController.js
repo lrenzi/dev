@@ -158,7 +158,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                                                                 $scope.usuarioAtivo,
                                                                 $scope.usuPerfilId,
                                                                  $scope.clienteId).then(function (response) {
-                                                                     utilService.mensagemSucesso("Cadastro efetuado com sucesso!");
+                                                                     utilService.mensagemSucesso("Alteração efetuada com sucesso!");
                                                                      $scope.retornoAlteracao = response;
                                                                      $scope.ConsultarUsuario('', '', '', '', '', '', '', '');
                                                                      $scope.showMessage = true;
@@ -178,7 +178,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
     //exibe tela de lista/alteração de usuário
     $scope.AbrirTelaAlteracao = function (usuario) {
         var infClientes = localStorageService.get('ngAuthSettings');
-
+        utilService.limparMensagem();
         //retorna lista de usuarios
         $scope.retornoUsuario = usuarioService.ConsultarUsuario(usuario.usuarioId, usuario.usuarioLogin, usuario.usuarioNome, usuario.usuarioEmail, usuario.usuarioAtivo, usuario.usuarioSenha, usuario.usuPerfilId, usuario.clienteId).then(function (response) {
             $scope.retornoUsuario = response.data;
