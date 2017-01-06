@@ -9,7 +9,6 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
         perfilUsuario: "",
         clienteId: "",
         nomeCliente: "",
-        pathDocumentosCliente: "",
         useRefreshTokens: false,    
     };
     

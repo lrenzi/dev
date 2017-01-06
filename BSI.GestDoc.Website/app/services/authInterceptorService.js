@@ -6,7 +6,7 @@ app.factory('authInterceptorService', ['$q', '$injector', '$location', 'localSto
     var _request = function (config) {
 
         // utilService.limparMensagem();
-
+        
         config.headers = config.headers || {};
 
         var authData = localStorageService.get('authorizationData');
@@ -20,6 +20,7 @@ app.factory('authInterceptorService', ['$q', '$injector', '$location', 'localSto
 
     var _responseError = function (rejection) {
         utilService.limparMensagem();
+        
         if (rejection.status === 401) {
             var authService = $injector.get('authService');
             var authData = localStorageService.get('authorizationData');
@@ -27,12 +28,12 @@ app.factory('authInterceptorService', ['$q', '$injector', '$location', 'localSto
             if (authData) {
 
                 if (authData.useRefreshTokens) {
-                    $location.path('/refresh');
+                    $location.path('/listaPropostas');
                     return $q.reject(rejection);
                 }
             }
             authService.logOut();
-            alert("Não autorizado!");
+            //alert("Não autorizado!");
             $location.path('/login');
 
         } else if (rejection.status === -1) {
