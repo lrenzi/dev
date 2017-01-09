@@ -187,6 +187,7 @@
     <Compile Include="Controllers\PropostaController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
+    <Compile Include="Filters\HttpStringDecodeFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

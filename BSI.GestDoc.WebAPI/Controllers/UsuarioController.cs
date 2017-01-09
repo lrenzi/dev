@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using BSI.GestDoc.Entity;
 using System.Linq;
 using Microsoft.AspNet.Identity;
+using BSI.GestDoc.WebAPI.Filters;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BSI.GestDoc.WebAPI.Controllers
 {
+    
     [System.Web.Http.RoutePrefix("api/Usuario")]
     public class UsuarioController : ApiController
     {
@@ -24,6 +26,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         /// <param name="clientId"></param>
         /// <returns>IEnumerable<Usuario> - sucesso no cadasto</returns>
         /// <returns>String(message) - Nome do usuário já existe</returns>
+        [HttpStringDecodeFilter]
         [Authorize]
         [System.Web.Http.Route("CadastrarUsuario")]
         [System.Web.Http.HttpPost]
@@ -97,6 +100,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         /// <param name="usuPerfilId"></param>
         /// <param name="usuClienteId"></param>
         /// <returns></returns>
+        [HttpStringDecodeFilter]
         [Authorize]
         [System.Web.Http.Route("Alterar")]
         [System.Web.Http.HttpPost]
