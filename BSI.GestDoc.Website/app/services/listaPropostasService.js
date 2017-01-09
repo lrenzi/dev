@@ -7,18 +7,16 @@ app.service("listaPropostasService", ["$http", "$q", 'ngAuthSettings', 'document
     var listaPropostasServiceFactory = {};
     var _retornarPropostasCliente = function () {
 
-        return $http.post(serviceBase + "api/Proposta/ListarPropostas?usuarioId=" + infClientes.usuarioId + "&clientId=" + infClientes.clienteId + "&numeroProposta=" + documentoCliente.numeroPesquisaProposta)
-        .then(function (response) {
+        var deferred = $q.defer();
 
-            if (typeof response.data === 'object') {
-                return response.data;
-            } else {
-                return $q.reject(response.data);
-            }
-        },
-        function (err) {
-            utilService.mensagemAlerta("Erro ao acessar o serviço de Consulta de Documentos do Cliente.")
+        $http.post(serviceBase + "api/Proposta/ListarPropostas?usuarioId=" + infClientes.usuarioId + "&clientId=" + infClientes.clienteId + "&numeroProposta=" + documentoCliente.numeroPesquisaProposta)
+        .then(function (response) {
+            deferred.resolve(response);            
+        }, function (response) {
+            deferred.reject(response);
+            response.data.message = "Erro ao executar o serviço de Cadastrar Usuário, entre em contato com um administrador.";
         });
+        return deferred.promise;
     };
 
 

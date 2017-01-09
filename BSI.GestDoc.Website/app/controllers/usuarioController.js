@@ -10,22 +10,6 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
     $scope.showMessage = false;
     $scope.showDivAlteracao = false;
     $scope.showDivSenha = false;
-    //$scope.filters = {};
-
-    //$scope.headers = [
-    //  { column: "usuarioLogin" },
-    //  { column: "usuarioNome" }
-    //];
-
-    //$scope.mensagemSucesso = function (mensagem) {
-    //    debugger
-    //    var objMensagem = {};
-    //    objMensagem.tipoMensagem = 'alert alert-success';
-    //    $rootScope.exibirMensagem = true;
-    //    objMensagem.titulo = 'Sucesso';
-    //    objMensagem.mensagem = mensagem;
-    //    $rootScope.mensagens.push(objMensagem)
-    //}
 
     //verifica a rota para definir o titulo da página
     if ($location.$$path === "/consultarUsuario") {
@@ -59,27 +43,26 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
 
 
         //efetua cadastro do usuario
-        usuarioService.CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario).then(function (data) {
-            $scope.retornoCadastro = data;
+        usuarioService.CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario).then(function (response) {
+            
+            $scope.retornoCadastro = response.data;
 
             if (typeof $scope.retornoCadastro === 'object') {
                 utilService.mensagemSucesso("Cadastro efetuado com sucesso!");
                 $scope.LimparFormularioCadastro();
-                //$scope.reset();
-
+              
             } else if (typeof $scope.retornoCadastro === 'string') {
                 utilService.mensagemAlerta($scope.retornoCadastro);
             }
-
 
             if ($scope.retornoCadastro !== '' && $scope.retornoCadastro !== null) {
                 $scope.showMessage = true;
             } else {
                 $scope.showMessage = false;
             }
-
-        }, function (error) {
-            utilService.mensagemErro(error.data.message);
+        }, function (response) {
+            
+            utilService.mensagemErro(response.data.message);
         });
     }
 
@@ -170,6 +153,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                                                                      $scope.chkAlterarSenha = false;
 
                                                                  }, function (response) {
+                                                                    
                                                                      utilService.mensagemErro(response.data.message);
                                                                      $scope.gotoTop();
                                                                  });

@@ -9,11 +9,11 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
 
     $scope.IniciarTela = function () {
 
-        $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
-            $scope.listaDocumentosClienteTipo = data;
+        $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (response) {
+            $scope.listaDocumentosClienteTipo = response.data;
             iniciarListaDocumentoClienteTipo();
-        }, function (error) {
-            utilService.mensagemErro(error.data.message);
+        }, function (response) {
+            utilService.mensagemErro(response.data.message);
         });
         $scope.mostraBotaoEnviar = true;
         $scope.mostraBotaoNovo = false;
@@ -33,11 +33,11 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
     }
 
     $scope.ConsultarArquivos = function () {
-        $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (data) {
-            $scope.listaDocumentosClienteTipo = data;
+        $scope.listaDocumentosClienteTipo = fileUploadService.RetornarDocumentoClienteTipo().then(function (response) {
+            $scope.listaDocumentosClienteTipo = response.data;
             iniciarListaDocumentoClienteTipo();
-        }, function (error) {
-            utilService.mensagemErro(error.data.message);
+        }, function (response) {
+            utilService.mensagemErro(response.data.message);
         });
     };
 
