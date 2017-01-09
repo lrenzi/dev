@@ -6,20 +6,19 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', 'localStorage
 
     var _retornarDocumentoClienteTipo = function () {
 
-        
+        var deferred = $q.defer();
         var infClientes = localStorageService.get('ngAuthSettings');
 
-        return $http.post(serviceBase + "api/FileUpload/RetornarDocumentoClienteTipo", { ClienteId: infClientes.clienteId })
+        $http.post(serviceBase + "api/FileUpload/RetornarDocumentoClienteTipo", { ClienteId: infClientes.clienteId })
         .then(function (response) {
-            if (typeof response.data === 'object') {
-                return response.data;
-            } else {
-                return $q.reject(response.data);
-            }
+            deferred.resolve(response);
         },
-        function (data, status, headers, config) {
-            data.message = "Erro ao acessar o serviço de Consulta de Tipo de Documento, entre em contato com um administrador.";
+        function (response, status, headers, config) {
+            deferred.reject(response);
+            response.data.message = "Erro ao acessar o serviço de Consulta de Tipo de Documento, entre em contato com um administrador.";
         });
+
+        return deferred.promise;
     };
 
     var _retornarArquivo = function (docClienteId_, nameFile_) {

@@ -28,20 +28,17 @@ app.controller("listaPropostasController", ["$scope", "$routeParams", "$location
         utilService.limparMensagem();
 
         documentoCliente.numeroPesquisaProposta = keySearch;
-        $scope.listaPropostas = listaPropostasService.ListarPropostas().then(function (data) {
-            $scope.listaPropostas = data;
+        $scope.listaPropostas = listaPropostasService.ListarPropostas().then(function (response) {
+            $scope.listaPropostas = response.data;
 
             if ($scope.listaPropostas.length == 0) {
                 $scope.showListaProposta = false;
-                //$scope.showMensagemListaVazia = true;
-                //$scope.valorMensagem = "Proposta não encontrada";
                 utilService.mensagemAlerta("Proposta não encontrada");
             } else {
-                $scope.showListaProposta = true;
-                //$scope.showMensagemListaVazia = false;
+                $scope.showListaProposta = true;               
             }
-        }, function (error) {
-            utilService.mensagemErro(error.data.message);
+        }, function (response) {
+            utilService.mensagemErro(response.data.message);
         });
     };
 }]);
