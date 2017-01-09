@@ -163,6 +163,7 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
     $scope.AbrirTelaAlteracao = function (usuario) {
         var infClientes = localStorageService.get('ngAuthSettings');
         utilService.limparMensagem();
+        
         //retorna lista de usuarios
         $scope.retornoUsuario = usuarioService.ConsultarUsuario(usuario.usuarioId, usuario.usuarioLogin, usuario.usuarioNome, usuario.usuarioEmail, usuario.usuarioAtivo, usuario.usuarioSenha, usuario.usuPerfilId, usuario.clienteId).then(function (response) {
             $scope.retornoUsuario = response.data;
