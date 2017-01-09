@@ -13,10 +13,12 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
             return
         }
         var deferred = $q.defer();
-        
-        $http.post(serviceBase + "api/Usuario/CadastrarUsuario?userNameUsuario="
+
+        var url = encodeURI(serviceBase + "api/Usuario/CadastrarUsuario?userNameUsuario="
             + userNameUsuario + "&nomeUsuario=" + nomeUsuario + "&emailUsuario=" + emailUsuario
-            + "&perfilUsuario=" + perfilUsuario.usuPerfilId + "&senhaUsuario=" + senhaUsuario + "&clientId=" + infClientes.clienteId)
+            + "&perfilUsuario=" + perfilUsuario.usuPerfilId + "&senhaUsuario=" + senhaUsuario + "&clientId=" + infClientes.clienteId);
+        
+        $http.post(url)
         .then(function (response) {
             deferred.resolve(response);           
         }, function (response) {
@@ -65,9 +67,11 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
 
         var deferred = $q.defer();
 
-        $http.post(serviceBase + "api/Usuario/Alterar?usuarioId=" + usuarioId + "&usuarioLogin="
+        var url = encodeURI(serviceBase + "api/Usuario/Alterar?usuarioId=" + usuarioId + "&usuarioLogin="
             + usuarioLogin + "&clienteId=" + '' + "&usuarioNome=" + usuarioNome + "&usuarioEmail=" + usuarioEmail +
-              "&usuarioSenha=" + usuarioSenha + "&usuarioAtivo=" + usuarioAtivo + "&usuPerfilId=" + usuPerfilId + "&usuClienteId=" + usuClienteId)
+              "&usuarioSenha=" + usuarioSenha + "&usuarioAtivo=" + usuarioAtivo + "&usuPerfilId=" + usuPerfilId + "&usuClienteId=" + usuClienteId);
+
+        $http.post(url)
         .then(function (response) {
             deferred.resolve(response);           
         }, function (response) {
