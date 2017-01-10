@@ -40,7 +40,7 @@ app.directive('alphaNumericosEspecial', function () {
             elem.on('keypress', function (e) {
                 var charCode = (e.which) ? e.which : e.keyCode;
                 var str = String.fromCharCode(charCode);
-                var expressao = /[^#&´¨§]/;
+                var expressao = /[^#&`¨§£¢¬ªº°']/;
                 var reg = new RegExp(expressao);
                 if (!reg.test(str)) {
                     e.preventDefault();
@@ -48,11 +48,11 @@ app.directive('alphaNumericosEspecial', function () {
                 }
                 return true;
             }).on('focusout', function (e) {
-                this.value = this.value.replace(/[#&´¨§]/, '')
+                this.value = this.value.replace(/[#&`¨§£¢¬ªº°']/, '')
             }).on('paste', function (e) {
                 var campo = this;
                 setTimeout(function () {
-                    campo.value = campo.value.replace(/[#&´¨§]/, '');
+                    campo.value = campo.value.replace(/[#&`¨§£¢¬ªº°']/, '');
                 });
             });
         }
