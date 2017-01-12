@@ -146,7 +146,6 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                                                                      $scope.ConsultarUsuario('', '', '', '', '', '', '', '');
                                                                      $scope.showMessage = true;
                                                                      $scope.showDivAlteracao = false;
-                                                                     $scope.ConsultarUsuario('', '', '', '', '', '', '', '');
                                                                      $scope.showDivSenha = false;
                                                                      $scope.senhaUsuario = "";
                                                                      $scope.confirmacaoSenhaUsuario = "";

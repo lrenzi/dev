@@ -61,6 +61,14 @@ namespace BSI.GestDoc.Repository.CRUD
             return DocumentoCliente;
         }
 
+        
+        public IEnumerable<DocumentoCliente> GetDocumentosByClienteUsuario(Int64 pDocClienteId, Int64 pUsuarioId)
+        {
+            var p = new DynamicParameters();
+            p.Add("@pDocClienteId", pDocClienteId, DbType.Int64, ParameterDirection.Input, null);
+            var DocumentosRetorno = SqlHelper.QuerySP<DocumentoCliente>("ConsultarDocumentoCliente", p, null, null, false, 0);
+            return DocumentosRetorno;
+        }
 
 
         #endregion

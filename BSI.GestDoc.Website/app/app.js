@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ngFileUpload', 'angularUtils.directives.dirPagination']);
+var app = angular.module('AngularAuthApp', ['ngRoute', 'ui.bootstrap', 'LocalStorageModule', 'angular-loading-bar', 'ngFileUpload', 'angularUtils.directives.dirPagination']);
 
 app.config(function ($routeProvider) {
 

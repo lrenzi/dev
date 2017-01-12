@@ -21,9 +21,9 @@ namespace BSI.GestDoc.Repository.DAL
         {
 
             var parameters = new DynamicParameters();
-            parameters.Add("@pClienteId", clienteId, DbType.String, null);
-            parameters.Add("@pUsuarioId", usuarioId, DbType.String, null);
-            parameters.Add("@pDocCliDadosValor", numeroProposta, DbType.String, null);
+            parameters.Add("@pClienteId", clienteId, DbType.Int16, null);
+            parameters.Add("@pUsuarioId", usuarioId, DbType.Int16, null);
+            parameters.Add("@pDocCliDadosId", numeroProposta, DbType.Int16, null);
 
             var dadosDocumentoClienteRetorno = this.QuerySPCustom("ConsultarDocumentoClienteDadosPorUsuario", parameters);
 

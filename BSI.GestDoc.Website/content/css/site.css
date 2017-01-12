@@ -235,3 +235,7 @@ ul.pagination li.active a {
     background-color: darkred !important;
     color: white;
 }
+
+.table-nomargin{
+    margin-bottom:0px;
+}
