@@ -1,6 +1,6 @@
 ﻿
 'use strict';
-app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usuarioService", "localStorageService", "utilService", '$anchorScroll', '$timeout', '$rootScope', function ($scope, $routeParams, $location, usuarioService, localStorageService, utilService, $anchorScroll, $timeout, $rootScope) {
+app.controller("usuarioController", ['$uibModal',"$scope", "$routeParams", "$location", "usuarioService", "localStorageService", "utilService", '$anchorScroll', '$timeout', '$rootScope', function ($uibModal,$scope, $routeParams, $location, usuarioService, localStorageService, utilService, $anchorScroll, $timeout, $rootScope) {
 
     $scope.userNameUsuario = '';
     $scope.nomeUsuario = '';
@@ -77,17 +77,6 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
     }
 
 
-
-    //efetua consulta de perfil do usuario
-    $scope.ConsultaPerfil = function (usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao) {
-
-        $scope.listaPerfis = usuarioService.ConsultaPerfil(usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao).then(function (response) {
-            $scope.listaPerfis = response.data;
-        }, function (response) {
-            utilService.mensagemErro(response.data.message);
-        });
-    }
-
     //efetua consulta do usuario
     $scope.ConsultarUsuario = function (usuarioId, usuarioLogin, usuarioNome, usuarioEmail, usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId) {
         
@@ -102,65 +91,9 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
         });
     }
 
-    //efetua alteração do usuario
-    $scope.AlterarUsuario = function () {
-        
-        utilService.limparMensagem();
-
-        if ($scope.usuarioNome === "" || $scope.usuarioNome === undefined
-            || $scope.usuarioEmail === "" || $scope.usuarioEmail === undefined
-            || $scope.usuPerfilId === "" || $scope.usuPerfilId === undefined) {
-            return
-        }
-
-        //exibe campos para alteração do registro do usuário
-        if ($scope.showDivSenha) {
-
-            if ($scope.senhaUsuario === undefined || $scope.senhaUsuario === "" || $scope.confirmacaoSenhaUsuario === undefined || $scope.confirmacaoSenhaUsuario === "") {
-                return
-            }
-
-            //valida se a senha digitada confere na confirmação
-            if ($scope.senhaUsuario !== $scope.confirmacaoSenhaUsuario) {
-                utilService.mensagemAlerta("A senha informada não confere, favor informar novamente!");
-                $scope.gotoTop();
-                return
-            } else {
-                $scope.usuarioSenha = $scope.senhaUsuario;
-            }
-        } else {
-            $scope.usuarioSenha = "";
-        }
-
-        //efetua alteração do registro do usuário
-        $scope.retornoAlteracao = usuarioService.AlterarUsuario($scope.usuarioId,
-                                                                $scope.usuarioLogin,
-                                                                $scope.usuarioNome,
-                                                                $scope.usuarioEmail,
-                                                                $scope.usuarioSenha,
-                                                                $scope.usuarioAtivo,
-                                                                $scope.usuPerfilId,
-                                                                 $scope.clienteId).then(function (response) {
-                                                                     utilService.mensagemSucesso("Alteração efetuada com sucesso!");
-                                                                     $scope.retornoAlteracao = response;
-                                                                     $scope.ConsultarUsuario('', '', '', '', '', '', '', '');
-                                                                     $scope.showMessage = true;
-                                                                     $scope.showDivAlteracao = false;
-                                                                     $scope.showDivSenha = false;
-                                                                     $scope.senhaUsuario = "";
-                                                                     $scope.confirmacaoSenhaUsuario = "";
-                                                                     $scope.chkAlterarSenha = false;
-
-                                                                 }, function (response) {
-                                                                    
-                                                                     utilService.mensagemErro(response.data.message);
-                                                                     $scope.gotoTop();
-                                                                 });
-    }
-
     //exibe tela de lista/alteração de usuário
     $scope.AbrirTelaAlteracao = function (usuario) {
-        var infClientes = localStorageService.get('ngAuthSettings');
+
         utilService.limparMensagem();
         
         //retorna lista de usuarios
@@ -177,9 +110,26 @@ app.controller("usuarioController", ["$scope", "$routeParams", "$location", "usu
                 $scope.usuarioAtivo = $scope.retornoUsuario[0].usuarioAtivo;
                 $scope.usuPerfilId = $scope.retornoUsuario[0].usuPerfilId;
                 $scope.clienteId = $scope.retornoUsuario[0].clienteId;
-                $scope.showDivAlteracao = true;
+                //$scope.showDivAlteracao = true;
                 $scope.showDivSenha = false;
-                $scope.gotoBottom();              
+                //$scope.gotoBottom();              
+                
+                var modalInstance = $uibModal.open({
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    controllerAs: 'vm',
+                    controller: 'alterarUsuarioModalCtrl',
+                    templateUrl: '/app/views/modal/edicaoUsuarioModal.html',
+                     scope: $scope,
+                    resolve: {
+                        items: function () {
+                            return $scope.retornoUsuario;
+                        },
+                        custom: function () {
+                            return usuario.usuarioLogin;
+                        }
+                    }
+                });               
             }
 
         }, function (response) {

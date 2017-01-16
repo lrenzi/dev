@@ -80,6 +80,25 @@
         $rootScope.mensagens.push(objMensagem);
     }
 
+    this.mensagemModalAlerta = function (mensagem) {
+
+        var listaMensagem = [];
+        if (Array.isArray(mensagem)) {
+            for (var i = 0; i < mensagem.length; i++) {
+                listaMensagem.push("▪ " + mensagem[i]);
+            }
+        } else {
+            listaMensagem.push("▪ " + mensagem);
+        }
+
+        var objMensagem = {};
+        objMensagem.tipoMensagemModal = 'alert alert-warning';
+        $rootScope.exibirModalMensagem = true;
+        objMensagem.titulo = 'Alerta';
+        objMensagem.mensagemModal = listaMensagem;
+        $rootScope.mensagens.push(objMensagem);
+    }
+
     this.mensagemModalErro = function (mensagem) {
 
         var listaMensagem = [];
