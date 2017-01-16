@@ -10,10 +10,8 @@ using Dapper.Mapper;
 
 namespace BSI.Dapper.Helper
 {
-    public static class ContribSql
+    public class ContribSql: baseSql
     {
-        public static string ConnectionString { get { return "Data Source=bsidatabase.database.windows.net;Initial Catalog=bsidbdesenv;Persist Security Info=True;User ID=sqladmin;pwd=Bsi@admin"; } }
-
         public static bool Insert<T>(T parameter) where T : class
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))

@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ambiente.cs" />
+    <Compile Include="Enumeradores\enumAmbiente.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="MD5Crypt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

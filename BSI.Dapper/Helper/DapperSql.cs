@@ -8,13 +8,12 @@ using DapperExtensions;
 using Dapper;
 using System.Data;
 using Dapper.Mapper;
+using System.Configuration;
 
 namespace BSI.Dapper.Helper
 {
-    public static class DapperSql
+    public class DapperSql: baseSql
     {
-        public static string ConnectionString { get { return "Data Source=bsidatabase.database.windows.net;Initial Catalog=bsidbdesenv;Persist Security Info=True;User ID=sqladmin;pwd=Bsi@admin"; } }
-
         /*public static bool Insert<T>(T parameter) where T : class
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))

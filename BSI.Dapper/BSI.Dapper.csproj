@@ -47,6 +47,7 @@
       <HintPath>..\packages\DapperExtensions.1.5.0\lib\net45\DapperExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
@@ -57,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\baseSql.cs" />
     <Compile Include="Helper\ContribSql.cs" />
     <Compile Include="Helper\DapperSql.cs" />
     <Compile Include="Helper\SqlHelper.cs" />
