@@ -97,7 +97,7 @@ app.controller("usuarioController", ['$uibModal',"$scope", "$routeParams", "$loc
         utilService.limparMensagem();
         
         //retorna lista de usuarios
-        $scope.retornoUsuario = usuarioService.ConsultarUsuario(usuario.usuarioId, usuario.usuarioLogin, usuario.usuarioNome, usuario.usuarioEmail, usuario.usuarioAtivo, usuario.usuarioSenha, usuario.usuPerfilId, usuario.clienteId).then(function (response) {
+        $scope.retornoUsuario = usuarioService.ConsultarUsuario(usuario.usuarioId, usuario.usuarioLogin,'', usuario.usuarioEmail, usuario.usuarioAtivo, usuario.usuarioSenha, usuario.usuPerfilId, usuario.clienteId).then(function (response) {
             $scope.retornoUsuario = response.data;
             $scope.chkAlterarSenha = false;
 
@@ -130,6 +130,8 @@ app.controller("usuarioController", ['$uibModal',"$scope", "$routeParams", "$loc
                         }
                     }
                 });               
+            } else {
+                alert("usuario nao encontrado")
             }
 
         }, function (response) {
