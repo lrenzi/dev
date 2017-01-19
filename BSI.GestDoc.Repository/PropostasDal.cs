@@ -4,7 +4,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using System.Linq;
 
 namespace BSI.GestDoc.Repository.DAL
 {
@@ -28,7 +28,7 @@ namespace BSI.GestDoc.Repository.DAL
             var dadosDocumentoClienteRetorno = this.QuerySPCustom("ConsultarDocumentoClienteDadosPorUsuario", parameters);
 
 
-            return dadosDocumentoClienteRetorno;
+            return dadosDocumentoClienteRetorno.ToList();
         }
 
         /// <summary>
@@ -46,43 +46,50 @@ namespace BSI.GestDoc.Repository.DAL
 
             var dadosInfoDocumentoCliente = this.QuerySPCustomInfoDocumentos("ConsultarDocumentoClientePorValorDado", parameters);
 
-            return dadosInfoDocumentoCliente;
+            return dadosInfoDocumentoCliente.ToList();
         }
 
 
-        private  IEnumerable<DocumentoClienteDados> QuerySPCustom(String storedProcedure, DynamicParameters parameters)
+        private IEnumerable<DocumentoClienteDados> QuerySPCustom(String storedProcedure, DynamicParameters parameters)
         {
-            SqlConnection connection = SqlHelper.getConnection();
+
             Usuario usuarioLogado = new Usuario();
             IEnumerable<DocumentoClienteDados> documentoClienteRetorno = null;
 
-            using (SqlMapper.GridReader reader = connection.QueryMultiple(storedProcedure, parameters, commandType: CommandType.StoredProcedure))
+            using (var connection = SqlHelper.getConnection())
             {
-                documentoClienteRetorno = reader.Read<DocumentoClienteDados>();
+                using (SqlMapper.GridReader reader = connection.QueryMultiple(storedProcedure, parameters, commandType: CommandType.StoredProcedure))
+                {
+                    documentoClienteRetorno = reader.Read<DocumentoClienteDados>();
+                }
+                connection.Close();
             }
-
-            return documentoClienteRetorno;
+            return documentoClienteRetorno.ToList() ;
         }
 
 
         private IEnumerable<DocumentoCliente> QuerySPCustomInfoDocumentos(String storedProcedure, DynamicParameters parameters)
         {
-            SqlConnection connection = SqlHelper.getConnection();
             Usuario usuarioLogado = new Usuario();
             IEnumerable<DocumentoCliente> infoDocumentoClienteRetorno = null;
 
-            using (SqlMapper.GridReader reader = connection.QueryMultiple(storedProcedure, parameters, commandType: CommandType.StoredProcedure))
+            using (var connection = SqlHelper.getConnection())
             {
-                //recupera dados do cliente e informações referenciadas
-                infoDocumentoClienteRetorno = reader.Read<DocumentoCliente, DocumentoClienteSituacao, DocumentoClienteTipo, DocumentoCliente>((documentoCliente, documentoClienteSituacao, documentoClienteTipo) =>
+                using (SqlMapper.GridReader reader = connection.QueryMultiple(storedProcedure, parameters, commandType: CommandType.StoredProcedure))
                 {
-                    documentoCliente.DocumentoClienteSituacao = documentoClienteSituacao;
-                    documentoCliente.DocumentoClienteTipo = documentoClienteTipo;                    
-                    return documentoCliente;
-                }, splitOn: "DocClienteId, DocCliSituId, DocCliTipoId");
+                    //recupera dados do cliente e informações referenciadas
+                    infoDocumentoClienteRetorno = reader.Read<DocumentoCliente, DocumentoClienteSituacao, DocumentoClienteTipo, DocumentoCliente>((documentoCliente, documentoClienteSituacao, documentoClienteTipo) =>
+                    {
+                        documentoCliente.DocumentoClienteSituacao = documentoClienteSituacao;
+                        documentoCliente.DocumentoClienteTipo = documentoClienteTipo;
+                        return documentoCliente;
+                    }, splitOn: "DocClienteId, DocCliSituId, DocCliTipoId");
+                }
+
+                connection.Close();
             }
 
-            return infoDocumentoClienteRetorno;
+            return infoDocumentoClienteRetorno.ToList();
         }
     }
 }

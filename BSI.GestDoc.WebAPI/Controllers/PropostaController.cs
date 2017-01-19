@@ -22,17 +22,19 @@ namespace BSI.GestDoc.WebAPI.Controllers
         [System.Web.Http.HttpPost]
         public IHttpActionResult ConsultaProposta(Int16 usuarioId, Int16 clientId,string numeroProposta)
         {
-            PropostasDal Dal = new PropostasDal();
-            DocumentoClienteBL documentoClienteBL = new DocumentoClienteBL();
             List<DocumentoClienteTipo> listaPropostas = null;
 
             try
             {
-                listaPropostas = documentoClienteBL.ListarDocumentosCliente(usuarioId.ToString(), clientId.ToString(), numeroProposta);
+                listaPropostas = new DocumentoClienteBL().ListarDocumentosCliente(usuarioId.ToString(), clientId.ToString(), numeroProposta);             
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.GetBaseException().Message);
+            }
+            finally
+            {
+                this.Dispose();
             }
 
             return Ok(listaPropostas);
@@ -47,16 +49,21 @@ namespace BSI.GestDoc.WebAPI.Controllers
         [System.Web.Http.HttpPost]
         public IHttpActionResult ListarPropostas(Int16 usuarioId, Int16 clientId)
         {
-            DocumentoClienteDadosDal Dal = new DocumentoClienteDadosDal();
             IEnumerable<DocumentoClienteDados> documentosCliente = null;
 
             try
             {
-                documentosCliente = Dal.GetAllByUsuarioIdClienteId(clientId, usuarioId);
+                
+                documentosCliente = new DocumentoClienteDadosDal().GetAllByUsuarioIdClienteId(clientId, usuarioId);
+                
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.GetBaseException().Message);
+            }
+            finally
+            {
+                this.Dispose();
             }
 
             return Ok(documentosCliente);

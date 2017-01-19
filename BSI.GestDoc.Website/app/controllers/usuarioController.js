@@ -91,6 +91,16 @@ app.controller("usuarioController", ['$uibModal',"$scope", "$routeParams", "$loc
         });
     }
 
+    //efetua consulta de perfil do usuario
+    $scope.ConsultaPerfil = function (usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao) {
+
+        $scope.listaPerfis = usuarioService.ConsultaPerfil(usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao).then(function (response) {
+            $scope.listaPerfis = response.data;
+        }, function (response) {
+            utilService.mensagemModalErro(response.data.message);
+        });
+    };
+
     //exibe tela de lista/alteração de usuário
     $scope.AbrirTelaAlteracao = function (usuario) {
 

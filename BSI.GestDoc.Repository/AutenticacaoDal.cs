@@ -15,6 +15,7 @@ namespace BSI.GestDoc.Repository.DAL
     {
         public IList<Token> GetAtllToken()
         {
+
             return SqlHelper.GetAll<Token>();
         }
 
@@ -38,7 +39,7 @@ namespace BSI.GestDoc.Repository.DAL
             var pIn = new DynamicParameters();
             pIn.Add("@UsuarioLogin", usuarioLogin, DbType.String, null);
             pIn.Add("@UsuarioSenha", usuarioSenha, DbType.String, null);
-           
+
             var retornoAutenticacao = this.QuerySPCustom("AutenticarUsuario", pIn);
 
 
@@ -56,34 +57,38 @@ namespace BSI.GestDoc.Repository.DAL
 
         public Usuario QuerySPCustom(String storedProcedure, DynamicParameters pIn)
         {
-            SqlConnection connection = SqlHelper.getConnection();
+
             Usuario usuarioLogado = new Usuario();
             IEnumerable<Usuario> usuarioRetorno = null;
 
-            using (SqlMapper.GridReader reader = connection.QueryMultiple(storedProcedure, pIn, commandType: CommandType.StoredProcedure))
+            using (var connection = SqlHelper.getConnection())
             {
-                //recupera StatusProcessamento (1 = usuario com acesso, 1 = usuario inativo e 2 = usuario ou senha invalido / e MensagemProcessamento
-                var infosLoginExecucao = reader.Read().ToList()[0];
 
-                var codigoExecucao = ((object[])((System.Collections.Generic.IDictionary<string, object>)infosLoginExecucao).Values)[0]; //codigo de execucao
-                var mensagemExecucao = ((object[])((System.Collections.Generic.IDictionary<string, object>)infosLoginExecucao).Values)[1]; //mensagem apos execucao
-
-                //caso usuario ter acesso ao sistema, recupera-se as demais informações do usuario logado 
-                if ((int)codigoExecucao == 0)
+                using (SqlMapper.GridReader reader = connection.QueryMultiple(storedProcedure, pIn, commandType: CommandType.StoredProcedure))
                 {
-                    //recupera dados do cliente e informações referenciadas
-                    usuarioRetorno = reader.Read<Usuario, UsuarioPerfil, Cliente, Usuario>((usuario, usuarioPerfil, cliente) =>
+                    //recupera StatusProcessamento (1 = usuario com acesso, 1 = usuario inativo e 2 = usuario ou senha invalido / e MensagemProcessamento
+                    var infosLoginExecucao = reader.Read().ToList()[0];
+
+                    var codigoExecucao = ((object[])((System.Collections.Generic.IDictionary<string, object>)infosLoginExecucao).Values)[0]; //codigo de execucao
+                    var mensagemExecucao = ((object[])((System.Collections.Generic.IDictionary<string, object>)infosLoginExecucao).Values)[1]; //mensagem apos execucao
+
+                    //caso usuario ter acesso ao sistema, recupera-se as demais informações do usuario logado 
+                    if ((int)codigoExecucao == 0)
                     {
-                        usuario.UsuarioPerfil = usuarioPerfil;
-                        usuario.Cliente = cliente;
-                        return usuario;
-                    }, splitOn: "UsuarioId, UsuPerfilId, ClienteId");
+                        //recupera dados do cliente e informações referenciadas
+                        usuarioRetorno = reader.Read<Usuario, UsuarioPerfil, Cliente, Usuario>((usuario, usuarioPerfil, cliente) =>
+                        {
+                            usuario.UsuarioPerfil = usuarioPerfil;
+                            usuario.Cliente = cliente;
+                            return usuario;
+                        }, splitOn: "UsuarioId, UsuPerfilId, ClienteId");
 
-                    usuarioLogado = (Usuario)usuarioRetorno.ToList()[0];
+                        usuarioLogado = (Usuario)usuarioRetorno.ToList()[0];
+                    }
+
+                    usuarioLogado.StatusProcessamento = (int)codigoExecucao;
+                    usuarioLogado.MensagemProcessamento = (string)mensagemExecucao;
                 }
-
-                usuarioLogado.StatusProcessamento = (int)codigoExecucao;
-                usuarioLogado.MensagemProcessamento = (string)mensagemExecucao;
             }
 
             return usuarioLogado;

@@ -1,57 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Data.SqlClient;
-using System.Threading.Tasks;
 using DapperExtensions;
 using Dapper;
 using System.Data;
 using Dapper.Mapper;
-using System.Configuration;
 
 namespace BSI.Dapper.Helper
 {
-    public class DapperSql: baseSql
+    public class DapperSql : baseSql
     {
-        /*public static bool Insert<T>(T parameter) where T : class
-        {
-            using (var sqlConnection = new SqlConnection(ConnectionString))
-            {
-                sqlConnection.Open();
-                sqlConnection.Insert(parameter);
-                sqlConnection.Close();
-                return true;
-            }
-        }
-
-        public static Int64 InsertWithReturnId<T>(T parameter) where T : class
-        {
-            using (var sqlConnection = new SqlConnection(ConnectionString))
-            {
-                sqlConnection.Open();
-                var recordId = sqlConnection.Insert(parameter);
-                sqlConnection.Close();
-                return recordId;
-            }
-        }
-
-        public static bool Update<T>(T parameter) where T : class
-        {
-            using (var sqlConnection = new SqlConnection(ConnectionString))
-            {
-                sqlConnection.Open();
-                sqlConnection.Update(parameter);
-                sqlConnection.Close();
-                return true;
-            }
-        }*/
 
         public static bool Delete<T>(PredicateGroup predicate) where T : class
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
-                sqlConnection.Open();
+              //  sqlConnection.Open();
                 sqlConnection.Delete<T>(predicate);
                 sqlConnection.Close();
                 return true;
@@ -62,7 +26,7 @@ namespace BSI.Dapper.Helper
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
-                sqlConnection.Open();
+               // sqlConnection.Open();
                 var result = sqlConnection.GetList<T>();
                 sqlConnection.Close();
                 return result.ToList();
@@ -73,7 +37,7 @@ namespace BSI.Dapper.Helper
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
-                sqlConnection.Open();
+               // sqlConnection.Open();
                 var result = sqlConnection.GetList<T>(predicate).FirstOrDefault();
                 sqlConnection.Close();
                 return result;
@@ -84,12 +48,15 @@ namespace BSI.Dapper.Helper
             dynamic outParam = null, SqlTransaction transaction = null,
             bool buffered = true, int? commandTimeout = null) where T : class
         {
-            SqlConnection connection = new SqlConnection(ConnectionString);
-            connection.Open();
 
-            var output = connection.Query<T>(storedProcedure, param: (object)param, transaction: transaction, buffered: buffered, commandTimeout: commandTimeout, commandType: CommandType.StoredProcedure);
+            IEnumerable<T> output = null;
 
-            return output;
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                output = connection.Query<T>(storedProcedure, param: (object)param, transaction: transaction, buffered: buffered, commandTimeout: commandTimeout, commandType: CommandType.StoredProcedure);
+
+                return output.ToList();
+            }            
         }
 
 
@@ -97,12 +64,14 @@ namespace BSI.Dapper.Helper
            dynamic outParam = null, SqlTransaction transaction = null,
            bool buffered = true, int? commandTimeout = null) where T : class
         {
-            SqlConnection connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var output = connection.Query<T, Y, Z>(storedProcedure, param: (object)param, transaction: transaction, buffered: buffered, commandTimeout: commandTimeout, commandType: CommandType.StoredProcedure, splitOn: "UsuarioId,UsuarioLogin,UsuarioNome,UsuarioEmail,UsuPerfilId,UsuPerfilNome,UsuPerfilDescricao,ClienteId,ClienteNome,ClientePastaDocumentos,ClienteImagemLogoDesktop,ClienteImagemLogoMobile,ClienteCorPadrao");
 
-            var output = connection.Query<T, Y, Z>(storedProcedure, param: (object)param, transaction: transaction, buffered: buffered, commandTimeout: commandTimeout, commandType: CommandType.StoredProcedure, splitOn: "UsuarioId,UsuarioLogin,UsuarioNome,UsuarioEmail,UsuPerfilId,UsuPerfilNome,UsuPerfilDescricao,ClienteId,ClienteNome,ClientePastaDocumentos,ClienteImagemLogoDesktop,ClienteImagemLogoMobile,ClienteCorPadrao");
+                connection.Close();
 
-            return output;
+                return output.ToList();
+            }
         }
 
         private static void CombineParameters(ref dynamic param, dynamic outParam = null)

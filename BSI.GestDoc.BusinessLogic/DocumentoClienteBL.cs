@@ -3,6 +3,7 @@ using BSI.GestDoc.Repository.CRUD;
 using BSI.GestDoc.Repository.DAL;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace BSI.GestDoc.BusinessLogic
 {
@@ -24,14 +25,14 @@ namespace BSI.GestDoc.BusinessLogic
         /// <returns></returns>
         public List<DocumentoClienteTipo> ListarDocumentosCliente(string usuarioId, string clientId, string numeroProposta)
         {
-            PropostasDal Dal = new PropostasDal();
             IEnumerable<DocumentoClienteDados> documentosClienteDados = new List<DocumentoClienteDados>();
 
             //recupera os tipos, e situações de cada tipo de documentos, do cliente logado
             IEnumerable<DocumentoClienteTipo> listaDocumentosTipo = this.ListarDocumentoTipoSituacao(clientId);
 
             //Recupera lista de DocumentosDados  pelo codigo do cliente logado   
-            documentosClienteDados = Dal.ListarPropostas(usuarioId, clientId, numeroProposta);
+            documentosClienteDados = new PropostasDal().ListarPropostas(usuarioId, clientId, numeroProposta);
+
 
             if (documentosClienteDados.Count() > 0)
             {
@@ -40,7 +41,8 @@ namespace BSI.GestDoc.BusinessLogic
 
                 //Associa o documentoCliente para o tipo de documento
                 this.AssociarTipoSituacaoParaDocumentoCliente(listaDocumentosTipo, documentosClienteDados);
-            }else
+            }
+            else
             {
                 return new List<DocumentoClienteTipo>();
             }
@@ -104,8 +106,8 @@ namespace BSI.GestDoc.BusinessLogic
                 {
                     //verifica se o tipo documento corresponde ao item da lista de tipos do cliente
                     IEnumerable<DocumentoClienteTipo> tipoCorrespondente = listaDocumentosTipo.ToList().Where(x => x.DocCliTipoId == documentoCliente.DocCliTipoId);
-                    
-                    if(tipoCorrespondente.Count() > 0)
+
+                    if (tipoCorrespondente.Count() > 0)
                     {
                         //recupera o documento tipo correspondente
                         IEnumerable<DocumentoClienteTipo> tipoExistente = tiposCorrespondentes.ToList().Where(x => x.DocCliTipoId == documentoCliente.DocCliTipoId);
@@ -139,7 +141,7 @@ namespace BSI.GestDoc.BusinessLogic
 
                         if (documentoClienteRetorno.Count() > 0)
                         {
-                            situacao.DocumentoCliente = (DocumentoCliente)documentoClienteRetorno.ToList()[0];                            
+                            situacao.DocumentoCliente = (DocumentoCliente)documentoClienteRetorno.ToList()[0];
                         }
                     }
                 }
@@ -153,12 +155,10 @@ namespace BSI.GestDoc.BusinessLogic
         /// <param name="listaDocumentosCliente"></param>
         public void ConsultarInformacaoesDocumentosCliente(IEnumerable<DocumentoClienteDados> listaDocumentosCliente)
         {
-            PropostasDal Dal = new PropostasDal();
-
             foreach (var documentoClienteDado in listaDocumentosCliente)
             {
                 //consulta informações para documentos cliente
-                IEnumerable<DocumentoCliente> retornoListaDocumentosCliente = Dal.ConsultarInfoDocumentoCliente(documentoClienteDado);
+                IEnumerable<DocumentoCliente> retornoListaDocumentosCliente = new PropostasDal().ConsultarInfoDocumentoCliente(documentoClienteDado);
 
                 if (retornoListaDocumentosCliente != null && retornoListaDocumentosCliente.Count() > 0)
                 {

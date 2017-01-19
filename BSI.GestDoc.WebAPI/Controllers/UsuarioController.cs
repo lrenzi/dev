@@ -11,7 +11,7 @@ using BSI.GestDoc.WebAPI.Filters;
 
 namespace BSI.GestDoc.WebAPI.Controllers
 {
-    
+
     [System.Web.Http.RoutePrefix("api/Usuario")]
     public class UsuarioController : ApiController
     {
@@ -45,6 +45,10 @@ namespace BSI.GestDoc.WebAPI.Controllers
             {
                 return BadRequest(ex.GetBaseException().Message);
             }
+            finally
+            {
+                this.Dispose();
+            }
 
             return Ok(retorno);
         }
@@ -67,23 +71,22 @@ namespace BSI.GestDoc.WebAPI.Controllers
                                                     string usuarioSenha, string usuarioAtivo, string usuPerfilId, string usuClienteId)
         {
 
-            UsuarioBL usuarioBL = new UsuarioBL();
-
             IEnumerable<Usuario> retorno = null;
 
             try
             {
-
-                retorno = usuarioBL.ConsultarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
+                retorno = new UsuarioBL().ConsultarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
                                                     usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId);
 
                 return Ok(retorno);
-
-
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.GetBaseException().Message);
+            }
+            finally
+            {
+                this.Dispose();
             }
 
         }
@@ -108,18 +111,20 @@ namespace BSI.GestDoc.WebAPI.Controllers
                                                     string usuarioSenha, string usuarioAtivo, string usuPerfilId, string usuClienteId)
         {
 
-            UsuarioBL usuarioBL = new UsuarioBL();
             dynamic retorno = null;
 
             try
             {
-
-                retorno = usuarioBL.AlterarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
-                                                    usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId);
+                retorno = new UsuarioBL().AlterarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
+                                                        usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.GetBaseException().Message);
+            }
+            finally
+            {
+                this.Dispose();
             }
 
             return Ok(retorno);

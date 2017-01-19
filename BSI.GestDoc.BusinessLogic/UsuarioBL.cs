@@ -2,6 +2,7 @@
 using BSI.GestDoc.Repository.CRUD;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace BSI.GestDoc.BusinessLogic
 {
@@ -35,7 +36,7 @@ namespace BSI.GestDoc.BusinessLogic
             if (userNameSingle == null || userNameSingle.Count() == 0)
             {
                 //usado para cadastro do usuario
-                
+
                 usuario.UsuarioLogin = userNameUsuario;
                 usuario.UsuarioNome = nomeUsuario;
                 usuario.UsuarioEmail = emailUsuario;
@@ -52,7 +53,7 @@ namespace BSI.GestDoc.BusinessLogic
                 retorno = "Nome de usuário já existente!";
             }
 
-            
+
 
             return retorno;
         }
@@ -86,9 +87,7 @@ namespace BSI.GestDoc.BusinessLogic
         public IEnumerable<Usuario> ConsultarUsuario(string usuarioId, string usuarioLogin, string usuarioNome, string usuarioEmail,
                                                     string usuarioSenha, string usuarioAtivo, string usuPerfilId, string usuClienteId)
         {
-            UsuarioDal UsuarioDal = new UsuarioDal();
-
-            return UsuarioDal.ConsultarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
+            return new UsuarioDal().ConsultarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
                                                     usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId, null);
         }
 

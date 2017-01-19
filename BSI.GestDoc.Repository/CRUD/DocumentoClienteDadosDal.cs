@@ -70,7 +70,6 @@ namespace BSI.GestDoc.Repository.CRUD
             var DocumentoClienteDados = SqlHelper.QuerySP<DocumentoClienteDados>("ConsultarDocumentoClienteDadosPorUsuario", p, null, null, false, 0);
             return DocumentoClienteDados;
         }
-
         #endregion
     }
 }

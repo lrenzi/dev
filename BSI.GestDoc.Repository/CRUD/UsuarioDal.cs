@@ -74,23 +74,27 @@ namespace BSI.GestDoc.Repository.CRUD
             parameters.Add("@pClienteId", usuClienteId, DbType.Int16, null);
             parameters.Add("@pAllowedOrigin", allowedOrigin, DbType.String, null);
 
-            SqlConnection connection = SqlHelper.getConnection();
+            
             Usuario usuarioLogado = new Usuario();
             IEnumerable<Usuario> listaUsuarios = null;
 
-            using (SqlMapper.GridReader reader = connection.QueryMultiple("ConsultarUsuario", parameters, commandType: CommandType.StoredProcedure))
+            using (var connection = SqlHelper.getConnection())
             {
-                //recupera dados do cliente e informações referenciadas
-                listaUsuarios = reader.Read<Usuario, UsuarioPerfil, Usuario>((usuario, usuarioPerfil) =>
+                using (SqlMapper.GridReader reader = connection.QueryMultiple("ConsultarUsuario", parameters, commandType: CommandType.StoredProcedure))
                 {
-                    usuario.UsuarioPerfil = usuarioPerfil;
-                    return usuario;
-                }, splitOn: "UsuarioId, UsuPerfilNome");
+                    //recupera dados do cliente e informações referenciadas
+                    listaUsuarios = reader.Read<Usuario, UsuarioPerfil, Usuario>((usuario, usuarioPerfil) =>
+                    {
+                        usuario.UsuarioPerfil = usuarioPerfil;
+                        return usuario;
+                    }, splitOn: "UsuarioId, UsuPerfilNome");
+                }
             }
 
             return listaUsuarios;
 
         }
+
 
         /*
         /// <summary>
