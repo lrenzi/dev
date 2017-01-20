@@ -1,0 +1,8 @@
+﻿<div>
+    <div ng-show="exibirModalMensagem">
+        <div ng-class="m.tipoMensagemModal" role="alert" ng-repeat="m in mensagens">
+            <strong class="alert-title">{{m.titulo}}</strong>
+            <label class="center-block no-margin" ng-bind="t" ng-repeat="t in m.mensagemModal"></label>
+        </div>
+    </div>
+</div>

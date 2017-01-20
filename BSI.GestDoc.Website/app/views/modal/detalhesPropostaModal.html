@@ -1,58 +1,47 @@
-﻿<!DOCTYPE html>
-<html data-ng-app="AngularAuthApp">
-<head>
-    
-</head>
-<body>
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Detalhes da Proposta: {{custom}}</h3>
+</div>
+<div>
 
-    <form role="form" name="usuarioform" data-ng-controller="indexController">
-        <div class="modal-header">
-            <h3 class="modal-title">Detalhes da Proposta: {{custom}}</h3>
+    <div ng-show="exibirModalMensagem">
+        <div ng-class="m.tipoMensagemModal" role="alert" ng-repeat="m in mensagens">
+            <strong class="alert-title">{{m.titulo}}</strong>
+            <label class="center-block no-margin" ng-bind="t" ng-repeat="t in m.mensagemModal"></label>
         </div>
-        <div>
+    </div>
 
-            <div ng-show="exibirModalMensagem">
-                <div ng-class="m.tipoMensagemModal" role="alert" ng-repeat="m in mensagens">
-                    <strong class="alert-title">{{m.titulo}}</strong>
-                    <label class="center-block no-margin" ng-bind="t" ng-repeat="t in m.mensagemModal"></label>
-                </div>
-            </div>
+</div>
+<table class="table table-nomargin">
+    <thead>
+        <tr>
+            <th class="col-md-3">Tipo Documento</th>
+            <th class="" style="width:200px">Situação</th>
+            <th>Download</th>
 
-        </div>
-        <table class="table table-nomargin">
-            <thead>
-                <tr>
-                    <th class="col-md-3">Tipo Documento</th>
-                    <th class="" style="width:200px">Situação</th>
-                    <th>Download</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr data-ng-repeat="tipo in items">
+            <td class="col-md-3"><h5><b>{{tipo.docCliTipoNome}}</b></h5></td>
+            <td colspan="2">
+                <table class="table table-condensed table-hover borderless table-nomargin">
+                    <tr data-ng-repeat="situacaoDocumento in tipo.listaSituacaoDocumentoCliente">
+                        <td class="" style="width:200px">{{situacaoDocumento.docCliSituDescricao}}</td>
+                        <td>
+                            <a class="cursor-pointer" ng-click="RetornarArquivo(situacaoDocumento.documentoCliente.cryptoDocClienteId, situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal)">
+                                {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}}
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
 
-                </tr>
-            </thead>
-            <tbody>
-                <tr data-ng-repeat="tipo in items">
-                    <td class="col-md-3"><h5><b>{{tipo.docCliTipoNome}}</b></h5></td>
-                    <td colspan="2">
-                        <table class="table table-condensed table-hover borderless table-nomargin">
-                            <tr data-ng-repeat="situacaoDocumento in tipo.listaSituacaoDocumentoCliente">
-                                <td class="" style="width:200px">{{situacaoDocumento.docCliSituDescricao}}</td>
-                                <td>
-                                    <a class="cursor-pointer" ng-click="RetornarArquivo(situacaoDocumento.documentoCliente.cryptoDocClienteId, situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal)">
-                                        {{situacaoDocumento.documentoCliente.docClienteNomeArquivoOriginal}}
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-        <div class="modal-footer">
-            <button ng-model="btnFechar" ng-click="cancel()" class="btn btn-primary btn-sm" value="Fechar" title="Fechar">
-                Fechar
-            </button>
-        </div>
-    </form>
-</body>
-
-</html>
+    </tbody>
+</table>
+<div class="modal-footer">
+    <button ng-model="btnFechar" ng-click="cancel()" class="btn btn-primary btn-sm" value="Fechar" title="Fechar">
+        Fechar
+    </button>
+</div>
