@@ -35,7 +35,7 @@ app.controller("listaPropostasController", ['$uibModal', "$scope", "$routeParams
                 $scope.showListaProposta = true;
             }
         }, function (response) {
-            utilService.mensagemErro(response.data.message);
+            utilService.mensagemErro(response.data);
         });
     };
 
@@ -78,7 +78,7 @@ app.controller("listaPropostasController", ['$uibModal', "$scope", "$routeParams
                 $scope.open($scope.DetalhesProposta, numeroPropota);
             }
         }, function (response) {
-            utilService.mensagemErro(response.data.message);
+            utilService.mensagemErro(response.data);
         });
     };
 }]);

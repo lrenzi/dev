@@ -21,24 +21,16 @@ namespace BSI.GestDoc.WebAPI.Controllers
         [System.Web.Http.HttpPost]
         public IHttpActionResult Consultar(long clienteId)
         {
-
             Cliente ClienteRetorno = null;
-
             try
             {
                 ClienteRetorno = new ClienteDal().GetCliente(clienteId);
-
-                return Ok(ClienteRetorno);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.GetBaseException().Message);
             }
             finally
             {
                 this.Dispose();
             }
-
+            return Ok(ClienteRetorno);
         }
     }
 

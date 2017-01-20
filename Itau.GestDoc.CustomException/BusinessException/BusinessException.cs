@@ -1,11 +1,11 @@
-﻿using BSI.GestDoc.BusinessLogic.Util;
+﻿using BSI.GestDoc.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSI.GestDoc.BusinessLogic.BusinessException
+namespace BSI.GestDoc.CustomException.BusinessException
 {
     public class BusinessException: Exception
     {
@@ -20,7 +20,7 @@ namespace BSI.GestDoc.BusinessLogic.BusinessException
             _retorno = new Retorno();
             _retorno.Codigo = 0;
             _retorno.Mensagem = mensagem;
-            _retorno.TipoErro = EnumTipoMensagem.Alerta;
+            _retorno.TipoMensagem = EnumTipoMensagem.Alerta;
         }
 
         public BusinessException(EnumTipoMensagem tipoErro, string mensagem) : base(mensagem)
@@ -28,7 +28,7 @@ namespace BSI.GestDoc.BusinessLogic.BusinessException
             _retorno = new Retorno();
             _retorno.Codigo = 0;
             _retorno.Mensagem = mensagem;
-            _retorno.TipoErro = tipoErro;
+            _retorno.TipoMensagem = tipoErro;
         }
 
         public BusinessException(int codigo,  string mensagem) : base(mensagem)
@@ -36,7 +36,7 @@ namespace BSI.GestDoc.BusinessLogic.BusinessException
             _retorno = new Retorno();
             _retorno.Codigo = codigo;
             _retorno.Mensagem = mensagem;
-            _retorno.TipoErro = EnumTipoMensagem.Alerta;
+            _retorno.TipoMensagem = EnumTipoMensagem.Alerta;
         }
 
         public BusinessException(int codigo, EnumTipoMensagem tipoErro, string mensagem) : base(mensagem)
@@ -44,9 +44,7 @@ namespace BSI.GestDoc.BusinessLogic.BusinessException
             _retorno = new Retorno();
             _retorno.Codigo = codigo;
             _retorno.Mensagem = mensagem;
-            _retorno.TipoErro = tipoErro;
+            _retorno.TipoMensagem = tipoErro;
         }
-
-
     }
 }

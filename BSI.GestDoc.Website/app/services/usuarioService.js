@@ -23,7 +23,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
             deferred.resolve(response);           
         }, function (response) {
             deferred.reject(response);
-            response.data.message = "Erro ao executar o serviço de Cadastrar Usuário, entre em contato com um administrador.";
+            response.data = "Erro ao executar o serviço de Cadastrar Usuário, entre em contato com um administrador.";
         });
 
         return deferred.promise;
@@ -40,7 +40,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
         }, function (response) {
 
             deferred.reject(response);
-            response.data.message = "Erro ao executar o serviço de Consulta de Perfil do Usuário, entre em contato com um administrador.";
+            response.data = "Erro ao executar o serviço de Consulta de Perfil do Usuário, entre em contato com um administrador.";
         });
 
         return deferred.promise;
@@ -57,7 +57,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
             deferred.resolve(response);            
         }, function (response) {
             deferred.reject(response);
-            response.data.message = "Erro ao executar o serviço de Consulta de Usuário, entre em contato com um administrador.";
+            response.data = "Erro ao executar o serviço de Consulta de Usuário, entre em contato com um administrador.";
         });
 
         return deferred.promise;
@@ -76,7 +76,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
             deferred.resolve(response);           
         }, function (response) {
             deferred.reject(response);
-            response.data.message = "Erro ao executar o serviço de Alteração do Usuário, entre em contato com um administrador.";
+            response.data = "Erro ao executar o serviço de Alteração do Usuário, entre em contato com um administrador.";
         });
 
         return deferred.promise;
@@ -94,7 +94,7 @@ app.service("usuarioService", ["$http", "$q", 'ngAuthSettings', 'localStorageSer
         },
         function (data, status, headers, config) {
             deferred.reject(response);
-            response.data.message = "Erro ao executar o serviço de Consulta de Usuário, entre em contato com um administrador.";
+            response.data = "Erro ao executar o serviço de Consulta de Usuário, entre em contato com um administrador.";
         });
     };
 

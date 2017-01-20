@@ -18,7 +18,7 @@ app.controller('alterarUsuarioModalCtrl', ['$scope', '$uibModalInstance', 'items
         $scope.listaPerfis = usuarioService.ConsultaPerfil(usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao).then(function (response) {
             $scope.listaPerfis = response.data;
         }, function (response) {
-            utilService.mensagemModalErro(response.data.message);
+            utilService.mensagemModalErro(response.data);
         });
     };
 
@@ -74,7 +74,7 @@ app.controller('alterarUsuarioModalCtrl', ['$scope', '$uibModalInstance', 'items
                                                                      
                                                                  }, function (response) {
                                                                      $scope.cancel();
-                                                                     utilService.mensagemModalErro(response.data.message);
+                                                                     utilService.mensagemModalErro(response.data);
                                                                      $scope.gotoTop();
                                                                  });
     }

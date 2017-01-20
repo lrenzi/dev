@@ -15,7 +15,7 @@ app.service("listaPropostasService", ["$http", "$q", 'ngAuthSettings', 'localSto
             deferred.resolve(response);            
         }, function (response) {
             deferred.reject(response);
-            response.data.message = "Erro ao executar o serviço de Consulta de Propostas, entre em contato com um administrador.";
+            response.data = "Erro ao executar o serviço de Consulta de Propostas, entre em contato com um administrador.";
         });
         return deferred.promise;
     };
@@ -28,7 +28,7 @@ app.service("listaPropostasService", ["$http", "$q", 'ngAuthSettings', 'localSto
             deferred.resolve(response);
         }, function (response) {
             deferred.reject(response);
-            response.data.message = "Erro ao executar o serviço de Consulta de Proposta, entre em contato com um administrador.";
+            response.data = "Erro ao executar o serviço de Consulta de Proposta, entre em contato com um administrador.";
         });
         return deferred.promise;
     };

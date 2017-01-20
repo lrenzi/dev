@@ -1,4 +1,5 @@
 ﻿using BSI.GestDoc.BusinessLogic.Util;
+using BSI.GestDoc.CustomException.BusinessException;
 using BSI.GestDoc.Entity;
 using BSI.GestDoc.Repository;
 using BSI.GestDoc.Repository.CRUD;
@@ -6,7 +7,7 @@ using BSI.GestDoc.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static BSI.GestDoc.BusinessLogic.BusinessException.BusinessException;
+using static BSI.GestDoc.CustomException.BusinessException.BusinessException;
 
 namespace BSI.GestDoc.BusinessLogic
 {
@@ -57,7 +58,7 @@ namespace BSI.GestDoc.BusinessLogic
             List<DocumentoCliente> _documentosClienteCadastrado = new EnviarArquivoDal().ConsultarNumeroPropostaPorUsuario(_documentoClienteDados.DocCliDadosValor.Trim()).ToList();
             if (_documentosClienteCadastrado.FindAll(p => p.UsuarioId != documentoCliente_.UsuarioId).Count > 0)
             {
-                throw new BusinessException.BusinessException(0, EnumTipoMensagem.Alerta, "Proposta enviada por outro usuário.");
+                throw new BusinessException(0, EnumTipoMensagem.Alerta, "Proposta enviada por outro usuário.");
             }
             List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(documentoCliente_.DocCliTipoId).ToList();
             documentoCliente_.DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId);
@@ -68,7 +69,7 @@ namespace BSI.GestDoc.BusinessLogic
             //Caso já exista um tipo e situação do arquivo na base igual ao que o usuário está tentando realizar o upload, irá perguntar ao usuário se ele deseja sobreescrever.
             if (!Reenvio && _documentosClienteCadastrado.FindAll(p => p.DocCliSituId == documentoCliente_.DocCliSituId).Count > 0)
             {
-                throw new BusinessException.BusinessException(EnumTipoMensagem.Pergunta, "Proposta já cadastrada para este tipo de arquivo e situação. Deseja Reenviar?");
+                throw new BusinessException(EnumTipoMensagem.Pergunta, "Proposta já cadastrada para este tipo de arquivo e situação. Deseja Reenviar?");
             }
             #endregion
 

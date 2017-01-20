@@ -13,7 +13,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
             $scope.listaDocumentosClienteTipo = response.data;
             iniciarListaDocumentoClienteTipo();
         }, function (response) {
-            utilService.mensagemErro(response.data.message);
+            utilService.mensagemErro(response.data);
         });
         $scope.mostraBotaoEnviar = true;
         $scope.mostraBotaoNovo = false;
@@ -37,7 +37,7 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
             $scope.listaDocumentosClienteTipo = response.data;
             iniciarListaDocumentoClienteTipo();
         }, function (response) {
-            utilService.mensagemErro(response.data.message);
+            utilService.mensagemErro(response.data);
         });
     };
 
@@ -100,17 +100,17 @@ app.controller("fileUploadController", ["$scope", "$routeParams", "$location", "
         }).progress(function (evt) {
             $scope.listaDocumentosClienteTipo[index_].progressbar = parseInt(100.0 * evt.loaded / evt.total, 10) + " %";
         }).success(function (data, status, headers, config) {
-            if (data.tipoErro == 1) {
+            if (data.tipoMensagem == 1) {
                 $scope.listaDocumentosClienteTipo[index_].reenvio = false;
                 $scope.listaDocumentosClienteTipo[index_].nameFile = file_.value.split("\\")[file_.value.split("\\").length - 1];
                 $scope.listaDocumentosClienteTipo[index_].docClienteId = data.dados.cryptoDocClienteId;
                 $scope.listaDocumentosClienteTipo[index_].download = true;
                 $scope.listaDocumentosClienteTipo[index_].cssclass = "bg-success";
-            } else if (data.tipoErro == 2) {
+            } else if (data.tipoMensagem == 2) {
                 $scope.listaDocumentosClienteTipo[index_].reenvio = false;
                 $scope.listaDocumentosClienteTipo[index_].cssclass = "bg-info";
             }
-            else if (data.tipoErro == 3) {
+            else if (data.tipoMensagem == 3) {
                 $scope.listaDocumentosClienteTipo[index_].reenvio = true;
                 $scope.listaDocumentosClienteTipo[index_].cssclass = "bg-info";
             }

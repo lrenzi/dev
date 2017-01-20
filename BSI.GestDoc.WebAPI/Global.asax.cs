@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BSI.GestDoc.WebAPI.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,9 +16,14 @@ namespace BSI.GestDoc.WebAPI
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            /*FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            GlobalConfiguration.Configuration.Filters.Add(new CustomExceptionFilter());
+            RegisterWebApiFilters(GlobalConfiguration.Configuration.Filters);
+            /*RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);*/
+        }
+        public static void RegisterWebApiFilters(System.Web.Http.Filters.HttpFilterCollection filters)
+        {
+            filters.Add(new CustomExceptionFilter());
         }
     }
 }

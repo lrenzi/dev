@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using BSI.GestDoc.Entity;
 using BSI.GestDoc.BusinessLogic;
+using System.Web;
 
 namespace BSI.GestDoc.WebAPI.Providers
 {
@@ -134,6 +135,9 @@ namespace BSI.GestDoc.WebAPI.Providers
                     }
                 });
                 #endregion
+
+                //var session = HttpContext.Current.Session;
+                //session.Add("AuthenticationProperties", props.Dictionary);
 
                 var ticket = new AuthenticationTicket(identity, props);
                 context.Validated(ticket);

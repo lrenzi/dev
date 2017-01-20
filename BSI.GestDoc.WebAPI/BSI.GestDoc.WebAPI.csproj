@@ -188,6 +188,7 @@
     <Compile Include="Controllers\PropostaController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
+    <Compile Include="Filters\CustomExceptionFilter.cs" />
     <Compile Include="Filters\HttpStringDecodeFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -233,6 +234,10 @@
     <ProjectReference Include="..\BSI.GestDoc.Util\BSI.GestDoc.Util.csproj">
       <Project>{7d5c5e30-acb7-41a1-82ed-fbcba8b6bfd2}</Project>
       <Name>BSI.GestDoc.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Itau.GestDoc.CustomException\BSI.GestDoc.CustomException.csproj">
+      <Project>{6C2C734E-C76C-47EE-A665-6452086EF134}</Project>
+      <Name>BSI.GestDoc.CustomException</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

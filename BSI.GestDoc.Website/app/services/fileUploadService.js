@@ -15,7 +15,7 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', 'localStorage
         },
         function (response, status, headers, config) {
             deferred.reject(response);
-            response.data.message = "Erro ao acessar o serviço de Consulta de Tipo de Documento, entre em contato com um administrador.";
+            response.data = "Erro ao acessar o serviço de Consulta de Tipo de Documento, entre em contato com um administrador.";
         });
 
         return deferred.promise;

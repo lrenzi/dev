@@ -16,6 +16,7 @@ using System.Configuration;
 using BSI.GestDoc.BusinessLogic.Util;
 using System.Net.Http.Headers;
 using BSI.GestDoc.Util;
+using BSI.GestDoc.CustomException.BusinessException;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -76,7 +77,14 @@ namespace BSI.GestDoc.WebAPI.Controllers
 
             try
             {
-                WorkingFolder += "\\" + new UploadFileBL().RecuperarCaminhoPastaDocumentosByClienteId(clienteId);
+                string directory = new UploadFileBL().RecuperarCaminhoPastaDocumentosByClienteId(clienteId);
+
+                WorkingFolder += "\\" + directory;
+
+                if (!Directory.Exists(WorkingFolder))
+                {
+                    Directory.CreateDirectory(WorkingFolder);
+                }
 
                 var streamProvider = new MultipartFormDataStreamProvider(WorkingFolder);
                 await Request.Content.ReadAsMultipartAsync(streamProvider);
@@ -117,9 +125,9 @@ namespace BSI.GestDoc.WebAPI.Controllers
                         break;
                 }
 
-                return Ok((new Retorno() { Dados = _documentoCliente, Mensagem = "Arquivo incluído com sucesso.", TipoErro = EnumTipoMensagem.Sucesso }));
+                return Ok((new Retorno() { Dados = _documentoCliente, Mensagem = "Arquivo incluído com sucesso.", TipoMensagem = EnumTipoMensagem.Sucesso }));
             }
-            catch (BusinessLogic.BusinessException.BusinessException ex)
+            catch (BusinessException ex)
             {
                 if (File.Exists(WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo))
                     File.Delete(WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo);
@@ -131,7 +139,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 if (File.Exists(WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo))
                     File.Delete(WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo);
 
-                return BadRequest(ex.GetBaseException().Message);
+                throw new CustomException.CustomException(ex.Message, ex.InnerException);
             }
         }
 
@@ -142,14 +150,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         public IHttpActionResult RetornarDocumentoClienteTipo([FromBody]DocumentoClienteTipo documentoClienteTipo)
         {
             List<DocumentoClienteTipo> retorno = null;
-            try
-            {
-                retorno = new BusinessLogic.UploadFileBL().RetornarDocumentoClienteTipo(documentoClienteTipo.ClienteId);
-
-            }catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            retorno = new BusinessLogic.UploadFileBL().RetornarDocumentoClienteTipo(documentoClienteTipo.ClienteId);
             return Ok(retorno);
         }
     }

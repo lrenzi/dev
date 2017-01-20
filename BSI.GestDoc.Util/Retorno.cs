@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSI.GestDoc.BusinessLogic.Util
+namespace BSI.GestDoc.Util
 {
     public class Retorno
     {
-        public EnumTipoMensagem TipoErro { get; set; }
+        public EnumTipoMensagem TipoMensagem { get; set; }
         public int Codigo { get; set; }
         public string Mensagem { get; set; }
         public object Dados { get; set; }
@@ -18,6 +18,7 @@ namespace BSI.GestDoc.BusinessLogic.Util
     {
         Sucesso = 1,
         Alerta = 2,
-        Pergunta = 3
+        Pergunta = 3,
+        Erro = 9
     }
 }

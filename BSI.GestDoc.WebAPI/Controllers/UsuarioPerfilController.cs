@@ -28,15 +28,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
             UsuarioPerfilBL usuarioPefilBL = new UsuarioPerfilBL();
             IEnumerable<UsuarioPerfil> listaPerfilUsuario = new List<UsuarioPerfil>();
 
-            try
-            {
-                listaPerfilUsuario = usuarioPefilBL.ConsultarPerfilUsuario(usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.GetBaseException().Message);
-            }
-
+            listaPerfilUsuario = usuarioPefilBL.ConsultarPerfilUsuario(usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao);
             return Ok(listaPerfilUsuario);
         }
 

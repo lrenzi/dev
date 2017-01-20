@@ -1,4 +1,5 @@
-﻿using BSI.GestDoc.Entity;
+﻿using BSI.GestDoc.CustomException.BusinessException;
+using BSI.GestDoc.Entity;
 using BSI.GestDoc.Repository.CRUD;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,9 @@ namespace BSI.GestDoc.BusinessLogic
         public string RecuperarCaminhoPastaDocumentosByClienteId(long clienteId_) {
             Cliente _cliente = new ClienteDal().GetCliente(clienteId_);
             if (_cliente == null)
-                throw new BusinessException.BusinessException(Util.EnumTipoMensagem.Alerta, "Erro ao consultar o caminho do arquivo. Cliente não identificado.");
+                throw new BusinessException(BSI.GestDoc.Util.EnumTipoMensagem.Alerta, "Erro ao consultar o caminho do arquivo. Cliente não identificado.");
             if (string.IsNullOrEmpty(_cliente.ClientePastaDocumentos))
-                throw new BusinessException.BusinessException(Util.EnumTipoMensagem.Alerta, "Erro ao consultar o caminho do arquivo. Caminho não cadastrado.");
+                throw new BusinessException(BSI.GestDoc.Util.EnumTipoMensagem.Alerta, "Erro ao consultar o caminho do arquivo. Caminho não cadastrado.");
             return _cliente.ClientePastaDocumentos;
         }
 
@@ -27,7 +28,7 @@ namespace BSI.GestDoc.BusinessLogic
         {
             DocumentoCliente _documentoCliente = new DocumentoClienteDal().GetDocumentoCliente(docClienteId_);
             if (_documentoCliente == null)
-                throw new BusinessException.BusinessException(Util.EnumTipoMensagem.Alerta, "Erro ao consultar o caminho do arquivo. Documento do Cliente não identificado.");
+                throw new BusinessException(BSI.GestDoc.Util.EnumTipoMensagem.Alerta, "Erro ao consultar o caminho do arquivo. Documento do Cliente não identificado.");
             return RecuperarCaminhoPastaDocumentosByClienteId(_documentoCliente.ClienteId);
         }
 

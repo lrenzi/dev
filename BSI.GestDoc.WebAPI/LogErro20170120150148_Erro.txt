@@ -1,0 +1,30 @@
+-------------------------------------------------------
+Ambiente --> 1
+Data --> 20/01/2017 15:11:42
+Descricao --> mensagem de erro teste
+HostName --> ::1
+TipoErro --> 9
+Trace --> 
+UsuarioId --> 1
+Erro SQL --> Invalid column name 'TipoErro'.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
+   em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 18
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\Itau.GestDoc.CustomException\CustomException.cs:linha 51

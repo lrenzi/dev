@@ -11,7 +11,6 @@ using BSI.GestDoc.WebAPI.Filters;
 
 namespace BSI.GestDoc.WebAPI.Controllers
 {
-
     [System.Web.Http.RoutePrefix("api/Usuario")]
     public class UsuarioController : ApiController
     {
@@ -41,10 +40,6 @@ namespace BSI.GestDoc.WebAPI.Controllers
             {
                 retorno = usuarioBL.CadastrarUsuario(userNameUsuario, nomeUsuario, emailUsuario, perfilUsuario, senhaUsuario, clientId);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.GetBaseException().Message);
-            }
             finally
             {
                 this.Dispose();
@@ -64,31 +59,25 @@ namespace BSI.GestDoc.WebAPI.Controllers
         /// <param name="senhaUsuario"></param>
         /// <param name="clientId"></param>
         /// <returns></returns>
+
         [Authorize]
         [System.Web.Http.Route("Consultar")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult Consultar(string usuarioId, string usuarioLogin, string usuarioNome, string usuarioEmail,
                                                     string usuarioSenha, string usuarioAtivo, string usuPerfilId, string usuClienteId)
         {
-
             IEnumerable<Usuario> retorno = null;
 
             try
             {
                 retorno = new UsuarioBL().ConsultarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
                                                     usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId);
-
-                return Ok(retorno);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.GetBaseException().Message);
             }
             finally
             {
                 this.Dispose();
             }
-
+            return Ok(retorno);
         }
 
         /// <summary>
@@ -117,10 +106,6 @@ namespace BSI.GestDoc.WebAPI.Controllers
             {
                 retorno = new UsuarioBL().AlterarUsuario(usuarioId, usuarioLogin, usuarioNome, usuarioEmail,
                                                         usuarioSenha, usuarioAtivo, usuPerfilId, usuClienteId);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.GetBaseException().Message);
             }
             finally
             {

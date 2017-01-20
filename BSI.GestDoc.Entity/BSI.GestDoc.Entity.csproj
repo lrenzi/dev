@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogErro.cs" />
     <Compile Include="Enum\Enums.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="DocumentoClienteDadosDoc.cs" />

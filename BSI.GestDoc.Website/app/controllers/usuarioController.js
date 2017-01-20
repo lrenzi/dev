@@ -62,7 +62,7 @@ app.controller("usuarioController", ['$uibModal',"$scope", "$routeParams", "$loc
             }
         }, function (response) {
             
-            utilService.mensagemErro(response.data.message);
+            utilService.mensagemErro(response.data);
         });
     }
 
@@ -87,7 +87,7 @@ app.controller("usuarioController", ['$uibModal',"$scope", "$routeParams", "$loc
             $scope.listaUsuarios = response.data;
 
         }, function (response) {
-            utilService.mensagemErro(response.data.message);
+            utilService.mensagemErro(response.data);
         });
     }
 
@@ -97,7 +97,7 @@ app.controller("usuarioController", ['$uibModal',"$scope", "$routeParams", "$loc
         $scope.listaPerfis = usuarioService.ConsultaPerfil(usuPerfilId, clienteId, usuPerfilNome, usuPerfilDescricao).then(function (response) {
             $scope.listaPerfis = response.data;
         }, function (response) {
-            utilService.mensagemModalErro(response.data.message);
+            utilService.mensagemModalErro(response.data);
         });
     };
 
@@ -145,7 +145,7 @@ app.controller("usuarioController", ['$uibModal',"$scope", "$routeParams", "$loc
             }
 
         }, function (response) {
-            utilService.mensagemErro(response.data.message);
+            utilService.mensagemErro(response.data);
         });
     }
 

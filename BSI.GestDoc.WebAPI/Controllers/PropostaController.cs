@@ -28,10 +28,6 @@ namespace BSI.GestDoc.WebAPI.Controllers
             {
                 listaPropostas = new DocumentoClienteBL().ListarDocumentosCliente(usuarioId.ToString(), clientId.ToString(), numeroProposta);             
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.GetBaseException().Message);
-            }
             finally
             {
                 this.Dispose();
@@ -56,10 +52,6 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 
                 documentosCliente = new DocumentoClienteDadosDal().GetAllByUsuarioIdClienteId(clientId, usuarioId);
                 
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.GetBaseException().Message);
             }
             finally
             {
