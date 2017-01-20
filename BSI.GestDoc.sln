@@ -44,7 +44,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "BSI.GestDoc.Website", "BSI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSI.GestDoc.Util", "BSI.GestDoc.Util\BSI.GestDoc.Util.csproj", "{7D5C5E30-ACB7-41A1-82ED-FBCBA8B6BFD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSI.GestDoc.CustomException", "Itau.GestDoc.CustomException\BSI.GestDoc.CustomException.csproj", "{6C2C734E-C76C-47EE-A665-6452086EF134}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSI.GestDoc.CustomException", "BSI.GestDoc.CustomException\BSI.GestDoc.CustomException.csproj", "{6C2C734E-C76C-47EE-A665-6452086EF134}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
