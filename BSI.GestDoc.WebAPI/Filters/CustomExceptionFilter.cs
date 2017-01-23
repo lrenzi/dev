@@ -40,7 +40,7 @@ namespace BSI.GestDoc.WebAPI.Filters
             if (exceptionType != typeof(CustomException.CustomException))
             {
                 customException =
-                    new CustomException.CustomException(actionExecutedContext.Exception.Message, actionExecutedContext.Exception.InnerException);
+                    new CustomException.CustomException(actionExecutedContext.Exception.Message, actionExecutedContext.Exception);
             }
             else
             {

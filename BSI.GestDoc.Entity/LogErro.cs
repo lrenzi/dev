@@ -14,7 +14,6 @@ namespace BSI.GestDoc.Entity
         public Int64 LogErroId { get; set; }
         public string Descricao { get; set; }
         public string Trace { get; set; }
-        public string UsuarioId { get; set; }
         public DateTime Data { get; set; }
         public int Ambiente { get; set; }
         public string HostName { get; set; }

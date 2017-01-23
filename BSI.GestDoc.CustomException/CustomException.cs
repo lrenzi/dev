@@ -47,8 +47,6 @@ namespace BSI.GestDoc.CustomException
                 if (innerException != null)
                     logErro.Trace = innerException.StackTrace;
 
-                logErro.UsuarioId = "1";//authenticationProperties["usuarioId"].ToString();
-
                 new LogErroDal().Insert(logErro);
 
             }
@@ -91,7 +89,6 @@ namespace BSI.GestDoc.CustomException
             sw.WriteLine("HostName --> " + logErro.HostName);
             sw.WriteLine("TipoErro --> " + logErro.TipoMensagem);
             sw.WriteLine("Trace --> " + logErro.Trace);
-            sw.WriteLine("UsuarioId --> " + logErro.UsuarioId);
             sw.WriteLine("Erro SQL --> " + ex.Message);
             sw.WriteLine("Trace SQL --> " + ex.StackTrace);
         }

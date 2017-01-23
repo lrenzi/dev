@@ -139,7 +139,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                 if (File.Exists(WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo))
                     File.Delete(WorkingFolder + "\\" + _documentoCliente.DocClienteNomeArquivoSalvo);
 
-                throw new CustomException.CustomException(ex.Message, ex.InnerException);
+                throw new CustomException.CustomException(ex.Message, ex);
             }
         }
 

@@ -61,6 +61,9 @@ namespace BSI.GestDoc.BusinessLogic
                 throw new BusinessException(0, EnumTipoMensagem.Alerta, "Proposta enviada por outro usuário.");
             }
             List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(documentoCliente_.DocCliTipoId).ToList();
+
+            if (_documentosClienteSituacao.Count == 0)
+                throw new Exception("Situação não cadastrada para este Tipo de Documento.");
             documentoCliente_.DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId);
 
             #endregion
