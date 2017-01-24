@@ -1,12 +1,16 @@
 -------------------------------------------------------
-Data --> 20/01/2017 15:55:13
+Data --> 20/01/2017 17:29:45
 Ambiente --> Desenvolvimento
-Descricao --> mensagem de erro teste
+Descricao --> A sequência não contém elementos
 HostName --> ::1
 TipoErro --> 9
-Trace --> 
-UsuarioId --> 1
-Erro SQL --> Invalid column name 'TipoErro'.
+Trace -->    em System.Linq.Enumerable.Min(IEnumerable`1 source)
+   em System.Linq.Enumerable.Min[TSource](IEnumerable`1 source, Func`2 selector)
+   em BSI.GestDoc.BusinessLogic.UploadFileBradescoBL.EnviarDocumentoCliente(DocumentoCliente documentoCliente_) na D:\dev3\dev\BSI.GestDoc.BusinessLogic\UploadFileBradescoBL.cs:linha 64
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.<EnviarArquivos>d__2.MoveNext() na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 119
+UsuarioId --> 4
+Erro SQL --> The INSERT statement conflicted with the FOREIGN KEY constraint "Cliente_LogErro_fk". The conflict occurred in database "bsidbdesenv", table "dbo.Usuario", column 'UsuarioId'.
+The statement has been terminated.
 Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
    em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
    em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
@@ -27,16 +31,20 @@ Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exc
    em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
    em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
    em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 18
-   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\Itau.GestDoc.CustomException\CustomException.cs:linha 52
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 52
 -------------------------------------------------------
-Data --> 20/01/2017 15:55:13
+Data --> 20/01/2017 17:29:45
 Ambiente --> Desenvolvimento
-Descricao --> mensagem de erro teste
+Descricao --> A sequência não contém elementos
 HostName --> ::1
 TipoErro --> 9
-Trace --> 
-UsuarioId --> 1
-Erro SQL --> Invalid column name 'TipoErro'.
+Trace -->    em System.Linq.Enumerable.Min(IEnumerable`1 source)
+   em System.Linq.Enumerable.Min[TSource](IEnumerable`1 source, Func`2 selector)
+   em BSI.GestDoc.BusinessLogic.UploadFileBradescoBL.EnviarDocumentoCliente(DocumentoCliente documentoCliente_) na D:\dev3\dev\BSI.GestDoc.BusinessLogic\UploadFileBradescoBL.cs:linha 64
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.<EnviarArquivos>d__2.MoveNext() na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 119
+UsuarioId --> 4
+Erro SQL --> The INSERT statement conflicted with the FOREIGN KEY constraint "Cliente_LogErro_fk". The conflict occurred in database "bsidbdesenv", table "dbo.Usuario", column 'UsuarioId'.
+The statement has been terminated.
 Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
    em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
    em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
@@ -57,16 +65,18 @@ Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exc
    em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
    em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
    em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 18
-   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\Itau.GestDoc.CustomException\CustomException.cs:linha 52
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 52
 -------------------------------------------------------
-Data --> 20/01/2017 15:55:55
+Data --> 20/01/2017 17:31:43
 Ambiente --> Desenvolvimento
-Descricao --> mensagem de erro teste
+Descricao --> Situação não encontrada para o Tipo de Documento.
 HostName --> ::1
 TipoErro --> 9
-Trace --> 
-UsuarioId --> 1
-Erro SQL --> Invalid column name 'TipoErro'.
+Trace -->    em BSI.GestDoc.BusinessLogic.UploadFileBradescoBL.EnviarDocumentoCliente(DocumentoCliente documentoCliente_) na D:\dev3\dev\BSI.GestDoc.BusinessLogic\UploadFileBradescoBL.cs:linha 66
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.<EnviarArquivos>d__2.MoveNext() na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 119
+UsuarioId --> 4
+Erro SQL --> The INSERT statement conflicted with the FOREIGN KEY constraint "Cliente_LogErro_fk". The conflict occurred in database "bsidbdesenv", table "dbo.Usuario", column 'UsuarioId'.
+The statement has been terminated.
 Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
    em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
    em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
@@ -87,4 +97,4 @@ Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exc
    em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
    em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
    em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 18
-   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\Itau.GestDoc.CustomException\CustomException.cs:linha 52
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 52
