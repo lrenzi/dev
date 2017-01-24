@@ -1,6 +1,6 @@
 ﻿
 <form role="form" name="usuarioform">
-    <div class="modal-header" data-ng-app="AngularAuthApp">
+    <div class="modal-header">
         <h3 class="modal-title">Alterar Usuário: {{custom}}</h3>
     </div>
 
@@ -10,33 +10,33 @@
         <div class="row">
             <div class="form-group col-md-2">
                 <label for="userName">Id Usuário</label>
-                <input type="text" data-ng-model="usuarioId" id="usuarioId" class="form-control input-sm" disabled required title="Campo obrigatório" />
+                <input type="text" data-ng-model="usuarioId" name="usuarioId" id="usuarioId" class="form-control input-sm" disabled required title="Campo obrigatório" />
             </div>
         </div>
         <div class="row">
 
             <div class="form-group col-md-2">
                 <label for="userName">User Name</label>
-                <input type="text" name="input" data-ng-model="usuarioLogin" id="usuarioLogin" class="form-control input-sm" maxlength="10" required disabled title="Campo obrigatório" />
+                <input type="text" data-ng-model="usuarioLogin" name="usuarioLogin" id="usuarioLogin" class="form-control input-sm" maxlength="10" required disabled title="Campo obrigatório" />
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4">
                 <label class="label-required">Nome</label>
-                <input alpha-Numericos-Especial data-ng-model="usuarioNome" id="usuarioNome" type="text" class="form-control input-sm" maxlength="200" title="Campo obrigatório" required>
+                <input alpha-Numericos-Especial data-ng-model="usuarioNome" name="usuarioNome" id="usuarioNome" type="text" class="form-control input-sm" maxlength="200" title="Campo obrigatório" required>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4">
                 <label class="label-required">Email</label>
-                <input type="email" name="input" data-ng-model="usuarioEmail" id="usuarioEmail" required class="form-control input-sm" maxlength="100" title="Favor informar endereço de email válido!">
+                <input type="email"  data-ng-model="usuarioEmail" name="usuarioEmail" id="usuarioEmail" required class="form-control input-sm" maxlength="100" title="Favor informar endereço de email válido!">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4" data-ng-init="ConsultaPerfil('','','','')">
                 <label class="label-required">Perfil</label>
                 <select ng-options="perfil.usuPerfilId as perfil.usuPerfilNome for perfil in listaPerfis"
-                        data-ng-model="usuPerfilId" id="usuPerfilId" required class="form-control input-sm" title="Campo obrigatório">
+                        data-ng-model="usuPerfilId" id="usuPerfilId" name="usuPerfilId" required class="form-control input-sm" title="Campo obrigatório">
                     <option value="">Selecione</option>
                 </select>
             </div>
@@ -44,7 +44,7 @@
         <div class="row">
             <div class="form-group col-md-4" data-ng-init="ConsultaPerfil('','','','')">
                 <div class="checkbox icheck ">
-                    <input type="checkbox" name="chkperfil" ng-model="chkAlterarSenha" id="chkAlterarSenha" ng-click="ExibirCampoSenha()" />
+                    <input type="checkbox"  name="chkperfil" ng-model="chkAlterarSenha" id="chkAlterarSenha" ng-click="ExibirCampoSenha()" />
                     <label for="chkperfil">Alterar senha</label>
                 </div>
             </div>
@@ -52,19 +52,19 @@
         <div class="row" ng-show="showDivSenha">
             <div class="col-md-4">
                 <label class="label-required">Senha</label>
-                <input ng-model="senhaUsuario" type="password" class="form-control input-sm" required name="input" title="Informe a senha" maxlength="50" />
+                <input ng-model="senhaUsuario" type="password" class="form-control input-sm" required name="senhaUsuario" title="Informe a senha" maxlength="50" />
             </div>
         </div>
         <div class="row" ng-show="showDivSenha">
             <div class="col-md-4">
                 <label class="label-required">Confirmar Senha</label>
-                <input ng-model="confirmacaoSenhaUsuario" type="password" class="form-control input-sm" required name="input" title="Confirme a senha" maxlength="50" />
+                <input ng-model="confirmacaoSenhaUsuario" type="password" class="form-control input-sm" required name="senhaUsuario" title="Confirme a senha" maxlength="50" />
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" ng-model="btnEnviar" ng-click="AlterarUsuario()" class="btn btn-primary btn-sm" value="Cancelar alteração do usuário" title="Efetuar Alteração Usuário">Enviar</button>
-        <button ng-model="btnFechar" ng-click="cancel()" class="btn btn-primary btn-sm" value="Fechar" title="Fechar">
+        <button type="submit" ng-model="btnEnviar" name="btnEnviar" ng-click="AlterarUsuario()" class="btn btn-primary btn-sm" value="Cancelar alteração do usuário" title="Efetuar Alteração Usuário">Enviar</button>
+        <button ng-model="btnFechar" ng-click="cancel()" name="btnFechar" class="btn btn-primary btn-sm" value="Fechar" title="Fechar">
             Cancelar
         </button>
     </div>
