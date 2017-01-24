@@ -2,16 +2,7 @@
 <div class="modal-header">
     <h3 class="modal-title">Detalhes da Proposta: {{custom}}</h3>
 </div>
-<div>
-
-    <div ng-show="exibirModalMensagem">
-        <div ng-class="m.tipoMensagemModal" role="alert" ng-repeat="m in mensagens">
-            <strong class="alert-title">{{m.titulo}}</strong>
-            <label class="center-block no-margin" ng-bind="t" ng-repeat="t in m.mensagemModal"></label>
-        </div>
-    </div>
-
-</div>
+<ng-include src="'app/views/modal/divMessageError.html'" />
 <table class="table table-nomargin">
     <thead>
         <tr>

@@ -1,11 +1,11 @@
-﻿
-<form role="form" name="usuarioform" data-ng-init="ConsultarUsuario('','','','','','','','')">
+﻿<div class="margin-bottom">
+    <form role="form" name="usuarioform" data-ng-init="ConsultarUsuario('','','','','','','','')">
+        <div class="form-inline margin-bottom">
+            <label for="search">Filtrar usuários:</label>
+            <input type="search" name="search" ng-model="search" class="form-control input-sm" maxlength="100" title="Digite algum valor para filtrar a lista de usuários" />
 
-    <div class="form-inline margin-bottom">
-        <label for="search" >Filtrar usuários:</label>
-        <input type="search" name="search" ng-model="search" class="form-control input-sm" maxlength="100" title="Digite algum valor para filtrar a lista de usuários" />
-    </div>
-
+        </div>
+    </form>
     <table class="table table-condensed">
         <thead>
             <tr class="cursor-pointer">
@@ -14,8 +14,8 @@
                 <th class="col-md-1" ng-click="sort('usuarioAtivoDescricao')">Status</th>
                 <th class="col-md-3" ng-click="sort('usuarioEmail')">Email</th>
                 <th class="col-md-3" ng-click="sort('usuarioPerfil.usuPerfilNome')">Perfil</th>
-                <th class="col-md-1" ></th>
-                <th class="col-md-1" ></th>
+                <th class="col-md-1"></th>
+                <th class="col-md-1"></th>
             </tr>
         </thead>
         <tbody>
@@ -26,9 +26,6 @@
                 <td>{{usuario.usuarioEmail}}</td>
                 <td>{{usuario.usuarioPerfil.usuPerfilNome}}</td>
                 <td class="text-center">
-                    <!--<button ng-model="btnAlterar" ng-click="AbrirTelaAlteracao(usuario)" class="btn btn-primary btn-xs" value="Alterar" title="Alterar Usuário">
-                        Alterar
-                    </button>-->
                     <button ng-model="btnAlterar" ng-click="AbrirTelaAlteracao(usuario)" class="btn btn-primary btn-xs" value="Alterar" title="Alterar Usuário">
                         Alterar
                     </button>
@@ -41,12 +38,14 @@
                 </td>
             </tr>
         </tbody>
-       
+
     </table>
     <dir-pagination-controls max-size="7"
                              direction-links="true"
                              boundary-links="true">
     </dir-pagination-controls>
+
+
     <!--Edicao do registro selecionado-->
     <!--<div ng-show="showDivAlteracao">
         <h1>Alterar Usuário</h1>
@@ -92,7 +91,7 @@
                     <label for="chkperfil">Alterar senha</label>
                 </div>
             </div>
-        </div>            
+        </div>
         <div class="row" ng-show="showDivSenha">
             <div class="form-group col-md-4">
                 <label class="label-required">Senha</label>
@@ -112,10 +111,11 @@
             </div>
         </div>
     </div>-->
-</form>
+    </form>
 
 
 
 
 
 
+</div>
