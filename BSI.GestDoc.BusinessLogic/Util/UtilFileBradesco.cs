@@ -20,152 +20,6 @@ namespace BSI.GestDoc.BusinessLogic.Util
 {
     public class UtilFileBradesco
     {
-
-        /// <summary>
-        /// Le todos os arquivos no diretório de entrada para fazer a junção e preencher o modelo
-        /// </summary>
-        /// <returns>Verdadeiro ou falso</returns>
-        public bool LerDiretorio()
-        {
-            List<string> ListArqDel = new List<string>();
-            List<string> ListArqMove = new List<string>();
-
-            bool bRetorno = false;
-            try
-            {
-                if (!Directory.Exists(ConfigurationManager.AppSettings["DiretorioJuncao"]))
-                    Directory.CreateDirectory(ConfigurationManager.AppSettings["DiretorioJuncao"]);
-
-                //Varre o diretorio para junção dos pdf´s
-                foreach (string c in Directory.GetFiles(ConfigurationManager.AppSettings["DiretorioInicio"], "*.PDF"))
-                {
-                    //mover todos os arquivos do balde para um diretório de backup
-                    this.MoverArquivosBaldeBackup();
-
-                    if (VerificarContrato(c.ToString())) //Contrato CCB
-                    {
-                        //Le os dados do Pdf e cria o novo com o modelo
-                        LerPdf(c);
-
-                        string CaminhoDestino = System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioJuncao"], new FileInfo(c).Name);
-                        string[] Arquivos = new string[] { System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name), c };
-
-                        //Junta os dois arquivos em um só
-                        MergePDFs(Arquivos, CaminhoDestino);
-
-                        //Exclui o arquivo caso ele já exista no diretorio de destino
-                        if (File.Exists(System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name)))
-                            File.Delete(System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name));
-
-                        //move o arquivo para o diretorio balde
-                        File.Move(CaminhoDestino, System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name));
-
-                        //Exclui o arquivo original
-                        File.Delete(c);
-                    }
-                    else //outros tipos de contrato devem ser apenas movidos
-                    {
-                        File.Copy(c, System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioJuncao"], new FileInfo(c).Name),true);
-                        File.Delete(c);
-                        File.Copy(System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioJuncao"], new FileInfo(c).Name), System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], new FileInfo(c).Name), true);
-                        File.Delete(System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioJuncao"], new FileInfo(c).Name));
-                    }
-                };
-
-                bRetorno = true;
-            }
-            catch (Exception ex)
-            {
-                bRetorno = false;
-                throw ex;
-            }
-            return bRetorno;
-        }
-
-        public bool CriarArquivoZip(ref string NomeArquivoZip)
-        {
-            bool bRetorno = false;
-            string NmArquivo = string.Empty;
-            try
-            {
-                List<string> Arquivos = new List<string>(Directory.GetFiles(ConfigurationManager.AppSettings["DiretorioEmail"], "*.PDF").ToList());
-
-                NmArquivo = string.Format("{0}{1}", DateTime.Now.ToString("dd_MM_yyyy_HH_mm"), ConfigurationManager.AppSettings["ExtensaoZip"]);
-                CompactarArquivos(Arquivos, NmArquivo);
-                NomeArquivoZip = System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioEmail"], NmArquivo);
-
-                Arquivos.ForEach(c =>
-                {
-                    if (File.Exists(c))
-                        File.Delete(c);
-                });
-
-                bRetorno = true;
-            }
-            catch (Exception ex)
-            {
-                NomeArquivoZip = "";
-                throw ex;
-            }
-
-
-            return bRetorno;
-        }
-
-        public bool EfetuarBackup()
-        {
-
-            try
-            {
-                if (!Directory.Exists(ConfigurationManager.AppSettings["DiretorioBKP"]))
-                    Directory.CreateDirectory(ConfigurationManager.AppSettings["DiretorioBKP"]);
-
-                foreach (string c in Directory.GetFiles(ConfigurationManager.AppSettings["DiretorioEmail"], "*.PDF"))
-                {
-                    bool existe = false;
-
-                    //Verifica se existe arquivo com o mesmo nome no diretório DiretorioBalde
-                    foreach (string b in Directory.GetFiles(ConfigurationManager.AppSettings["DiretorioBalde"], "*.PDF"))
-                    {
-                        if (System.IO.Path.GetFileNameWithoutExtension(b).Contains(System.IO.Path.GetFileNameWithoutExtension(c)))
-                        {
-                            existe = true;
-                            break;
-                        }
-                    }
-
-                    //Caso o mesmo não exista, o arquivo do diretório OUT deve ser copiado para o backup
-                    if(!existe)
-                        File.Copy(c, System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBKP"], new FileInfo(c).Name), true);
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-                
-            }
-        }
-        
-        /// <summary>
-        /// Verifica se o contrato é CCB
-        /// </summary>
-        /// <param name="Caminho">Caminho do contrato</param>
-        /// <returns>Verdadeiro ou Falso</returns>
-        private bool VerificarContrato(string Caminho)
-        {
-            bool retorno = false;
-            using (PdfReader pdfReader = new PdfReader(Caminho))
-            {
-                retorno = PdfTextExtractor.GetTextFromPage(pdfReader, 1, new SimpleTextExtractionStrategy()).Substring(0, 62).ToUpper().Contains(ConfigurationManager.AppSettings["Cabecalho"].ToString().ToUpper().Trim());
-                pdfReader.Close();
-                pdfReader.Dispose();
-            }
-
-            return retorno;
-        }
-
-
         /// <summary>
         /// Lê o arquivo pdf para extrair os dados
         /// </summary>
@@ -181,56 +35,48 @@ namespace BSI.GestDoc.BusinessLogic.Util
         }
 
         /// <summary>
-        /// Move arquivos do balde para backup
+        /// Lê o arquivo pdf para extrair os dados
         /// </summary>
-        private void MoverArquivosBaldeBackup()
+        /// <param name="Caminho">Caminho do arquivo PDF a ser lido</param>
+        public void EscreverPdf(string workFolder_, string caminhoCompletoArquivoSalvo_, string caminhoCompletoArquivoAssinatura_)
         {
-            
-            if (!Directory.Exists(ConfigurationManager.AppSettings["DiretorioBaldeBKP"]))
-                Directory.CreateDirectory(ConfigurationManager.AppSettings["DiretorioBaldeBKP"]);
-                        
-            #region Mover para Backup
-            foreach (string c in Directory.GetFiles(ConfigurationManager.AppSettings["DiretorioBalde"]))
-            {
-                //renomear o arquivo antes de jogar na pasta de backup para evitar duplicidades
-                string novoNome = System.IO.Path.GetFileName(c).Replace(System.IO.Path.GetFileNameWithoutExtension(c), System.IO.Path.GetFileNameWithoutExtension(c) + "_" + DateTime.Now.ToString("yyyyMMddhhmmss"));
+            string NomeArquivo = new FileInfo(caminhoCompletoArquivoSalvo_).Name;
 
-                //move o arquivo para pasta de backup
-                File.Move(c, System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBaldeBKP"], novoNome));
-            }
-            #endregion
+            string contrato = RetornarValor(caminhoCompletoArquivoSalvo_, ConfigurationManager.AppSettings["Bradesco.PosicaoContrato"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["Bradesco.PaginaContrato"].ToString()));
+            string CPF = RetornarValor(caminhoCompletoArquivoSalvo_, ConfigurationManager.AppSettings["Bradesco.CPF_MFCCB"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["Bradesco.PaginaMunicipio"].ToString()));
+            string municipio = string.Empty;
 
-            #region Move diretórios
-            foreach (string dir in Directory.GetDirectories(ConfigurationManager.AppSettings["DiretorioBalde"]))
-            {
-                //renomear o diretório antes de jogar na pasta de backup para evitar duplicidades
-                string novoNome = new DirectoryInfo(dir).Name + "_" + DateTime.Now.ToString("yyyyMMddhhmmss");
+            //verifica se é pessoa fisica ou juridica
+            if (CPF.Length <= 14)
+                municipio = ToTitleCase(RetornarValor(caminhoCompletoArquivoSalvo_, ConfigurationManager.AppSettings["Bradesco.CidadeCCB"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["Bradesco.PaginaMunicipio"].ToString())));
+            else
+                municipio = ToTitleCase(RetornarValor(caminhoCompletoArquivoSalvo_, ConfigurationManager.AppSettings["Bradesco.CidadePj"].ToString().Split(','), int.Parse(ConfigurationManager.AppSettings["Bradesco.PaginaMunicipio"].ToString())));
 
-                //move o diretório para pasta de backup
-                Directory.Move(dir, System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBaldeBKP"], novoNome));
-            }
-            #endregion
+            //Preenche o modelo criando um novo arquivo
+            PreencherModelo(workFolder_, caminhoCompletoArquivoAssinatura_, contrato, CPF, municipio, NomeArquivo);
         }
+
+
 
         /// <summary>
         /// A partir do documento de modelo preenche os dados lidos
         /// </summary>
         /// <param name="Valores">Valores a serem preenchidos</param>
         /// <param name="NomeArquivo">Nome do arquivo a Ser gerado</param>
-        private void PreencherModelo(DocumentoClienteDados Valores, string NomeArquivo)
+        private void PreencherModelo(string workFolder_, string caminhoCompletoArquivoAssinatura_, string contrato_, string CPF_, string municipio_, string NomeArquivo)
         {
-            if (!Directory.Exists(ConfigurationManager.AppSettings["DiretorioBalde"]))
-                Directory.CreateDirectory(ConfigurationManager.AppSettings["DiretorioBalde"]);
+            if (!Directory.Exists(ConfigurationManager.AppSettings["Bradesco.DiretorioBalde"]))
+                Directory.CreateDirectory(ConfigurationManager.AppSettings["Bradesco.DiretorioBalde"]);
             
-            using (Stream newpdfStream = new FileStream(System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioBalde"], NomeArquivo), FileMode.Create, FileAccess.ReadWrite))
+            using (Stream newpdfStream = new FileStream(System.IO.Path.Combine(workFolder_ + "\\" + ConfigurationManager.AppSettings["Bradesco.DiretorioBalde"], NomeArquivo), FileMode.Create, FileAccess.ReadWrite))
             {
-                PdfReader pdfReader = new PdfReader(ConfigurationManager.AppSettings["ArquivoModelo"]);
+                PdfReader pdfReader = new PdfReader(caminhoCompletoArquivoAssinatura_);
                 PdfStamper pdfStamper = new PdfStamper(pdfReader, newpdfStream);
 
                 AcroFields acroFields = pdfStamper.AcroFields;
 
-                acroFields.SetField("contrato", Valores.DocCliDadosValor);
-                //acroFields.SetField("Cidade", Valores.Municipio);
+                acroFields.SetField("contrato", contrato_);
+                acroFields.SetField("Cidade", municipio_);
                 acroFields.SetField("Dia", DateTime.Now.ToString("dd"));
                 acroFields.SetField("Ano", DateTime.Now.Year.ToString().Substring(3, 1));
                 acroFields.SetField("Mes", ToTitleCase(new DateTime(1900, DateTime.Now.Month, 1).ToString("MMMM", new CultureInfo("pt-BR"))));
@@ -292,24 +138,6 @@ namespace BSI.GestDoc.BusinessLogic.Util
                 }
             }
             return merged;
-        }
-
-
-        /// <summary>
-        /// Função para compactar os arquivos
-        /// </summary>
-        /// <param name="Arquivos">Um ou mais arquivos que serão compactados</param>
-        /// <param name="NomeArquivo">Nome do arquivo compactado</param>
-        private void CompactarArquivos(List<string> Arquivos, string NomeArquivo)
-        {
-
-            using (ZipFile Zip = new ZipFile())
-            {
-                Zip.Password = ConfigurationManager.AppSettings["pwdZip"];
-                Zip.AddFiles(Arquivos, false, "");
-                Zip.Save(System.IO.Path.Combine(ConfigurationManager.AppSettings["DiretorioEmail"], NomeArquivo));
-                Zip.Dispose();
-            }
         }
 
 

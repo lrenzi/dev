@@ -26,9 +26,11 @@ namespace BSI.GestDoc.Entity
         public int DocCliTipoId { get; set; }
         public string DocClienteNomeArquivoOriginal { get; set; }
         public string DocClienteTipoArquivo { get; set; }
-
         [DapperAttribute.Write(false)]
         public DocumentoClienteSituacao DocumentoClienteSituacao { get; set; }
+        [DapperAttribute.Write(false)]
+        [DapperAttribute.Computed]
+        public string DocClienteCaminhoCompletoArquivoSalvo { get; set; }
 
         [DapperAttribute.Write(false)]
         public DocumentoClienteTipo DocumentoClienteTipo { get; set; }

@@ -4,9 +4,14 @@ using BSI.GestDoc.Entity;
 using BSI.GestDoc.Repository;
 using BSI.GestDoc.Repository.CRUD;
 using BSI.GestDoc.Util;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Text;
 using static BSI.GestDoc.CustomException.BusinessException.BusinessException;
 
 namespace BSI.GestDoc.BusinessLogic
@@ -49,6 +54,18 @@ namespace BSI.GestDoc.BusinessLogic
             {
                 throw new Exception("Erro ao recuperar o número do contrato. Erro [" + ex.Message + "]");
             }
+            #endregion
+
+            #region Validar Conteúdo PDF
+
+            validarConteudoPDF(documentoCliente_);
+
+            #endregion
+
+            #region Processamentos
+
+            Processamentos(documentoCliente_);
+
             #endregion
 
             #region 3 - Consultar numero proposta por usuário na base
@@ -123,6 +140,157 @@ namespace BSI.GestDoc.BusinessLogic
             #endregion
 
             return documentoCliente_;
+        }
+
+        private void Processamentos(DocumentoCliente documentoCliente_)
+        {
+            //Obtem pasta de destino do arquivo de configuracao
+            string _pastaArquivoAssinatura = ConfigurationManager.AppSettings["Bradesco.PastaArquivoAssinatura"];
+            string _arquivoAssinatura = ConfigurationManager.AppSettings["Bradesco.ArquivoAssinatura"];
+
+            switch (documentoCliente_.DocCliTipoId)
+            {
+                case 1:
+                    //Valida CCB
+                    processamentoCCB(documentoCliente_, _pastaArquivoAssinatura, _arquivoAssinatura);
+                    break;
+                case 2:
+                    //Valida CET
+                    processamentoCET(documentoCliente_);
+
+                    break;
+                case 3:
+                    //Valida CET
+                    processamentoSeguro(documentoCliente_);
+                    break;
+            }
+        }
+
+        private void processamentoCCB(DocumentoCliente documentoCliente_, string pastaArquivoAssinatura_, string arquivoAssinatura_)
+        {
+            UtilFileBradesco utilBradesco = new Util.UtilFileBradesco();
+            string fileArquivoUpload = WorkingFolder + "\\" + documentoCliente_.DocClienteNomeArquivoSalvo;
+            string fileArquivoAssinatura = WorkingFolder + "\\" + pastaArquivoAssinatura_ + "\\" + arquivoAssinatura_;
+            string[] Arquivos = { fileArquivoUpload, fileArquivoAssinatura };
+
+            try
+            {
+
+                string validaCabecalho = ConfigurationManager.AppSettings["Bradesco.ValidaCabecalho_CCB"].ToString();
+                string diretorioBalde = ConfigurationManager.AppSettings["Bradesco.DiretorioBalde"];
+                string fileAux = WorkingFolder + "\\" + diretorioBalde + "\\" + documentoCliente_.DocClienteNomeArquivoSalvo + "_aux";
+                string fileAuxAssinatura = WorkingFolder + "\\" + diretorioBalde + "\\" + documentoCliente_.DocClienteNomeArquivoSalvo;
+
+                if (VerificarCabecalhoContratoCCB(fileArquivoUpload, validaCabecalho)) //Contrato CCB
+                {
+                    //Le os dados do Pdf e cria o novo com o modelo
+                    utilBradesco.EscreverPdf(WorkingFolder, Arquivos[0], Arquivos[1]);
+
+                    File.Copy(Arquivos[0], fileAux);
+
+                    Arquivos[0] = fileAux;
+                    Arquivos[1] = fileAuxAssinatura;
+
+                    //Junta os dois arquivos em um só
+                    UtilFileBradesco.MergePDFs(Arquivos, fileArquivoUpload);
+
+
+                }
+            }
+            finally
+            {
+                foreach (string file in Arquivos)
+                {
+                    if (File.Exists(file))
+                        File.Delete(file);
+                }
+            }
+
+        }
+
+        private void processamentoCET(DocumentoCliente documentoCliente_) { }
+        private void processamentoSeguro(DocumentoCliente documentoCliente_) { }
+
+        private void validarConteudoPDF(DocumentoCliente documentoCliente_)
+        {
+            #region Valida conteudo dos PDFs
+
+            Boolean blnArquivoPDFInvalido = false;
+            StringBuilder sbPDFInvalido = new StringBuilder("Conteudo inválido para o(s) arquivo(s):" + "\n");
+
+            string valida = string.Empty;
+
+            switch (documentoCliente_.DocCliTipoId)
+            {
+                case 1:
+                    //Valida CCB
+                    valida = ConfigurationManager.AppSettings["Bradesco.Valida_CCB"].ToString().ToUpper().Trim();
+                    if (!VerificarContrato(documentoCliente_.DocClienteNomeArquivoSalvo, valida))
+                    {
+                        sbPDFInvalido.Append("CCB: " + documentoCliente_.DocClienteNomeArquivoOriginal + "\n");
+                        blnArquivoPDFInvalido = true;
+                    }
+                    break;
+                case 2:
+                    //Valida CET
+                    valida = ConfigurationManager.AppSettings["Bradesco.Valida_CET"].ToString().ToUpper().Trim();
+
+                    if (!VerificarContrato(documentoCliente_.DocClienteNomeArquivoSalvo, valida))
+                    {
+                        sbPDFInvalido.Append("CCT: " + documentoCliente_.DocClienteNomeArquivoOriginal + "\n");
+                        blnArquivoPDFInvalido = true;
+                    }
+                    break;
+                case 3:
+                    //Valida CET
+                    valida = ConfigurationManager.AppSettings["Bradesco.Valida_Seguro"].ToString().ToUpper().Trim();
+
+                    if (!VerificarContrato(documentoCliente_.DocClienteNomeArquivoSalvo, valida))
+                    {
+                        sbPDFInvalido.Append("Seguro: " + documentoCliente_.DocClienteNomeArquivoOriginal + "\n");
+                        blnArquivoPDFInvalido = true;
+                    }
+                    break;
+            }
+
+
+            if (blnArquivoPDFInvalido)
+            {
+                throw new BusinessException(EnumTipoMensagem.Alerta, sbPDFInvalido.ToString());
+            }
+
+            #endregion
+
+        }
+        private bool VerificarContrato(string docClienteNomeArquivoSalvo_, string conteudo_)
+        {
+            bool retorno = false;
+            using (PdfReader pdfReader = new PdfReader(WorkingFolder + "\\" + docClienteNomeArquivoSalvo_))
+            {
+                retorno = PdfTextExtractor.GetTextFromPage(pdfReader, 1, new SimpleTextExtractionStrategy()).Substring(0, 300).ToUpper().Contains(conteudo_);
+                pdfReader.Close();
+                pdfReader.Dispose();
+            }
+
+            return retorno;
+        }
+
+        /// <summary>
+        /// Verifica se o contrato é CCB
+        /// </summary>
+        /// <param name="Caminho">Caminho do contrato</param>
+        /// <returns>Verdadeiro ou Falso</returns>
+        public bool VerificarCabecalhoContratoCCB(string caminho_, string conteudo_)
+        {
+            bool retorno = false;
+            using (PdfReader pdfReader = new PdfReader(caminho_))
+            {
+                retorno = PdfTextExtractor.GetTextFromPage(pdfReader, 1, new SimpleTextExtractionStrategy()).Substring(0, 62).ToUpper().Contains(conteudo_.ToUpper().Trim());
+                pdfReader.Close();
+                pdfReader.Dispose();
+            }
+
+            return retorno;
         }
     }
 }

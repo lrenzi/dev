@@ -94,8 +94,9 @@ namespace BSI.GestDoc.WebAPI.Controllers
                     UsuarioId = usuarioId,
                     ClienteId = clienteId,
                     DocCliTipoId = docCliTipoId,
-                    DocClienteNomeArquivoSalvo = streamProvider.FileData.Select(entry => entry.LocalFileName).First().Split(char.Parse("\\")).Last(),
-                    DocClienteNomeArquivoOriginal = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName).First().Replace("\"", ""),
+                    DocClienteCaminhoCompletoArquivoSalvo = streamProvider.FileData.Select(entry => entry.LocalFileName).First(),
+                    DocClienteNomeArquivoSalvo = System.IO.Path.GetFileName(streamProvider.FileData.Select(entry => entry.LocalFileName).First()),
+                    DocClienteNomeArquivoOriginal = System.IO.Path.GetFileName(streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName).First().Replace("\"", "")),
                     DocClienteTipoArquivo = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType).First(),
                     DocClienteDataUpload = DateTime.Now
                 };
