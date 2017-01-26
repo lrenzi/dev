@@ -7,7 +7,7 @@ app.controller("listaPropostasController", ['$uibModal', "$scope", "$routeParams
     $scope.listaSituacoesProposta = [];
     $scope.valorMensagem = "";
 
-    utilService.definirTitulos('Consulta de propostas', 'Digite abaixo o número da proposta que deseja consultar');
+    utilService.definirTitulos('Consulta de propostas', 'Informe abaixo o valor que deseja consultar');
 
     $scope.RetornarArquivo = function (docClienteId_, fileName_) {
         

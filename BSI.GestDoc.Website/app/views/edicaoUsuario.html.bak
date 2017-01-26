@@ -1,4 +1,4 @@
-﻿<h1>Alterar Usuário</h1>
+﻿<h2>Editar Usuário</h2>
 
 <div class="row">
     <div class="form-group col-md-2">
@@ -8,8 +8,8 @@
 </div>
 <div class="row">
 
-    <div class="form-group col-md-2">
-        <label for="userName">User Name</label>
+    <div class="form-group col-md-4">
+        <label for="userName">Login</label>
         <input type="text" name="input" data-ng-model="usuarioLogin" id="usuarioLogin" class="form-control input-sm" maxlength="10" required disabled title="Campo obrigatório" />
     </div>
 </div>
@@ -55,9 +55,9 @@
 </div>
 
 <div class="row">
-    <div class="form-group col-md-4">
+    
         <button type="submit" ng-model="btnEnviar" ng-click="AlterarUsuario()" class="btn btn-primary btn-sm" value="Enviar" title="Efetuar Alteração Usuário">Enviar</button>
         <button type="submit" ng-model="btnCancelar" ng-click="CancelarAlteracao()" class="btn btn-primary btn-sm" value="Cancelar" title="Cancelar Alteração Usuário">Cancelar</button>
-    </div>
+    
 </div>
     </div>

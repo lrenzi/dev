@@ -3,6 +3,7 @@
 <head>
 
     <title>BSI - Gestão de documentos para grafometria</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 
     <meta name="keywords" content="angularjs,SPA,Single Page Application,refresh tokens,authentication,bearer token authentication,OWIN,bootstrap,bootstrap ui,tutorial,JS framework,ASP.NET WEB API 2,Taiseer Joudeh" />
     <meta name="description" content="SPA built using angularjs,authentication is done using bearer token,back end built using Asp.net web api 2 and OWIN Framework,creatd by Taiseer Joudeh" />
@@ -13,8 +14,8 @@
     <link href="content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="content/css/loading-bar.min.css" rel="stylesheet" />
     <link href="content/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="content/css/blockUI/angular-block-ui.min.css" rel="stylesheet" />
-
+    <link href="content/css/social-buttons.css" rel="stylesheet" />
+    <!--<link href="content/css/blockUI/angular-block-ui.min.css" rel="stylesheet" />-->
     <!--** scripts js de componentes e customizados **-->
     <!--<script src="scripts/jquery/js/jquery-3.1.0.js"></script>-->
     <!--** css proprio do site e customizados **-->
@@ -22,43 +23,31 @@
 
 </head>
 <body>
-
-    <!--<div class="modal fade bs-example-modal-sm" id="loading" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <i class="fa fa-circle-o-notch fa-spin" style="color:darkred" ></i>
-                    Processando, aguarde...
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <input type="button" value="testefasd" onclick="javascript: $('#loading').modal('show');" />-->
-
+    <a id="top" class="invisible"></a>
+    <!--CABEÇALHO-->
     <div class="navbar navbar-fixed-top navbar-top" role="navigation" data-ng-controller="indexController">
         <div class="container">
             <div class="navbar-header">
-                <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
+                <button class="btn btn-success navbar-toggle" data-toggle="collapse"  data-target=".navbar-collapse">
                     <span class="glyphicon glyphicon-chevron-down"></span>
                 </button>
                 <img src="content/img/bsi_logo_sm.png" class="img-fluid" alt="BSI Tecnologia">
-                <!--<a class="navbar-brand" href="#/">Inicial</a>-->
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
-                    <li data-ng-hide="!authentication.isAuth"><a>Bem vindo {{authentication.userName}}</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a>Bem vindo {{authentication.nomeUsuario}}</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/fileUpload">Upload Documentos</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/listaPropostas">Lista Contratos</a></li>
-                    <!--<li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Reativar Token</a></li>-->
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/consultarUsuario">Lista Usuários</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/cadastrarUsuario">Cadastrar Usuário</a></li>
+                    <!--<li data-ng-hide="!authentication.isAuth"><a href="#/tokens">Tokens</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Reativar Token</a></li>-->
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Sair</a></li>
-                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/login">Entrar</a></li>-->
-                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/signup">Cadastrar-se</a></li>-->
                 </ul>
             </div>
         </div>
     </div>
-
+    <!--Titulo da pagina de login-->
     <div data-ng-controller="indexController" data-ng-hide="authentication.isAuth" class="jumbotron">
         <div class="container">
             <div class="page-header text-center">
@@ -67,28 +56,26 @@
             <p class="text-center">Interface administrativa de gerenciamento de documentos para assinatura grafométrica.</p>
         </div>
     </div>
-    <div class="container" ng-show="false">
-        <div class="alert alert-success">
-            <strong>Sucesso!</strong><label ng-bind="mensagemSucesso"></label>
-        </div>
 
-        <div class="alert alert-info">
-            <strong>Informação!</strong><label ng-bind="mensagemInformacao"></label>
-        </div>
 
-        <div class="alert alert-warning">
-            <strong>Alerta!</strong><label ng-bind="mensagemAlerta"></label>
-        </div>
-
-        <div class="alert alert-danger">
-            <strong>Erro!</strong><label ng-bind="mensagemErro"></label>
-        </div>
-    </div>
+    <!--MIOLO-->
+    <a id="middle" class="invisible"></a>
     <div class="container">
+
+        <titulos></titulos>
+
+        <div ng-show="exibirMensagem">
+            <div ng-class="m.tipoMensagem" role="alert" ng-repeat="m in mensagens">
+                <strong class="alert-title">{{m.titulo}}</strong>
+                <label class="center-block no-margin" ng-bind="t" ng-repeat="t in m.mensagem"></label>
+            </div>
+        </div>
+
         <div data-ng-view="">
         </div>
     </div>
-    
+
+    <!--RODAPÉ-->
     <div class="navbar navbar-fixed-bottom">
         <div class="container">
             <div class="row">
@@ -101,10 +88,23 @@
             </div>
         </div>
     </div>
+
+    <a id="bottom" class="invisible"></a>
+
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
     <!-- Angular -->
     <script src="scripts/angular/angular.js"></script>
+    <script src="scripts/angular/angular-sanitize.min.js"></script>
     <script src="scripts/angular/angular-route.js"></script>
     <script src="scripts/angular-local-storage.min.js"></script>
+    <script src="scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+
+    <!--Paginação-->
+    <script src="scripts/pagination/dirPagination.js"></script>
+
     <!-- Loading -->
     <script src="scripts/loading-bar.min.js"></script>
     <!-- Upload -->
@@ -120,13 +120,25 @@
     <script src="app/services/tokensManagerService.js?v=2"></script>
     <script src="app/services/fileUploadService.js?v=2"></script>
     <script src="app/services/listaPropostasService.js"></script>
+    <script src="app/services/utilService.js"></script>
+    <script src="app/services/usuarioService.js"></script>
 
     <!-- Controllers -->
+    <script src="app/controllers/indexController.js?v=2"></script>
+    <script src="app/controllers/homeController.js?v=2"></script>
     <script src="app/controllers/loginController.js?v=2"></script>
     <script src="app/controllers/signupController.js?v=2"></script>
+    <script src="app/controllers/refreshController.js?v=2"></script>
     <script src="app/controllers/tokensManagerController.js?v=2"></script>
     <script src="app/controllers/fileUploadController.js?v=2"></script>
     <script src="app/controllers/listaPropostasController.js?v=2"></script>
+    <script src="app/controllers/usuarioController.js"></script>
+    <script src="app/controllers/showItemsModalController.js"></script>
+    <script src="app/controllers/erroModalController.js"></script>
+    <script src="app/controllers/alterarUsuarioModalController.js"></script>
+
+    <script src="app/diretivas.js"></script>
+    <script src="app/filter.js"></script>
 
     <!--plugin para download de arquivo-->
     <script src="scripts/fileSaver.js"></script>

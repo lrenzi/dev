@@ -1,0 +1,43 @@
+﻿<form method="post" enctype="multipart/form-data" name="formUpload">
+    <div data-ng-init="ConsultarArquivos()" novalidate="novalidate">
+        <table class="table table-condensed table-responsive vAlignMiddle">
+            <thead>
+                <tr>
+                    <th>Tipo Documento</th>
+                    <th>Arquivo</th>
+                    <th>Status</th>
+                    <th>Reenvio</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="item in listaDocumentosClienteTipo">
+                    <td class="col-sm-2">
+                        {{item.docCliTipoNome}}
+                    </td>
+                    <td class="col-sm-4">
+                        <div class="input-group">
+                            <label class="input-group-btn">
+                                <span class="btn btn-primary">
+                                    <input ng-model="file" ng-disabled="desabilitaFile" type="file" id="idFile_{{item.docCliTipoId}}" name="file" class="width-full" style="display: none;" />Escolher arquivo&hellip;
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                    </td>
+                    <td >
+                        <label ng-class="item.cssclass">{{item.status}}</label>
+                    </td>
+                    <td class="col-sm-1">
+                        <button ng-click="ReenviarArquivo(item.docCliTipoId, $index)" class="btn btn-primary btn-sm" ng-show="item.reenvio" value="Reenviar" id="idButton_{{item.docCliTipoId}}">Reenviar</button>
+                    </td>
+                    <td class="col-sm-1">
+                        <button ng-model="btnDownload" ng-show="item.download" ng-click="RetornarArquivo(item.docClienteId, item.nameFile)" class="btn btn-primary btn-sm" value="Download" title="Visualizar o documento.">Download</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button ng-model="btnEnviar" ng-show="mostraBotaoEnviar" ng-click="EnviarArquivo()" class="btn btn-primary btn-sm" value="Enviar" title="Enviar arquivos selecionados">Enviar</button>
+        <button ng-model="btnNovo" ng-show="mostraBotaoNovo" ng-click="IniciarTela()" class="btn btn-primary btn-sm" value="Novo" title="Enviar novos arquivos">Novo</button>
+    </div>
+</form>

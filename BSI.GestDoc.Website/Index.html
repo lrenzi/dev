@@ -20,22 +20,29 @@
     <!--<script src="scripts/jquery/js/jquery-3.1.0.js"></script>-->
     <!--** css proprio do site e customizados **-->
     <link href="content/css/site.css" rel="stylesheet" />
-
+    
+    
 </head>
 <body>
     <a id="top" class="invisible"></a>
     <!--CABEÇALHO-->
-    <div class="navbar navbar-fixed-top navbar-top" role="navigation" data-ng-controller="indexController">
+    <div class="navbar navbar-fixed-top navbar-top cabecalho-rodape" role="navigation" data-ng-controller="indexController">
         <div class="container">
             <div class="navbar-header">
-                <button class="btn btn-success navbar-toggle" data-toggle="collapse"  data-target=".navbar-collapse">
-                    <span class="glyphicon glyphicon-chevron-down"></span>
+                <button class="btn btn-success navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="fa fa-bars"></span>
                 </button>
-                <img src="content/img/bsi_logo_sm.png" class="img-fluid" alt="BSI Tecnologia">
+                <div class="logo-space-mobile">
+                    <img src="content/img/Logo_BSI_BRANCO_65x40px.png" class="img-fluid" alt="BSI Tecnologia" style="margin-top:3px;">
+                </div>
             </div>
+
+            <div class="col-md-5" data-ng-hide="!authentication.isAuth" style="height:40px; padding-top:12px; margin-left:20px; text-align:right;"><a class="link-branco">Seja Bem-vindo {{authentication.nomeUsuario}}</a></></div>
+
+
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
-                    <li data-ng-hide="!authentication.isAuth"><a>Bem vindo {{authentication.nomeUsuario}}</a></li>
+                    <!--<li data-ng-hide="!authentication.isAuth"><a>Bem vindo {{authentication.nomeUsuario}}</a></li>-->
                     <li data-ng-hide="!authentication.isAuth"><a href="#/fileUpload">Upload Documentos</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/listaPropostas">Lista Contratos</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/consultarUsuario">Lista Usuários</a></li>
@@ -51,7 +58,8 @@
     <div data-ng-controller="indexController" data-ng-hide="authentication.isAuth" class="jumbotron">
         <div class="container">
             <div class="page-header text-center">
-                <h1>Grafometria</h1>
+                <!--<h1>Grafometria</h1>-->
+                <img src="content/img/Logo-GAFRO-FINAL-V3-145x180px.png" />
             </div>
             <p class="text-center">Interface administrativa de gerenciamento de documentos para assinatura grafométrica.</p>
         </div>
@@ -59,7 +67,7 @@
 
 
     <!--MIOLO-->
-    <a id="middle" class="invisible"></a>
+    <a id="middle" class="invisible" style="border:1px solid blue;"></a>
     <div class="container">
 
         <titulos></titulos>
@@ -76,14 +84,14 @@
     </div>
 
     <!--RODAPÉ-->
-    <div class="navbar navbar-fixed-bottom">
+    <div class="navbar navbar-fixed-bottom cabecalho-rodape">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
                     <h6>Gestão de documentos para grafometria.</h6>
                 </div>
-                <div class="col-md-6">
-                    <h6 class="text-right">Direitos reservados © <a target="_blank" href="http://www.bsitecnologia.com.br">BSI Tecnologia 2016</a></h6>
+                <div class="col-md-6 text-right">
+                    <h6>Direitos reservados © <a class="link-branco" target="_blank" href="http://www.bsitecnologia.com.br">BSI Tecnologia 2016</a></h6>
                 </div>
             </div>
         </div>

@@ -3,14 +3,7 @@
 <div class="modal-header">
     <h3 class="modal-title">Alterar Usuário: {{custom}}</h3>
 </div>
-<div>
-    <div ng-show="exibirModalMensagem">
-        <div ng-class="m.tipoMensagemModal" role="alert" ng-repeat="m in mensagens">
-            <strong class="alert-title">{{m.titulo}}</strong>
-            <label class="center-block no-margin" ng-bind="t" ng-repeat="t in m.mensagemModal"></label>
-        </div>
-    </div>
-</div>
+<ng-include src="'app/views/modal/divMessageError.html'" />
 <div class="container">
 
     <div class="row">
@@ -22,7 +15,7 @@
     <div class="row">
 
         <div class="form-group col-md-2">
-            <label for="userName">User Name</label>
+            <label for="userName">Usuário</label>
             <input type="text" data-ng-model="usuarioLogin" name="usuarioLogin" id="usuarioLogin" class="form-control input-sm" maxlength="10" required disabled title="Campo obrigatório" />
         </div>
     </div>

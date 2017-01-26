@@ -1,4 +1,4 @@
-﻿<div class="box-dashed">
+﻿<div class="margin-bottom">
     <form role="form" name="loginform" class="form-inline" data-ng-init="ListarPropostas('')">
         <div class="form-inline margin-bottom">
             <label for="search">Filtrar propostas:</label>
@@ -10,9 +10,7 @@
 <table class="table" ng-show="showListaProposta">
     <thead>
         <tr>
-            <th class="col-md-3">
-                Número Proposta
-            </th>
+            <th class="col-md-3">Número Proposta</th>           
         </tr>
     </thead>
     <tbody>

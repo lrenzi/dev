@@ -4,7 +4,7 @@
             <div>Autenticação</div>
         </div>
         <div class="panel-body">
-            <form role="form" name="loginform">
+            <form role="form" name="loginform" >
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -23,29 +23,19 @@
                         <input type="password" class="form-control" placeholder="Senha" data-val-required="Informe sua senha." title="Digite sua senha" data-ng-model="loginData.password" required />
                     </div>
                 </div>
-        
-
-                <div class="col-xs-12">
-                    <div>
-                        <label class="checkbox" for="RememberMe">Lembrar-me?<input data-val="true" id="RememberMe" name="RememberMe" type="checkbox" value="true" /><i></i></label>
+                <div data-ng-hide="message == ''" class="alert-error small">
+                    <i class="glyphicon glyphicon-remove" style="width: auto"></i>
+                    {{message}} 
+                </div>
+                <div class="col-xs-8 ">
+                    <div class="checkbox icheck ">
+                        <input data-val="true" id="RememberMe" name="RememberMe" type="checkbox" value="true" />
                         <input name="RememberMe" type="hidden" value="false" />
-                    
-                    
-                        <div data-ng-hide="message == ''" class="alert-error small">
-                            <i class="glyphicon glyphicon-remove" style="width: auto"></i>
-                            {{message}}
-                        </div>
-                    
-                    
-                    
+                        <label for="RememberMe">Lembrar-me?</label>
                     </div>
                 </div>
 
-
-
-                <footer class="col-xs-12" style="padding-top:15px; border-top: 1px solid rgba(0,0,0,.1);">
-                    <button class="btn" type="submit" ng-disabled="loginform.$invalid" title="Autenticar-se" data-ng-click="login()">Entrar</button>
-                </footer>
+                <button class="btn btn-md btn-info btn-block" type="submit" ng-disabled="loginform.$invalid" title="Autenticar-se" data-ng-click="login()"  >Entrar</button>
             </form>
         </div>
     </div>
