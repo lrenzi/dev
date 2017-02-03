@@ -16,16 +16,9 @@
                         {{item.docCliTipoNome}}
                     </td>
                     <td class="col-sm-4">
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary">
-                                    <input ng-model="file" ng-disabled="desabilitaFile" type="file" id="idFile_{{item.docCliTipoId}}" name="file" class="width-full" style="display: none;" />Escolher arquivo&hellip;
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>
+                        <input ng-model="file" ng-disabled="desabilitaFile" type="file" id="idFile_{{item.docCliTipoId}}" name="file" class="width-full" />
                     </td>
-                    <td >
+                    <td>
                         <label ng-class="item.cssclass">{{item.status}}</label>
                     </td>
                     <td class="col-sm-1">

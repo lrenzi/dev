@@ -37,13 +37,13 @@
                 </div>
             </div>
 
-            <div class="col-md-5" data-ng-hide="!authentication.isAuth" style="height:40px; padding-top:12px; margin-left:20px; text-align:right;"><a class="link-branco">Seja Bem-vindo {{authentication.nomeUsuario}}</a></></div>
+            <div class="col-md-5" data-ng-hide="!authentication.isAuth" style="height:40px; padding-top:12px; margin-left:20px; text-align:right;"><a class="link-branco">Seja Bem-vindo {{authentication.nomeUsuario}}</a></div>
 
 
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
                     <!--<li data-ng-hide="!authentication.isAuth"><a>Bem vindo {{authentication.nomeUsuario}}</a></li>-->
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/fileUpload">Upload Documentos</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/uploadArquivos">Upload Documentos</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/listaPropostas">Lista Contratos</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/consultarUsuario">Lista Usuários</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/cadastrarUsuario">Cadastrar Usuário</a></li>
@@ -68,17 +68,17 @@
 
     <!--MIOLO-->
     <a id="middle" class="invisible" style="border:1px solid blue;"></a>
-    <div class="container">
-
+    <div class="container" data-ng-controller="mensagemController">
         <titulos></titulos>
-
-        <div ng-show="exibirMensagem">
-            <div ng-class="m.tipoMensagem" role="alert" ng-repeat="m in mensagens">
-                <strong class="alert-title">{{m.titulo}}</strong>
-                <label class="center-block no-margin" ng-bind="t" ng-repeat="t in m.mensagem"></label>
+        <div >
+            <div ng-show="exibirMensagem">
+                <div ng-class="m.tipoMensagem" role="alert" ng-repeat="m in mensagens">
+                    <strong class="alert-title">{{m.titulo}}</strong>
+                    <label class="center-block no-margin" ng-bind="t" ng-repeat="t in m.mensagem"></label>
+                </div>
+                <button ng-click="chamaFunction(functionName)" class="btn btn-primary btn-sm" ng-show="exibirBotao" value="{{textoBotao}}" id="btnMensagem">{{textoBotao}}</button>
             </div>
         </div>
-
         <div data-ng-view="">
         </div>
     </div>
@@ -126,7 +126,7 @@
     <script src="app/services/authInterceptorService.js?v=2"></script>
     <script src="app/services/authService.js?v=2"></script>
     <script src="app/services/tokensManagerService.js?v=2"></script>
-    <script src="app/services/fileUploadService.js?v=2"></script>
+    <script src="app/services/uploadArquivosService.js?v=2"></script>
     <script src="app/services/listaPropostasService.js"></script>
     <script src="app/services/utilService.js"></script>
     <script src="app/services/usuarioService.js"></script>
@@ -138,12 +138,13 @@
     <script src="app/controllers/signupController.js?v=2"></script>
     <script src="app/controllers/refreshController.js?v=2"></script>
     <script src="app/controllers/tokensManagerController.js?v=2"></script>
-    <script src="app/controllers/fileUploadController.js?v=2"></script>
+    <script src="app/controllers/uploadArquivosController.js?v=2"></script>
     <script src="app/controllers/listaPropostasController.js?v=2"></script>
     <script src="app/controllers/usuarioController.js"></script>
     <script src="app/controllers/showItemsModalController.js"></script>
     <script src="app/controllers/erroModalController.js"></script>
     <script src="app/controllers/alterarUsuarioModalController.js"></script>
+    <script src="app/controllers/mensagemController.js"></script>
 
     <script src="app/diretivas.js"></script>
     <script src="app/filter.js"></script>

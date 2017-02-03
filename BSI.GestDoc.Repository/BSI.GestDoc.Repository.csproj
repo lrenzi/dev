@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BaseRepository.cs" />
     <Compile Include="CRUD\LogErroDal.cs" />
     <Compile Include="CRUD\ClienteDal.cs" />
     <Compile Include="CRUD\UsuarioPerfilDal .cs" />

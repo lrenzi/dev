@@ -1,0 +1,773 @@
+-------------------------------------------------------
+Data --> 03/02/2017 14:17:54
+Ambiente --> Desenvolvimento
+Descricao --> The DELETE statement conflicted with the REFERENCE constraint "DocumentoCliente_DocumentoClienteDadosDoc_fk". The conflict occurred in database "bsidbdesenv", table "dbo.DocumentoClienteDadosDoc", column 'DocClienteId'.
+The statement has been terminated.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   em Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader)
+   em Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command)
+   em DapperExtensions.DapperImplementor.Delete[T](IDbConnection connection, IClassMapper classMap, IPredicate predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperImplementor.cs:linha 305
+   em DapperExtensions.DapperImplementor.Delete[T](IDbConnection connection, Object predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperImplementor.cs:linha 207
+   em DapperExtensions.DapperExtensions.Delete[T](IDbConnection connection, Object predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperExtensions.cs:linha 183
+   em BSI.Dapper.Helper.DapperExtensionsSql.Delete[T](PredicateGroup predicate) na D:\dev3\dev\BSI.Dapper\Helper\DapperExtensionsSql.cs:linha 19
+   em BSI.GestDoc.Repository.CRUD.DocumentoClienteDal.Delete(Int64 pDocClienteId) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\DocumentoClienteDal.cs:linha 34
+   em BSI.GestDoc.BusinessLogic.UploadFileBradescoBL.EnviarDocumentosCliente(List`1 documentosCliente_) na D:\dev3\dev\BSI.GestDoc.BusinessLogic\UploadFileBradescoBL.cs:linha 185
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.<EnviarArquivos>d__3.MoveNext() na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 215
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
+   em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 14:17:54
+Ambiente --> Desenvolvimento
+Descricao --> The DELETE statement conflicted with the REFERENCE constraint "DocumentoCliente_DocumentoClienteDadosDoc_fk". The conflict occurred in database "bsidbdesenv", table "dbo.DocumentoClienteDadosDoc", column 'DocClienteId'.
+The statement has been terminated.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   em Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader)
+   em Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command)
+   em DapperExtensions.DapperImplementor.Delete[T](IDbConnection connection, IClassMapper classMap, IPredicate predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperImplementor.cs:linha 305
+   em DapperExtensions.DapperImplementor.Delete[T](IDbConnection connection, Object predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperImplementor.cs:linha 207
+   em DapperExtensions.DapperExtensions.Delete[T](IDbConnection connection, Object predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperExtensions.cs:linha 183
+   em BSI.Dapper.Helper.DapperExtensionsSql.Delete[T](PredicateGroup predicate) na D:\dev3\dev\BSI.Dapper\Helper\DapperExtensionsSql.cs:linha 19
+   em BSI.GestDoc.Repository.CRUD.DocumentoClienteDal.Delete(Int64 pDocClienteId) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\DocumentoClienteDal.cs:linha 34
+   em BSI.GestDoc.BusinessLogic.UploadFileBradescoBL.EnviarDocumentosCliente(List`1 documentosCliente_) na D:\dev3\dev\BSI.GestDoc.BusinessLogic\UploadFileBradescoBL.cs:linha 185
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.<EnviarArquivos>d__3.MoveNext() na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 215
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
+   em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 14:18:06
+Ambiente --> Desenvolvimento
+Descricao --> The DELETE statement conflicted with the REFERENCE constraint "DocumentoCliente_DocumentoClienteDadosDoc_fk". The conflict occurred in database "bsidbdesenv", table "dbo.DocumentoClienteDadosDoc", column 'DocClienteId'.
+The statement has been terminated.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   em Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader)
+   em Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command)
+   em DapperExtensions.DapperImplementor.Delete[T](IDbConnection connection, IClassMapper classMap, IPredicate predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperImplementor.cs:linha 305
+   em DapperExtensions.DapperImplementor.Delete[T](IDbConnection connection, Object predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperImplementor.cs:linha 207
+   em DapperExtensions.DapperExtensions.Delete[T](IDbConnection connection, Object predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperExtensions.cs:linha 183
+   em BSI.Dapper.Helper.DapperExtensionsSql.Delete[T](PredicateGroup predicate) na D:\dev3\dev\BSI.Dapper\Helper\DapperExtensionsSql.cs:linha 19
+   em BSI.GestDoc.Repository.CRUD.DocumentoClienteDal.Delete(Int64 pDocClienteId) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\DocumentoClienteDal.cs:linha 34
+   em BSI.GestDoc.BusinessLogic.UploadFileBradescoBL.EnviarDocumentosCliente(List`1 documentosCliente_) na D:\dev3\dev\BSI.GestDoc.BusinessLogic\UploadFileBradescoBL.cs:linha 185
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.<EnviarArquivos>d__3.MoveNext() na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 215
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
+   em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 14:20:48
+Ambiente --> Desenvolvimento
+Descricao --> The DELETE statement conflicted with the REFERENCE constraint "DocumentoCliente_DocumentoClienteDadosDoc_fk". The conflict occurred in database "bsidbdesenv", table "dbo.DocumentoClienteDadosDoc", column 'DocClienteId'.
+The statement has been terminated.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   em Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader)
+   em Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command)
+   em DapperExtensions.DapperImplementor.Delete[T](IDbConnection connection, IClassMapper classMap, IPredicate predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperImplementor.cs:linha 305
+   em DapperExtensions.DapperImplementor.Delete[T](IDbConnection connection, Object predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperImplementor.cs:linha 207
+   em DapperExtensions.DapperExtensions.Delete[T](IDbConnection connection, Object predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperExtensions.cs:linha 183
+   em BSI.Dapper.Helper.DapperExtensionsSql.Delete[T](PredicateGroup predicate) na D:\dev3\dev\BSI.Dapper\Helper\DapperExtensionsSql.cs:linha 19
+   em BSI.GestDoc.Repository.CRUD.DocumentoClienteDal.Delete(Int64 pDocClienteId) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\DocumentoClienteDal.cs:linha 34
+   em BSI.GestDoc.BusinessLogic.UploadFileBradescoBL.EnviarDocumentosCliente(List`1 documentosCliente_) na D:\dev3\dev\BSI.GestDoc.BusinessLogic\UploadFileBradescoBL.cs:linha 185
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.<EnviarArquivos>d__3.MoveNext() na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 215
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
+   em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 14:24:27
+Ambiente --> Desenvolvimento
+Descricao --> The DELETE statement conflicted with the REFERENCE constraint "DocumentoCliente_DocumentoClienteDadosDoc_fk". The conflict occurred in database "bsidbdesenv", table "dbo.DocumentoClienteDadosDoc", column 'DocClienteId'.
+The statement has been terminated.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   em Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader)
+   em Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command)
+   em DapperExtensions.DapperImplementor.Delete[T](IDbConnection connection, IClassMapper classMap, IPredicate predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperImplementor.cs:linha 305
+   em DapperExtensions.DapperImplementor.Delete[T](IDbConnection connection, Object predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperImplementor.cs:linha 207
+   em DapperExtensions.DapperExtensions.Delete[T](IDbConnection connection, Object predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperExtensions.cs:linha 183
+   em BSI.Dapper.Helper.DapperExtensionsSql.Delete[T](PredicateGroup predicate) na D:\dev3\dev\BSI.Dapper\Helper\DapperExtensionsSql.cs:linha 19
+   em BSI.GestDoc.Repository.CRUD.DocumentoClienteDal.Delete(Int64 pDocClienteId) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\DocumentoClienteDal.cs:linha 34
+   em BSI.GestDoc.BusinessLogic.UploadFileBradescoBL.EnviarDocumentosCliente(List`1 documentosCliente_) na D:\dev3\dev\BSI.GestDoc.BusinessLogic\UploadFileBradescoBL.cs:linha 185
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.<EnviarArquivos>d__3.MoveNext() na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 215
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
+   em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 14:50:38
+Ambiente --> Desenvolvimento
+Descricao --> The DELETE statement conflicted with the REFERENCE constraint "DocumentoCliente_DocumentoClienteDadosDoc_fk". The conflict occurred in database "bsidbdesenv", table "dbo.DocumentoClienteDadosDoc", column 'DocClienteId'.
+The statement has been terminated.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   em Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader)
+   em Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command)
+   em DapperExtensions.DapperImplementor.Delete[T](IDbConnection connection, IClassMapper classMap, IPredicate predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperImplementor.cs:linha 305
+   em DapperExtensions.DapperImplementor.Delete[T](IDbConnection connection, Object predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperImplementor.cs:linha 207
+   em DapperExtensions.DapperExtensions.Delete[T](IDbConnection connection, Object predicate, IDbTransaction transaction, Nullable`1 commandTimeout) na c:\Projects\nuget\PhenixDev\DapperExtensions\DapperExtensions\DapperExtensions.cs:linha 183
+   em BSI.Dapper.Helper.DapperExtensionsSql.Delete[T](PredicateGroup predicate) na D:\dev3\dev\BSI.Dapper\Helper\DapperExtensionsSql.cs:linha 19
+   em BSI.GestDoc.Repository.CRUD.DocumentoClienteDal.Delete(Int64 pDocClienteId) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\DocumentoClienteDal.cs:linha 34
+   em BSI.GestDoc.BusinessLogic.UploadFileBradescoBL.EnviarDocumentosCliente(List`1 documentosCliente_) na D:\dev3\dev\BSI.GestDoc.BusinessLogic\UploadFileBradescoBL.cs:linha 185
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.<EnviarArquivos>d__3.MoveNext() na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 215
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
+   em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 15:07:09
+Ambiente --> Desenvolvimento
+Descricao --> O processo não pode acessar o arquivo 'D:\dev3\dev\BSI.GestDoc.WebAPI\Uploads\bradfin\BodyPart_c13db804-8f66-4db2-a249-c51703b9d13c' porque ele está sendo usado por outro processo.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   em System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   em System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   em System.IO.FileStream..ctor(String path, FileMode mode)
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.RetornarArquivo(String docClienteId) na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 52
+   em lambda_method(Closure , Object , Object[] )
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.<>c__DisplayClass10.<GetExecutor>b__9(Object instance, Object[] methodParameters)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ApiControllerActionInvoker.<InvokeActionAsyncCore>d__0.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ActionFilterResult.<ExecuteAsync>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Filters.AuthorizationFilterAttribute.<ExecuteAuthorizationFilterAsyncCore>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ExceptionFilterResult.<ExecuteAsync>d__0.MoveNext()
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
+   em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 15:09:39
+Ambiente --> Desenvolvimento
+Descricao --> The INSERT statement conflicted with the FOREIGN KEY constraint "DocumentoClienteDados_DocumentoClienteDadosDoc_fk". The conflict occurred in database "bsidbdesenv", table "dbo.DocumentoClienteDados", column 'DocCliDadosId'.
+The statement has been terminated.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.DapperContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\DapperContribSql.cs:linha 29
+   em BSI.GestDoc.Repository.CRUD.DocumentoClienteDadosDocDal.Insert(DocumentoClienteDadosDoc DocumentoClienteDadosDoc) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\DocumentoClienteDadosDocDal.cs:linha 19
+   em BSI.GestDoc.BusinessLogic.UploadFileBradescoBL.EnviarDocumentosCliente(List`1 documentosCliente_) na D:\dev3\dev\BSI.GestDoc.BusinessLogic\UploadFileBradescoBL.cs:linha 187
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.<EnviarArquivos>d__3.MoveNext() na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 215
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
+   em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 15:11:56
+Ambiente --> Desenvolvimento
+Descricao --> ExecuteReader requer que o comando tenha uma transação quando a conexão atribuída ao comando estiver em uma transação local pendente. A propriedade Transaction do comando não foi inicializada.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Data.SqlClient.SqlCommand.ValidateCommand(String method, Boolean async)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.DapperContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\DapperContribSql.cs:linha 31
+   em BSI.GestDoc.Repository.EnviarArquivoDal.InserirDocumentoClienteDados(DocumentoClienteDados documentoClienteDados_) na D:\dev3\dev\BSI.GestDoc.Repository\EnviarArquivoDal.cs:linha 35
+   em BSI.GestDoc.BusinessLogic.UploadFileBradescoBL.EnviarDocumentosCliente(List`1 documentosCliente_) na D:\dev3\dev\BSI.GestDoc.BusinessLogic\UploadFileBradescoBL.cs:linha 187
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.<EnviarArquivos>d__3.MoveNext() na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 215
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.ContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\ContribSql.cs:linha 31
+   em BSI.Dapper.Helper.SqlHelper.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\SqlHelper.cs:linha 18
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 17:32:24
+Ambiente --> Desenvolvimento
+Descricao --> Comprimento inválido para uma matriz ou uma cadeia de caracteres de Base 64.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Convert.FromBase64_Decode(Char* startInputPtr, Int32 inputLength, Byte* startDestPtr, Int32 destLength)
+   em System.Convert.FromBase64CharPtr(Char* inputPtr, Int32 inputLength)
+   em System.Convert.FromBase64String(String s)
+   em BSI.GestDoc.Util.MD5Crypt.Descriptografar(String Message) na D:\dev3\dev\BSI.GestDoc.Util\MD5Crypt.cs:linha 81
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.RetornarArquivo(String docClienteId) na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 35
+   em lambda_method(Closure , Object , Object[] )
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.<>c__DisplayClass10.<GetExecutor>b__9(Object instance, Object[] methodParameters)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ApiControllerActionInvoker.<InvokeActionAsyncCore>d__0.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ActionFilterResult.<ExecuteAsync>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Filters.AuthorizationFilterAttribute.<ExecuteAuthorizationFilterAsyncCore>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ExceptionFilterResult.<ExecuteAsync>d__0.MoveNext()
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.DapperContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\DapperContribSql.cs:linha 31
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 17:36:36
+Ambiente --> Desenvolvimento
+Descricao --> Matriz não pode ser nula.
+Nome do parâmetro: bytes
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Text.Encoding.GetString(Byte[] bytes)
+   em BSI.GestDoc.Util.MD5Crypt.Descriptografar(String Message) na D:\dev3\dev\BSI.GestDoc.Util\MD5Crypt.cs:linha 103
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.RetornarArquivo(String docClienteId) na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 35
+   em lambda_method(Closure , Object , Object[] )
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.<>c__DisplayClass10.<GetExecutor>b__9(Object instance, Object[] methodParameters)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ApiControllerActionInvoker.<InvokeActionAsyncCore>d__0.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ActionFilterResult.<ExecuteAsync>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Filters.AuthorizationFilterAttribute.<ExecuteAuthorizationFilterAsyncCore>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ExceptionFilterResult.<ExecuteAsync>d__0.MoveNext()
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.DapperContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\DapperContribSql.cs:linha 31
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 17:37:18
+Ambiente --> Desenvolvimento
+Descricao --> Comprimento inválido para uma matriz ou uma cadeia de caracteres de Base 64.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Convert.FromBase64_Decode(Char* startInputPtr, Int32 inputLength, Byte* startDestPtr, Int32 destLength)
+   em System.Convert.FromBase64CharPtr(Char* inputPtr, Int32 inputLength)
+   em System.Convert.FromBase64String(String s)
+   em BSI.GestDoc.Util.MD5Crypt.Descriptografar(String Message) na D:\dev3\dev\BSI.GestDoc.Util\MD5Crypt.cs:linha 81
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.RetornarArquivo(String docClienteId) na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 35
+   em lambda_method(Closure , Object , Object[] )
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.<>c__DisplayClass10.<GetExecutor>b__9(Object instance, Object[] methodParameters)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ApiControllerActionInvoker.<InvokeActionAsyncCore>d__0.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ActionFilterResult.<ExecuteAsync>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Filters.AuthorizationFilterAttribute.<ExecuteAuthorizationFilterAsyncCore>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ExceptionFilterResult.<ExecuteAsync>d__0.MoveNext()
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.DapperContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\DapperContribSql.cs:linha 31
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 17:39:59
+Ambiente --> Desenvolvimento
+Descricao --> Comprimento inválido para uma matriz ou uma cadeia de caracteres de Base 64.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Convert.FromBase64_Decode(Char* startInputPtr, Int32 inputLength, Byte* startDestPtr, Int32 destLength)
+   em System.Convert.FromBase64CharPtr(Char* inputPtr, Int32 inputLength)
+   em System.Convert.FromBase64String(String s)
+   em BSI.GestDoc.Util.MD5Crypt.Descriptografar(String Message) na D:\dev3\dev\BSI.GestDoc.Util\MD5Crypt.cs:linha 81
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.RetornarArquivo(String docClienteId) na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 35
+   em lambda_method(Closure , Object , Object[] )
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.<>c__DisplayClass10.<GetExecutor>b__9(Object instance, Object[] methodParameters)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ApiControllerActionInvoker.<InvokeActionAsyncCore>d__0.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ActionFilterResult.<ExecuteAsync>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Filters.AuthorizationFilterAttribute.<ExecuteAuthorizationFilterAsyncCore>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ExceptionFilterResult.<ExecuteAsync>d__0.MoveNext()
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.DapperContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\DapperContribSql.cs:linha 31
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 17:51:25
+Ambiente --> Desenvolvimento
+Descricao --> Comprimento inválido para uma matriz ou uma cadeia de caracteres de Base 64.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Convert.FromBase64_Decode(Char* startInputPtr, Int32 inputLength, Byte* startDestPtr, Int32 destLength)
+   em System.Convert.FromBase64CharPtr(Char* inputPtr, Int32 inputLength)
+   em System.Convert.FromBase64String(String s)
+   em BSI.GestDoc.Util.MD5Crypt.Descriptografar(String Message) na D:\dev3\dev\BSI.GestDoc.Util\MD5Crypt.cs:linha 81
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.RetornarArquivo(String docClienteId) na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 37
+   em lambda_method(Closure , Object , Object[] )
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.<>c__DisplayClass10.<GetExecutor>b__9(Object instance, Object[] methodParameters)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ApiControllerActionInvoker.<InvokeActionAsyncCore>d__0.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Filters.ActionFilterAttribute.<CallOnActionExecutedAsync>d__5.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Web.Http.Filters.ActionFilterAttribute.<CallOnActionExecutedAsync>d__5.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Filters.ActionFilterAttribute.<ExecuteActionFilterAsyncCore>d__0.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ActionFilterResult.<ExecuteAsync>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Filters.AuthorizationFilterAttribute.<ExecuteAuthorizationFilterAsyncCore>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ExceptionFilterResult.<ExecuteAsync>d__0.MoveNext()
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.DapperContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\DapperContribSql.cs:linha 31
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50
+-------------------------------------------------------
+Data --> 03/02/2017 18:10:04
+Ambiente --> Desenvolvimento
+Descricao --> Comprimento inválido para uma matriz ou uma cadeia de caracteres de Base 64.
+HostName --> ::1
+TipoErro --> 9
+Trace -->    em System.Convert.FromBase64_Decode(Char* startInputPtr, Int32 inputLength, Byte* startDestPtr, Int32 destLength)
+   em System.Convert.FromBase64CharPtr(Char* inputPtr, Int32 inputLength)
+   em System.Convert.FromBase64String(String s)
+   em BSI.GestDoc.Util.MD5Crypt.Descriptografar(String Message) na D:\dev3\dev\BSI.GestDoc.Util\MD5Crypt.cs:linha 81
+   em BSI.GestDoc.WebAPI.Controllers.FileUploadController.RetornarArquivo(String docClienteId) na D:\dev3\dev\BSI.GestDoc.WebAPI\Controllers\FileUploadController.cs:linha 38
+   em lambda_method(Closure , Object , Object[] )
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.<>c__DisplayClass10.<GetExecutor>b__9(Object instance, Object[] methodParameters)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)
+   em System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ApiControllerActionInvoker.<InvokeActionAsyncCore>d__0.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Filters.ActionFilterAttribute.<CallOnActionExecutedAsync>d__5.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Web.Http.Filters.ActionFilterAttribute.<CallOnActionExecutedAsync>d__5.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Filters.ActionFilterAttribute.<ExecuteActionFilterAsyncCore>d__0.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ActionFilterResult.<ExecuteAsync>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Filters.AuthorizationFilterAttribute.<ExecuteAuthorizationFilterAsyncCore>d__2.MoveNext()
+--- Fim do rastreamento de pilha do local anterior onde a exceção foi gerada ---
+   em System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   em System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   em System.Web.Http.Controllers.ExceptionFilterResult.<ExecuteAsync>d__0.MoveNext()
+Erro SQL --> String or binary data would be truncated.
+The statement has been terminated.
+Trace SQL -->    em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   em System.Data.SqlClient.SqlDataReader.get_MetaData()
+   em System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   em System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   em System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   em Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   em Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command)
+   em SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert)
+   em Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout)
+   em BSI.Dapper.Helper.DapperContribSql.InsertWithReturnId[T](T parameter) na D:\dev3\dev\BSI.Dapper\Helper\DapperContribSql.cs:linha 31
+   em BSI.GestDoc.Repository.CRUD.LogErroDal.Insert(LogErro LogErro) na D:\dev3\dev\BSI.GestDoc.Repository\CRUD\LogErroDal.cs:linha 19
+   em BSI.GestDoc.CustomException.CustomException.gravarLog(String message, Exception innerException, EnumTipoMensagem TipoMensagem) na D:\dev3\dev\BSI.GestDoc.CustomException\CustomException.cs:linha 50

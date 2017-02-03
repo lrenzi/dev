@@ -4,10 +4,11 @@ using BSI.GestDoc.Repository.DAL;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using BSI.GestDoc.BusinessLogic.Base;
 
 namespace BSI.GestDoc.BusinessLogic
 {
-    public class DocumentoClienteBL
+    public class DocumentoClienteBL : BaseBL
     {
         #region construtor
         public DocumentoClienteBL()

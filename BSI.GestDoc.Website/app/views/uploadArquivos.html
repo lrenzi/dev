@@ -1,0 +1,32 @@
+﻿<form method="post" enctype="multipart/form-data" name="formUpload">
+    <!--<button ng-click="ReenviarArquivos()" class="btn btn-primary btn-sm" ng-show="item.reenvio" value="Reenviar" id="idButton_{{item.docCliTipoId}}">Reenviar</button>-->
+    <div data-ng-init="consultarArquivos()" novalidate="novalidate">
+        <table class="table table-condensed table-responsive vAlignMiddle">
+            <thead>
+                <tr>
+                    <th>Tipo Documento</th>
+                    <th>Arquivo</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="item in listaDocumentosClienteTipo">
+                    <td class="col-sm-2">
+                        {{item.docCliTipoNome}}
+                    </td>
+                    <td class="col-sm-4">
+                        <!--posição [0], é status não assinado-->
+                        <input ng-if="item.listaSituacaoDocumentoCliente[0].docObrigatorio == false" ng-model="file" ng-disabled="desabilitaFile" type="file" id="idFile_{{item.docCliTipoId}}" name="file" class="width-full" />
+                        <input ng-if="item.listaSituacaoDocumentoCliente[0].docObrigatorio == true" required ng-model="file" ng-disabled="desabilitaFile" type="file" id="idFile_{{item.docCliTipoId}}" name="file" class="width-full" />
+                    </td>
+                    
+                    <td class="col-sm-1">
+                        <button ng-model="btnDownload" ng-show="item.download" ng-click="retornarArquivo(item.docClienteId, item.nameFile)" class="btn btn-primary btn-sm" value="Download" title="Visualizar o documento.">Download</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button ng-model="btnEnviar" ng-show="mostraBotaoEnviar" ng-click="enviarArquivos()" class="btn btn-primary btn-sm" value="Enviar" title="Enviar arquivos selecionados">Enviar</button>
+        <button ng-model="btnNovo" ng-show="mostraBotaoNovo" ng-click="iniciarTela()" class="btn btn-primary btn-sm" value="Novo" title="Enviar novos arquivos">Novo</button>
+    </div>
+</form>

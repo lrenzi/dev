@@ -1,8 +1,8 @@
 ﻿
-app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', 'localStorageService', function ($http, $q, ngAuthSettings, localStorageService) {
+app.service("uploadArquivosService", ["$http", "$q", 'ngAuthSettings', 'localStorageService', function ($http, $q, ngAuthSettings, localStorageService) {
 
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
-    var fileUploadServiceFactory = {};
+    var uploadArquivosServiceFactory = {};
 
     var _retornarDocumentoClienteTipo = function () {
 
@@ -22,23 +22,24 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', 'localStorage
     };
 
     var _retornarArquivo = function (docClienteId_, nameFile_) {
-        
+        docClienteId_ = window.encodeURIComponent(docClienteId_);
+
         return $http({
             url: serviceBase + "api/FileUpload/RetornarArquivo?docClienteId=" + docClienteId_,
             method: 'POST',
             params: {},
             headers: {
-                'Content-type': 'application/pdf',
+                'Content-type': 'application/pdf'
             },
             responseType: 'arraybuffer'
         }).success(function (data, status, headers, config) {
-            
+
             var file = new Blob([data], {
                 type: 'application/pdf'
             });
 
             saveAs(file, nameFile_);
-            
+
         }).error(function (data, status, headers, config) {
             switch (status) {
                 case 409:
@@ -50,12 +51,12 @@ app.service("fileUploadService", ["$http", "$q", 'ngAuthSettings', 'localStorage
             }
         });
 
-    }
+    };
 
-    fileUploadServiceFactory.RetornarDocumentoClienteTipo = _retornarDocumentoClienteTipo;
-    fileUploadServiceFactory.RetornarArquivo = _retornarArquivo;
+    uploadArquivosServiceFactory.retornarDocumentoClienteTipo = _retornarDocumentoClienteTipo;
+    uploadArquivosServiceFactory.retornarArquivo = _retornarArquivo;
 
-    return fileUploadServiceFactory;
+    return uploadArquivosServiceFactory;
 
 
 }]);

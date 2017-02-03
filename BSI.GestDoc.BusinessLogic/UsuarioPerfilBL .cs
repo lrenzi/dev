@@ -1,4 +1,5 @@
-﻿using BSI.GestDoc.Entity;
+﻿using BSI.GestDoc.BusinessLogic.Base;
+using BSI.GestDoc.Entity;
 using BSI.GestDoc.Repository.CRUD;
 using Microsoft.AspNet.Identity;
 using System;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BSI.GestDoc.BusinessLogic
 {
-    public class UsuarioPerfilBL
+    public class UsuarioPerfilBL : BaseBL
     {
         public UsuarioPerfilBL()
         {

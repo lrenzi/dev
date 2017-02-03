@@ -16,20 +16,17 @@ namespace BSI.GestDoc.Repository.DAL
         public IList<Token> GetAtllToken()
         {
 
-            return SqlHelper.GetAll<Token>();
+            return new DapperSqlHelper().GetAll<Token>();
         }
 
         public bool RemoveToken(long TokenId)
         {
-            var pg = new PredicateGroup { Operator = GroupOperator.And, Predicates = new List<IPredicate>() };
-            pg.Predicates.Add(Predicates.Field<Token>(f => f.TokenId, Operator.Eq, TokenId, true));
-
-            return SqlHelper.Delete<Token>(pg);
+            return new DapperSqlHelper().Delete<Token>(new Token() { TokenId = TokenId });
         }
 
         public bool InsertToken(Token Token)
         {
-            return SqlHelper.Insert<Token>(Token);
+            return new DapperSqlHelper().Insert<Token>(Token);
         }
 
         public async Task<Usuario> Efetuarlogin(String usuarioLogin, String usuarioSenha)
@@ -61,7 +58,7 @@ namespace BSI.GestDoc.Repository.DAL
             Usuario usuarioLogado = new Usuario();
             IEnumerable<Usuario> usuarioRetorno = null;
 
-            using (var connection = SqlHelper.getConnection())
+            using (var connection = new DapperSqlHelper().NewSqlConnection)
             {
 
                 using (SqlMapper.GridReader reader = connection.QueryMultiple(storedProcedure, pIn, commandType: CommandType.StoredProcedure))

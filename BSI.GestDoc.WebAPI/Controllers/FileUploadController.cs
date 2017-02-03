@@ -17,6 +17,7 @@ using BSI.GestDoc.BusinessLogic.Util;
 using System.Net.Http.Headers;
 using BSI.GestDoc.Util;
 using BSI.GestDoc.CustomException.BusinessException;
+using BSI.GestDoc.WebAPI.Filters;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,8 +31,10 @@ namespace BSI.GestDoc.WebAPI.Controllers
         [System.Web.Http.Authorize]
         [System.Web.Http.Route("RetornarArquivo")]
         [System.Web.Http.HttpPost]
+        [HttpStringDecodeFilter]
         public HttpResponseMessage RetornarArquivo(string docClienteId)
         {
+            //docClienteId = System.Web.HttpUtility.UrlDecode(docClienteId);
             docClienteId = MD5Crypt.Descriptografar(docClienteId);
 
             DocumentoCliente _documentoCliente = new UploadFileBL().RetornarArquivo(new DocumentoCliente() { DocClienteId = long.Parse(docClienteId) });
@@ -63,9 +66,9 @@ namespace BSI.GestDoc.WebAPI.Controllers
         }
 
         [System.Web.Http.Authorize]
-        [System.Web.Http.Route("EnviarArquivos")]
+        [System.Web.Http.Route("EnviarArquivo")]
         [System.Web.Http.HttpPost]
-        public async Task<IHttpActionResult> EnviarArquivos(int usuarioId, long clienteId, int docCliTipoId, bool reenvio)
+        public async Task<IHttpActionResult> EnviarArquivo(int usuarioId, long clienteId, int docCliTipoId, bool reenvio)
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent("form-data"))
@@ -126,7 +129,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
                         break;
                 }
 
-                return Ok((new Retorno() { Dados = _documentoCliente, Mensagem = "Arquivo incluído com sucesso.", TipoMensagem = EnumTipoMensagem.Sucesso }));
+                return Ok((new Retorno() { Dados = _documentoCliente, Mensagem = "Arquivo(s) incluído(s) com sucesso.", TipoMensagem = EnumTipoMensagem.Sucesso }));
             }
             catch (BusinessException ex)
             {
@@ -144,6 +147,105 @@ namespace BSI.GestDoc.WebAPI.Controllers
             }
         }
 
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("EnviarArquivos")]
+        [System.Web.Http.HttpPost]
+        public async Task<IHttpActionResult> EnviarArquivos(int usuarioId, long clienteId, string docCliTipoId, bool reenvio)
+        {
+            // Check if the request contains multipart/form-data.
+            if (!Request.Content.IsMimeMultipartContent("form-data"))
+            {
+                return BadRequest("Unsupported media type");
+            }
+
+            string[] docsCliTipoId = docCliTipoId.Split(char.Parse("|"));
+
+            List<DocumentoCliente> _documentosCliente = new List<DocumentoCliente>();
+
+            try
+            {
+                string directory = new UploadFileBL().RecuperarCaminhoPastaDocumentosByClienteId(clienteId);
+
+                WorkingFolder += "\\" + directory;
+
+                if (!Directory.Exists(WorkingFolder))
+                {
+                    Directory.CreateDirectory(WorkingFolder);
+                }
+
+                var streamProvider = new MultipartFormDataStreamProvider(WorkingFolder);
+                await Request.Content.ReadAsMultipartAsync(streamProvider);
+
+
+                int _contador = 0;
+                foreach (MultipartFileData fileData in streamProvider.FileData)
+                {
+
+                    DocumentoCliente _documentoCliente = new DocumentoCliente();
+
+                    _documentoCliente.UsuarioId = usuarioId;
+                    _documentoCliente.ClienteId = clienteId;
+                    _documentoCliente.DocCliTipoId = int.Parse(docsCliTipoId[_contador]);
+                    _documentoCliente.DocClienteCaminhoCompletoArquivoSalvo = fileData.LocalFileName;
+                    _documentoCliente.DocClienteNomeArquivoSalvo = System.IO.Path.GetFileName(fileData.LocalFileName);
+                    _documentoCliente.DocClienteNomeArquivoOriginal = System.IO.Path.GetFileName(fileData.Headers.ContentDisposition.FileName.Replace("\"", ""));
+                    _documentoCliente.DocClienteTipoArquivo = fileData.Headers.ContentType.MediaType;
+                    _documentoCliente.DocClienteDataUpload = DateTime.Now;
+
+                    _documentosCliente.Add(_documentoCliente);
+                    ++_contador;
+                }
+
+                #region 1 - Verifica tipo/ versão pdf
+                foreach (DocumentoCliente documentoCliente in _documentosCliente)
+                {
+                    if (UtilFile.GetMIMEType(documentoCliente.DocClienteNomeArquivoOriginal).ToLower() != "application/pdf")
+                    {
+                        throw new Exception("Erro - Documento deve ser do tipo PDF");
+                    }
+                }
+                #endregion
+
+                Cliente cliente = new Cliente() { ClienteId = clienteId };
+                UploadFileBL uploadFileBL = null;
+
+                switch (cliente.ClienteNomeEnum)
+                {
+                    case Cliente.EnumCliente.Bradesco:
+                        uploadFileBL = new UploadFileBradescoBL();
+                        ((UploadFileBradescoBL)uploadFileBL).Reenvio = reenvio;
+                        ((UploadFileBradescoBL)uploadFileBL).WorkingFolder = WorkingFolder;
+                        _documentosCliente = uploadFileBL.EnviarDocumentosCliente(_documentosCliente);
+                        break;
+
+                    default:
+                        uploadFileBL = new UploadFileBL();
+                        _documentosCliente = uploadFileBL.EnviarDocumentosCliente(_documentosCliente);
+                        break;
+                }
+
+                return Ok((new Retorno() { Dados = _documentosCliente, Mensagem = "Arquivo(s) incluído(s) com sucesso.", TipoMensagem = EnumTipoMensagem.Sucesso }));
+            }
+            catch (BusinessException ex)
+            {
+                for (int contador = 0; contador < _documentosCliente.Count; contador++)
+                {
+                    if (File.Exists(WorkingFolder + "\\" + _documentosCliente[contador].DocClienteNomeArquivoSalvo))
+                        File.Delete(WorkingFolder + "\\" + _documentosCliente[contador].DocClienteNomeArquivoSalvo);
+                }
+                return Ok(ex.GetRetorno());
+            }
+            catch (Exception ex)
+            {
+                for (int contador = 0; contador < _documentosCliente.Count; contador++)
+                {
+                    if (File.Exists(WorkingFolder + "\\" + _documentosCliente[contador].DocClienteNomeArquivoSalvo))
+                        File.Delete(WorkingFolder + "\\" + _documentosCliente[contador].DocClienteNomeArquivoSalvo);
+                }
+                throw new CustomException.CustomException(ex.Message, ex);
+            }
+        }
+
 
         [System.Web.Http.Authorize]
         [System.Web.Http.Route("RetornarDocumentoClienteTipo")]
@@ -152,6 +254,7 @@ namespace BSI.GestDoc.WebAPI.Controllers
         {
             List<DocumentoClienteTipo> retorno = null;
             retorno = new BusinessLogic.UploadFileBL().RetornarDocumentoClienteTipo(documentoClienteTipo.ClienteId);
+
             return Ok(retorno);
         }
     }

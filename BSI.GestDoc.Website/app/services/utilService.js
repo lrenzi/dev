@@ -2,6 +2,7 @@
 
     var exibirMensagemReqest = false;
 
+
     this.mensagemSucesso = function (mensagem, exibirMensagem) {
 
         exibirMensagemReqest = exibirMensagem;
@@ -20,8 +21,11 @@
         $rootScope.exibirMensagem = true;
         objMensagem.titulo = 'Sucesso';
         objMensagem.mensagem = listaMensagem;
-        $rootScope.mensagens.push(objMensagem)
-    }
+        $rootScope.mensagens.push(objMensagem);
+        $rootScope.textoBotao = "";
+        $rootScope.functionName = "";
+        $rootScope.exibirBotao = false;
+    };
 
     this.mensagemInformativo = function (mensagem) {
 
@@ -40,7 +44,10 @@
         objMensagem.titulo = 'Informativo';
         objMensagem.mensagem = listaMensagem;
         $rootScope.mensagens.push(objMensagem);
-    }
+        $rootScope.textoBotao = "";
+        $rootScope.functionName = "";
+        $rootScope.exibirBotao = false;
+    };
 
     this.mensagemAlerta = function (mensagem) {
 
@@ -59,7 +66,35 @@
         objMensagem.titulo = 'Alerta';
         objMensagem.mensagem = listaMensagem;
         $rootScope.mensagens.push(objMensagem);
-    }
+        $rootScope.textoBotao = "";
+        $rootScope.functionName = "";
+        $rootScope.exibirBotao = false;
+    };
+
+    this.mensagemAlertaButtom = function (mensagem, textoBotao, functionName) {
+
+        var listaMensagem = [];
+        if (Array.isArray(mensagem)) {
+            for (var i = 0; i < mensagem.length; i++) {
+                listaMensagem.push("▪ " + mensagem[i]);
+            }
+        } else {
+            listaMensagem.push("▪ " + mensagem);
+        }
+
+        var objMensagem = {};
+        objMensagem.tipoMensagem = 'alert alert-warning';
+        $rootScope.exibirMensagem = true;
+        objMensagem.titulo = 'Alerta';
+        objMensagem.mensagem = listaMensagem;
+        $rootScope.mensagens.push(objMensagem);
+        $rootScope.textoBotao = textoBotao;
+        $rootScope.functionName = functionName;
+        $rootScope.exibirBotao = true;
+    };
+
+   
+
 
     this.mensagemErro = function (mensagem) {
 
@@ -78,7 +113,10 @@
         objMensagem.titulo = 'Erro';
         objMensagem.mensagem = listaMensagem;
         $rootScope.mensagens.push(objMensagem);
-    }
+        $rootScope.textoBotao = "";
+        $rootScope.functionName = "";
+        $rootScope.exibirBotao = false;
+    };
 
     this.mensagemModalAlerta = function (mensagem) {
 
@@ -97,7 +135,7 @@
         objMensagem.titulo = 'Alerta';
         objMensagem.mensagemModal = listaMensagem;
         $rootScope.mensagens.push(objMensagem);
-    }
+    };
 
     this.mensagemModalErro = function (mensagem) {
 
@@ -116,32 +154,32 @@
         objMensagem.titulo = 'Erro';
         objMensagem.mensagemModal = listaMensagem;
         $rootScope.mensagens.push(objMensagem);
-    }
+    };
 
     this.limparMensagem = function () {
 
         $rootScope.mensagens = [];
         $rootScope.exibirMensagem = false;
 
-    }
+    };
 
     this.limparMensagemModal = function () {
 
         $rootScope.mensagemModal = [];
         $rootScope.exibirModalMensagem = false;
 
-    }
+    };
 
     this.limparMensagemRequest = function () {
         if (!exibirMensagemReqest) {
             $rootScope.mensagens = [];
             $rootScope.exibirMensagem = false;
         }
-    }
+    };
 
 
     this.definirTitulos = function (titulo, subTitulo) {
         $rootScope.titulo = titulo;
         $rootScope.subTitulo = subTitulo;
-    }
+    };
 }]);

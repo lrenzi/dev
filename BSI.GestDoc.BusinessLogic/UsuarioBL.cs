@@ -3,10 +3,11 @@ using BSI.GestDoc.Repository.CRUD;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using BSI.GestDoc.BusinessLogic.Base;
 
 namespace BSI.GestDoc.BusinessLogic
 {
-    public class UsuarioBL
+    public class UsuarioBL : BaseBL
     {
         public UsuarioBL()
         {

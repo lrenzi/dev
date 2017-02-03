@@ -1,5 +1,6 @@
 ﻿using BSI.Dapper.Helper;
 using BSI.GestDoc.Entity;
+using BSI.GestDoc.Repository.Base;
 using Dapper;
 using DapperExtensions;
 using System;
@@ -9,40 +10,38 @@ using System.Linq;
 
 namespace BSI.GestDoc.Repository.CRUD
 {
-    public class DocumentoClienteDal
+    public class DocumentoClienteDal : BaseRepository
     {
         #region CRUD
         public DocumentoCliente Insert(DocumentoCliente DocumentoCliente)
         {
-            Int64 recordId = SqlHelper.InsertWithReturnId(DocumentoCliente);
+            Int64 recordId = new DapperSqlHelper().InsertWithReturnId(DocumentoCliente);
             DocumentoCliente.ClienteId = recordId;
             return DocumentoCliente;
         }
 
         public DocumentoCliente Update(DocumentoCliente DocumentoCliente)
         {
-            bool update = SqlHelper.Update<DocumentoCliente>(DocumentoCliente);
+            bool update = new DapperSqlHelper().Update<DocumentoCliente>(DocumentoCliente);
             return DocumentoCliente;
         }
 
-        public bool Delete(long pDocClienteId)
+        public bool Delete(DocumentoCliente DocumentoCliente)
         {
-            var pg = new PredicateGroup { Operator = GroupOperator.And, Predicates = new List<IPredicate>() };
-            pg.Predicates.Add(Predicates.Field<DocumentoCliente>(f => f.DocClienteId, Operator.Eq, pDocClienteId, true));
-
-            return SqlHelper.Delete<DocumentoCliente>(pg);
+            bool delete = new DapperSqlHelper().Delete<DocumentoCliente>(DocumentoCliente);
+            return delete;
         }
 
         public IList<DocumentoCliente> GetAll()
         {
-            return SqlHelper.GetAll<DocumentoCliente>();
+            return new DapperSqlHelper().GetAll<DocumentoCliente>();
         }
 
         public DocumentoCliente GetDocumentoCliente(Int64 pDocClienteId)
         {
             var p = new DynamicParameters();
             p.Add("@pDocClienteId", pDocClienteId, DbType.Int64, ParameterDirection.Input, null);
-            var documentoCliente = SqlHelper.QuerySP<DocumentoCliente>("ConsultarDocumentoCliente", p, null, null, false, 0);
+            var documentoCliente = new DapperSqlHelper().QuerySP<DocumentoCliente>("ConsultarDocumentoCliente", p, null, null, false, 0);
             return (DocumentoCliente)documentoCliente.FirstOrDefault();
         }
 
@@ -57,7 +56,7 @@ namespace BSI.GestDoc.Repository.CRUD
             p.Add("@DocCliTipoId", docCliTipoId, DbType.Int64, null);
             p.Add("@DocCliSituId", docCliSituId, DbType.Int64, null);
 
-            var DocumentoCliente = SqlHelper.QuerySP<DocumentoCliente>("ConsultarDocumentoCliente", p, null, null, false, 0);
+            var DocumentoCliente = new DapperSqlHelper().QuerySP<DocumentoCliente>("ConsultarDocumentoCliente", p, null, null, false, 0);
             return DocumentoCliente;
         }
 
@@ -66,7 +65,7 @@ namespace BSI.GestDoc.Repository.CRUD
         {
             var p = new DynamicParameters();
             p.Add("@pDocClienteId", pDocClienteId, DbType.Int64, ParameterDirection.Input, null);
-            var DocumentosRetorno = SqlHelper.QuerySP<DocumentoCliente>("ConsultarDocumentoCliente", p, null, null, false, 0);
+            var DocumentosRetorno = new DapperSqlHelper().QuerySP<DocumentoCliente>("ConsultarDocumentoCliente", p, null, null, false, 0);
             return DocumentosRetorno;
         }
 

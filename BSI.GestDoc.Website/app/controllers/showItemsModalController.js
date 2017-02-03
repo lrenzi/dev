@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('showItemsModalCtrl', ['$scope', '$uibModalInstance', 'items', 'custom', "fileUploadService", "usuarioService", 'utilService', function ($scope, $uibModalInstance, items, custom, fileUploadService, usuarioService, utilService) {
+app.controller('showItemsModalCtrl', ['$scope', '$uibModalInstance', 'items', 'custom', "uploadArquivosService", "usuarioService", 'utilService', function ($scope, $uibModalInstance, items, custom, uploadArquivosService, usuarioService, utilService) {
 
     init();
 
@@ -14,7 +14,7 @@ app.controller('showItemsModalCtrl', ['$scope', '$uibModalInstance', 'items', 'c
 
     $scope.RetornarArquivo = function (docClienteId_, fileName_) {
         utilService.limparMensagemModal();
-        fileUploadService.RetornarArquivo(docClienteId_, fileName_).then(function (data) {
+        uploadArquivosService.retornarArquivo(docClienteId_, fileName_).then(function (data) {
         }, function (error) {
             utilService.mensagemModalErro(error.data.message);
         });

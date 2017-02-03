@@ -22,7 +22,172 @@ namespace BSI.GestDoc.BusinessLogic
         {
         }
 
+        public override List<DocumentoCliente> EnviarDocumentosCliente(List<DocumentoCliente> documentosCliente_)
+        {
+            UtilFileBradesco utilFileBradesco = new UtilFileBradesco();
 
+            //Validações **
+
+            //Validações para o tipo CCB Padrão
+
+            DocumentoCliente DocumentoClienteCCB = documentosCliente_.FindAll(p => p.DocCliTipoId == 1).First();
+
+            #region 1 - Verifica tipo/ versão pdf
+            if (UtilFile.GetMIMEType(documentosCliente_.FindAll(p => p.DocCliTipoId == 1).First().DocClienteNomeArquivoOriginal).ToLower() != "application/pdf")
+            {
+                throw new Exception("Erro - Documento deve ser do tipo PDF");
+            }
+            #endregion
+
+            #region 2 - Verifica número proposta no PDF
+            DocumentoClienteDados _documentoClienteDados = null;
+            try
+            {
+                _documentoClienteDados = utilFileBradesco.LerPdf(WorkingFolder + "\\" + DocumentoClienteCCB.DocClienteNomeArquivoSalvo);
+                Int64 _valor;
+                if (!Int64.TryParse(_documentoClienteDados.DocCliDadosValor, out _valor))
+                {
+                    throw new Exception("Valor do campo contrato deve ser numérico.");
+                }
+                _documentoClienteDados.ClienteId = DocumentoClienteCCB.ClienteId; //1 --> Tipo CCB
+                _documentoClienteDados.TipoInfoCliId = (new ClienteTipoInformacaoClienteDal().GetAllByIdCliente(_documentoClienteDados.ClienteId).First()).TipoInfoCliId;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao recuperar o número do contrato. Erro [" + ex.Message + "]");
+            }
+            #endregion
+
+            #region 3 - Consultar numero proposta por usuário na base
+            //Não pode inserir um numero de proposta na base sem antes verificar se o numero da proposta já existe na base e se a proposta foi cadastrada pelo mesmo usuário que está enviando o arquivo.
+
+            //Recupera todos os documentos de clientes que possuem o mesmo número de proposta
+            List<DocumentoCliente> _documentosClienteCadastrado = new EnviarArquivoDal().ConsultarNumeroPropostaPorUsuario(_documentoClienteDados.DocCliDadosValor.Trim()).ToList();
+            if (_documentosClienteCadastrado.FindAll(p => p.UsuarioId != DocumentoClienteCCB.UsuarioId).Count > 0)
+            {
+                throw new BusinessException(0, EnumTipoMensagem.Alerta, "Proposta enviada por outro usuário.");
+            }
+
+            int docCliSituId;
+
+            //Consulta as situações
+            List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(DocumentoClienteCCB.DocCliTipoId).ToList();
+            if (_documentosClienteSituacao.Count == 0)
+                throw new Exception("Situação não cadastrada para este Tipo de Documento.");
+            docCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId);
+            DocumentoClienteCCB.DocCliSituId = docCliSituId;
+            #endregion
+
+            #region 5 - Consulta arquivos já existentes para o numero de proposta
+            //Caso já exista um tipo e situação do arquivo na base igual ao que o usuário está tentando realizar o upload, irá perguntar ao usuário se ele deseja sobreescrever.
+            if (!Reenvio && _documentosClienteCadastrado.FindAll(p => p.DocCliSituId == DocumentoClienteCCB.DocCliSituId).Count > 0)
+            {
+                throw new BusinessException(EnumTipoMensagem.Pergunta, "Proposta já cadastrada para este tipo de arquivo e situação. Deseja Reenviar?");
+            }
+            #endregion
+
+
+            //Fim validações
+
+            //Validações para todos tipos
+            for (int contador = 0; contador < documentosCliente_.Count; contador++)
+            {
+                #region 1 - Verifica tipo/ versão pdf
+                if (UtilFile.GetMIMEType(documentosCliente_[contador].DocClienteNomeArquivoOriginal).ToLower() != "application/pdf")
+                {
+                    throw new Exception("Erro - Documento deve ser do tipo PDF");
+                }
+                #endregion
+
+                #region Validar Conteúdo PDF
+
+                validarConteudoPDF(documentosCliente_[contador]);
+
+                #endregion
+
+                #region Processamentos
+
+                Processamentos(documentosCliente_[contador]);
+
+                #endregion
+
+                //Consulta as situações
+                _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(documentosCliente_[contador].DocCliTipoId).ToList();
+                if (_documentosClienteSituacao.Count == 0)
+                    throw new Exception("Situação não cadastrada para este Tipo de Documento.");
+                docCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId);
+            }
+
+            EnviarArquivoDal daoEnviarArquivo = new EnviarArquivoDal();
+            try
+            {
+                daoEnviarArquivo.BeginTransaction();
+
+                //Carga dos arquivos
+                for (int contador = 0; contador < documentosCliente_.Count; contador++)
+                {
+                    documentosCliente_[contador].DocCliSituId = docCliSituId;
+
+                    #region 4 - Insere o numero proposta em base
+                    //Se o numero da proposta está OK e ainda não existe na base, irá realizar o insert na base, caso já exista irá utilizar o ID do numero de proposta que já existe na base
+                    List<DocumentoClienteDados> _documentosClienteDados = new DocumentoClienteDadosDal().GetAllByDocCliDadosValor(_documentoClienteDados.DocCliDadosValor).ToList();
+                    if (_documentosClienteDados.Count == 0)
+                    {
+                        _documentoClienteDados = daoEnviarArquivo.InserirDocumentoClienteDados(_documentoClienteDados);
+                    }
+                    else
+                    {
+                        _documentoClienteDados = _documentosClienteDados.First();
+                    }
+                    #endregion
+
+                    #region 6 - Salva arquivo em servidor e faz insert na base
+
+                    List<DocumentoCliente> _documentosClientes = new EnviarArquivoDal().ConsultarDocumentoClientePorDocCliDadosValorDocCliTipoId(
+                        _documentoClienteDados.DocCliDadosValor,
+                        documentosCliente_[contador].DocCliTipoId).ToList();
+
+                    if (_documentosClientes.Count > 0)
+                    {
+                        //Apaga o arquivo
+                        if (System.IO.File.Exists(WorkingFolder + "\\" + _documentosClientes.First().DocClienteNomeArquivoSalvo))
+                            System.IO.File.Delete(WorkingFolder + "\\" + _documentosClientes.First().DocClienteNomeArquivoSalvo);
+                        //Atualiza
+                        documentosCliente_[contador].DocClienteId = _documentosClientes.First().DocClienteId;
+                        new DocumentoClienteDal().Update(documentosCliente_[contador]);
+                    }
+                    else //Insere
+                    {
+                        documentosCliente_[contador] = (DocumentoCliente)new DocumentoClienteDal().Insert(documentosCliente_[contador]);
+                    }
+                    #endregion
+
+                    #region 7 - Faz insert na base p / relacionar id do documento e do num.de proposta
+
+                    if (_documentosClientes.Count == 0)
+                    {
+                        DocumentoClienteDadosDoc _documentoClienteDadosDoc = new DocumentoClienteDadosDoc();
+                        _documentoClienteDadosDoc.DocClienteId = documentosCliente_[contador].DocClienteId;
+                        _documentoClienteDadosDoc.DocCliDadosId = _documentoClienteDados.DocCliDadosId;
+                        _documentoClienteDadosDoc = new DocumentoClienteDadosDocDal().Insert(_documentoClienteDadosDoc);
+                    }
+
+                    #endregion
+                }
+
+                new DocumentoClienteDadosDocDal().Delete(new DocumentoClienteDadosDoc() { DocCliDadosDocId = 85 });
+                new DocumentoClienteDadosDal().Delete(new DocumentoClienteDados() { DocCliDadosId = 38 });
+                new DocumentoClienteDal().Delete(new DocumentoCliente() { DocClienteId = 88 });
+
+                new DocumentoClienteDadosDocDal().CommitTransaction();
+            }
+            catch (Exception)
+            {
+                daoEnviarArquivo.RollbackTransaction();
+                throw;
+            }
+            return documentosCliente_;
+        }
 
         public override DocumentoCliente EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
         {
@@ -178,6 +343,12 @@ namespace BSI.GestDoc.BusinessLogic
 
                 string validaCabecalho = ConfigurationManager.AppSettings["Bradesco.ValidaCabecalho_CCB"].ToString();
                 string diretorioBalde = ConfigurationManager.AppSettings["Bradesco.DiretorioBalde"];
+
+                if (!Directory.Exists(WorkingFolder + "\\" + diretorioBalde))
+                {
+                    Directory.CreateDirectory(WorkingFolder + "\\" + diretorioBalde);
+                }
+
                 string fileAux = WorkingFolder + "\\" + diretorioBalde + "\\" + documentoCliente_.DocClienteNomeArquivoSalvo + "_aux";
                 string fileAuxAssinatura = WorkingFolder + "\\" + diretorioBalde + "\\" + documentoCliente_.DocClienteNomeArquivoSalvo;
 
@@ -242,7 +413,7 @@ namespace BSI.GestDoc.BusinessLogic
                     }
                     break;
                 case 3:
-                    //Valida CET
+                    //Valida Seguro
                     valida = ConfigurationManager.AppSettings["Bradesco.Valida_Seguro"].ToString().ToUpper().Trim();
 
                     if (!VerificarContrato(documentoCliente_.DocClienteNomeArquivoSalvo, valida))

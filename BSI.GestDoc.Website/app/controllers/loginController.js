@@ -9,7 +9,7 @@ app.controller('loginController', ['$uibModal', '$scope', '$location', 'authServ
         perfilUsuario: "",
         clienteId: "",
         nomeCliente: "",
-        useRefreshTokens: false,
+        useRefreshTokens: false
     };
 
     if (authService.authentication.isAuth) {
@@ -25,10 +25,10 @@ app.controller('loginController', ['$uibModal', '$scope', '$location', 'authServ
 
         },
           function (err) {
-              if (err == null) {
+              if (err === null) {
                   $scope.message = "Erro desconhecido.";
               }
-              else if (err.error_description == undefined) {
+              else if (err.error_description === undefined) {
                   var modalInstance = $uibModal.open({
                       ariaLabelledBy: 'modal-title',
                       ariaDescribedBy: 'modal-body',

@@ -56,7 +56,7 @@ namespace BSI.GestDoc.Repository.DAL
             Usuario usuarioLogado = new Usuario();
             IEnumerable<DocumentoClienteDados> documentoClienteRetorno = null;
 
-            using (var connection = SqlHelper.getConnection())
+            using (var connection = new DapperSqlHelper().NewSqlConnection)
             {
                 using (SqlMapper.GridReader reader = connection.QueryMultiple(storedProcedure, parameters, commandType: CommandType.StoredProcedure))
                 {
@@ -73,7 +73,7 @@ namespace BSI.GestDoc.Repository.DAL
             Usuario usuarioLogado = new Usuario();
             IEnumerable<DocumentoCliente> infoDocumentoClienteRetorno = null;
 
-            using (var connection = SqlHelper.getConnection())
+            using (var connection = new DapperSqlHelper().NewSqlConnection)
             {
                 using (SqlMapper.GridReader reader = connection.QueryMultiple(storedProcedure, parameters, commandType: CommandType.StoredProcedure))
                 {

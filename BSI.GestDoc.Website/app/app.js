@@ -33,9 +33,9 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/tokens.html"
     });*/
 
-    $routeProvider.when("/fileUpload", {
-        controller: "fileUploadController",
-        templateUrl: "/app/views/fileUpload.html"
+    $routeProvider.when("/uploadArquivos", {
+        controller: "uploadArquivosController",
+        templateUrl: "/app/views/uploadArquivos.html"
     });
 
     $routeProvider.when("/listaPropostas", {
@@ -72,7 +72,7 @@ app.constant('ngAuthSettings', {
 });
 
 app.constant('documentoCliente', {
-    numeroPesquisaProposta: "",
+    numeroPesquisaProposta: ""
 });
 
 app.config(function ($httpProvider) {

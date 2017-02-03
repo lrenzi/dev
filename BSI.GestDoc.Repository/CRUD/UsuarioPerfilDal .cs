@@ -1,5 +1,6 @@
 ﻿using BSI.Dapper.Helper;
 using BSI.GestDoc.Entity;
+using BSI.GestDoc.Repository.Base;
 using Dapper;
 using DapperExtensions;
 using System;
@@ -9,33 +10,30 @@ using System.Linq;
 
 namespace BSI.GestDoc.Repository.CRUD
 {
-    public class UsuarioPerfilDal
+    public class UsuarioPerfilDal : BaseRepository
     {
         #region CRUD
 
         public Int64 Insert(UsuarioPerfil UsuarioPerfil)
         {
-            Int64 recordId = SqlHelper.InsertWithReturnId(UsuarioPerfil);
+            Int64 recordId = new DapperSqlHelper().InsertWithReturnId(UsuarioPerfil);
             return recordId;
         }
 
         public UsuarioPerfil Update(UsuarioPerfil UsuarioPerfil)
         {
-            bool update = SqlHelper.Update<UsuarioPerfil>(UsuarioPerfil);
+            bool update = new DapperSqlHelper().Update<UsuarioPerfil>(UsuarioPerfil);
             return UsuarioPerfil;
         }
 
-        public bool Delete(long pUsuPerfilId)
+        public bool Delete(int pUsuPerfilId)
         {
-            var pg = new PredicateGroup { Operator = GroupOperator.And, Predicates = new List<IPredicate>() };
-            pg.Predicates.Add(Predicates.Field<UsuarioPerfil>(f => f.ClienteId, Operator.Eq, pUsuPerfilId, true));
-
-            return SqlHelper.Delete<UsuarioPerfil>(pg);
+            return new DapperSqlHelper().Delete<UsuarioPerfil>(new UsuarioPerfil() { UsuPerfilId = pUsuPerfilId });
         }
 
         public IList<UsuarioPerfil> GetAll()
         {
-            return SqlHelper.GetAll<UsuarioPerfil>();
+            return new DapperSqlHelper().GetAll<UsuarioPerfil>();
         }
 
         public UsuarioPerfil GetUsuarioPerfil(Int64 pUsuPerfilId)
@@ -43,7 +41,7 @@ namespace BSI.GestDoc.Repository.CRUD
             var p = new DynamicParameters();
             p.Add("@pUsuPerfilId", pUsuPerfilId, DbType.Int64, null);
 
-            var Cliente = SqlHelper.QuerySP<UsuarioPerfil>("ConsultarUsuarioPerfil", p, null, null, false, 0);
+            var Cliente = new DapperSqlHelper().QuerySP<UsuarioPerfil>("ConsultarUsuarioPerfil", p, null, null, false, 0);
             return (UsuarioPerfil)Cliente.FirstOrDefault();
         }
 
@@ -68,7 +66,7 @@ namespace BSI.GestDoc.Repository.CRUD
             parameters.Add("@pUsuPerfilNome", usuPerfilNome, DbType.String, null);
             parameters.Add("@pUsuPerfilDescricao", usuPerfilDescricao, DbType.String, null);            
             
-            var listaUsuarioPerfil = SqlHelper.QuerySP<UsuarioPerfil>("ConsultarUsuarioPerfil", parameters);
+            var listaUsuarioPerfil = new DapperSqlHelper().QuerySP<UsuarioPerfil>("ConsultarUsuarioPerfil", parameters);
 
 
             return listaUsuarioPerfil;

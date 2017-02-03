@@ -65,9 +65,6 @@ namespace BSI.GestDoc.BusinessLogic.Util
         /// <param name="NomeArquivo">Nome do arquivo a Ser gerado</param>
         private void PreencherModelo(string workFolder_, string caminhoCompletoArquivoAssinatura_, string contrato_, string CPF_, string municipio_, string NomeArquivo)
         {
-            if (!Directory.Exists(ConfigurationManager.AppSettings["Bradesco.DiretorioBalde"]))
-                Directory.CreateDirectory(ConfigurationManager.AppSettings["Bradesco.DiretorioBalde"]);
-            
             using (Stream newpdfStream = new FileStream(System.IO.Path.Combine(workFolder_ + "\\" + ConfigurationManager.AppSettings["Bradesco.DiretorioBalde"], NomeArquivo), FileMode.Create, FileAccess.ReadWrite))
             {
                 PdfReader pdfReader = new PdfReader(caminhoCompletoArquivoAssinatura_);

@@ -1,4 +1,5 @@
-﻿using BSI.GestDoc.CustomException.BusinessException;
+﻿using BSI.GestDoc.BusinessLogic.Base;
+using BSI.GestDoc.CustomException.BusinessException;
 using BSI.GestDoc.Entity;
 using BSI.GestDoc.Repository.CRUD;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace BSI.GestDoc.BusinessLogic
 {
-    public class UploadFileBL
+    public class UploadFileBL : BaseBL
     {
         public bool Reenvio { get; set; }
         public string WorkingFolder { get; set; }
@@ -34,10 +35,20 @@ namespace BSI.GestDoc.BusinessLogic
 
         public List<DocumentoClienteTipo> RetornarDocumentoClienteTipo(int clienteId_)
         {
-            return new DocumentoClienteTipoDal().GetAllByIdCliente(clienteId_).ToList();
+            List < DocumentoClienteTipo > retorno = new DocumentoClienteTipoDal().GetAllByIdCliente(clienteId_).ToList();
+            foreach(DocumentoClienteTipo item  in retorno)
+            {
+                item.ListaSituacaoDocumentoCliente = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(item.DocCliTipoId);
+            }
+            return retorno;
         }
 
         public virtual DocumentoCliente  EnviarDocumentoCliente(DocumentoCliente documentoCliente_)
+        {
+            throw new System.NotImplementedException("Método EnviarDocumentoCliente da classe UploadFileBL não implementado.");
+        }
+
+        public virtual List<DocumentoCliente> EnviarDocumentosCliente(List<DocumentoCliente> documentoCliente_)
         {
             throw new System.NotImplementedException("Método EnviarDocumentoCliente da classe UploadFileBL não implementado.");
         }

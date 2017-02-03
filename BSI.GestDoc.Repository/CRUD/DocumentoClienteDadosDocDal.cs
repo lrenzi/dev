@@ -1,5 +1,6 @@
 ﻿using BSI.Dapper.Helper;
 using BSI.GestDoc.Entity;
+using BSI.GestDoc.Repository.Base;
 using Dapper;
 using DapperExtensions;
 using System;
@@ -9,13 +10,13 @@ using System.Linq;
 
 namespace BSI.GestDoc.Repository.CRUD
 {
-    public class DocumentoClienteDadosDocDal
+    public class DocumentoClienteDadosDocDal: BaseRepository
     {
         #region CRUD
 
         public DocumentoClienteDadosDoc Insert(DocumentoClienteDadosDoc DocumentoClienteDadosDoc)
         {
-            Int64 recordId = SqlHelper.InsertWithReturnId(DocumentoClienteDadosDoc);
+            Int64 recordId = new DapperSqlHelper().InsertWithReturnId(DocumentoClienteDadosDoc);
             DocumentoClienteDadosDoc.DocCliDadosDocId = recordId;
             return DocumentoClienteDadosDoc;
         }
@@ -23,21 +24,19 @@ namespace BSI.GestDoc.Repository.CRUD
 
         public DocumentoClienteDadosDoc Update(DocumentoClienteDadosDoc DocumentoClienteDadosDoc)
         {
-            bool update = SqlHelper.Update<DocumentoClienteDadosDoc>(DocumentoClienteDadosDoc);
+            bool update = new DapperSqlHelper().Update<DocumentoClienteDadosDoc>(DocumentoClienteDadosDoc);
             return DocumentoClienteDadosDoc;
         }
 
-        public bool Delete(long pDocCliDadosDocId)
+        public bool Delete(DocumentoClienteDadosDoc DocumentoClienteDadosDoc)
         {
-            var pg = new PredicateGroup { Operator = GroupOperator.And, Predicates = new List<IPredicate>() };
-            pg.Predicates.Add(Predicates.Field<DocumentoClienteDadosDoc>(f => f.DocCliDadosDocId, Operator.Eq, pDocCliDadosDocId, true));
-
-            return SqlHelper.Delete<DocumentoClienteDadosDoc>(pg);
+            bool delete = new DapperSqlHelper().Delete<DocumentoClienteDadosDoc>(DocumentoClienteDadosDoc);
+            return delete;
         }
 
         public IList<DocumentoClienteDadosDoc> GetAll()
         {
-            return SqlHelper.GetAll<DocumentoClienteDadosDoc>();
+            return new DapperSqlHelper().GetAll<DocumentoClienteDadosDoc>();
         }
 
         public DocumentoClienteDadosDoc GetDocumentoClienteDadosDoc(int docCliTipoId)
@@ -46,7 +45,6 @@ namespace BSI.GestDoc.Repository.CRUD
         }
 
         #endregion
-
 
         #region Customizados
 
