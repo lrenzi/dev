@@ -126,6 +126,12 @@ namespace BSI.GestDoc.BusinessLogic
                 //Carga dos arquivos
                 for (int contador = 0; contador < documentosCliente_.Count; contador++)
                 {
+                    //Consulta as situações
+                    _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(documentosCliente_[contador].DocCliTipoId).ToList();
+                    if (_documentosClienteSituacao.Count == 0)
+                        throw new Exception("Situação não cadastrada para este Tipo de Documento.");
+                    docCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId);
+
                     documentosCliente_[contador].DocCliSituId = docCliSituId;
 
                     #region 4 - Insere o numero proposta em base
@@ -242,8 +248,8 @@ namespace BSI.GestDoc.BusinessLogic
             {
                 throw new BusinessException(0, EnumTipoMensagem.Alerta, "Proposta enviada por outro usuário.");
             }
-            List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(documentoCliente_.DocCliTipoId).ToList();
 
+            List<DocumentoClienteSituacao> _documentosClienteSituacao = new DocumentoClienteSituacaoDal().GetAllDocumentoClienteSituacaoByDocCliTipoId(documentoCliente_.DocCliTipoId).ToList();
             if (_documentosClienteSituacao.Count == 0)
                 throw new Exception("Situação não cadastrada para este Tipo de Documento.");
             documentoCliente_.DocCliSituId = _documentosClienteSituacao.Min(p => p.DocCliSituId);

@@ -139,7 +139,6 @@ namespace BSI.GestDoc.BusinessLogic
                     foreach (var documentoDado in listaDocumentoDados)
                     {
                         IEnumerable<DocumentoCliente> documentoClienteRetorno = documentoDado.DocumentosCliente.ToList().Where(x => x.DocCliSituId == situacao.DocCliSituId && x.DocCliTipoId == tipo.DocCliTipoId);
-
                         if (documentoClienteRetorno.Count() > 0)
                         {
                             situacao.DocumentoCliente = (DocumentoCliente)documentoClienteRetorno.ToList()[0];
