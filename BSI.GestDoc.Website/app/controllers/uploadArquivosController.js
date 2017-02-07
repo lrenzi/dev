@@ -11,7 +11,7 @@ app.controller("uploadArquivosController", ["$scope", "$routeParams", "$location
     $scope.$on('reenviarArquivos', function (event) {
         $scope.reenviarArquivos();
     });
-    
+
     $scope.iniciarTela = function () {
         $scope.listaDocumentosClienteTipo = uploadArquivosService.retornarDocumentoClienteTipo().then(function (response) {
             $scope.listaDocumentosClienteTipo = response.data;
@@ -64,7 +64,7 @@ app.controller("uploadArquivosController", ["$scope", "$routeParams", "$location
         }
     };
 
-    $scope.reenviarArquivos = function() {
+    $scope.reenviarArquivos = function () {
         $scope.reenvio = true;
         $scope.enviarArquivos();
     };
@@ -94,6 +94,8 @@ app.controller("uploadArquivosController", ["$scope", "$routeParams", "$location
     $scope.enviarArquivos = function () {
         $scope.contador = 0;
         var quantidadeArquivoEncontrados = 0;
+        var arquivoTipoCCB = false;
+        var arquivoTipoCET = false;
         utilService.limparMensagem();
         var docCliTipoId = "";
         var arryFiles = [];
@@ -106,15 +108,31 @@ app.controller("uploadArquivosController", ["$scope", "$routeParams", "$location
                 quantidadeArquivoEncontrados++;
                 $scope.contador = contador;
                 arryFiles.push(file_);
-                if (docCliTipoId === "")
+
+                //verifica se o arquivo é do tipo CCB
+                if ($scope.listaDocumentosClienteTipo[contador].docCliTipoId === 1) {
+                    arquivoTipoCCB = true;
+
+                //verifica se o arquivo é do tipo CET
+                } else if ($scope.listaDocumentosClienteTipo[contador].docCliTipoId === 2) {
+                    arquivoTipoCET = true;
+                }
+
+                if (docCliTipoId === "") {
                     docCliTipoId = $scope.listaDocumentosClienteTipo[contador].docCliTipoId;
-                else
+                    
+                } else {
                     docCliTipoId += "|" + $scope.listaDocumentosClienteTipo[contador].docCliTipoId;
+                }
             }
         }
-        
+        debugger
         if (quantidadeArquivoEncontrados === 0) {
-            utilService.mensagemInformativo("Selecione ao menos um arquivo para envio.");
+            utilService.mensagemInformativo("Favor informar documentos para os tipos CCB Padrão e CET Padrão.");
+        }else if (arquivoTipoCCB === false){
+            utilService.mensagemInformativo("Favor informar documento para o tipo CCB Padrão.");
+        } else if (arquivoTipoCET === false) {
+            utilService.mensagemInformativo("Favor informar documento para o tipo CET Padrão.");
         } else {
             $scope.enviarArquivosWebAPI(arryFiles, $scope.reenvio, docCliTipoId);
         }
@@ -134,7 +152,7 @@ app.controller("uploadArquivosController", ["$scope", "$routeParams", "$location
         }).progress(function (evt) {
             $scope.listaDocumentosClienteTipo[0].progressbar = parseInt(100.0 * evt.loaded / evt.total, 10) + " %";
         }).success(function (data, status, headers, config) {
-            
+
             if (data.tipoMensagem === 1) {
                 utilService.mensagemSucesso(data.mensagem);
             }
@@ -142,11 +160,12 @@ app.controller("uploadArquivosController", ["$scope", "$routeParams", "$location
                 utilService.mensagemErro(data.mensagem);
             }
             if (data.tipoMensagem === 3) {
-                utilService.mensagemAlertaButtom(data.mensagem, "Reenviar", "reenviarArquivos");
+                //utilService.mensagemAlertaButtom(data.mensagem, "Reenviar", "reenviarArquivos");
+                utilService.mensagemInformativo(data.mensagem);
             }
 
             $scope.mensagens.push(data.mensagem);
-            
+
             var index = 0;
             for (var contador = 0; contador < $scope.listaDocumentosClienteTipo.length; contador++) {
                 var file_ = document.getElementById('idFile_' + $scope.listaDocumentosClienteTipo[contador].docCliTipoId);
@@ -158,7 +177,7 @@ app.controller("uploadArquivosController", ["$scope", "$routeParams", "$location
                         $scope.listaDocumentosClienteTipo[contador].docClienteId = data.dados[index].cryptoDocClienteId;
                         $scope.listaDocumentosClienteTipo[contador].download = true;
                     }
-                    
+
                     ++index;
                 }
             }
@@ -168,7 +187,7 @@ app.controller("uploadArquivosController", ["$scope", "$routeParams", "$location
             $scope.desabilitaFile = true;
 
         }).error(function (data, status, headers, config) {
-            
+
             if (data.message === undefined) {
                 utilService.mensagemAlerta(data);
             } else {
@@ -179,13 +198,13 @@ app.controller("uploadArquivosController", ["$scope", "$routeParams", "$location
             $scope.mostraBotaoNovo = true;
             $scope.desabilitaFile = true;
 
-           
+
         });
     };
 
     $scope.enviarArquivoWebAPI = function (index_, file_, reenvio_, docCliTipoId) {
 
-        
+
         var infClientes = localStorageService.get('ngAuthSettings');
 
         if (docCliTipoId === "") {

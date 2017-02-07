@@ -82,7 +82,8 @@ namespace BSI.GestDoc.BusinessLogic
             //Caso já exista um tipo e situação do arquivo na base igual ao que o usuário está tentando realizar o upload, irá perguntar ao usuário se ele deseja sobreescrever.
             if (!Reenvio && _documentosClienteCadastrado.FindAll(p => p.DocCliSituId == DocumentoClienteCCB.DocCliSituId).Count > 0)
             {
-                throw new BusinessException(EnumTipoMensagem.Pergunta, "Proposta já cadastrada para este tipo de arquivo e situação. Deseja Reenviar?");
+                //
+                throw new BusinessException(EnumTipoMensagem.Pergunta, "Proposta já cadastrada para este tipo de arquivo e situação.");
             }
             #endregion
 
@@ -331,7 +332,11 @@ namespace BSI.GestDoc.BusinessLogic
 
                     break;
                 case 3:
-                    //Valida CET
+                    //Valida Seguro
+                    processamentoSeguro(documentoCliente_);
+                    break;
+                case 4:
+                    //Valida Anexo CCB
                     processamentoSeguro(documentoCliente_);
                     break;
             }
@@ -428,6 +433,17 @@ namespace BSI.GestDoc.BusinessLogic
                         blnArquivoPDFInvalido = true;
                     }
                     break;
+                case 4:
+                    //Valida Anexo CCB
+                    valida = ConfigurationManager.AppSettings["Bradesco.Valida_AnexoCBB"].ToString().ToUpper().Trim();
+
+                    if (!VerificarContrato(documentoCliente_.DocClienteNomeArquivoSalvo, valida))
+                    {
+                        sbPDFInvalido.Append("Anexo CBB: " + documentoCliente_.DocClienteNomeArquivoOriginal + "\n");
+                        blnArquivoPDFInvalido = true;
+                    }
+                    break;
+            
             }
 
 
